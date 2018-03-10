@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cl_vertical_step_view:
                 startActivity(new Intent(this, StepViewActivity.class));
                 break;
+            case R.id.cl_refresh_layout:
+                startActivity(new Intent(this, RefreshLayoutActivity.class));
+                break;
         }
     }
 }

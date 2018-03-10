@@ -93,6 +93,22 @@
             app:cilv_icon="@drawable/ic_assignment_blue_24dp"
             app:cilv_label="VerticalStepView" />
 
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:id="@+id/cl_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="RefreshLayout" />
+
     </LinearLayout>
 
 </ScrollView>
