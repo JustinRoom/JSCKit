@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jsc.kit.reboundlayout.ReboundFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 01" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 02" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 03" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 04" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 05" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 06" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 07" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 08" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 09" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 10" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 11" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 12" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 13" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 14" />
+
+        <jsc.exam.jsckit.widget.CustomItemLayoutView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_label="Menu Item 15" />
+
+    </LinearLayout>
+
+</jsc.kit.reboundlayout.ReboundFrameLayout>

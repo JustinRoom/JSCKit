@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ArcHeaderViewActivity" />
+        <activity android:name=".BannerViewActivity" />
+        <activity android:name=".MonthViewActivity" />
+        <activity android:name=".ReboundLayoutActivity" />
+        <activity android:name=".StepViewActivity" />
     </application>
 
 </manifest>
