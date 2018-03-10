@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="JSCBannerView">
+        <attr name="bv_indicator_padding_left" format="dimension"/>
+        <attr name="bv_indicator_padding_right" format="dimension"/>
+        <attr name="bv_indicator_padding_top" format="dimension"/>
+        <attr name="bv_indicator_padding_bottom" format="dimension"/>
+        <attr name="bv_indicator_align">
+            <enum name="ALIGN_LEFT" value="-1"/>
+            <enum name="ALIGN_CENTER" value="0"/>
+            <enum name="ALIGN_RIGHT" value="1"/>
+        </attr>
+        <attr name="bv_view_pager_left_margin" format="dimension"/>
+        <attr name="bv_view_pager_right_margin" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseArcHeaderView">
+        <attr name="ahv_height" format="dimension|reference"/>
+        <attr name="ahv_start_color" format="color|reference"/>
+        <attr name="ahv_end_color" format="color|reference"/>
+        <attr name="ahv_src" format="reference"/>
+        <attr name="ahv_direction">
+            <enum name="downOutSide" value="0"/>
+            <enum name="downInSide" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="VerticalStepView">
+        <attr name="vs_line_width" format="dimension|reference" />
+        <attr name="vs_line_color" format="color|reference" />
+        <attr name="vs_draw_circle" format="boolean" />
+        <attr name="vs_draw_index" format="boolean" />
+        <attr name="vs_draw_transit" format="boolean" />
+        <attr name="vs_draw_label" format="boolean" />
+        <attr name="vs_draw_cursor" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MonthView">
+        <attr name="mv_show_sub_label" format="boolean" />
+        <attr name="mv_row_space" format="dimension|reference" />
+        <attr name="mv_column_space" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="JSCRoundCornerProgressBar">
+        <attr name="rc_background_color" format="color|reference" />
+        <attr name="rc_progress_color" format="color|reference" />
+        <attr name="rc_second_progress_color" format="color|reference" />
+        <attr name="rc_max" format="integer" />
+        <attr name="rc_progress" format="integer" />
+        <attr name="rc_second_progress" format="integer" />
+        <attr name="rc_text" format="string|reference" />
+        <attr name="rc_text_color" format="color|reference" />
+        <attr name="rc_text_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RefreshLayout">
+        <attr name="rf_headerLayout" format="reference"/>
+        <attr name="rf_contentLayout" format="reference"/>
+    </declare-styleable>
+
+</resources>
