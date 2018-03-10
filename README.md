@@ -16,6 +16,10 @@ allprojects {
 compile 'com.github.JustinRoom:JSCKit:0.0.1'
 ```
 
+### Download
+**Download apk by scanning the QRCode below:**  
+![JSCKitDemo.apk](/capture/apk_qr_code.png)
+
 ### Detail
 + **ArcHeaderView**
 
