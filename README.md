@@ -18,5 +18,6 @@ compile 'com.github.JustinRoom:JSCKit:0.0.1'
 ```
 
 ### Detail
++ **ArcHeaderView**
 ![](/capture/LGradientArcHeaderView.jpg)
 ![](/capture/PictureArcHeaderView.jpg)
