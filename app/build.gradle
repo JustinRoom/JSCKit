@@ -26,6 +26,12 @@ android {
             signingConfig signingConfigs.Release
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "JSCKitDemo.apk"
+        }
+    }
 }
 
 dependencies {
