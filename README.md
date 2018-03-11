@@ -4,16 +4,36 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 **use with gradle:**  
 1、Add it in your root build.gradle at the end of repositories:
 ```
-allprojects {
-  repositories {
-    ...
-    maven { url 'https://jitpack.io' }
-  }
-}
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 2、Add the dependency
 ```
-compile 'com.github.JustinRoom:JSCKit:0.0.2'
+	dependencies {
+	        compile 'com.github.JustinRoom:JSCKit:0.0.2'
+	}
+```
+**use with maven:**  
+1、Add the JitPack repository to your build file:
+```
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+2、Add the dependency
+```
+	<dependency>
+	    <groupId>com.github.JustinRoom</groupId>
+	    <artifactId>JSCKit</artifactId>
+	    <version>0.0.2</version>
+	</dependency>
 ```
 
 ### Download
