@@ -14,6 +14,12 @@ import android.util.AttributeSet;
 
 import jsc.kit.R;
 
+/**
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class PictureArcHeaderView extends BaseArcHeaderView {
     private Bitmap bitmap;
 
@@ -43,7 +49,7 @@ public class PictureArcHeaderView extends BaseArcHeaderView {
             return new LinearGradient(getWidth() / 2, 0, getWidth() / 2, getHeight(), 0xFFF2F2F2, 0xFFF2F2F2, Shader.TileMode.MIRROR);
 
         Bitmap tempBitmap;
-        if (bitmap.getWidth() >= getWidth() && bitmap.getHeight() >= getHeight()){
+        if (bitmap.getWidth() >= getWidth() && bitmap.getHeight() >= getHeight()) {
             int x = (bitmap.getWidth() - getWidth()) / 2;
             int y = (bitmap.getHeight() - getHeight()) / 2;
             tempBitmap = Bitmap.createBitmap(bitmap, x, y, getWidth(), getHeight());
@@ -54,7 +60,7 @@ public class PictureArcHeaderView extends BaseArcHeaderView {
         return new BitmapShader(tempBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
     }
 
-    public void setSrc(@DrawableRes int drawableId){
+    public void setSrc(@DrawableRes int drawableId) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
         setSrc(bitmap);
     }
@@ -68,7 +74,7 @@ public class PictureArcHeaderView extends BaseArcHeaderView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (bitmap != null && !bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }

@@ -11,7 +11,12 @@ import android.util.AttributeSet;
 
 import jsc.kit.R;
 
-
+/**
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class LGradientArcHeaderView extends BaseArcHeaderView {
     private int mStartColor;
     private int mEndColor;
@@ -41,7 +46,6 @@ public class LGradientArcHeaderView extends BaseArcHeaderView {
     }
 
     /**
-     *
      * @param startColor
      * @param endColor
      */

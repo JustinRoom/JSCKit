@@ -15,9 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * @author jsc
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
  */
-
 public class DayView extends RelativeLayout {
 
     private TextView tvLabel;
@@ -76,11 +78,11 @@ public class DayView extends RelativeLayout {
         return dayItem;
     }
 
-    public void showSubLabel(boolean show){
+    public void showSubLabel(boolean show) {
         tvSubLabel.setVisibility(show ? VISIBLE : GONE);
     }
 
-    public void notifyDataChanged(){
+    public void notifyDataChanged() {
         if (dayItem == null)
             return;
 

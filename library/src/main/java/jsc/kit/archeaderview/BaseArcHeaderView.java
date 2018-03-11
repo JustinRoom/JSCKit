@@ -17,7 +17,12 @@ import java.lang.annotation.RetentionPolicy;
 
 import jsc.kit.R;
 
-
+/**
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public abstract class BaseArcHeaderView extends View {
     public static final int DIRECTION_DOWN_OUT_SIDE = 0;
     public static final int DIRECTION_DOWN_IN_SIDE = 1;
@@ -35,8 +40,10 @@ public abstract class BaseArcHeaderView extends View {
 
     @NonNull
     protected abstract Shader getShader();
+
     protected abstract void init(Context context, TypedArray a);
-    protected final void resetShader(){
+
+    protected final void resetShader() {
         shader = null;
     }
 
@@ -79,12 +86,12 @@ public abstract class BaseArcHeaderView extends View {
         canvas.drawPath(mPath, mPaint);
     }
 
-    private void calPath(){
+    private void calPath() {
         int w = getWidth();
         int h = getHeight();
         mPath.reset();
         mPath.moveTo(0, 0);
-        switch (direction){
+        switch (direction) {
             case DIRECTION_DOWN_OUT_SIDE:
                 mPath.lineTo(0, h - mArcHeight);
                 mPath.quadTo(w / 2.0f, h + mArcHeight, w, h - mArcHeight);

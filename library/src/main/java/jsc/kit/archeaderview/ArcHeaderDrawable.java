@@ -15,10 +15,17 @@ import android.support.annotation.NonNull;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class ArcHeaderDrawable extends Drawable {
 
     public static final int DIRECTION_DOWN_OUT_SIDE = 0;
     public static final int DIRECTION_DOWN_IN_SIDE = 1;
+
     @IntDef({DIRECTION_DOWN_OUT_SIDE, DIRECTION_DOWN_IN_SIDE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Direction {
@@ -54,7 +61,7 @@ public class ArcHeaderDrawable extends Drawable {
         int w = getIntrinsicWidth();
         int h = getIntrinsicHeight();
         mPath.moveTo(0, 0);
-        switch (direction){
+        switch (direction) {
             case DIRECTION_DOWN_OUT_SIDE:
                 mPath.lineTo(0, h - mArcHeight);
                 mPath.quadTo(w / 2.0f, h + mArcHeight, w, h - mArcHeight);

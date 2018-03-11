@@ -5,11 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created on 2018/2/3.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
-
 public interface PageAdapterItemLifeCycle<T> {
     /**
      * create your banner view.

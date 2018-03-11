@@ -11,9 +11,11 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 /**
- * 布局上下反弹
+ * 仿IOS拖拽回弹
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
 public class ReboundFrameLayout extends FrameLayout {
 

@@ -3,6 +3,12 @@ package jsc.kit.stepview;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
+/**
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class RouteViewPoint {
     public static final int DEFAULT_TEXT_COLOR = 0xFF333333;
     private int key;//标识键

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created on 2018/2/2.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
-
 public final class BannerPagerAdapter<T> extends PagerAdapter {
 
     private boolean loop = false;

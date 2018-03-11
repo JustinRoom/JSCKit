@@ -1,7 +1,10 @@
 package jsc.kit.monthview;
 
 /**
- * @author jsc
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
  */
 
 public class DayItem {
@@ -65,6 +68,7 @@ public class DayItem {
 
     /**
      * 单位是sp
+     *
      * @param labelTextSize
      */
     public void setLabelTextSize(float labelTextSize) {
@@ -93,6 +97,7 @@ public class DayItem {
 
     /**
      * 单位是sp
+     *
      * @param subLabelTextSize
      */
     public void setSubLabelTextSize(float subLabelTextSize) {

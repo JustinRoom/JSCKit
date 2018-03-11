@@ -22,9 +22,10 @@ import jsc.kit.R;
 
 /**
  * 如果开启循环滑动效果，data长度至少为3.
- * Created on 2018/2/2.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
 
 public class JSCBannerView extends FrameLayout {
@@ -148,6 +149,7 @@ public class JSCBannerView extends FrameLayout {
 
     /**
      * Add a custom background view for viewPager.
+     *
      * @param backgroundView
      * @param params
      */
@@ -171,7 +173,7 @@ public class JSCBannerView extends FrameLayout {
                 indicatorContainer.removeAllViews();
                 for (int i = 0; i < number; i++) {
                     View view = null;
-                    if (createIndicatorViewListener != null){
+                    if (createIndicatorViewListener != null) {
                         view = createIndicatorViewListener.onCreateIndicatorView(getContext(), i, bannerItems.get(i));
                     }
                     if (view == null)

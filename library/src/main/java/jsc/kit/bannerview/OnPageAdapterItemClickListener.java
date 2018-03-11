@@ -3,11 +3,11 @@ package jsc.kit.bannerview;
 import android.view.View;
 
 /**
- * Created on 2018/2/3.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
-
 public interface OnPageAdapterItemClickListener<T> {
 
     /**

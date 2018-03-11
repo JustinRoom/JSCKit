@@ -21,11 +21,11 @@ import java.util.List;
 import jsc.kit.R;
 
 /**
- * Created on 2018/1/18.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
-
 public class VerticalStepView extends View {
 
     private List<RouteViewPoint> points = new ArrayList<>();

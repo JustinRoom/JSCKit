@@ -25,7 +25,10 @@ import jsc.kit.R;
 /**
  * Pull to refresh layout.
  * The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
- * @author jsc
+ * Email:1006368252@qq.com
+ * QQ:1006368252
+ *
+ * @author jiangshicheng
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class RefreshLayout extends ViewGroup {

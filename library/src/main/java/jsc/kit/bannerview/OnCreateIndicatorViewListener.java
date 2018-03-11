@@ -5,11 +5,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
- * Created on 2018/2/3.
+ * Email:1006368252@qq.com
+ * QQ:1006368252
  *
- * @author jsc
+ * @author jiangshicheng
  */
-
 public interface OnCreateIndicatorViewListener<T> {
     /**
      * Here you can create your own indicator item view at different index.<br>
