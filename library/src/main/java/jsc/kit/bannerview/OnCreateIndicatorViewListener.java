@@ -5,8 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
- * Email:1006368252@qq.com
- * QQ:1006368252
+ * <p></p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
  *
  * @author jiangshicheng
  */

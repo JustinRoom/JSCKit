@@ -4,6 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+/**
+ * <p></p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class ScaleTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.70f;  
     private static final float MIN_ALPHA = 0.5f;  

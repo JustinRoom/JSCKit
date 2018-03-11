@@ -11,9 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 /**
- * 仿IOS拖拽回弹
- * Email:1006368252@qq.com
- * QQ:1006368252
+ * <p>仿IOS拖拽回弹</p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
  *
  * @author jiangshicheng
  */

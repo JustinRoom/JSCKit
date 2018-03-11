@@ -4,8 +4,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 /**
- * Email:1006368252@qq.com
- * QQ:1006368252
+ * <p></p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
  *
  * @author jiangshicheng
  */

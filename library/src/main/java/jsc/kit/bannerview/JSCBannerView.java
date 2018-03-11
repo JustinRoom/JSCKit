@@ -21,13 +21,12 @@ import java.util.List;
 import jsc.kit.R;
 
 /**
- * 如果开启循环滑动效果，data长度至少为3.
- * Email:1006368252@qq.com
- * QQ:1006368252
+ * <p>如果开启循环滑动效果，data长度至少为3.</p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
  *
  * @author jiangshicheng
  */
-
 public class JSCBannerView extends FrameLayout {
     private final int MSG_NEXT_ITEM = 0x9988;
     private ViewPager viewPager;

@@ -23,10 +23,12 @@ import android.widget.TextView;
 import jsc.kit.R;
 
 /**
- * Pull to refresh layout.
- * The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
- * Email:1006368252@qq.com
- * QQ:1006368252
+ * <p>
+ *     Pull to refresh layout.
+ *     The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
+ * </p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
  *
  * @author jiangshicheng
  */
