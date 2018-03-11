@@ -13,7 +13,7 @@ allprojects {
 ```
 2、Add the dependency
 ```
-compile 'com.github.JustinRoom:JSCKit:0.0.1'
+compile 'com.github.JustinRoom:JSCKit:0.0.2'
 ```
 
 ### Download
