@@ -37,7 +37,7 @@ public class RefreshLayout extends ViewGroup {
     private final float DEFAULT_PULL_RATIO_Y = 0.55f;
     private final float DEFAULT_PULL_TO_REFRESH_RATIO = 0.45f;
     private final float DEFAULT_RELEASE_TO_REFRESH_RATIO = 0.65f;
-    private final int ANIM_TIME = 500;
+    private final int ANIM_TIME = 300;
     private float mLastY;
     private Scroller mScroller;
 

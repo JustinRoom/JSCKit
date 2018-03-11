@@ -23,7 +23,7 @@ public class ReboundFrameLayout extends FrameLayout {
     private final float RATIO = 0.65f;
     private final int ANIM_TIME = 300;
 
-    private View mChildView;
+    private View contentView;
     private float mLastY;
     private Scroller mScroller;
     private int mTouchSlop;
@@ -46,7 +46,7 @@ public class ReboundFrameLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mChildView = getChildAt(0);
+        contentView = getChildAt(0);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ReboundFrameLayout extends FrameLayout {
             case MotionEvent.ACTION_MOVE:
                 float mCurY = ev.getY();
                 int mYOffset = (int) ((mCurY - mLastY) * RATIO);
-                scroll(mChildView, mYOffset);
+                scroll(contentView, mYOffset);
                 mLastY = mCurY;
                 return true;
 
@@ -109,16 +109,16 @@ public class ReboundFrameLayout extends FrameLayout {
     }
 
 
-    private void scroll(View mChildView, int mYOffset){
+    private void scroll(View contentView, int mYOffset){
         //为了方便下面的描述，我们用content代表childView的内容，即：content=childView的内容。
         //content下滑的高度
-        int childScrolledY = mChildView.getScrollY();
+        int childScrolledY = contentView.getScrollY();
         //content在childView中的可见区域
         Rect rect = new Rect();
-        mChildView.getLocalVisibleRect(rect);
+        contentView.getLocalVisibleRect(rect);
         //content的实际高度
-        mChildView.measure(0, 0);
-        int realHeight = mChildView.getMeasuredHeight();
+        contentView.measure(0, 0);
+        int realHeight = contentView.getMeasuredHeight();
 
         //content底部与childView底部对齐时需要向上滑动的距离。
         // 如果childView底部已向上经拉出屏幕外，则认为distanceFromBottom为0
@@ -134,7 +134,7 @@ public class ReboundFrameLayout extends FrameLayout {
                 return;
 
             //向下滑动content与childView顶部对齐
-            mChildView.scrollBy(0, -Math.min(distance, childScrolledY));
+            contentView.scrollBy(0, -Math.min(distance, childScrolledY));
             distance = distance - childScrolledY;
             if (distance <= 0)
                 return;
@@ -153,7 +153,7 @@ public class ReboundFrameLayout extends FrameLayout {
                 return;
 
             //向上滑动content与childView底部对齐
-            mChildView.scrollBy(0, Math.min(distance, distanceFromBottom));
+            contentView.scrollBy(0, Math.min(distance, distanceFromBottom));
             distance = distance - distanceFromBottom;
             if (distance <= 0)
                 return;
