@@ -39,7 +39,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ### Download
 **Download apk by scanning the QRCode below:**  
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
-[**Local Download**](/capture/JSCKitDemo.apk)
+[**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
 ### Component list:
 + [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)
