@@ -18,7 +18,8 @@ compile 'com.github.JustinRoom:JSCKit:0.0.2'
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-![JSCKitDemo.apk](/capture/apk_qr_code.png)
+![JSCKitDemo.apk](/capture/apk_qr_code.png)  
+[![](/capture/button_loacal_download.png)](/capture/JSCKitDemo.apk)
 
 ### Component list:
 + [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)
