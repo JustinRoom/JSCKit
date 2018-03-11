@@ -97,4 +97,8 @@ public class CustomItemLayoutView extends LinearLayout {
     public boolean isShowDot() {
         return showDot;
     }
+
+    public String getLabel() {
+        return label;
+    }
 }

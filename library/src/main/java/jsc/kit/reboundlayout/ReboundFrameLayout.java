@@ -58,6 +58,8 @@ public class ReboundFrameLayout extends FrameLayout {
                 int mark = (int) (mCurY - mLastY);
                 int slop = Math.abs(mark);
                 mLastY = mCurY;
+                //如果滑动的距离小于10px，我们认为这次滑动是无效的，把这次事件传递给contentView去消费。例如contentView的child的点击事件。
+                //如果大于等于10px，我们把这次事件给拦截掉，让这次事件在onTouchEvent(MotionEvent ev)方法中消费掉。
                 if (slop >= 10) {
                     return true;
                 }
