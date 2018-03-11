@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import jsc.exam.jsckit.widget.CustomItemLayoutView;
 import jsc.kit.refreshlayout.RefreshLayout;
 
 public class RefreshLayoutActivity extends AppCompatActivity {
@@ -45,5 +47,10 @@ public class RefreshLayoutActivity extends AppCompatActivity {
                 }, 4000);
             }
         });
+    }
+
+    public void widgetClick(View view){
+        if (view instanceof CustomItemLayoutView)
+            Toast.makeText(this, ((CustomItemLayoutView) view).getLabel(), Toast.LENGTH_SHORT).show();
     }
 }
