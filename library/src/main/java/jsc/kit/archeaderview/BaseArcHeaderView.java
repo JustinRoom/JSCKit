@@ -30,7 +30,7 @@ public abstract class BaseArcHeaderView extends View {
 
     protected Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     protected Path mPath = new Path();
-    protected int mArcHeight;// 圆弧高度
+    protected int arcHeight;// 圆弧高度
     protected int direction;
     private Shader shader;
 
@@ -59,14 +59,27 @@ public abstract class BaseArcHeaderView extends View {
     public BaseArcHeaderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BaseArcHeaderView, defStyleAttr, 0);
-        mArcHeight = a.getDimensionPixelSize(R.styleable.BaseArcHeaderView_ahv_height, 100);
+        arcHeight = a.getDimensionPixelSize(R.styleable.BaseArcHeaderView_ahv_height, 0);
         direction = a.getInt(R.styleable.BaseArcHeaderView_ahv_direction, DIRECTION_DOWN_OUT_SIDE);
         init(context, a);
         a.recycle();
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
     public void setDirection(@Direction int direction) {
         this.direction = direction;
+        postInvalidate();
+    }
+
+    public int getArcHeight() {
+        return arcHeight;
+    }
+
+    public void setArcHeight(int arcHeight) {
+        this.arcHeight = arcHeight;
         postInvalidate();
     }
 
@@ -94,13 +107,13 @@ public abstract class BaseArcHeaderView extends View {
         mPath.moveTo(0, 0);
         switch (direction) {
             case DIRECTION_DOWN_OUT_SIDE:
-                mPath.lineTo(0, h - mArcHeight);
-                mPath.quadTo(w / 2.0f, h + mArcHeight, w, h - mArcHeight);
+                mPath.lineTo(0, h - arcHeight);
+                mPath.quadTo(w / 2.0f, h + arcHeight, w, h - arcHeight);
                 mPath.lineTo(w, 0);
                 break;
             case DIRECTION_DOWN_IN_SIDE:
                 mPath.lineTo(0, h);
-                mPath.quadTo(w / 2.0f, h - mArcHeight * 2, w, h);
+                mPath.quadTo(w / 2.0f, h - arcHeight * 2, w, h);
                 mPath.lineTo(w, 0);
                 break;
         }
