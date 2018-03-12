@@ -21,11 +21,13 @@ public class RefreshLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_refresh_layout);
 
         refreshLayout = findViewById(R.id.refresh_layout);
+//        refreshLayout.setPullToRefreshRatio(0.45f);
+//        refreshLayout.setReleaseToRefreshRatio(0.65f);
         refreshLayout.setOnScrollListener(new RefreshLayout.OnScrollListener() {
             @Override
             public void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY, boolean isRefreshing) {
                 //从底部向上滑动，不做任何处理
-                if (scrollY > 0)
+                if (scrollY > 0 || isRefreshing)
                     return;
                 TextView tvScrollTips = headerView.findViewById(R.id.tv_scroll_tips);
                 if (Math.abs(scrollY) >= headerHeight * releaseToRefreshRatio)
@@ -42,6 +44,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
             public void onStartRefresh(View headerView) {
                 TextView tvScrollTips = headerView.findViewById(R.id.tv_scroll_tips);
                 tvScrollTips.setText("Refreshing...");
+                headerView.findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -59,6 +62,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
             public void onEndRefresh(View headerView) {
                 TextView tvScrollTips = headerView.findViewById(R.id.tv_scroll_tips);
                 tvScrollTips.setText("Refresh Successfully.");
+                headerView.findViewById(R.id.loading_view).setVisibility(View.INVISIBLE);
             }
         });
     }

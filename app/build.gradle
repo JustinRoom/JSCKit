@@ -45,4 +45,8 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+
+    //AVLoadingIndicatorView
+    //https://github.com/81813780/AVLoadingIndicatorView
+    compile 'com.wang.avi:library:2.1.3'
 }
