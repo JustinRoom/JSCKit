@@ -21,6 +21,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_refresh_layout);
 
         refreshLayout = findViewById(R.id.refresh_layout);
+//        refreshLayout.setPullRatioY(0.55f);
 //        refreshLayout.setPullToRefreshRatio(0.45f);
 //        refreshLayout.setReleaseToRefreshRatio(0.65f);
         refreshLayout.setOnScrollListener(new RefreshLayout.OnScrollListener() {
