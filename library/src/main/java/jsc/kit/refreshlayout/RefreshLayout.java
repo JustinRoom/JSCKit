@@ -24,7 +24,7 @@ import jsc.kit.R;
 
 /**
  * <p>
- *     Pull to refresh layout.
+ *     Pull to refresh layout.You can't scroll up from bottom if {@link #isRefreshing()} is true.
  *     The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
  * </p>
  * <br>Email:1006368252@qq.com
@@ -56,22 +56,36 @@ public class RefreshLayout extends ViewGroup {
 
     public interface OnScrollListener {
         /**
-         * scroll callback.
+         * Scroll callback.
+         * @param headerView The header view added by yourself.
          * @param headerHeight The header's height.
          * @param pullToRefreshRatio Pull to refresh ratio, <code>pullToRefreshHeight = headerHeight * pullToRefreshRatio</code>.
          * @param releaseToRefreshRatio Release to refresh ratio, <code>releaseToRefreshHeight = headerHeight * releaseToRefreshRatio</code>.
-         * @param scrollY {@link #getScrollY()}
+         * @param scrollY {@link #getScrollY()}. Negative to scroll down from top, positive to scroll up from bottom.
+         * @param isRefreshing {@link #isRefreshing()}
          * @see #setPullToRefreshRatio(float)
          * @see #setReleaseToRefreshRatio(float)
          */
-        void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY);
+        void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY, boolean isRefreshing);
     }
 
     public interface OnRefreshListener {
         /**
+         * Do something here before refreshing action.For example, start header view animation.
+         * @param headerView The header view added by yourself.
+         */
+        void onStartRefresh(View headerView);
+
+        /**
          * Release to refresh call back.
          */
         void onRefresh();
+
+        /**
+         * do something here after refreshing action.For example, stop header view animation.
+         * @param headerView The header view added by yourself.
+         */
+        void onEndRefresh(View headerView);
     }
 
     public RefreshLayout(Context context) {
@@ -161,7 +175,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * 添加主体内容view
+     * Ddd a custom content view.
      * @param content
      */
     public void addContent(View content) {
@@ -172,10 +186,18 @@ public class RefreshLayout extends ViewGroup {
         requestLayout();
     }
 
+    /**
+     * Add scroll listener.
+     * @param onScrollListener
+     */
     public void setOnScrollListener(OnScrollListener onScrollListener) {
         this.onScrollListener = onScrollListener;
     }
 
+    /**
+     * Add refresh listener.
+     * @param onRefreshListener
+     */
     public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
         this.onRefreshListener = onRefreshListener;
     }
@@ -320,7 +342,7 @@ public class RefreshLayout extends ViewGroup {
     private void scroll(int mYOffset) {
         scrollBy(0, -mYOffset);
         if (onScrollListener != null)
-            onScrollListener.onScroll(headerView, headerView.getMeasuredHeight(), pullToRefreshRatio, releaseToRefreshRatio, getScrollY());
+            onScrollListener.onScroll(headerView, headerView.getMeasuredHeight(), pullToRefreshRatio, releaseToRefreshRatio, getScrollY(), isRefreshing);
     }
 
     private void rebound() {
@@ -337,8 +359,10 @@ public class RefreshLayout extends ViewGroup {
             mScroller.startScroll(0, scrollY, 0, -(scrollY - headerHeight), ANIM_TIME);
             invalidate();
             isRefreshing = true;
-            if (onRefreshListener != null)
+            if (onRefreshListener != null){
+                onRefreshListener.onStartRefresh(headerView);
                 onRefreshListener.onRefresh();
+            }
             return;
         }
 
@@ -347,9 +371,10 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * You can forwardly call thi method to start refresh action after a minute.
+     * You can forwardly call this method to start refresh action after a minute.
      * It would do nothing if it is refreshing.
-     * @param delay
+     * @param delay delay time in milliseconds
+     * @see #isRefreshing()
      */
     public void startRefresh(long delay){
         postDelayed(new Runnable() {
@@ -361,8 +386,10 @@ public class RefreshLayout extends ViewGroup {
                 mScroller.startScroll(0, getScrollY(), 0, -(getScrollY() - (0 - headerView.getMeasuredHeight())), ANIM_TIME);
                 invalidate();
                 isRefreshing = true;
-                if (onRefreshListener != null)
+                if (onRefreshListener != null){
+                    onRefreshListener.onStartRefresh(headerView);
                     onRefreshListener.onRefresh();
+                }
             }
         }, delay);
     }
@@ -372,9 +399,24 @@ public class RefreshLayout extends ViewGroup {
      * Reset refresh state.
      */
     public void refreshComplete() {
-        mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), ANIM_TIME);
-        invalidate();
+        if (onRefreshListener != null)
+            onRefreshListener.onEndRefresh(headerView);
         isRefreshing = false;
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), ANIM_TIME);
+                invalidate();
+            }
+        }, 100);
+    }
+
+    /**
+     * Check refresh state.
+     * @return
+     */
+    public boolean isRefreshing() {
+        return isRefreshing;
     }
 
     private View createDefaultContent() {
