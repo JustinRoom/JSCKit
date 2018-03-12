@@ -14,7 +14,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.0.2'
+	        compile 'com.github.JustinRoom:JSCKit:0.0.3'
 	}
 ```
 ##### Maven: 
