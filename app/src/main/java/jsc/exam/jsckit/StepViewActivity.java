@@ -29,7 +29,9 @@ public class StepViewActivity extends AppCompatActivity {
         Random random = new Random();
         float txt10 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics());
         List<RouteViewPoint> points = new ArrayList<>();
+        int index = 0;
         RouteViewPoint start = getBasePoint();
+        start.setIndex(String.valueOf(++index));
         start.setKey(0);
         start.setLabel("起点");
         start.setLabelColor(0xFF999999);
@@ -47,6 +49,7 @@ public class StepViewActivity extends AppCompatActivity {
                 center.setLabelSize(txt10);
                 center.setLabel("步行" + (val * 15) + "米");
             } else {
+                center.setIndex(String.valueOf(++index));
                 center.setKey(100);
                 center.setLabel("公交站" + val);
             }
@@ -68,6 +71,7 @@ public class StepViewActivity extends AppCompatActivity {
         }
 
         RouteViewPoint end = getBasePoint();
+        end.setIndex(String.valueOf(++index));
         end.setKey(1);
         end.setLabel("终点");
         end.setLabelColor(0xFF999999);

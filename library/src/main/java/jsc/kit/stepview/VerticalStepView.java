@@ -105,6 +105,10 @@ public class VerticalStepView extends View {
         }
     }
 
+    /**
+     * Set all points.
+     * @param points
+     */
     public void setPoints(List<RouteViewPoint> points) {
         this.points.clear();
         if (points != null)
@@ -113,11 +117,19 @@ public class VerticalStepView extends View {
         postInvalidate();
     }
 
+    /**
+     * Set line width of the vertical line.
+     * @param lineWidth
+     */
     public void setLineWidth(int lineWidth) {
         this.lineWidth = lineWidth;
         postInvalidate();
     }
 
+    /**
+     * Set line color of the vertical line.
+     * @param lineColor
+     */
     public void setLineColor(@ColorInt int lineColor) {
         this.lineColor = lineColor;
         postInvalidate();
@@ -127,6 +139,10 @@ public class VerticalStepView extends View {
         return drawCircle;
     }
 
+    /**
+     * Draw the circle background of index if pass true.
+     * @param drawCircle
+     */
     public void setDrawCircle(boolean drawCircle) {
         this.drawCircle = drawCircle;
         postInvalidate();
@@ -136,6 +152,10 @@ public class VerticalStepView extends View {
         return drawIndex;
     }
 
+    /**
+     * Draw index if pass true.
+     * @param drawIndex
+     */
     public void setDrawIndex(boolean drawIndex) {
         this.drawIndex = drawIndex;
         postInvalidate();
@@ -145,6 +165,10 @@ public class VerticalStepView extends View {
         return drawTransit;
     }
 
+    /**
+     * Draw transit if pass true.
+     * @param drawTransit
+     */
     public void setDrawTransit(boolean drawTransit) {
         this.drawTransit = drawTransit;
         requestLayout();
@@ -155,6 +179,10 @@ public class VerticalStepView extends View {
         return drawLabel;
     }
 
+    /**
+     * Draw label if pass true.
+     * @param drawLabel
+     */
     public void setDrawLabel(boolean drawLabel) {
         this.drawLabel = drawLabel;
         postInvalidate();
@@ -164,6 +192,10 @@ public class VerticalStepView extends View {
         return drawCursor;
     }
 
+    /**
+     * Draw cursor if pass true.
+     * @param drawCursor
+     */
     public void setDrawCursor(boolean drawCursor) {
         this.drawCursor = drawCursor;
         postInvalidate();
@@ -234,7 +266,7 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画icon
+     * draw icon
      *
      * @param canvas
      * @param drawable
@@ -256,7 +288,7 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画圆
+     * draw circle
      *
      * @param canvas
      * @param p
@@ -277,7 +309,7 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画序号
+     * draw index
      *
      * @param canvas
      * @param p
@@ -304,12 +336,11 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画标签
+     * draw label
      *
      * @param canvas
      * @param p
-     * @param marginLeft
-     *         文字与圆左边的距离
+     * @param marginLeft left margin from the circle background of index
      * @param textPaint
      */
     private void drawLabel(Canvas canvas, RouteViewPoint p, int marginLeft, TextPaint textPaint) {
@@ -332,12 +363,11 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画公交
+     * draw transit
      *
      * @param canvas
      * @param p
-     * @param marginRight
-     *         文字与圆右边的距离
+     * @param marginRight right margin from the circle background of index
      * @param textPaint
      */
     private void drawTransit(Canvas canvas, RouteViewPoint p, int marginRight, TextPaint textPaint) {
@@ -361,12 +391,11 @@ public class VerticalStepView extends View {
     }
 
     /**
-     * 画游标
+     * draw cursor
      *
      * @param canvas
      * @param p
-     * @param marginLeft
-     *         文字与圆右边的距离
+     * @param marginLeft left margin from the circle background of index
      * @param textPaint
      */
     private void drawCursor(Canvas canvas, RouteViewPoint p, int marginLeft, TextPaint textPaint) {
