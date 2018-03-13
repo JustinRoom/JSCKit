@@ -13,7 +13,7 @@
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_arc_header_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -25,11 +25,11 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="ArcHeaderView" />
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_banner_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -41,11 +41,11 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="BannerView" />
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_month_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -57,11 +57,11 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="MonthView" />
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_rebound_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -73,11 +73,11 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="ReboundLayout" />
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_vertical_step_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -89,11 +89,11 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="VerticalStepView" />
 
-        <jsc.exam.jsckit.widget.CustomItemLayoutView
+        <jsc.kit.customitemlayout.CustomItemLayout
             android:id="@+id/cl_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -105,8 +105,8 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_arrow_icon="@drawable/ic_chevron_right_gray_24dp"
-            app:cilv_icon="@drawable/ic_assignment_blue_24dp"
+            app:cilv_arrow_icon="@drawable/kit_ic_chevron_right_gray_24dp"
+            app:cilv_icon="@drawable/kit_ic_assignment_blue_24dp"
             app:cilv_label="RefreshLayout" />
 
     </LinearLayout>

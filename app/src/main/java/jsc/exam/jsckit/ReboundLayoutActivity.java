@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import jsc.exam.jsckit.widget.CustomItemLayoutView;
+import jsc.kit.customitemlayout.CustomItemLayout;
 
 public class ReboundLayoutActivity extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class ReboundLayoutActivity extends AppCompatActivity {
     }
 
     public void widgetClick(View view){
-        if (view instanceof CustomItemLayoutView)
-            Toast.makeText(this, ((CustomItemLayoutView) view).getLabel(), Toast.LENGTH_SHORT).show();
+        if (view instanceof CustomItemLayout)
+            Toast.makeText(this, ((CustomItemLayout) view).getLabel(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -59,4 +59,15 @@
         <attr name="rf_contentLayout" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="CustomItemLayout">
+        <attr name="cilv_icon" format="reference"/>
+        <attr name="cilv_label" format="string|reference"/>
+        <attr name="cilv_label_color" format="color|reference"/>
+        <attr name="cilv_show_dot" format="boolean|reference"/>
+        <attr name="cilv_dot_size" format="dimension|reference"/>
+        <attr name="cilv_dot_color" format="color|reference"/>
+        <attr name="cilv_dot_text" format="string|reference"/>
+        <attr name="cilv_arrow_icon" format="reference"/>
+    </declare-styleable>
+
 </resources>

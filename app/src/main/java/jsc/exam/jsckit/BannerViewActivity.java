@@ -39,6 +39,7 @@ public class BannerViewActivity extends AppCompatActivity {
 
         jscBannerView = findViewById(R.id.banner_view);
         LGradientArcHeaderView backgroundView = new LGradientArcHeaderView(this);
+        backgroundView.setArcHeight(100);
         backgroundView.setColor(0xFF00BA86, 0x2200BA86);
         jscBannerView.setBackgroundView(backgroundView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         example1();

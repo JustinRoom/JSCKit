@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:clipChildren="false"
-        app:bv_view_pager_left_margin="80dp"
-        app:bv_view_pager_right_margin="80dp"
         app:bv_indicator_padding_bottom="20dp"
         app:bv_indicator_align="ALIGN_CENTER" />
 
