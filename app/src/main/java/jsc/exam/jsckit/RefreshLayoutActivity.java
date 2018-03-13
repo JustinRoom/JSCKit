@@ -14,6 +14,7 @@ import jsc.kit.refreshlayout.RefreshLayout;
 public class RefreshLayoutActivity extends AppCompatActivity {
 
     RefreshLayout refreshLayout;
+    int lastPullState = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,13 +31,31 @@ public class RefreshLayoutActivity extends AppCompatActivity {
                 //从底部向上滑动，不做任何处理
                 if (scrollY > 0 || isRefreshing)
                     return;
-                TextView tvScrollTips = headerView.findViewById(R.id.tv_scroll_tips);
-                if (Math.abs(scrollY) >= headerHeight * releaseToRefreshRatio)
-                    tvScrollTips.setText("Release To Refresh");
-                else if (Math.abs(scrollY) >= headerHeight * pullToRefreshRatio)
-                    tvScrollTips.setText("Pull To Refresh");
+                int scrollDistance = Math.abs(scrollY);
+                int tempPullState = 0;
+                if (scrollDistance >= headerHeight * releaseToRefreshRatio)
+                    tempPullState = 2;
+                else if (scrollDistance > headerHeight * pullToRefreshRatio)
+                    tempPullState = 1;
                 else
-                    tvScrollTips.setText("Surprise");
+                    tempPullState = 0;
+
+                if (tempPullState == lastPullState)
+                    return;
+
+                lastPullState = tempPullState;
+                TextView tvScrollTips = headerView.findViewById(R.id.tv_scroll_tips);
+                switch (lastPullState) {
+                    case 0:
+                        tvScrollTips.setText("Surprise");
+                        break;
+                    case 1:
+                        tvScrollTips.setText("Pull To Refresh");
+                        break;
+                    case 2:
+                        tvScrollTips.setText("Release To Refresh");
+                        break;
+                }
             }
         });
         refreshLayout.setOnRefreshListener(new RefreshLayout.OnRefreshListener() {
@@ -68,7 +87,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
         });
     }
 
-    public void widgetClick(View view){
+    public void widgetClick(View view) {
         if (view instanceof CustomItemLayoutView)
             Toast.makeText(this, ((CustomItemLayoutView) view).getLabel(), Toast.LENGTH_SHORT).show();
     }
