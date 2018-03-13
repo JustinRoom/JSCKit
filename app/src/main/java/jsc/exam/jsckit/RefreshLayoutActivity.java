@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import jsc.kit.customitemlayout.CustomItemLayout;
+import jsc.kit.customitemlayout.JSCItemLayout;
 import jsc.kit.refreshlayout.RefreshLayout;
 
 public class RefreshLayoutActivity extends AppCompatActivity {
@@ -88,7 +88,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
     }
 
     public void widgetClick(View view) {
-        if (view instanceof CustomItemLayout)
-            Toast.makeText(this, ((CustomItemLayout) view).getLabel(), Toast.LENGTH_SHORT).show();
+        if (view instanceof JSCItemLayout)
+            Toast.makeText(this, ((JSCItemLayout) view).getLabel(), Toast.LENGTH_SHORT).show();
     }
 }

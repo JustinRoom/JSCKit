@@ -59,15 +59,23 @@
         <attr name="rf_contentLayout" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="CustomItemLayout">
-        <attr name="cilv_icon" format="reference"/>
-        <attr name="cilv_label" format="string|reference"/>
-        <attr name="cilv_label_color" format="color|reference"/>
-        <attr name="cilv_show_dot" format="boolean|reference"/>
-        <attr name="cilv_dot_size" format="dimension|reference"/>
-        <attr name="cilv_dot_color" format="color|reference"/>
-        <attr name="cilv_dot_text" format="string|reference"/>
-        <attr name="cilv_arrow_icon" format="reference"/>
+    <declare-styleable name="JSCItemLayout">
+        <!--left icon -->
+        <attr name="il_icon" format="reference"/>
+        <!-- label -->
+        <attr name="il_label" format="string|reference"/>
+        <!-- label color -->
+        <attr name="il_label_color" format="color|reference"/>
+        <!-- show dot view or not -->
+        <attr name="il_show_dot" format="boolean|reference"/>
+        <!-- dot view's size. If set "layout_width = 20dp", the height equals "20dp" also.  -->
+        <attr name="il_dot_size" format="dimension|reference"/>
+        <!-- dot view's color -->
+        <attr name="il_dot_color" format="color|reference"/>
+        <!-- dot view's text. For example, "5" represents that five unread messages. -->
+        <attr name="il_dot_text" format="string|reference"/>
+        <!-- right arrow icon -->
+        <attr name="il_arrow_icon" format="reference"/>
     </declare-styleable>
 
 </resources>

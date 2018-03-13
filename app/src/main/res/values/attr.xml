@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomItemLayout">
+    <declare-styleable name="JSCItemLayout">
         <attr name="cilv_icon" format="reference"/>
         <attr name="cilv_label" format="string|reference"/>
         <attr name="cilv_label_color" format="color|reference"/>

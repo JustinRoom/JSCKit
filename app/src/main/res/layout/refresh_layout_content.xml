@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -20,9 +20,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 01" />
+            app:il_label="Menu Item 01" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -33,9 +33,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 02" />
+            app:il_label="Menu Item 02" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -46,9 +46,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 03" />
+            app:il_label="Menu Item 03" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -59,9 +59,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 04" />
+            app:il_label="Menu Item 04" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -72,9 +72,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 05" />
+            app:il_label="Menu Item 05" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -85,9 +85,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 06" />
+            app:il_label="Menu Item 06" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -98,9 +98,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 07" />
+            app:il_label="Menu Item 07" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -111,9 +111,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 08" />
+            app:il_label="Menu Item 08" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -124,9 +124,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 09" />
+            app:il_label="Menu Item 09" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -137,9 +137,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 10" />
+            app:il_label="Menu Item 10" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -150,9 +150,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 11" />
+            app:il_label="Menu Item 11" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -163,9 +163,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 12" />
+            app:il_label="Menu Item 12" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -176,9 +176,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 13" />
+            app:il_label="Menu Item 13" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -189,9 +189,9 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 14" />
+            app:il_label="Menu Item 14" />
 
-        <jsc.kit.customitemlayout.CustomItemLayout
+        <jsc.kit.customitemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -202,7 +202,7 @@
             android:onClick="widgetClick"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            app:cilv_label="Menu Item 15" />
+            app:il_label="Menu Item 15" />
 
     </LinearLayout>
 
