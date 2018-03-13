@@ -1,4 +1,4 @@
-package jsc.kit.customitemlayout;
+package jsc.kit.itemlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;

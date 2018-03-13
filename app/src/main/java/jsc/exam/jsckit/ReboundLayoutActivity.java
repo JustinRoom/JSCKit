@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import jsc.kit.customitemlayout.JSCItemLayout;
+import jsc.kit.itemlayout.JSCItemLayout;
 
 public class ReboundLayoutActivity extends AppCompatActivity {
 

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -22,7 +22,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 01" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -35,7 +35,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 02" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -48,7 +48,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 03" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -61,7 +61,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 04" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -74,7 +74,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 05" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -87,7 +87,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 06" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -100,7 +100,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 07" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -113,7 +113,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 08" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -126,7 +126,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 09" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -139,7 +139,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 10" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -152,7 +152,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 11" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -165,7 +165,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 12" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -178,7 +178,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 13" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"
@@ -191,7 +191,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="Menu Item 14" />
 
-        <jsc.kit.customitemlayout.JSCItemLayout
+        <jsc.kit.itemlayout.JSCItemLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginBottom="2dp"

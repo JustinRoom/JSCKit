@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import jsc.kit.customitemlayout.JSCItemLayout;
+import jsc.kit.itemlayout.JSCItemLayout;
 import jsc.kit.refreshlayout.RefreshLayout;
 
 public class RefreshLayoutActivity extends AppCompatActivity {
