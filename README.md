@@ -14,7 +14,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.0.3'
+	        compile 'com.github.JustinRoom:JSCKit:0.0.4'
 	}
 ```
 ##### Maven: 
@@ -32,12 +32,13 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.0.3</version>
+	    <version>0.0.4</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
+&#32;&#32;Demo version:0.0.4  
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
@@ -50,3 +51,5 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 + [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout)
 + [**RefreshLayout**](/library/src/main/java/jsc/kit/refreshlayout)
 + [**VerticalStepView**](/library/src/main/java/jsc/kit/stepview)
++ [**JSCRoundCornerProgressBar**](/library/src/main/java/jsc/kit/progressbar)
++ [**JSCItemLayout**](/library/src/main/java/jsc/kit/itemlayout)

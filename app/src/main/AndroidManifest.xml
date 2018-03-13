@@ -22,6 +22,7 @@
         <activity android:name=".ReboundLayoutActivity" />
         <activity android:name=".StepViewActivity" />
         <activity android:name=".RefreshLayoutActivity" />
+        <activity android:name=".RoundCornerProgressBarActivity" />
     </application>
 
 </manifest>

@@ -13,6 +13,16 @@
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
 
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textColor="#cccccc"
+            android:text="current version:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <jsc.kit.itemlayout.JSCItemLayout
             android:id="@+id/cl_arc_header_view"
             android:layout_width="match_parent"
@@ -96,6 +106,20 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             app:il_label="RefreshLayout" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:id="@+id/cl_round_corner_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="RoundCornerProgressBar" />
 
     </LinearLayout>
 
