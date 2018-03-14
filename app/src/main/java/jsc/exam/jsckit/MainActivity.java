@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cl_round_corner_progress_bar:
                 startActivity(new Intent(this, RoundCornerProgressBarActivity.class));
                 break;
+            case R.id.cl_item_layout:
+                startActivity(new Intent(this, ItemLayoutActivity.class));
+                break;
         }
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <jsc.kit.itemlayout.JSCItemLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_round_corner_white_r4"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        app:il_label="Default Attr Menu"
+        app:il_show_dot="true" />
+
+    <jsc.kit.itemlayout.JSCItemLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_round_corner_white_r4"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        app:il_dot_color="#e4e4e4"
+        app:il_dot_size="16dp"
+        app:il_dot_text="5"
+        app:il_dot_text_color="@android:color/holo_red_light"
+        app:il_dot_text_size="12sp"
+        app:il_icon="@drawable/ic_assignment_turned_in_blue_24dp"
+        app:il_label="Custom Attr Menu"
+        app:il_show_dot="true" />
+
+</LinearLayout>

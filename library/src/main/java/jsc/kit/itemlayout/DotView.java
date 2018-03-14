@@ -55,6 +55,16 @@ public class DotView extends View {
         postInvalidate();
     }
 
+    public int getUnReadCount(){
+        int unReadCount;
+        try {
+            unReadCount = Integer.parseInt(text);
+        } catch (NumberFormatException ex){
+            unReadCount = 0;
+        }
+        return unReadCount;
+    }
+
     public void setUnReadCount(int count) {
         if (count < 1)
             text = "";
@@ -67,14 +77,26 @@ public class DotView extends View {
         postInvalidate();
     }
 
+    public String getText() {
+        return text;
+    }
+
     public void setText(String text) {
         this.text = text;
         postInvalidate();
     }
 
+    public float getTextSize() {
+        return textSize;
+    }
+
     public void setTextSize(float textSize) {
         this.textSize = textSize;
         postInvalidate();
+    }
+
+    public int getTextColor() {
+        return textColor;
     }
 
     public void setTextColor(int textColor) {

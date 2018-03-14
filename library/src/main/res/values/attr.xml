@@ -74,6 +74,8 @@
         <attr name="il_dot_color" format="color|reference"/>
         <!-- dot view's text. For example, "5" represents that five unread messages. -->
         <attr name="il_dot_text" format="string|reference"/>
+        <attr name="il_dot_text_color" format="color|reference"/>
+        <attr name="il_dot_text_size" format="dimension"/>
         <!-- right arrow icon -->
         <attr name="il_arrow_icon" format="reference"/>
     </declare-styleable>

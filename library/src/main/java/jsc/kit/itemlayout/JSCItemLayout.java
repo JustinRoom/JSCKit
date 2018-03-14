@@ -34,6 +34,8 @@ public class JSCItemLayout extends LinearLayout {
     private int dotSize;
     private int dotColor;
     private String dotText;
+    private int dotTextColor;
+    private float dotTextSize;
     private int iconId;
     private int arrowIconId;
 
@@ -55,6 +57,9 @@ public class JSCItemLayout extends LinearLayout {
         dotSize = a.getDimensionPixelSize(R.styleable.JSCItemLayout_il_dot_size, defaultDotSize);
         dotColor = a.getColor(R.styleable.JSCItemLayout_il_dot_color, Color.RED);
         dotText = a.getString(R.styleable.JSCItemLayout_il_dot_text);
+        dotTextColor = a.getColor(R.styleable.JSCItemLayout_il_dot_text_color, Color.WHITE);
+        float defaultDotTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, context.getResources().getDisplayMetrics());
+        dotTextSize = a.getDimension(R.styleable.JSCItemLayout_il_dot_text_size, defaultDotTextSize);
         iconId = a.getResourceId(R.styleable.JSCItemLayout_il_icon, R.drawable.kit_ic_assignment_blue_24dp);
         arrowIconId = a.getResourceId(R.styleable.JSCItemLayout_il_arrow_icon, R.drawable.kit_ic_chevron_right_gray_24dp);
         a.recycle();
@@ -87,12 +92,18 @@ public class JSCItemLayout extends LinearLayout {
             dotView.setText(dotText);
         }
         dotView.setBgColor(dotColor);
+        dotView.setTextColor(dotTextColor);
+        dotView.setTextSize(dotTextSize);
         dotView.setVisibility(showDot ? VISIBLE : INVISIBLE);
-        addView(dotView, new LinearLayout.LayoutParams(dotSize, dotSize));
+        layout.addView(dotView, new LinearLayout.LayoutParams(dotSize, dotSize));
 
         arrowView = new AppCompatImageView(context);
         arrowView.setImageResource(arrowIconId);
         layout.addView(arrowView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    }
+
+    public DotView getDotView() {
+        return dotView;
     }
 
     public void setShowDot(boolean showDot) {
