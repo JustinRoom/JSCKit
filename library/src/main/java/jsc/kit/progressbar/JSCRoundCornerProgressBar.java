@@ -108,6 +108,12 @@ public class JSCRoundCornerProgressBar extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        postInvalidate();
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         float rcBackgroundRadius = getHeight() / 2.0f;
