@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import jsc.kit.R;
  *
  * @author jiangshicheng
  */
-public class JSCItemLayout extends LinearLayout {
+public class JSCItemLayout extends FrameLayout {
 
     private ImageView iconView;
     private TextView labelView;
@@ -29,7 +30,7 @@ public class JSCItemLayout extends LinearLayout {
     private ImageView arrowView;
 
     private String label;
-    private int labelColor;
+    private int labelTextColor;
     private boolean showDot;
     private int dotSize;
     private int dotColor;
@@ -51,7 +52,7 @@ public class JSCItemLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.JSCItemLayout, defStyleAttr, 0);
         label = a.getString(R.styleable.JSCItemLayout_il_label);
-        labelColor = a.getColor(R.styleable.JSCItemLayout_il_label_color, 0xFF333333);
+        labelTextColor = a.getColor(R.styleable.JSCItemLayout_il_label_color, 0xFF333333);
         showDot = a.getBoolean(R.styleable.JSCItemLayout_il_show_dot, false);
         int defaultDotSize = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()) + 0.5f);
         dotSize = a.getDimensionPixelSize(R.styleable.JSCItemLayout_il_dot_size, defaultDotSize);
@@ -71,7 +72,7 @@ public class JSCItemLayout extends LinearLayout {
         LayoutParams contentParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         contentParams.gravity = Gravity.CENTER_VERTICAL;
         LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(HORIZONTAL);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER_VERTICAL);
         addView(layout, contentParams);
 
@@ -83,7 +84,7 @@ public class JSCItemLayout extends LinearLayout {
         labelParams.leftMargin = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()) + 0.5f);
         labelView = new TextView(context);
         labelView.setText(label);
-        labelView.setTextColor(labelColor);
+        labelView.setTextColor(labelTextColor);
         labelView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         layout.addView(labelView, labelParams);
 
@@ -100,6 +101,10 @@ public class JSCItemLayout extends LinearLayout {
         arrowView = new AppCompatImageView(context);
         arrowView.setImageResource(arrowIconId);
         layout.addView(arrowView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    }
+
+    public TextView getLabelView() {
+        return labelView;
     }
 
     public DotView getDotView() {
