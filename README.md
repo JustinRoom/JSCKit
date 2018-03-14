@@ -38,7 +38,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.0.4  
+&#32;&#32;Demo version:0.0.5  
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
