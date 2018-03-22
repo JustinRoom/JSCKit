@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import jsc.kit.vscrollscreen.VScrollScreenLayout;
@@ -22,5 +23,9 @@ public class VScrollScreenLayoutActivity extends AppCompatActivity {
                 Toast.makeText(context, "The current page is " + (pageIndex + 1), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void widgetClick(View v){
+
     }
 }
