@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cl_item_layout:
                 startActivity(new Intent(this, ItemLayoutActivity.class));
                 break;
+            case R.id.cl_v_scroll_screen:
+                startActivity(new Intent(this, VScrollScreenLayoutActivity.class));
+                break;
         }
     }
 }

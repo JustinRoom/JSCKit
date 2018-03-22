@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jsc.kit.vscrollscreen.VScrollScreenLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/v_scroll_screen_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:vssl_y_slide_ratio="0.45" >
+
+    <!--first page-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <jsc.kit.archeaderview.LGradientArcHeaderView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:ahv_end_color="#3300BA86"
+            app:ahv_height="30dp"
+            app:ahv_start_color="#FF00BA86" />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/tiger"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="向上滑动可继续翻页"/>
+
+    </LinearLayout>
+
+    <!--second page-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <jsc.kit.archeaderview.PictureArcHeaderView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:ahv_direction="downInSide"
+                app:ahv_height="30dp"
+                app:ahv_src="@drawable/header" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/article" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--third page-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="Menu Item 01" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="Menu Item 02" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="Menu Item 03" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="Menu Item 04" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="Menu Item 05" />
+
+    </LinearLayout>
+
+</jsc.kit.vscrollscreen.VScrollScreenLayout>

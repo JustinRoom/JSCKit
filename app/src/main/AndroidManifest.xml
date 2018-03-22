@@ -24,6 +24,7 @@
         <activity android:name=".RefreshLayoutActivity" />
         <activity android:name=".RoundCornerProgressBarActivity" />
         <activity android:name=".ItemLayoutActivity" />
+        <activity android:name=".VScrollScreenLayoutActivity" />
     </application>
 
 </manifest>
