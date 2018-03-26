@@ -1,7 +1,6 @@
 package jsc.exam.jsckit.utils;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.util.Log;
 
@@ -38,7 +37,7 @@ public class ZXingBarcodeUtils {
             for (int y = 0; y < h; y++) {
                 int offset = y * w;
                 for (int x = 0; x < w; x++) {
-                    pixels[offset + x] = result.get(x, y) ? foregroundColor : Color.TRANSPARENT;
+                    pixels[offset + x] = result.get(x, y) ? foregroundColor : backgroundColor;
                 }
             }
 

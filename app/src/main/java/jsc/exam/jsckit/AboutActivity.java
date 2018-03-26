@@ -47,7 +47,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void run() {
                 int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
-                Bitmap bitmap = ZXingBarcodeUtils.createQRCodeBitmap(apkUrl, size, size, Color.GREEN, Color.WHITE);
+                Bitmap bitmap = ZXingBarcodeUtils.createQRCodeBitmap(apkUrl, size, size, Color.GREEN, Color.TRANSPARENT);
                 ivQRCode.setImageBitmap(bitmap);
             }
         }, 1000);
