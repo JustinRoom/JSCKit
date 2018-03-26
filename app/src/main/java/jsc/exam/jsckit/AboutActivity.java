@@ -46,11 +46,12 @@ public class AboutActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                int[] colors = {Color.GREEN, 0x99FF4081, Color.BLUE, Color.CYAN};
                 int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
-                Bitmap bitmap = ZXingBarcodeUtils.createQRCodeBitmap(apkUrl, size, size, Color.GREEN, Color.TRANSPARENT);
+                Bitmap bitmap = ZXingBarcodeUtils.createQRCodeBitmap(apkUrl, size, size, colors);
                 ivQRCode.setImageBitmap(bitmap);
             }
-        }, 1000);
+        }, 300);
 
     }
 }
