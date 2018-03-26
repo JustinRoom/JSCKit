@@ -16,7 +16,7 @@ import jsc.exam.jsckit.utils.ZXingBarcodeUtils;
 
 public class AboutActivity extends AppCompatActivity {
 
-    final String apkUrl = "https://github.com/JustinRoom/JSCKit/capture/JSCKitDemo.apk?raw=true";
+    final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     TextView tvVersion;
     ImageView ivQRCode;
 

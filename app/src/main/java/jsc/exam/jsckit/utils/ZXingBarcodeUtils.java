@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +28,8 @@ public class ZXingBarcodeUtils {
         Bitmap bitmap = null;
         BitMatrix result = null;
         Map<EncodeHintType, String> map = new HashMap<>();
-        map.put(EncodeHintType.MARGIN, "0");
+        map.put(EncodeHintType.MARGIN,"0");
+        map.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M.name());
         try {
             result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, width, height, map);
             int w = result.getWidth();
@@ -35,9 +38,10 @@ public class ZXingBarcodeUtils {
             for (int y = 0; y < h; y++) {
                 int offset = y * w;
                 for (int x = 0; x < w; x++) {
-                    pixels[offset + x] = result.get(x, y) ? foregroundColor : backgroundColor;
+                    pixels[offset + x] = result.get(x, y) ? foregroundColor : Color.TRANSPARENT;
                 }
             }
+
             bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
         } catch (WriterException | IllegalArgumentException e) {
