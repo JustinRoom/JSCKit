@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:indicatorColor="@color/colorAccent"
-        app:indicatorName="" />
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
 
     <TextView
         android:id="@+id/tv_scroll_tips"

@@ -1,13 +1,10 @@
 package jsc.exam.jsckit;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,16 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView tvVersion = findViewById(R.id.tv_version);
-        try {
-            PackageManager manager = getPackageManager();
-            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-            int curVersionCode = info.versionCode;
-            tvVersion.setText("Current version:" + info.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void widgetClick(View view) {
@@ -55,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.cl_v_scroll_screen:
                 startActivity(new Intent(this, VScrollScreenLayoutActivity.class));
+                break;
+            case R.id.cl_about:
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
     }

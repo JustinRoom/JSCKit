@@ -25,6 +25,7 @@
         <activity android:name=".RoundCornerProgressBarActivity" />
         <activity android:name=".ItemLayoutActivity" />
         <activity android:name=".VScrollScreenLayoutActivity" />
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>
