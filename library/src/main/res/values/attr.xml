@@ -87,4 +87,12 @@
         <attr name="vssl_flip_anim_time" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="RadarView">
+        <attr name="rv_start_angle" format="integer" />
+        <attr name="rv_layer_count" format="integer" />
+        <attr name="rv_line_width" format="dimension" />
+        <attr name="rv_line_color" format="color|reference" />
+        <attr name="rv_output_color" format="color|reference" />
+    </declare-styleable>
+
 </resources>
