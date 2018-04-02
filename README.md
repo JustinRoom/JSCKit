@@ -14,7 +14,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.0.6'
+	        compile 'com.github.JustinRoom:JSCKit:0.0.7'
 	}
 ```
 ##### Maven: 
@@ -32,13 +32,13 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.0.6</version>
+	    <version>0.0.7</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.0.6  
+&#32;&#32;Demo version:0.0.7  
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 

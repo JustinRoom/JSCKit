@@ -93,6 +93,8 @@
         <attr name="rv_line_width" format="dimension" />
         <attr name="rv_line_color" format="color|reference" />
         <attr name="rv_output_color" format="color|reference" />
+        <attr name="rv_dot_color" format="color|reference" />
+        <attr name="rv_dot_radius" format="dimension" />
     </declare-styleable>
 
 </resources>

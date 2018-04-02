@@ -31,6 +31,8 @@ public class RadarView extends View {
     private int lineWidth;
     private int lineColor;
     private int outputColor;
+    private int dotColor;
+    private int dotRadius;
 
     public RadarView(Context context) {
         this(context, null);
@@ -54,6 +56,11 @@ public class RadarView extends View {
             lineWidth = 1;
         lineColor = a.getColor(R.styleable.RadarView_rv_line_color, 0xFFCCCCCC);
         outputColor = a.getColor(R.styleable.RadarView_rv_output_color, 0x66FF4081);
+        dotColor = a.getColor(R.styleable.RadarView_rv_dot_color, Color.CYAN);
+        int tempDotRadius = a.getDimensionPixelSize(R.styleable.RadarView_rv_dot_radius, 8);
+        dotRadius = Math.abs(tempDotRadius);
+        if (dotRadius <= 0)
+            dotRadius = 8;
         a.recycle();
     }
 
@@ -107,6 +114,24 @@ public class RadarView extends View {
         postInvalidate();
     }
 
+    public int getDotColor() {
+        return dotColor;
+    }
+
+    public void setDotColor(@ColorInt int dotColor) {
+        this.dotColor = dotColor;
+        postInvalidate();
+    }
+
+    public int getDotRadius() {
+        return dotRadius;
+    }
+
+    public void setDotRadius(int dotRadius) {
+        this.dotRadius = dotRadius;
+        postInvalidate();
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
@@ -148,12 +173,11 @@ public class RadarView extends View {
         }
 
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.GREEN);
+        paint.setColor(dotColor);
         for (int i = 0; i < count; i++) {
             RadarPoint point = pointLists.get(0).get(i);
-            canvas.drawCircle(point.getX(), point.getY(), 8, paint);
+            canvas.drawCircle(point.getX(), point.getY(), dotRadius, paint);
         }
-
 
         paint.setColor(outputColor);
         drawPolygon(canvas, getDataPoints(startAngle, maxRadius, radarEntities), paint);
@@ -161,7 +185,7 @@ public class RadarView extends View {
         //labels
         for (int i = 0; i < count; i++) {
             RadarPoint point = pointLists.get(0).get(i);
-            drawLabel(canvas, radarEntities.get(i), point, textPaint, 16);
+            drawLabel(canvas, radarEntities.get(i), point, textPaint, dotRadius + 8);
         }
     }
 

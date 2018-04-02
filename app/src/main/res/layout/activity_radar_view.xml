@@ -16,6 +16,8 @@
         app:rv_layer_count="4"
         app:rv_line_color="#ccc"
         app:rv_line_width="2px"
-        app:rv_start_angle="-18" />
+        app:rv_start_angle="-18"
+        app:rv_dot_color="@color/colorPrimaryDark"
+        app:rv_dot_radius="3dp" />
 
 </LinearLayout>
