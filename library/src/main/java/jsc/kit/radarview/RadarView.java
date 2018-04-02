@@ -228,11 +228,14 @@ public class RadarView extends View {
      * @param textPaint
      */
     private void drawLabel(Canvas canvas, RadarEntity entity, RadarPoint point, TextPaint textPaint, int offset) {
+        String label = entity.getLabel();
+        if (label == null || label.trim().isEmpty())
+            return;
+
         float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, entity.getLabelTextSize(), getResources().getDisplayMetrics());
         textPaint.setColor(entity.getLabelColor());
         textPaint.setTextSize(textSize);
         Rect rect = new Rect();
-        String label = entity.getLabel();
         textPaint.getTextBounds(label, 0, label.length(), rect);
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         int w = rect.right - rect.left;
