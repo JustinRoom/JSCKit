@@ -4,13 +4,15 @@ import android.support.annotation.ColorInt;
 
 public class GiftEntity {
     private int key;
-    private String name;
+    private String label;
+    private int labelTextColor;
     private int backgroundColor;
-    float startAngle;
-    float sweepAngle;
+    private float startAngle;
+    private float sweepAngle;
 
     public GiftEntity() {
         backgroundColor = 0xFFFF00FF;
+        labelTextColor = 0xFF333333;
     }
 
     public int getKey() {
@@ -21,12 +23,20 @@ public class GiftEntity {
         this.key = key;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int getLabelTextColor() {
+        return labelTextColor;
+    }
+
+    public void setLabelTextColor(int labelTextColor) {
+        this.labelTextColor = labelTextColor;
     }
 
     public int getBackgroundColor() {

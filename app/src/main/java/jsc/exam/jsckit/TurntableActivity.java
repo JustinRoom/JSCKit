@@ -27,7 +27,7 @@ public class TurntableActivity extends AppCompatActivity {
         turntableView.setOnTurnListener(new TurntableView.OnTurnListener() {
             @Override
             public void onTurnEnd(int index, GiftEntity entity) {
-                Toast.makeText(TurntableActivity.this, entity.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TurntableActivity.this, entity.getLabel(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -61,7 +61,7 @@ public class TurntableActivity extends AppCompatActivity {
         };
         for (int i = 0; i < colors.length; i++) {
             GiftEntity entity = new GiftEntity();
-            entity.setName("礼品" + (i + 1));
+            entity.setLabel("礼品" + (i + 1));
             entity.setBackgroundColor(colors[i]);
             gifts.add(entity);
         }

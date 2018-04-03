@@ -117,6 +117,13 @@ public class TurntableView extends FrameLayout {
         compassView.setRotation(0);
     }
 
+    /**
+     * @param labelTextSize the unit is sp.
+     */
+    public void setLabelTextSize(float labelTextSize) {
+        chassisView.setLabelTextSize(labelTextSize);
+    }
+
     public void setGifts(List<GiftEntity> gifts) {
         chassisView.setGifts(gifts);
     }
@@ -144,7 +151,7 @@ public class TurntableView extends FrameLayout {
         turntable(target, turnCount, perAngle);
     }
 
-    private void turntable(View target, int turnCount, float perAngle){
+    private void turntable(View target, int turnCount, float perAngle) {
         float startAngle = target.getRotation();
         float endAngle = startAngle + turnCount * perAngle;
         ObjectAnimator animator = ObjectAnimator.ofFloat(target, View.ROTATION, startAngle, endAngle).setDuration(turnCount * 50);

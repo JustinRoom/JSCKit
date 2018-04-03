@@ -41,7 +41,7 @@ public class ChassisView extends View {
     private void init() {
         paint.setStyle(Paint.Style.FILL);
         textPaint.setColor(0xff333333);
-        textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+        setLabelTextSize(12.0f);
     }
 
     public List<GiftEntity> getGifts() {
@@ -55,8 +55,15 @@ public class ChassisView extends View {
         postInvalidate();
     }
 
-    public int getGiftCount(){
+    public int getGiftCount() {
         return gifts.size();
+    }
+
+    /**
+     * @param labelTextSize the unit is sp.
+     */
+    public void setLabelTextSize(float labelTextSize) {
+        textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, labelTextSize, getResources().getDisplayMetrics()));
     }
 
     @Override
@@ -64,7 +71,7 @@ public class ChassisView extends View {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
         int count = gifts.size();
         int perAngle = 360 / count;
-        float startAngle = - 90 - perAngle / 2.0f;
+        float startAngle = -90 - perAngle / 2.0f;
         for (int i = 0; i < count; i++) {
             GiftEntity entity = gifts.get(i);
             entity.setStartAngle(startAngle + perAngle * i);
@@ -93,17 +100,18 @@ public class ChassisView extends View {
     }
 
     private void drawPathText(Canvas canvas, RectF rectF, GiftEntity entity, TextPaint textPaint) {
-        String name = entity.getName();
-        if (name == null || name.trim().isEmpty())
+        String label = entity.getLabel();
+        if (label == null || label.trim().isEmpty())
             return;
 
         Rect rect = new Rect();
-        textPaint.getTextBounds(name, 0, name.length(), rect);
-        int nameWidth = rect.right - rect.left;
-        int nameHeight = rect.bottom - rect.top;
+        textPaint.setColor(entity.getLabelTextColor());
+        textPaint.getTextBounds(label, 0, label.length(), rect);
+        int labelWidth = rect.right - rect.left;
+        int labelHeight = rect.bottom - rect.top;
         Path path = new Path();
         path.addArc(rectF, entity.getStartAngle(), entity.getSweepAngle());
-        float hOffset = (new PathMeasure(path, false).getLength() - nameWidth) / 2.0f;
-        canvas.drawTextOnPath(name, path, hOffset, nameHeight, textPaint);
+        float hOffset = (new PathMeasure(path, false).getLength() - labelWidth) / 2.0f;
+        canvas.drawTextOnPath(label, path, hOffset, labelHeight, textPaint);
     }
 }
