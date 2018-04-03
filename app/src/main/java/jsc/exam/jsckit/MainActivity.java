@@ -43,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cl_v_scroll_screen:
                 startActivity(new Intent(this, VScrollScreenLayoutActivity.class));
                 break;
-                case R.id.cl_radar_view:
+            case R.id.cl_radar_view:
                 startActivity(new Intent(this, RadarViewActivity.class));
+                break;
+            case R.id.cl_turntable:
+                startActivity(new Intent(this, TurntableActivity.class));
                 break;
             case R.id.cl_about:
                 startActivity(new Intent(this, AboutActivity.class));

@@ -27,6 +27,7 @@
         <activity android:name=".VScrollScreenLayoutActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".RadarViewActivity" />
+        <activity android:name=".TurntableActivity" />
     </application>
 
 </manifest>
