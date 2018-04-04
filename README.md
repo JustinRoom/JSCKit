@@ -43,16 +43,22 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
 ### Component list:
-+ [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)
-+ [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)
-+ [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview)
-+ [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview)
-+ [**MonthView**](/library/src/main/java/jsc/kit/monthview)
-+ [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout)
-+ [**RefreshLayout**](/library/src/main/java/jsc/kit/refreshlayout)
-+ [**VerticalStepView**](/library/src/main/java/jsc/kit/stepview)
-+ [**JSCRoundCornerProgressBar**](/library/src/main/java/jsc/kit/progressbar)
-+ [**JSCItemLayout**](/library/src/main/java/jsc/kit/itemlayout)
-+ [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen)
-+ [**RadarView**](/library/src/main/java/jsc/kit/radarview)
-+ [**TurntableView**](/library/src/main/java/jsc/kit/turntable)
+| Component                 | Document        |
+| : ----------------------- | : ------------- |
+| LGradientArcHeaderView    | right-aligned   |
+| MonthView                 | centered        |
+| JSCRoundCornerProgressBar | are neat        |
+
++ [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————文档：[ArcHeaderView和ArcHeaderDrawable](https://www.jianshu.com/p/ded0dc4ea528)
++ [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————文档：[]()
++ [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview)————————文档：[]()
++ [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview)————————文档：[]()
++ [**MonthView**](/library/src/main/java/jsc/kit/monthview)————————文档：[]()
++ [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout)————————文档：[]()
++ [**RefreshLayout**](/library/src/main/java/jsc/kit/refreshlayout)————————文档：[]()
++ [**VerticalStepView**](/library/src/main/java/jsc/kit/stepview)————————文档：[]()
++ [**JSCRoundCornerProgressBar**](/library/src/main/java/jsc/kit/progressbar)文档：[]()
++ [**JSCItemLayout**](/library/src/main/java/jsc/kit/itemlayout)————————文档：[]()
++ [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen)————————文档：[]()
++ [**RadarView**](/library/src/main/java/jsc/kit/radarview)————————文档：[]()
++ [**TurntableView**](/library/src/main/java/jsc/kit/turntable)————————文档：[]()
