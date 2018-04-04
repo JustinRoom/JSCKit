@@ -45,7 +45,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ### Component list:
 
 + [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————Document:[ArcHeaderView和ArcHeaderDrawable](https://www.jianshu.com/p/ded0dc4ea528)
-+ [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————Document:[ArcHeaderView和ArcHeaderDrawable**](https://www.jianshu.com/p/ded0dc4ea528)
++ [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————Document:[ArcHeaderView和ArcHeaderDrawable](https://www.jianshu.com/p/ded0dc4ea528)
 + [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview)————————Document:[ArcHeaderView和ArcHeaderDrawable](https://www.jianshu.com/p/ded0dc4ea528)
 + [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview)————————Document:[用ViewPager打造高性能广告轮播控件BannerView](https://www.jianshu.com/p/652090682b31)
 + [**MonthView**](/library/src/main/java/jsc/kit/monthview)————————Document:[日历 MonthView](https://www.jianshu.com/p/2387952b3d34)
