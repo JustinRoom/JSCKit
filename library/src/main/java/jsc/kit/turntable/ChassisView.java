@@ -83,10 +83,10 @@ public class ChassisView extends View {
     }
 
     /**
-     * @param labelTextSize the unit is sp.
+     * @param labelTextSizeSp the unit is sp.
      */
-    public void setLabelTextSize(float labelTextSize) {
-        textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, labelTextSize, getResources().getDisplayMetrics()));
+    public void setLabelTextSize(float labelTextSizeSp) {
+        textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, labelTextSizeSp, getResources().getDisplayMetrics()));
         postInvalidate();
     }
 

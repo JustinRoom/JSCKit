@@ -118,10 +118,10 @@ public class TurntableView extends FrameLayout {
     }
 
     /**
-     * @param labelTextSize the unit is sp.
+     * @param labelTextSizeSp the unit is sp.
      */
-    public void setLabelTextSize(float labelTextSize) {
-        chassisView.setLabelTextSize(labelTextSize);
+    public void setLabelTextSize(float labelTextSizeSp) {
+        chassisView.setLabelTextSize(labelTextSizeSp);
     }
 
     public void setGifts(List<GiftEntity> gifts) {
