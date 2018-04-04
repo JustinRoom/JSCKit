@@ -67,6 +67,8 @@ public class TurntableActivity extends AppCompatActivity {
             GiftEntity entity = new GiftEntity();
             entity.setLabel("礼品" + (i + 1));
             entity.setBackgroundColor(colors[i]);
+            if (colors[i] == Color.RED)
+                entity.setLabelTextColor(Color.WHITE);
             entity.setBitmap(bitmap);
             gifts.add(entity);
         }

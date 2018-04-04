@@ -4,12 +4,17 @@ import android.graphics.Bitmap;
 import android.support.annotation.ColorInt;
 
 public class GiftEntity {
+    /**备用字段。*/
     private int key;
     private Bitmap bitmap;
+    /**备用字段。例如：本地图片路径、网络图片路径...假如是图片路径，我们可以通过此字段获取bitmap，然后再调用{@link #setBitmap(Bitmap)}设置图片。*/
+    private String url;
     private String label;
     private int labelTextColor;
     private int backgroundColor;
+    /**图饼的起始角度。会自动赋值，不需要设置。*/
     private float startAngle;
+    /**图饼的扫描角度。会自动赋值，不需要设置。*/
     private float sweepAngle;
 
     public GiftEntity() {
@@ -31,6 +36,14 @@ public class GiftEntity {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getLabel() {
