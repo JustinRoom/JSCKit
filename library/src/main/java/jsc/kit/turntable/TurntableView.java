@@ -151,6 +151,17 @@ public class TurntableView extends FrameLayout {
         return compassView;
     }
 
+    /**
+     * 旋转特定的角度<br/>
+     * 假如需要旋转2000度，而礼品种类数是12，那么它实际上旋转2010度。计算如下：<br/>
+     * <code>
+     *     360 / 12 = 30
+     *     2000 / 30 = 66
+     *     2000 - 30 * 66 = 20
+     *     实际旋转角度 = 30 * (66 + 1) = 2010
+     * </code>
+     * @param angle
+     */
     public void turntableByAngle(int angle) {
         int giftCount = chassisView.getGiftCount();
         if (giftCount == 0 || angle == 0)

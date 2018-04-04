@@ -48,7 +48,7 @@ public class TurntableActivity extends AppCompatActivity {
                 Random random = new Random();
 //                int angle = 2000 + random.nextInt(2000);
 //                turntableView.turntableByAngle(angle);
-                int turnCount = 12 * (3 + random.nextInt(5)) + random.nextInt(12);
+                int turnCount = 12 * (5 + random.nextInt(5)) + random.nextInt(12);
                 turntableView.turntableByCount(turnCount);
                 break;
         }
