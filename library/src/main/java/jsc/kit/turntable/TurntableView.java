@@ -175,6 +175,16 @@ public class TurntableView extends FrameLayout {
         turntable(target, turnCount, perAngle);
     }
 
+    /**
+     * 旋转特定的角度<br/>
+     * 假如需要旋转turnCount = 12 * 10 + 7，而礼品种类数是12，那么它实际上旋转3810度。计算如下：<br/>
+     * <code>
+     *     360 / 12 = 30
+     *     实际旋转角度 = 30 * 127 = 3810
+     * </code>
+     *
+     * @param turnCount
+     */
     public void turntableByCount(int turnCount) {
         int giftCount = chassisView.getGiftCount();
         if (giftCount == 0 || turnCount == 0)
