@@ -11,17 +11,24 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p></p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class ChassisView extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private RectF rectF = new RectF();
-    private RectF textRectF = new RectF();
     private TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     private List<GiftEntity> gifts = new ArrayList<>();
 
@@ -64,6 +71,7 @@ public class ChassisView extends View {
      */
     public void setLabelTextSize(float labelTextSize) {
         textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, labelTextSize, getResources().getDisplayMetrics()));
+        postInvalidate();
     }
 
     @Override
@@ -89,13 +97,12 @@ public class ChassisView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         rectF.set(0, 0, getWidth(), getWidth());
-        textRectF.set(20, 20, getWidth() - 20, getWidth() - 20);
         int count = gifts.size();
         for (int i = 0; i < count; i++) {
             GiftEntity entity = gifts.get(i);
             paint.setColor(entity.getBackgroundColor());
             canvas.drawArc(rectF, entity.getStartAngle(), entity.getSweepAngle(), true, paint);
-            drawPathText(canvas, textRectF, entity, textPaint);
+            drawPathText(canvas, rectF, entity, textPaint);
         }
     }
 
@@ -112,6 +119,6 @@ public class ChassisView extends View {
         Path path = new Path();
         path.addArc(rectF, entity.getStartAngle(), entity.getSweepAngle());
         float hOffset = (new PathMeasure(path, false).getLength() - labelWidth) / 2.0f;
-        canvas.drawTextOnPath(label, path, hOffset, labelHeight, textPaint);
+        canvas.drawTextOnPath(label, path, hOffset, labelHeight + 16, textPaint);
     }
 }
