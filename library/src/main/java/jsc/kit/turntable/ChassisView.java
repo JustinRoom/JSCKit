@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p></p>
+ * <p>转盘底盘</p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  *
@@ -67,7 +67,12 @@ public class ChassisView extends View {
     }
 
     /**
-     * 刷新视图。例如：礼品图片是网络图片，我们在获取网络图片后重新绘制该视图。
+     * 刷新视图。<br/>
+     * 例如：礼品图片是网络图片，执行以下步骤：<br/>
+     * 1、获取网络图片<br/>
+     * 2、设置Bitmap。{@link GiftEntity#setBitmap(Bitmap)}<br/>
+     * 3、调用此方法重新绘制。<br/>
+     *
      */
     public void notifyDataSetChanged(){
         postInvalidate();
