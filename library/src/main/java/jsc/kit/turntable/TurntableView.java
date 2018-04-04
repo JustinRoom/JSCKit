@@ -4,12 +4,10 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import android.widget.ImageView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.List;
 
 import jsc.kit.R;
@@ -37,11 +34,13 @@ public class TurntableView extends FrameLayout {
     private ChassisView chassisView;//转盘底盘
     private ImageView compassView;//转盘指针
     private int rotationType = ROTATION_TYPE_CHASSIS;
+    private ObjectAnimator animator;
+    private boolean isRotating = false;
     private OnTurnListener onTurnListener;
     private Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
-
+            isRotating = true;
         }
 
         @Override
@@ -57,11 +56,12 @@ public class TurntableView extends FrameLayout {
             GiftEntity entity = chassisView.getGifts().get(index);
             if (onTurnListener != null)
                 onTurnListener.onTurnEnd(index, entity);
+            isRotating = false;
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
-
+            isRotating = false;
         }
 
         @Override
@@ -114,8 +114,21 @@ public class TurntableView extends FrameLayout {
     }
 
     public void reset() {
+        //stop animation
+        if (animator != null && animator.isRunning())
+            animator.cancel();
+
+        //reset rotation.
         chassisView.setRotation(0);
         compassView.setRotation(0);
+    }
+
+    /**
+     * it is rotating or not.
+     * @return
+     */
+    public boolean isRotating() {
+        return isRotating;
     }
 
     /**
@@ -137,9 +150,8 @@ public class TurntableView extends FrameLayout {
      * 1、获取网络图片<br/>
      * 2、设置Bitmap。{@link GiftEntity#setBitmap(Bitmap)}<br/>
      * 3、调用此方法重新绘制。<br/>
-     *
      */
-    public void notifyDataSetChanged(){
+    public void notifyDataSetChanged() {
         chassisView.postInvalidate();
     }
 
@@ -155,16 +167,17 @@ public class TurntableView extends FrameLayout {
      * 旋转特定的角度<br/>
      * 假如需要旋转2000度，而礼品种类数是12，那么它实际上旋转2010度。计算如下：<br/>
      * <code>
-     *     360 / 12 = 30
-     *     2000 / 30 = 66
-     *     2000 - 30 * 66 = 20
-     *     实际旋转角度 = 30 * (66 + 1) = 2010
+     * 360 / 12 = 30
+     * 2000 / 30 = 66
+     * 2000 - 30 * 66 = 20
+     * 实际旋转角度 = 30 * (66 + 1) = 2010
      * </code>
+     *
      * @param angle
      */
     public void turntableByAngle(int angle) {
         int giftCount = chassisView.getGiftCount();
-        if (giftCount == 0 || angle == 0)
+        if (isRotating || giftCount == 0 || angle == 0)
             return;
 
         View target = rotationType == ROTATION_TYPE_CHASSIS ? chassisView : compassView;
@@ -179,15 +192,15 @@ public class TurntableView extends FrameLayout {
      * 旋转特定的角度<br/>
      * 假如需要旋转turnCount = 12 * 10 + 7，而礼品种类数是12，那么它实际上旋转3810度。计算如下：<br/>
      * <code>
-     *     360 / 12 = 30
-     *     实际旋转角度 = 30 * 127 = 3810
+     * 360 / 12 = 30
+     * 实际旋转角度 = 30 * 127 = 3810
      * </code>
      *
      * @param turnCount
      */
     public void turntableByCount(int turnCount) {
         int giftCount = chassisView.getGiftCount();
-        if (giftCount == 0 || turnCount == 0)
+        if (isRotating || giftCount == 0 || turnCount == 0)
             return;
 
         View target = rotationType == ROTATION_TYPE_CHASSIS ? chassisView : compassView;
@@ -198,7 +211,7 @@ public class TurntableView extends FrameLayout {
     private void turntable(View target, int turnCount, float perAngle) {
         float startAngle = target.getRotation();
         float endAngle = startAngle + turnCount * perAngle;
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, View.ROTATION, startAngle, endAngle).setDuration(turnCount * 50);
+        animator = ObjectAnimator.ofFloat(target, View.ROTATION, startAngle, endAngle).setDuration(turnCount * 50);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.addListener(animatorListener);
         animator.start();
@@ -207,5 +220,13 @@ public class TurntableView extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        //stop animation
+        if (animator != null && animator.isRunning())
+            animator.cancel();
     }
 }
