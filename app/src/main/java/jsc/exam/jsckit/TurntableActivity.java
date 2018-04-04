@@ -54,6 +54,7 @@ public class TurntableActivity extends AppCompatActivity {
         }
     }
 
+    //礼品种类最好是能被360整除，比如3、6、9、12、18等等
     private List<GiftEntity> getGifts() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.butterfly_96px);
         List<GiftEntity> gifts = new ArrayList<>();
