@@ -25,6 +25,7 @@ public class TurntableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turntable);
         turntableView = findViewById(R.id.turntable_view);
+        turntableView.setLabelTextSize(14.0f);
         turntableView.setGifts(getGifts());
         turntableView.setOnTurnListener(new TurntableView.OnTurnListener() {
             @Override

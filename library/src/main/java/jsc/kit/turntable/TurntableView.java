@@ -118,6 +118,8 @@ public class TurntableView extends FrameLayout {
     }
 
     /**
+     * Set the text size of label. The default value is 12.
+     *
      * @param labelTextSizeSp the unit is sp.
      */
     public void setLabelTextSize(float labelTextSizeSp) {
