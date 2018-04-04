@@ -66,18 +66,6 @@ public class ChassisView extends View {
         postInvalidate();
     }
 
-    /**
-     * 刷新视图。<br/>
-     * 例如：礼品图片是网络图片，执行以下步骤：<br/>
-     * 1、获取网络图片<br/>
-     * 2、设置Bitmap。{@link GiftEntity#setBitmap(Bitmap)}<br/>
-     * 3、调用此方法重新绘制。<br/>
-     *
-     */
-    public void notifyDataSetChanged(){
-        postInvalidate();
-    }
-
     public int getGiftCount() {
         return gifts.size();
     }

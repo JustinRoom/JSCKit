@@ -3,6 +3,7 @@ package jsc.kit.turntable;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -33,8 +34,8 @@ public class TurntableView extends FrameLayout {
     public @interface RotationType {
     }
 
-    private ChassisView chassisView;
-    private ImageView compassView;
+    private ChassisView chassisView;//转盘底盘
+    private ImageView compassView;//转盘指针
     private int rotationType = ROTATION_TYPE_CHASSIS;
     private OnTurnListener onTurnListener;
     private Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
@@ -128,6 +129,26 @@ public class TurntableView extends FrameLayout {
 
     public void setGifts(List<GiftEntity> gifts) {
         chassisView.setGifts(gifts);
+    }
+
+    /**
+     * 刷新视图。<br/>
+     * 例如：礼品图片是网络图片，执行以下步骤：<br/>
+     * 1、获取网络图片<br/>
+     * 2、设置Bitmap。{@link GiftEntity#setBitmap(Bitmap)}<br/>
+     * 3、调用此方法重新绘制。<br/>
+     *
+     */
+    public void notifyDataSetChanged(){
+        chassisView.postInvalidate();
+    }
+
+    public ChassisView getChassisView() {
+        return chassisView;
+    }
+
+    public ImageView getCompassView() {
+        return compassView;
     }
 
     public void turntableByAngle(int angle) {
