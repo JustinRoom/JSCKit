@@ -1,9 +1,11 @@
 package jsc.kit.turntable;
 
+import android.graphics.Bitmap;
 import android.support.annotation.ColorInt;
 
 public class GiftEntity {
     private int key;
+    private Bitmap bitmap;
     private String label;
     private int labelTextColor;
     private int backgroundColor;
@@ -21,6 +23,14 @@ public class GiftEntity {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public String getLabel() {
@@ -61,5 +71,12 @@ public class GiftEntity {
 
     public void setSweepAngle(float sweepAngle) {
         this.sweepAngle = sweepAngle;
+    }
+
+    public void recycleBitmap(){
+        if (bitmap != null && !bitmap.isRecycled()){
+            bitmap.recycle();
+            bitmap = null;
+        }
     }
 }

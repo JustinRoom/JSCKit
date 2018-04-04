@@ -1,5 +1,7 @@
 package jsc.exam.jsckit;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -52,6 +54,7 @@ public class TurntableActivity extends AppCompatActivity {
     }
 
     private List<GiftEntity> getGifts() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.butterfly_96px);
         List<GiftEntity> gifts = new ArrayList<>();
         int[] colors = {
                 Color.GREEN, Color.YELLOW, Color.RED,
@@ -63,6 +66,7 @@ public class TurntableActivity extends AppCompatActivity {
             GiftEntity entity = new GiftEntity();
             entity.setLabel("礼品" + (i + 1));
             entity.setBackgroundColor(colors[i]);
+            entity.setBitmap(bitmap);
             gifts.add(entity);
         }
         return gifts;

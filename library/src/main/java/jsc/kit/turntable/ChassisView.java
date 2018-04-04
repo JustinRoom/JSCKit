@@ -1,8 +1,10 @@
 package jsc.kit.turntable;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
@@ -31,6 +33,7 @@ public class ChassisView extends View {
     private RectF rectF = new RectF();
     private TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     private List<GiftEntity> gifts = new ArrayList<>();
+    private int[] bitmapTopMargin;
 
     public ChassisView(Context context) {
         this(context, null);
@@ -59,6 +62,14 @@ public class ChassisView extends View {
         this.gifts.clear();
         if (gifts != null)
             this.gifts.addAll(gifts);
+        bitmapTopMargin = new int[this.gifts.size()];
+        postInvalidate();
+    }
+
+    /**
+     * 刷新视图。例如：礼品图片是网络图片，我们在获取网络图片后重新绘制该视图。
+     */
+    public void notifyDataSetChanged(){
         postInvalidate();
     }
 
@@ -102,23 +113,46 @@ public class ChassisView extends View {
             GiftEntity entity = gifts.get(i);
             paint.setColor(entity.getBackgroundColor());
             canvas.drawArc(rectF, entity.getStartAngle(), entity.getSweepAngle(), true, paint);
-            drawPathText(canvas, rectF, entity, textPaint);
+            bitmapTopMargin[i] = drawPathText(canvas, rectF, entity, textPaint);
+        }
+
+        for (int i = 0; i < count; i++) {
+            GiftEntity entity = gifts.get(i);
+            drawBitmap(canvas, i, entity);
         }
     }
 
-    private void drawPathText(Canvas canvas, RectF rectF, GiftEntity entity, TextPaint textPaint) {
+    private int drawPathText(Canvas canvas, RectF rectF, GiftEntity entity, TextPaint textPaint) {
+        int vOffset = 16;
         String label = entity.getLabel();
         if (label == null || label.trim().isEmpty())
-            return;
+            return vOffset;
 
         Rect rect = new Rect();
         textPaint.setColor(entity.getLabelTextColor());
         textPaint.getTextBounds(label, 0, label.length(), rect);
         int labelWidth = rect.right - rect.left;
-        int labelHeight = rect.bottom - rect.top;
+        vOffset = vOffset + rect.bottom - rect.top;
         Path path = new Path();
         path.addArc(rectF, entity.getStartAngle(), entity.getSweepAngle());
         float hOffset = (new PathMeasure(path, false).getLength() - labelWidth) / 2.0f;
-        canvas.drawTextOnPath(label, path, hOffset, labelHeight + 16, textPaint);
+        canvas.drawTextOnPath(label, path, hOffset, vOffset, textPaint);
+        return vOffset;
+    }
+
+    private void drawBitmap(Canvas canvas, int index, GiftEntity entity) {
+        Bitmap bitmap = entity.getBitmap();
+        if (bitmap == null)
+            return;
+
+        Rect dst = new Rect();
+        dst.left = (getWidth() - bitmap.getWidth()) / 2;
+        dst.top = bitmapTopMargin[index] + 16;
+        dst.right = dst.left + bitmap.getWidth();
+        dst.bottom = dst.top + bitmap.getHeight();
+        canvas.save();
+        canvas.rotate(-entity.getSweepAngle() * index, getWidth() / 2.0f, getHeight() / 2.0f);
+        canvas.drawBitmap(bitmap, null, dst, null);
+        canvas.restore();
     }
 }
