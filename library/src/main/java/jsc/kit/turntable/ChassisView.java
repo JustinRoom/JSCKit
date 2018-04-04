@@ -84,6 +84,9 @@ public class ChassisView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
         int count = gifts.size();
+        if (count == 0)
+            return;
+
         int perAngle = 360 / count;
         float startAngle = -90 - perAngle / 2.0f;
         for (int i = 0; i < count; i++) {
