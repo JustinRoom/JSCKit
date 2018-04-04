@@ -25,7 +25,7 @@ public class TurntableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turntable);
         turntableView = findViewById(R.id.turntable_view);
-        turntableView.setLabelTextSize(14.0f);
+//        turntableView.setLabelTextSize(14.0f);
         turntableView.setGifts(getGifts());
         turntableView.setOnTurnListener(new TurntableView.OnTurnListener() {
             @Override
@@ -64,9 +64,15 @@ public class TurntableActivity extends AppCompatActivity {
                 Color.GREEN, Color.YELLOW, Color.RED,
                 Color.GREEN, Color.YELLOW, Color.RED
         };
+        String[] labels = {
+                "谢谢惠顾", "蝎子", "¥10000",
+                "再来一次", "佐伊", "¥10万",
+                "美女一吻", "德玛西亚", "¥120万",
+                "可乐一瓶", "提莫", "¥500万",
+        };
         for (int i = 0; i < colors.length; i++) {
             GiftEntity entity = new GiftEntity();
-            entity.setLabel("礼品" + (i + 1));
+            entity.setLabel(labels[i]);
             entity.setBackgroundColor(colors[i]);
             if (colors[i] == Color.RED)
                 entity.setLabelTextColor(Color.WHITE);
