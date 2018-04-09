@@ -12,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +53,11 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
         //
         swipeRefreshRecyclerView.getSwipeRefreshLayout().setColorSchemeColors(0xFF3F51B5, 0xFF303F9F, 0xFFFF4081, Color.CYAN);
         //设置自定义的emptyView
-//        swipeRefreshRecyclerView.setEmptyView(createEmptyView());
+        int topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, getResources().getDisplayMetrics());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        params.topMargin = topMargin;
+        swipeRefreshRecyclerView.setEmptyView(createEmptyView(), params);
         //设置自定义的loadMoreView
         swipeRefreshRecyclerView.setLoadMoreView(createLoadMoreView());
         //添加刷新或者加载更多监听
@@ -131,11 +138,22 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
     }
 
     private View createEmptyView(){
+        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL);
+        //
+        ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageView.setImageResource(R.drawable.tiger);
+        layout.addView(imageView, new LinearLayout.LayoutParams(size, size));
+
         TextView textView = new TextView(this);
         textView.setGravity(Gravity.CENTER);
         textView.setText("No data.");
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        return textView;
+        layout.addView(textView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        return layout;
     }
 
     private View createLoadMoreView(){
