@@ -133,7 +133,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                 if (isLoading || !isLoadMoreEnable() || !isHaveMore || !isLastItemVisiable)
                     return;
 
-                if (customRefreshListener != null && isHaveMore) {
+                if (customRefreshListener != null) {
                     isLoading = true;
                     //show your custom loading more animation.
                     if (customLoadMoreAnimationListener != null)
