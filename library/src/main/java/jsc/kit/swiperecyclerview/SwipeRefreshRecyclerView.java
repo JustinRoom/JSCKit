@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 /**
  * refresh component with {@link SwipeRefreshLayout} and {@link RecyclerView}.
  * <p>
@@ -115,6 +117,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
                     int[] firstItemPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(null);
+//                    Log.i(TAG, "onScrolled: " + Arrays.toString(firstItemPositions));
                     isFirstItemVisiable = itemCount == 0 || (firstItemPositions.length > 0 && firstItemPositions[0] == 0);
                     int[] lastItemPositions = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
                     isLastItemVisiable = lastItemPositions.length > 0 && (lastItemPositions[lastItemPositions.length - 1] + 1 == itemCount);
@@ -185,7 +188,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     private void showScrollDownAnim() {
         loadMoreView.setVisibility(INVISIBLE);
         float translationY = swipeRefreshLayout.getTranslationY();
-        Log.i(TAG, "showScrollDownAnim: translationY=" + translationY);
+//        Log.i(TAG, "showScrollDownAnim: translationY=" + translationY);
         if (translationY == 0)
             return;
 
