@@ -8,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -35,7 +38,7 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
 
     SwipeRefreshRecyclerView swipeRefreshRecyclerView;
     LinearAdapter adapter;
-    int pageSize = 12;//一页最多可显示的数据数
+    int pageSize = 24;//一页最多可显示的数据数
     int pageIndex = 1;//页码
 
     @Override
@@ -45,7 +48,9 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
 
         swipeRefreshRecyclerView = findViewById(R.id.swipe_recycler_view);
         //添加LayoutManager
-        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
+//        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
         //添加ItemDecoration
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         decoration.setDrawable(getResources().getDrawable(R.drawable.item_decoration_shape));

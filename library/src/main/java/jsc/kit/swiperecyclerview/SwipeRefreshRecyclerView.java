@@ -8,6 +8,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -27,11 +28,11 @@ import android.widget.TextView;
 /**
  * refresh component with {@link SwipeRefreshLayout} and {@link RecyclerView}.
  * <p>
- *     features:
- *     <br/>1、pull down to refresh
- *     <br/>2、pull up to load more
- *     <br/>3、custom empty view
- *     <br/>4、custom load more view
+ * features:
+ * <br/>1、pull down to refresh
+ * <br/>2、pull up to load more
+ * <br/>3、custom empty view
+ * <br/>4、custom load more view
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -105,7 +106,11 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                 int itemCount = adapter.getItemCount();
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                    isFirstItemVisiable = itemCount == 0 || linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+                    if (linearLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL){
+                        swipeRefreshLayout.setEnabled(false);
+                        return;
+                    }
+                    isFirstItemVisiable = (itemCount == 0 || linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0);
                     isLastItemVisiable = linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == itemCount;
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
@@ -142,7 +147,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * reset init state.
      */
-    public void reset(){
+    public void reset() {
         setHaveMore(false);
         refreshComplete();
         loadMoreComplete();
@@ -336,7 +341,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * emptyView hides if {@link RecyclerView#getAdapter()} is null or {@link RecyclerView.Adapter#getItemCount()} is 0, else shows.
      */
-    public void showEmptyViewIfNecessary(){
+    public void showEmptyViewIfNecessary() {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         emptyView.setVisibility((adapter == null || adapter.getItemCount() == 0) ? VISIBLE : GONE);
     }
@@ -396,7 +401,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
         if (this.emptyView != null)
             contentContainer.removeView(this.emptyView);
         this.emptyView = emptyView;
-        if (params == null){
+        if (params == null) {
             params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.gravity = Gravity.CENTER;
         }
