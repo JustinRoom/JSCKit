@@ -472,7 +472,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
         tvLoadMore.setGravity(Gravity.CENTER);
         tvLoadMore.setBackgroundColor(Color.WHITE);
         tvLoadMore.setTextColor(Color.GREEN);
-        tvLoadMore.setText("正在加载更多");
+        tvLoadMore.setText("Loading more...");
         tvLoadMore.setPadding(0, dp8, 0, dp8);
         return tvLoadMore;
     }
