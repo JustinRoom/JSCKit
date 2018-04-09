@@ -25,7 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * <p></p>
+ * refresh component with {@link SwipeRefreshLayout} and {@link RecyclerView}.
+ * <p>
+ *     features:
+ *     <br/>1、pull down to refresh
+ *     <br/>2、pull up to load more
+ *     <br/>3、custom empty view
+ *     <br/>4、custom load more view
+ * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  *
