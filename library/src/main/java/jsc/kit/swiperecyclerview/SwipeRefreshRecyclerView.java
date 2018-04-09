@@ -116,6 +116,10 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                     isLastItemVisiable = linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == itemCount;
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+                    if (staggeredGridLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL){
+                        swipeRefreshLayout.setEnabled(false);
+                        return;
+                    }
                     int[] firstItemPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(null);
 //                    Log.i(TAG, "onScrolled: " + Arrays.toString(firstItemPositions));
                     isFirstItemVisiable = itemCount == 0 || (firstItemPositions.length > 0 && firstItemPositions[0] == 0);

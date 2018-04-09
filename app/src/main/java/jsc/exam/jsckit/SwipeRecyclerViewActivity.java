@@ -50,7 +50,7 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
         //添加LayoutManager
 //        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        swipeRefreshRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
-        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
+        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.HORIZONTAL));
         //添加ItemDecoration
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         decoration.setDrawable(getResources().getDrawable(R.drawable.item_decoration_shape));
