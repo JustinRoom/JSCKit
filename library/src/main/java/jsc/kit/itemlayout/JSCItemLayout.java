@@ -103,12 +103,20 @@ public class JSCItemLayout extends FrameLayout {
         layout.addView(arrowView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
+    public ImageView getIconView() {
+        return iconView;
+    }
+
     public TextView getLabelView() {
         return labelView;
     }
 
     public DotView getDotView() {
         return dotView;
+    }
+
+    public ImageView getArrowView() {
+        return arrowView;
     }
 
     public void setShowDot(boolean showDot) {
@@ -122,5 +130,10 @@ public class JSCItemLayout extends FrameLayout {
 
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+        labelView.setText(label);
     }
 }

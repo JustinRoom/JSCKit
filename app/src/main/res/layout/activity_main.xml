@@ -98,6 +98,20 @@
             app:il_label="RefreshLayout" />
 
         <jsc.kit.itemlayout.JSCItemLayout
+            android:id="@+id/cl_swipe_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ripple_round_corner_white_r4"
+            android:onClick="widgetClick"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            app:il_label="SwipeRefreshRecyclerView" />
+
+        <jsc.kit.itemlayout.JSCItemLayout
             android:id="@+id/cl_round_corner_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"

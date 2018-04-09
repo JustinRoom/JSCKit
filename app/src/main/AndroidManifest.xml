@@ -28,6 +28,7 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".RadarViewActivity" />
         <activity android:name=".TurntableActivity" />
+        <activity android:name=".SwipeRecyclerViewActivity" />
     </application>
 
 </manifest>
