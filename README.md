@@ -2,6 +2,11 @@
 current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ### Usage
 ##### Gradle: 
+library dependencies:
+```
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+```
 1、Add it in your root build.gradle at the end of repositories:
 ```
 	allprojects {
@@ -14,7 +19,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.1.0'
+	        compile 'com.github.JustinRoom:JSCKit:0.1.1'
 	}
 ```
 ##### Maven: 
@@ -32,13 +37,13 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.1.0</version>
+	    <version>0.1.1</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.1.0
+&#32;&#32;Demo version:0.1.1
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
@@ -57,3 +62,4 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 + [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen)————————Document:[打造上下滑动翻屏VScrollScreenLayout](https://www.jianshu.com/p/b12afbf7de30)
 + [**RadarView**](/library/src/main/java/jsc/kit/radarview)————————Document:[雷达(蜘蛛网)图RadarView](https://www.jianshu.com/p/94a4b763a4e5)
 + [**TurntableView**](/library/src/main/java/jsc/kit/turntable)————————Document:[抽奖转盘TurntableView](https://www.jianshu.com/p/3c473e1e007b)
++ [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview)————————Document:
