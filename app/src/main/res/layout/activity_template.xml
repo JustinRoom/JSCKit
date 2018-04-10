@@ -17,4 +17,5 @@
         android:paddingBottom="2dp"
         android:background="@drawable/jsc_button_shape"
         android:text="Local Download"/>
+
 </LinearLayout>

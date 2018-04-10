@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import jsc.kit.rippleview.RippleView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.cl_turntable:
                 startActivity(new Intent(this, TurntableActivity.class));
+                break;
+            case R.id.cl_ripple_view:
+                startActivity(new Intent(this, RippleViewActivity.class));
                 break;
             case R.id.cl_about:
                 startActivity(new Intent(this, AboutActivity.class));
