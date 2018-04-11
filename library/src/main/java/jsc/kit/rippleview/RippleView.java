@@ -6,13 +6,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import jsc.kit.R;
 
+/**
+ * <p></p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ *
+ * @author jiangshicheng
+ */
 public class RippleView extends View {
 
     private Paint mPaint;

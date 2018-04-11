@@ -19,7 +19,7 @@ library dependencies:
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.1.1'
+	        compile 'com.github.JustinRoom:JSCKit:0.1.2'
 	}
 ```
 ##### Maven: 
@@ -37,13 +37,13 @@ library dependencies:
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.1.1</version>
+	    <version>0.1.2</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.1.1
+&#32;&#32;Demo version:0.1.2
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
@@ -63,3 +63,4 @@ library dependencies:
 + [**RadarView**](/library/src/main/java/jsc/kit/radarview)————————Document:[雷达(蜘蛛网)图RadarView](https://www.jianshu.com/p/94a4b763a4e5)
 + [**TurntableView**](/library/src/main/java/jsc/kit/turntable)————————Document:[抽奖转盘TurntableView](https://www.jianshu.com/p/3c473e1e007b)
 + [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview)————————Document:[用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件](https://www.jianshu.com/p/f1da8cd366cb)
++ [**RippleView**](/library/src/main/java/jsc/kit/rippleview)————————Document:
