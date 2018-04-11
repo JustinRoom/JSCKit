@@ -97,4 +97,12 @@
         <attr name="rv_dot_radius" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="RippleView">
+        <attr name="rv_color" format="color"/>
+        <attr name="rv_mini_radius" format="dimension"/>
+        <attr name="rv_radius_step" format="dimension"/>
+        <attr name="rv_repeat_count" format="integer"/>
+        <attr name="rv_auto_run_on_attached" format="boolean"/>
+    </declare-styleable>
+
 </resources>

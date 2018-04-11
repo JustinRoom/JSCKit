@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
+
+    <jsc.kit.rippleview.RippleView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:rv_auto_run_on_attached="true"
+        app:rv_color="@color/colorAccent"
+        app:rv_mini_radius="0dp"
+        app:rv_radius_step="1dp"
+        app:rv_repeat_count="-1" />
+
+    <jsc.kit.rippleview.RippleView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:rv_auto_run_on_attached="true"
+        app:rv_color="@color/colorAccent"
+        app:rv_mini_radius="80dp"
+        app:rv_radius_step="-2dp"
+        app:rv_repeat_count="-1" />
 
     <jsc.kit.widget.SquareWidthFrameLayout
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="@dimen/activity_vertical_margin">
 
         <jsc.kit.rippleview.RippleView
-            android:id="@+id/ripple_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:rv_mini_radius="48dp" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,13 +44,4 @@
 
     </jsc.kit.widget.SquareWidthFrameLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:onClick="widgetClick"
-        android:text="start" />
-
-</RelativeLayout>
+</LinearLayout>
