@@ -26,7 +26,7 @@
         app:rv_radius_step="-2dp"
         app:rv_repeat_count="-1" />
 
-    <jsc.kit.widget.AspectFrameLayout
+    <jsc.kit.widget.AspectRatioFrameLayout
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin">
@@ -42,6 +42,6 @@
             android:layout_margin="32dp"
             android:src="@mipmap/default_user_header" />
 
-    </jsc.kit.widget.AspectFrameLayout>
+    </jsc.kit.widget.AspectRatioFrameLayout>
 
 </LinearLayout>
