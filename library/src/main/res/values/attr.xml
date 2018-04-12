@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="base_what">
+        <enum name="baseWidth" value="0"/>
+        <enum name="baseHeight" value="1"/>
+    </attr>
+    <attr name="x_aspect" format="integer"/>
+    <attr name="y_aspect" format="integer"/>
+
     <declare-styleable name="JSCBannerView">
         <attr name="bv_indicator_padding_left" format="dimension"/>
         <attr name="bv_indicator_padding_right" format="dimension"/>
@@ -103,6 +110,18 @@
         <attr name="rv_radius_step" format="dimension"/>
         <attr name="rv_repeat_count" format="integer"/>
         <attr name="rv_auto_run_on_attached" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioLinearLayout">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
     </declare-styleable>
 
 </resources>
