@@ -3,24 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:orientation="vertical">
 
-    <jsc.kit.archeaderview.LGradientArcHeaderView
-        android:id="@+id/lg_header_view"
+    <jsc.kit.widget.AspectRatioFrameLayout
+        android:id="@+id/fy_ar_lg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:ahv_end_color="#3300BA86"
-        app:ahv_start_color="#FF00BA86" />
+        android:layout_height="wrap_content"
+        app:base_what="baseWidth"
+        app:x_aspect="2"
+        app:y_aspect="1">
 
-    <jsc.kit.archeaderview.PictureArcHeaderView
-        android:id="@+id/p_header_view"
+        <jsc.kit.archeaderview.LGradientArcHeaderView
+            android:id="@+id/lg_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ahv_end_color="#3300BA86"
+            app:ahv_start_color="#FF00BA86" />
+
+    </jsc.kit.widget.AspectRatioFrameLayout>
+
+    <jsc.kit.widget.AspectRatioFrameLayout
+        android:id="@+id/fy_ar_p"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:ahv_src="@drawable/header" />
+        android:layout_height="wrap_content"
+        app:base_what="baseWidth"
+        app:x_aspect="2"
+        app:y_aspect="1">
 
+        <jsc.kit.archeaderview.PictureArcHeaderView
+            android:id="@+id/p_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ahv_src="@drawable/header" />
+
+    </jsc.kit.widget.AspectRatioFrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -30,7 +30,7 @@ public class ArcHeaderViewActivity extends AppCompatActivity {
         pictureArcHeaderView = findViewById(R.id.p_header_view);
         seekBar = findViewById(R.id.seek_bar);
 
-        pictureArcHeaderView.setVisibility(View.GONE);
+        findViewById(R.id.fy_ar_p).setVisibility(View.GONE);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -58,15 +58,15 @@ public class ArcHeaderViewActivity extends AppCompatActivity {
                 if (type == 0)
                     return;
                 type = 0;
-                lGradientArcHeaderView.setVisibility(View.VISIBLE);
-                pictureArcHeaderView.setVisibility(View.GONE);
+                findViewById(R.id.fy_ar_lg).setVisibility(View.VISIBLE);
+                findViewById(R.id.fy_ar_p).setVisibility(View.GONE);
                 break;
             case R.id.btn_type_pic:
                 if (type == 1)
                     return;
                 type = 1;
-                lGradientArcHeaderView.setVisibility(View.GONE);
-                pictureArcHeaderView.setVisibility(View.VISIBLE);
+                findViewById(R.id.fy_ar_lg).setVisibility(View.GONE);
+                findViewById(R.id.fy_ar_p).setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_direction_down:
                 lGradientArcHeaderView.setDirection(BaseArcHeaderView.DIRECTION_DOWN_OUT_SIDE);

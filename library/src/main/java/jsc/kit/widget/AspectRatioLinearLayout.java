@@ -2,6 +2,7 @@ package jsc.kit.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -64,5 +65,32 @@ public class AspectRatioLinearLayout extends LinearLayout {
                 break;
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    public int getBaseWhat() {
+        return baseWhat;
+    }
+
+    public void setBaseWhat(@IntRange(from = 0, to = 1) int baseWhat) {
+        this.baseWhat = baseWhat;
+        requestLayout();
+    }
+
+    public int getxAspect() {
+        return xAspect;
+    }
+
+    public void setxAspect(@IntRange(from = 1) int xAspect) {
+        this.xAspect = xAspect;
+        requestLayout();
+    }
+
+    public int getyAspect() {
+        return yAspect;
+    }
+
+    public void setyAspect(@IntRange(from = 1) int yAspect) {
+        this.yAspect = yAspect;
+        requestLayout();
     }
 }
