@@ -1,4 +1,4 @@
-package jsc.exam.jsckit.adapter;
+package jsc.kit.swiperecyclerview;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -6,11 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import jsc.exam.jsckit.entity.Banner;
-
 public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    public List<T> items = new ArrayList<>();
+    private List<T> items = new ArrayList<>();
+    private OnItemClickListener<T> onItemClickListener = null;
+    private OnItemLongClickListener<T> onItemLongClickListener = null;
+
+    public List<T> getItems() {
+        return items;
+    }
 
     public void setItems(List<T> items) {
         this.items.clear();
@@ -31,6 +35,22 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
             this.items.add(item);
             notifyDataSetChanged();
         }
+    }
+
+    public OnItemClickListener<T> getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public OnItemLongClickListener<T> getOnItemLongClickListener() {
+        return onItemLongClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override

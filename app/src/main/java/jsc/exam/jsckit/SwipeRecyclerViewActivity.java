@@ -32,6 +32,8 @@ import java.util.Random;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.itemlayout.JSCItemLayout;
+import jsc.kit.swiperecyclerview.OnItemClickListener;
+import jsc.kit.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.swiperecyclerview.SwipeRefreshRecyclerView;
 
 public class SwipeRecyclerViewActivity extends AppCompatActivity {
@@ -122,6 +124,28 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
         });
 */
         adapter = new LinearAdapter();
+        adapter.setOnItemClickListener(new OnItemClickListener<Banner>() {
+            @Override
+            public void onItemClick(View view, Banner item) {
+                Toast.makeText(view.getContext(), item.getLabel(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemClick(View view, Banner item, int adapterPosition, int layoutPosition) {
+
+            }
+        });
+        adapter.setOnItemLongClickListener(new OnItemLongClickListener<Banner>() {
+            @Override
+            public boolean onItemLongClick(View view, Banner item) {
+                return false;
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, Banner item, int adapterPosition, int layoutPosition) {
+                return false;
+            }
+        });
         //设置适配器
         swipeRefreshRecyclerView.setAdapter(adapter);
         //300毫秒后自动刷新

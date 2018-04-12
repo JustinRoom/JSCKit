@@ -4,11 +4,13 @@ package jsc.exam.jsckit.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.itemlayout.JSCItemLayout;
+import jsc.kit.swiperecyclerview.BaseRecyclerViewAdapter;
 
 public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder> {
 
@@ -33,6 +35,13 @@ public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter
 
         public MViewHolder(JSCItemLayout itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getOnItemClickListener() != null)
+                        getOnItemClickListener().onItemClick(v, getItemAtPosition(getAdapterPosition()));
+                }
+            });
         }
     }
 }
