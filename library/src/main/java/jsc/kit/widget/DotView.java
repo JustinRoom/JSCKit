@@ -1,4 +1,4 @@
-package jsc.kit.itemlayout;
+package jsc.kit.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

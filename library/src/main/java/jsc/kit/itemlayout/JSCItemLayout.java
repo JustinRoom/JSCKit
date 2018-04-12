@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import jsc.kit.R;
+import jsc.kit.widget.DotView;
 
 /**
  * <p></p>
