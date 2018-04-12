@@ -8,7 +8,17 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import jsc.kit.R;
-
+/**
+ * <p>
+ *     自定义宽高比例的FrameLayout，例如2:5、4:3等等。
+ *     默认为1:1。
+ * </p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br>https://github.com/JustinRoom/JSCKit
+ *
+ * @author jiangshicheng
+ */
 public class AspectRatioFrameLayout extends FrameLayout {
     private int baseWhat;
     private int xAspect;
