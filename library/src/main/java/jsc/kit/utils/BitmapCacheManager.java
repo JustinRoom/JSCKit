@@ -37,6 +37,9 @@ public class BitmapCacheManager {
         return instance;
     }
 
+    /**
+     * Make sure that the singleton is thread_safe.
+     */
     public void init() {
 
     }
