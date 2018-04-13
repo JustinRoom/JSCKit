@@ -135,5 +135,7 @@ public class BitmapCacheManager {
             }
         }
         bitmapCache.clear();
+        //加快内存的回收
+        System.gc();
     }
 }

@@ -29,3 +29,21 @@
 
 ### 五、优化
 + [Android开发优化之——使用软引用和弱引用](https://blog.csdn.net/arui319/article/details/8489451)
++ [Java中三个引用类SoftReference 、 WeakReference 和 PhantomReference的区别](https://blog.csdn.net/huoyin/article/details/5891998)
++ [Java引用总结--StrongReference、SoftReference、WeakReference、PhantomReference](https://www.cnblogs.com/skywang12345/p/3154474.html)
++ [java中虚引用PhantomReference与弱引用WeakReference（软引用SoftReference）的差别](https://blog.csdn.net/aitangyong/article/details/41358427)
++ [StrongReference、SoftReference、WeakReference、PhantomReference](https://blog.csdn.net/feng88724/article/details/6590064)
++ [Android开发优化之——对Bitmap的内存优化](https://blog.csdn.net/arui319/article/details/7953690)
++ [Android开发优化之——从代码角度进行优化](https://blog.csdn.net/arui319/article/details/8537588)
+
+### 六、网络层
+##### 1、HTTP
++ [关于HTTP协议，一篇就够了](https://www.cnblogs.com/ranyonsue/p/5984001.html)
++ [计算机网络：这是一份全面& 详细 HTTP知识讲解](https://www.jianshu.com/p/a6d086a3997d)
++ [http协议详解(超详细)](https://www.cnblogs.com/wangning528/p/6388464.html)
++ [HTTP 教程](http://www.runoob.com/http/http-tutorial.html)
+##### 2、Socket
++ [Android：这是一份很详细的Socket使用攻略](https://blog.csdn.net/carson_ho/article/details/53366856)
+
+### 七、屏幕适配
++ []()
