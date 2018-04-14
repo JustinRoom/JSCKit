@@ -46,6 +46,8 @@ public class TurntableView extends FrameLayout {
         @Override
         public void onAnimationEnd(Animator animation) {
             View target = rotationType == ROTATION_TYPE_CHASSIS ? chassisView : compassView;
+            //回收view在GPU的off-screen中的缓存。
+            target.setLayerType(LAYER_TYPE_NONE, null);
             int giftCount = chassisView.getGiftCount();
             int perAngle = 360 / giftCount;
             float rotation = target.getRotation() % 360;
@@ -211,6 +213,9 @@ public class TurntableView extends FrameLayout {
     private void turntable(View target, int turnCount, float perAngle) {
         float startAngle = target.getRotation();
         float endAngle = startAngle + turnCount * perAngle;
+        //开启GPU的off-screen缓存区，提高动画的流畅度。
+        //注意：一定要记得在动画完成之后回收该缓存。
+        target.setLayerType(LAYER_TYPE_HARDWARE, null);
         animator = ObjectAnimator.ofFloat(target, View.ROTATION, startAngle, endAngle).setDuration(turnCount * 50);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.addListener(animatorListener);
