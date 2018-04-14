@@ -35,6 +35,9 @@
 + [StrongReference、SoftReference、WeakReference、PhantomReference](https://blog.csdn.net/feng88724/article/details/6590064)
 + [Android开发优化之——对Bitmap的内存优化](https://blog.csdn.net/arui319/article/details/7953690)
 + [Android开发优化之——从代码角度进行优化](https://blog.csdn.net/arui319/article/details/8537588)
++ [RelativeLayout和LinearLayout性能比较 ](https://blog.csdn.net/whb20081815/article/details/74465870)
++ [Android性能优化一(View篇)](https://www.jianshu.com/p/76ecd3b67515)
++ [Android性能优化 view.setLayerType(View.LAYER_TYPE_NONE, null); 来优化Property动画](https://blog.csdn.net/sd19871122/article/details/52087026)
 
 ### 六、网络层
 ##### 1、HTTP

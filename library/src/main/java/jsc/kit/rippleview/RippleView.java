@@ -74,6 +74,7 @@ public class RippleView extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        setLayerType(LAYER_TYPE_NONE, mPaint);
         stop();
     }
 
@@ -162,6 +163,9 @@ public class RippleView extends View {
     public void start() {
         if (running)
             return;
+        //本动画是基于invalidate()不断重绘实现，我们将view渲染入一个非屏幕区域缓冲区，增加动画的流畅性
+        //因为GPU的内存是很珍贵的，所以一定要记得在动画执行完之后要回收view在非屏幕区域缓冲区的内存块。
+        setLayerType(LAYER_TYPE_HARDWARE, null);
         running = true;
         //第一次动画开始
         if (animListener != null) {
@@ -180,6 +184,8 @@ public class RippleView extends View {
     }
 
     private void reset() {
+        //回收view在非屏幕区域缓冲区的内存块
+        setLayerType(LAYER_TYPE_NONE, null);
         curRadius = minRadius;
         running = false;
         repeatIndex = 0;
