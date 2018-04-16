@@ -50,34 +50,6 @@
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
             toScannerActivity();
     }
-
-    @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
-        new AlertDialog.Builder(this)
-                .setTitle("温馨提示")
-                .setMessage("当前应用需要【" + getPermissionDeniedTips(permission) + "】权限。")
-                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("知道了", null)
-                .show();
-        return super.shouldShowRequestPermissionRationale(permission);
-    }
-
-    private String getPermissionDeniedTips(String permission) {
-        String tip;
-        if (Manifest.permission.ACCESS_NETWORK_STATE.equals(permission))
-            tip = "查看网络状态";
-        else if (Manifest.permission.CALL_PHONE.equals(permission))
-            tip = "拨号";
-        else
-            tip = "未知";
-        return tip;
-    }
 ```
 You also can reference [ZXingScannerActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingScannerActivity.java).
 ### tool：
