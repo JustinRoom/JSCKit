@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion sdk_veriosn
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 12
-        versionName "0.1.2"
+        minSdkVersion min_sdk_veriosn
+        targetSdkVersion sdk_veriosn
+        versionCode version_code
+        versionName version_name
     }
 
     buildTypes {
@@ -22,6 +22,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation "com.android.support:appcompat-v7:$component_version"
+    implementation "com.android.support:recyclerview-v7:$component_version"
 }

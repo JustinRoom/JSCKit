@@ -10,13 +10,13 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion sdk_veriosn
     defaultConfig {
         applicationId "jsc.exam.jsckit"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 12
-        versionName "0.1.2"
+        minSdkVersion min_sdk_veriosn
+        targetSdkVersion sdk_veriosn
+        versionCode version_code
+        versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,8 +36,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation "com.android.support:appcompat-v7:$component_version"
+    implementation "com.android.support:recyclerview-v7:$component_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -49,7 +49,7 @@ dependencies {
 
     //AVLoadingIndicatorView
     //https://github.com/81813780/AVLoadingIndicatorView
-    compile 'com.wang.avi:library:2.1.3'
+    implementation 'com.wang.avi:library:2.1.3'
 
     //zxing
     implementation 'com.google.zxing:core:3.3.2'
