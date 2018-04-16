@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         List<ClassItem> classItems = new ArrayList<>();
         classItems.add(new ClassItem("ComponentList", ComponentListActivity.class));
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
+        classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
         classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
         return classItems;
     }

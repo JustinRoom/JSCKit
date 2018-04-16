@@ -1,1 +1,1 @@
-include ':app', ':library', ':ZXingLibrary'
+include ':app', ':library', ':ZXingLibrary', ':Retrofit2Library'

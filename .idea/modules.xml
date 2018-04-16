@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JSCKit.iml" filepath="$PROJECT_DIR$/JSCKit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Retrofit2Library/Retrofit2Library.iml" filepath="$PROJECT_DIR$/Retrofit2Library/Retrofit2Library.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZXingLibrary/ZXingLibrary.iml" filepath="$PROJECT_DIR$/ZXingLibrary/ZXingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
