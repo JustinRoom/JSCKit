@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,7 +12,8 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import jsc.exam.jsckit.utils.ZXingBarcodeUtils;
+import jsc.exam.jsckit.R;
+import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         tvVersion = findViewById(R.id.tv_version);
         ivQRCode = findViewById(R.id.iv_qr_code);
@@ -48,7 +50,7 @@ public class AboutActivity extends AppCompatActivity {
             public void run() {
                 int[] colors = {Color.GREEN, 0x99FF4081, Color.BLUE, Color.CYAN};
                 int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
-                Bitmap bitmap = ZXingBarcodeUtils.createQRCodeBitmap(apkUrl, size, size, colors);
+                Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(apkUrl, size, size, colors);
                 ivQRCode.setImageBitmap(bitmap);
             }
         }, 300);

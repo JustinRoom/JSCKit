@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.rippleview.RippleView;
 
 public class RippleViewActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class RippleViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ripple_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
 //        rippleView = findViewById(R.id.ripple_view);
 //        rippleView.setColor(Color.CYAN);

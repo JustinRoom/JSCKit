@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.itemlayout.JSCItemLayout;
@@ -47,6 +48,7 @@ public class SwipeRecyclerViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swip_recycler_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         swipeRefreshRecyclerView = findViewById(R.id.swipe_recycler_view);
         //添加LayoutManager

@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.monthview.DayItem;
 import jsc.kit.monthview.DayView;
 import jsc.kit.monthview.MonthUtils;
@@ -27,6 +28,7 @@ public class MonthViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         initView();
     }

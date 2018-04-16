@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.turntable.GiftEntity;
 import jsc.kit.turntable.TurntableView;
 
-public class TurntableActivity extends AppCompatActivity {
+public class TurntableViewActivity extends AppCompatActivity {
 
     private TurntableView turntableView;
 
@@ -24,13 +25,15 @@ public class TurntableActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turntable);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
+
         turntableView = findViewById(R.id.turntable_view);
 //        turntableView.setLabelTextSize(14.0f);
         turntableView.setGifts(getGifts());
         turntableView.setOnTurnListener(new TurntableView.OnTurnListener() {
             @Override
             public void onTurnEnd(int index, GiftEntity entity) {
-                Toast.makeText(TurntableActivity.this, entity.getLabel(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TurntableViewActivity.this, entity.getLabel(), Toast.LENGTH_SHORT).show();
             }
         });
     }

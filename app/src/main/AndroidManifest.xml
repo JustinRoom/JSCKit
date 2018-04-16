@@ -10,27 +10,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArcHeaderViewActivity" />
-        <activity android:name=".BannerViewActivity" />
-        <activity android:name=".MonthViewActivity" />
-        <activity android:name=".ReboundLayoutActivity" />
-        <activity android:name=".StepViewActivity" />
-        <activity android:name=".RefreshLayoutActivity" />
-        <activity android:name=".RoundCornerProgressBarActivity" />
-        <activity android:name=".ItemLayoutActivity" />
-        <activity android:name=".VScrollScreenLayoutActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".RadarViewActivity" />
-        <activity android:name=".TurntableActivity" />
-        <activity android:name=".SwipeRecyclerViewActivity" />
-        <activity android:name=".RippleViewActivity" />
+        <activity android:name=".ui.componet.ArcHeaderViewActivity" />
+        <activity android:name=".ui.componet.JSCBannerViewActivity" />
+        <activity android:name=".ui.componet.MonthViewActivity" />
+        <activity android:name=".ui.componet.ReboundLayoutActivity" />
+        <activity android:name=".ui.componet.VerticalStepViewActivity" />
+        <activity android:name=".ui.componet.RefreshLayoutActivity" />
+        <activity android:name=".ui.componet.JSCRoundCornerProgressBarActivity" />
+        <activity android:name=".ui.componet.JSCItemLayoutActivity" />
+        <activity android:name=".ui.componet.VScrollScreenLayoutActivity" />
+        <activity android:name=".ui.AboutActivity" />
+        <activity android:name=".ui.componet.RadarViewActivity" />
+        <activity android:name=".ui.componet.TurntableViewActivity" />
+        <activity android:name=".ui.componet.SwipeRecyclerViewActivity" />
+        <activity android:name=".ui.componet.RippleViewActivity" />
+        <activity android:name=".ui.ComponentListActivity" />
     </application>
 
 </manifest>

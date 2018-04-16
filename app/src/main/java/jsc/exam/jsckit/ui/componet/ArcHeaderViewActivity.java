@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,13 +8,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.SeekBar;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.archeaderview.BaseArcHeaderView;
 import jsc.kit.archeaderview.LGradientArcHeaderView;
 import jsc.kit.archeaderview.PictureArcHeaderView;
 
 public class ArcHeaderViewActivity extends AppCompatActivity {
 
-    final String TAG = getClass().getSimpleName();
     LGradientArcHeaderView lGradientArcHeaderView;
     PictureArcHeaderView pictureArcHeaderView;
     SeekBar seekBar;
@@ -25,6 +25,7 @@ public class ArcHeaderViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arc_header_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         lGradientArcHeaderView = findViewById(R.id.lg_header_view);
         pictureArcHeaderView = findViewById(R.id.p_header_view);

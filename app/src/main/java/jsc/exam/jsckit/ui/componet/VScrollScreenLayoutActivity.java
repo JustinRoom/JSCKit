@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.vscrollscreen.VScrollScreenLayout;
 
 public class VScrollScreenLayoutActivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class VScrollScreenLayoutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_v_scroll_screen_layout);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         VScrollScreenLayout scrollScreenLayout = findViewById(R.id.v_scroll_screen_layout);
         scrollScreenLayout.setOnScrollPageChangedListener(new VScrollScreenLayout.OnScrollPageChangedListener() {

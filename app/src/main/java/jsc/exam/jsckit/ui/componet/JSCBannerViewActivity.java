@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.archeaderview.LGradientArcHeaderView;
 import jsc.kit.bannerview.BannerPagerAdapter;
@@ -27,7 +28,7 @@ import jsc.kit.bannerview.OnPageAdapterItemClickListener;
 import jsc.kit.bannerview.PageAdapterItemLifeCycle;
 import jsc.kit.bannerview.pageTransformer.ScaleTransformer;
 
-public class BannerViewActivity extends AppCompatActivity {
+public class JSCBannerViewActivity extends AppCompatActivity {
 
     JSCBannerView jscBannerView;
     private boolean changeValue;
@@ -36,6 +37,7 @@ public class BannerViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         jscBannerView = findViewById(R.id.banner_view);
         LGradientArcHeaderView backgroundView = new LGradientArcHeaderView(this);

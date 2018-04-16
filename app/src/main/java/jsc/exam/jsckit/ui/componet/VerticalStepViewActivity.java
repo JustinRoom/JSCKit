@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.stepview.RouteViewPoint;
 import jsc.kit.stepview.VerticalStepView;
 
-public class StepViewActivity extends AppCompatActivity {
+public class VerticalStepViewActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
 
@@ -20,6 +21,7 @@ public class StepViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         verticalStepView = findViewById(R.id.step_view);
         verticalStepView.setPoints(gePoints());

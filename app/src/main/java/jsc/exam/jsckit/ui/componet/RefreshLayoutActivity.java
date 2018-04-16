@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.itemlayout.JSCItemLayout;
 import jsc.kit.refreshlayout.RefreshLayout;
 
@@ -20,6 +21,7 @@ public class RefreshLayoutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refresh_layout);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         refreshLayout = findViewById(R.id.refresh_layout);
 //        refreshLayout.setPullRatioY(0.55f);

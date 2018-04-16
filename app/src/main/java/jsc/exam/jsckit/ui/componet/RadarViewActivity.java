@@ -1,4 +1,4 @@
-package jsc.exam.jsckit;
+package jsc.exam.jsckit.ui.componet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.radarview.RadarEntity;
 import jsc.kit.radarview.RadarView;
 
@@ -16,6 +17,7 @@ public class RadarViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radar_view);
+        setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         RadarView radarView = findViewById(R.id.radar_view);
         String[] labels = new String[]{"中单", "射手", "辅助", "打野", "上单"};
