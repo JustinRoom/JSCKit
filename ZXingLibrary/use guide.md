@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 ```
-+ 2、please embed [ZXingFragment](/src/main/java/jsc/lib/zxinglibrary/zxing/ui/ZXingFragment.java) into your activity like this:  
++ 2、please embed [ZXingFragment](../ZXingLibrary/src/main/java/jsc/lib/zxinglibrary/zxing/ui/ZXingFragment.java) into your activity like this:  
 ```
         getSupportFragmentManager()
                 .beginTransaction()
