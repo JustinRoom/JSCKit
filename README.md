@@ -9,7 +9,9 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ```
 **ZXingLibrary** dependencies:  
 Here is more about [zxing](https://github.com/zxing/zxing).  
-Other resources about zxing library:[zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded)
+Other resources about zxing library:  
++ [zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded)
++ [BGAQRCode-Android](https://github.com/bingoogolapple/BGAQRCode-Android)
 ```
     implementation 'com.android.support:appcompat-v7:27.1.1'
     api 'com.google.zxing:core:3.3.2'
