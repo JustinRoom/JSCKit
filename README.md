@@ -2,10 +2,17 @@
 current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ### Usage
 ##### Gradle: 
-library dependencies:
+**library** dependencies:
 ```
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+```
+**ZXingLibrary** dependencies:  
+Here is more about [zxing](https://github.com/zxing/zxing).  
+Other resources about zxing library:[zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded)
+```
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.google.zxing:core:3.3.2'
 ```
 1、Add it in your root build.gradle at the end of repositories:
 ```
