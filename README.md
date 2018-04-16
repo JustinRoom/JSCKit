@@ -19,7 +19,7 @@ library dependencies:
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.1.3'
+	        compile 'com.github.JustinRoom:JSCKit:0.1.4'
 	}
 ```
 ##### Maven: 
@@ -37,13 +37,13 @@ library dependencies:
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.1.3</version>
+	    <version>0.1.4</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.1.3
+&#32;&#32;Demo version:0.1.4
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 

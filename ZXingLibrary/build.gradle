@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk_veriosn
         targetSdkVersion sdk_veriosn
-        versionCode 1
-        versionName "1.0"
+        versionCode version_code
+        versionName version_name
 
     }
 
