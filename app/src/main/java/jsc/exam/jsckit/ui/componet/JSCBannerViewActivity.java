@@ -36,7 +36,7 @@ public class JSCBannerViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_banner_view);
+        setContentView(R.layout.activity_jsc_banner_view);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         jscBannerView = findViewById(R.id.banner_view);

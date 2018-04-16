@@ -11,7 +11,7 @@ public class JSCRoundCornerProgressBarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_round_corner_progress_bar);
+        setContentView(R.layout.activity_jsc_round_corner_progress_bar);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
     }
 }

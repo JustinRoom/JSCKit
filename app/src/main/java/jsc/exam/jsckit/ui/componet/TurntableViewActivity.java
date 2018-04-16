@@ -24,7 +24,7 @@ public class TurntableViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_turntable);
+        setContentView(R.layout.activity_turntable_view);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         turntableView = findViewById(R.id.turntable_view);

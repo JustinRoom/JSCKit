@@ -20,7 +20,7 @@ public class VerticalStepViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_view);
+        setContentView(R.layout.activity_vertical_step_view);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         verticalStepView = findViewById(R.id.step_view);

@@ -14,6 +14,7 @@ import java.util.List;
 
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
+import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private List<ClassItem> getClassItems(){
         List<ClassItem> classItems = new ArrayList<>();
         classItems.add(new ClassItem("ComponentList", ComponentListActivity.class));
-        classItems.add(new ClassItem("ZXingQRCode", AboutActivity.class));
+        classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
         return classItems;
     }

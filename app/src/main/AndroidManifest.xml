@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jsc.exam.jsckit">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -32,6 +35,8 @@
         <activity android:name=".ui.componet.SwipeRecyclerViewActivity" />
         <activity android:name=".ui.componet.RippleViewActivity" />
         <activity android:name=".ui.ComponentListActivity" />
+        <activity android:name=".ui.zxing.ZXingQRCodeActivity" />
+        <activity android:name=".ui.zxing.ZXingScannerActivity" />
     </application>
 
 </manifest>
