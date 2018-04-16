@@ -1,4 +1,4 @@
-# Usage Guide
+# Use Guide
 
 ### use ZXing Scanner for several steps like below：
 + 1、add users-permission in your ```AndroidManifest.xml``` file:
