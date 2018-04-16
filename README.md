@@ -31,7 +31,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'io.reactivex.rxjava2:rxjava:2.1.12'
 ```
-1、Add it in your root build.gradle at the end of repositories:
++ 1、Add it in your root build.gradle at the end of repositories:
 ```
 	allprojects {
 		repositories {
@@ -40,14 +40,14 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 		}
 	}
 ```
-2、Add the dependency
++ 2、Add the dependency
 ```
 	dependencies {
 	        compile 'com.github.JustinRoom:JSCKit:0.1.5'
 	}
 ```
 ##### Maven: 
-1、Add the JitPack repository to your build file:
++ 1、Add the JitPack repository to your build file:
 ```
 	<repositories>
 		<repository>
@@ -56,7 +56,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 		</repository>
 	</repositories>
 ```
-2、Add the dependency
++ 2、Add the dependency
 ```
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
