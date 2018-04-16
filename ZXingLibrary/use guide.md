@@ -81,5 +81,5 @@
 ```
 You also can reference [ZXingScannerActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingScannerActivity.java).
 ### tool：
-+ QRCode encoder:[QRCodeEncoder](/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeEncoder.java)
-+ QRCode decoder:[QRCodeEncoder](/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeDecoder.java)
++ QRCode encoder:[QRCodeEncoder](../ZXingLibrary/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeEncoder.java)
++ QRCode decoder:[QRCodeEncoder](../ZXingLibrary/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeDecoder.java)
