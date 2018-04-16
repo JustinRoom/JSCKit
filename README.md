@@ -14,6 +14,21 @@ Other resources about zxing library:[zxing-android-embedded](https://github.com/
     implementation 'com.android.support:appcompat-v7:27.1.1'
     api 'com.google.zxing:core:3.3.2'
 ```
+**Retrofit2Library** dependencies:  
+Here is more about [retrofit](https://github.com/square/retrofit).  
+```
+    //https://github.com/square/retrofit
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //https://github.com/square/okhttp
+    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+    //https://github.com/ReactiveX/RxAndroid
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api 'io.reactivex.rxjava2:rxjava:2.1.12'
+```
 1、Add it in your root build.gradle at the end of repositories:
 ```
 	allprojects {
@@ -26,7 +41,7 @@ Other resources about zxing library:[zxing-android-embedded](https://github.com/
 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.1.4'
+	        compile 'com.github.JustinRoom:JSCKit:0.1.5'
 	}
 ```
 ##### Maven: 
@@ -44,13 +59,13 @@ Other resources about zxing library:[zxing-android-embedded](https://github.com/
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.1.4</version>
+	    <version>0.1.5</version>
 	</dependency>
 ```
 
 ### Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.1.4
+&#32;&#32;Demo version:0.1.5
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
