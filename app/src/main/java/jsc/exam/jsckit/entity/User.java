@@ -42,10 +42,10 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
-        in.writeString(getId());
-        in.writeString(getName());
-        in.writeInt(getAge());
-        in.writeInt(getSex());
+        id = in.readString();
+        name = in.readString();
+        age = in.readInt();
+        sex = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -67,6 +67,9 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(getId());
+        dest.writeString(getName());
+        dest.writeInt(getAge());
+        dest.writeInt(getSex());
     }
 }
