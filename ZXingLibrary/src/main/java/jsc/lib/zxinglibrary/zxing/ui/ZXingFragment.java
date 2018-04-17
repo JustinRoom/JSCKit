@@ -2,6 +2,7 @@ package jsc.lib.zxinglibrary.zxing.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -16,16 +17,25 @@ import jsc.lib.zxinglibrary.R;
 import jsc.lib.zxinglibrary.core.QRCodeView;
 import jsc.lib.zxinglibrary.zxing.ZXingView;
 
-public class ZXingFragment extends Fragment implements QRCodeView.Delegate {
+public class ZXingFragment extends Fragment implements QRCodeView.Delegate, View.OnClickListener {
 
+    public static String SHOW_FLASH_LIGHT = "flash_light";
     private ZXingView zXingView;
+    private ImageView ivFlashLight;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_z_xing_scan, container, false);
         zXingView = root.findViewById(R.id.z_xing_view);
+        ivFlashLight = root.findViewById(R.id.iv_flash_light);
         zXingView.setDelegate(this);
+        ivFlashLight.setOnClickListener(this);
+
+        Uri uri = getActivity().getIntent().getData();
+        assert uri != null;
+        boolean showFlashLight = uri.getBooleanQueryParameter(SHOW_FLASH_LIGHT, false) && zXingView.isFlashLightAvailable();
+        ivFlashLight.setVisibility(showFlashLight ? View.VISIBLE : View.GONE);
         return root;
     }
 
@@ -56,6 +66,16 @@ public class ZXingFragment extends Fragment implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeOpenCameraError() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.iv_flash_light) {
+            if (zXingView.isFlashLightClosed())
+                zXingView.openFlashlight();
+            else
+                zXingView.closeFlashlight();
+        }
     }
 
     private void vibrate() {

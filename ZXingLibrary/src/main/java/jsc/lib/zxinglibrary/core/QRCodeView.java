@@ -1,6 +1,7 @@
 package jsc.lib.zxinglibrary.core;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -199,6 +200,14 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
         mPreview.closeFlashlight();
     }
 
+    public boolean isFlashLightClosed(){
+        return mCamera != null && Camera.Parameters.FLASH_MODE_OFF.equals(mCamera.getParameters().getFlashMode());
+    }
+
+    public boolean isFlashLightAvailable(){
+        return getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    }
+
     /**
      * 销毁二维码扫描控件
      */
@@ -296,9 +305,5 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
          * 处理打开相机出错
          */
         void onScanQRCodeOpenCameraError();
-    }
-
-    public boolean isFlashlightOpened() {
-        return mPreview.isFlashlightOpened();
     }
 }

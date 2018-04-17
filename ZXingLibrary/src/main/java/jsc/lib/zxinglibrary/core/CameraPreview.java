@@ -148,8 +148,4 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             }
         }
     };
-
-    public boolean isFlashlightOpened() {
-        return mCameraConfigurationManager.isFlashlightOpened(mCamera);
-    }
 }

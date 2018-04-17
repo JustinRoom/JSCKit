@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import jsc.exam.jsckit.R;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
+import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
 public class ZXingQRCodeActivity extends AppCompatActivity {
 
@@ -59,7 +61,13 @@ public class ZXingQRCodeActivity extends AppCompatActivity {
     }
 
     private void toScannerActivity() {
-        startActivityForResult(new Intent(this, ZXingScannerActivity.class), 0x666);
+        Intent intent = new Intent(this, ZXingScannerActivity.class);
+            Uri uri = Uri.parse("zxinglibrary://" + getPackageName()).buildUpon()
+                    .appendPath("scanner")
+                    .appendQueryParameter(ZXingFragment.SHOW_FLASH_LIGHT, "true") //是否显示灯光按钮
+                    .build();
+            intent.setData(uri);
+        startActivityForResult(intent, 0x666);
     }
 
     @Override

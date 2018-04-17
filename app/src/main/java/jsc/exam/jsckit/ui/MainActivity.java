@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
+import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
 public class MainActivity extends AppCompatActivity {
 

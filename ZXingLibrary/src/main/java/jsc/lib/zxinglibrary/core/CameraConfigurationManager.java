@@ -251,10 +251,4 @@ final class CameraConfigurationManager {
             parameters.set("taking-picture-zoom", tenDesiredZoom);
         }
     }
-
-    public boolean isFlashlightOpened(Camera camera){
-        Camera.Parameters p = camera.getParameters();
-        String state = p.getFlashMode();//获取闪光灯的状态
-        return state.equals(Camera.Parameters.FLASH_MODE_ON);
-    }
 }
