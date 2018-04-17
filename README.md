@@ -9,7 +9,9 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 ```
 **ZXingLibrary** dependencies:  
 Here is more about [zxing](https://github.com/zxing/zxing).  
-Other resources about zxing library:[zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded)
+Other resources about zxing library:  
++ [zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded)
++ [BGAQRCode-Android](https://github.com/bingoogolapple/BGAQRCode-Android)
 ```
     implementation 'com.android.support:appcompat-v7:27.1.1'
     api 'com.google.zxing:core:3.3.2'
@@ -29,7 +31,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'io.reactivex.rxjava2:rxjava:2.1.12'
 ```
-1、Add it in your root build.gradle at the end of repositories:
++ 1、Add it in your root build.gradle at the end of repositories:
 ```
 	allprojects {
 		repositories {
@@ -38,14 +40,14 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 		}
 	}
 ```
-2、Add the dependency
++ 2、Add the dependency
 ```
 	dependencies {
 	        compile 'com.github.JustinRoom:JSCKit:0.1.5'
 	}
 ```
 ##### Maven: 
-1、Add the JitPack repository to your build file:
++ 1、Add the JitPack repository to your build file:
 ```
 	<repositories>
 		<repository>
@@ -54,7 +56,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 		</repository>
 	</repositories>
 ```
-2、Add the dependency
++ 2、Add the dependency
 ```
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
