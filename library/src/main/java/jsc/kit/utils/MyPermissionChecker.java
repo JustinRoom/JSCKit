@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * <p></p>
  * <br>Email:1006368252@qq.com
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class MyPermissionChecker {
 
+    private Activity activity;
     private OnCheckListener onCheckListener;
 
     public MyPermissionChecker() {
@@ -32,13 +34,13 @@ public class MyPermissionChecker {
     }
 
     /**
-     *
      * @param activity
      * @param requestCode
      * @param permissions
      * @return
      */
     public void checkPermissions(Activity activity, int requestCode, String... permissions) {
+        this.activity = activity;
         boolean isAllGranted = true;
         List<String> unGrantedPermissions = new ArrayList<>();
         for (String permission : permissions) {
@@ -49,7 +51,7 @@ public class MyPermissionChecker {
         }
 
         //所有的permission都已经授权允许
-        if (isAllGranted){
+        if (isAllGranted) {
             if (onCheckListener != null)
                 onCheckListener.onAllGranted(requestCode);
             return;
@@ -83,36 +85,36 @@ public class MyPermissionChecker {
         if (onCheckListener == null)
             return;
 
-        if (deniedPermissions.size() == 0){
+        onCheckListener.onGranted(requestCode, grantedPermissions);
+        if (deniedPermissions.size() == 0) {
             onCheckListener.onAllGranted(requestCode);
             return;
         }
-
-        onCheckListener.onGranted(requestCode, grantedPermissions);
         onCheckListener.onDenied(requestCode, deniedPermissions);
-    }
-
-    /**
-     * Call this method inside {@link Activity#shouldShowRequestPermissionRationale(String)} .
-     *
-     * @param permission
-     */
-    public void shouldShowPermission(@NonNull String permission) {
-        if (onCheckListener != null)
-            onCheckListener.shouldShowDeniedPermission(permission);
+        List<String> shouldShowPermissions = new ArrayList<>();
+        for (String permission : deniedPermissions) {
+            boolean tempShouldShow = ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
+            if (!tempShouldShow)
+                shouldShowPermissions.add(permission);
+        }
+        if (shouldShowPermissions.size() > 0)
+            onCheckListener.onShouldShowSettingTips(shouldShowPermissions);
     }
 
     /**
      * Remove check listener.
      */
-    public void removeCheckListener(){
+    public void removeCheckListener() {
         onCheckListener = null;
     }
 
     public interface OnCheckListener {
         void onAllGranted(int requestCode);
+
         void onGranted(int requestCode, @NonNull List<String> grantedPermissions);
+
         void onDenied(int requestCode, @NonNull List<String> deniedPermissions);
-        void shouldShowDeniedPermission(@NonNull String permission);
+
+        void onShouldShowSettingTips(List<String> shouldShowPermissions);
     }
 }

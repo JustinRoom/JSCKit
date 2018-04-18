@@ -13,7 +13,9 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -75,17 +77,8 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
             @Override
             public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0, len = deniedPermissions.size(); i < len; i++) {
-                    builder.append(i + 1);
-                    builder.append("、");
-                    builder.append(getPermissionDes(deniedPermissions.get(i)));
-                    if (i < len - 1)
-                        builder.append("\n");
-                }
-
                 CustomToast.Builder toastBuilder = new CustomToast.Builder()
-                        .text("Denied permissions:\n\n" + builder.toString())
+                        .text("Denied permissions:\n\n" + getAllPermissionDes(deniedPermissions))
                         .topMargin(getActionBarSize())
                         .textGravity(Gravity.START)
                         .textColor(0xFF333333)
@@ -94,8 +87,8 @@ public class ZXingQRCodeActivity extends ABaseActivity {
             }
 
             @Override
-            public void shouldShowDeniedPermission(@NonNull String permission) {
-                showPermissionRationaleDialog(permission);
+            public void onShouldShowSettingTips(List<String> shouldShowPermissions) {
+                showPermissionRationaleDialog(shouldShowPermissions);
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
@@ -122,10 +115,10 @@ public class ZXingQRCodeActivity extends ABaseActivity {
         }
     }
 
-    public void showPermissionRationaleDialog(@NonNull String permission) {
+    public void showPermissionRationaleDialog(List<String> shouldShowPermissions) {
         new AlertDialog.Builder(this)
                 .setTitle("温馨提示")
-                .setMessage("当前应用需要【" + getPermissionDes(permission) + "】权限。")
+                .setMessage("当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions))
                 .setPositiveButton("设置", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -135,6 +128,18 @@ public class ZXingQRCodeActivity extends ABaseActivity {
                 })
                 .setNegativeButton("知道了", null)
                 .show();
+    }
+
+    public String getAllPermissionDes(List<String> permissions) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0, len = permissions.size(); i < len; i++) {
+            builder.append(i + 1);
+            builder.append("、");
+            builder.append(getPermissionDes(permissions.get(i)));
+            if (i < len - 1)
+                builder.append("\n");
+        }
+        return builder.toString();
     }
 
     private CharSequence getPermissionDes(String permission) {

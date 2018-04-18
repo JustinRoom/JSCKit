@@ -11,7 +11,6 @@ public abstract class BasePermissionCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-//        destroyCustomToast(true);
         super.onDestroy();
     }
 
@@ -37,16 +36,8 @@ public abstract class BasePermissionCheckActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (myPermissionChecker != null)
-            myPermissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
+        myPermissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
-        if (myPermissionChecker != null)
-            myPermissionChecker.shouldShowPermission(permission);
-        return super.shouldShowRequestPermissionRationale(permission);
     }
 
     public int getStatusBarHeight() {
