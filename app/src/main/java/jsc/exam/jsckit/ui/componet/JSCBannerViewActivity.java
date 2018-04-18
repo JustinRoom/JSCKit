@@ -20,6 +20,7 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.Banner;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.archeaderview.LGradientArcHeaderView;
 import jsc.kit.bannerview.BannerPagerAdapter;
 import jsc.kit.bannerview.JSCBannerView;
@@ -28,7 +29,7 @@ import jsc.kit.bannerview.OnPageAdapterItemClickListener;
 import jsc.kit.bannerview.PageAdapterItemLifeCycle;
 import jsc.kit.bannerview.pageTransformer.ScaleTransformer;
 
-public class JSCBannerViewActivity extends AppCompatActivity {
+public class JSCBannerViewActivity extends ABaseActivity {
 
     JSCBannerView jscBannerView;
     private boolean changeValue;

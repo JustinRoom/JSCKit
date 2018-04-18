@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.Random;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.turntable.GiftEntity;
 import jsc.kit.turntable.TurntableView;
 
-public class TurntableViewActivity extends AppCompatActivity {
+public class TurntableViewActivity extends ABaseActivity {
 
     private TurntableView turntableView;
 

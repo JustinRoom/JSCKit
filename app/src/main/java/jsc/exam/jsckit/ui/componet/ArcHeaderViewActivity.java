@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.archeaderview.BaseArcHeaderView;
 import jsc.kit.archeaderview.LGradientArcHeaderView;
 import jsc.kit.archeaderview.PictureArcHeaderView;
 
-public class ArcHeaderViewActivity extends AppCompatActivity {
+public class ArcHeaderViewActivity extends ABaseActivity {
 
     LGradientArcHeaderView lGradientArcHeaderView;
     PictureArcHeaderView pictureArcHeaderView;

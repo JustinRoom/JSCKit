@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Random;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.monthview.DayItem;
 import jsc.kit.monthview.DayView;
 import jsc.kit.monthview.MonthUtils;
 import jsc.kit.monthview.MonthView;
 
-public class MonthViewActivity extends AppCompatActivity {
+public class MonthViewActivity extends ABaseActivity {
 
     MonthView monthView;
     TextView tvYearMonth;

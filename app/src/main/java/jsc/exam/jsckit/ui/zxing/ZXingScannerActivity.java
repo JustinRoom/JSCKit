@@ -6,9 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
-public class ZXingScannerActivity extends AppCompatActivity {
+public class ZXingScannerActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

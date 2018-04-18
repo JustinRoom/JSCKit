@@ -15,7 +15,7 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends ABaseActivity {
 
     final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     TextView tvVersion;

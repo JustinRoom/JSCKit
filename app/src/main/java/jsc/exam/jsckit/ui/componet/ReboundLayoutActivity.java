@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.itemlayout.JSCItemLayout;
 
-public class ReboundLayoutActivity extends AppCompatActivity {
+public class ReboundLayoutActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +21,6 @@ public class ReboundLayoutActivity extends AppCompatActivity {
 
     public void widgetClick(View view){
         if (view instanceof JSCItemLayout)
-            Toast.makeText(this, ((JSCItemLayout) view).getLabel(), Toast.LENGTH_SHORT).show();
+            showCustomToast(((JSCItemLayout) view).getLabel());
     }
 }

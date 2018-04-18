@@ -20,7 +20,7 @@ import jsc.lib.retrofitlibrary.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
-public class Retrofit2Activity extends AppCompatActivity {
+public class Retrofit2Activity extends ABaseActivity {
 
     final String token = "751sadlsuonERASDFn8asFDSajn";
 

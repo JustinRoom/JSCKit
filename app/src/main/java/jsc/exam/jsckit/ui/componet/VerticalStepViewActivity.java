@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Random;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.stepview.RouteViewPoint;
 import jsc.kit.stepview.VerticalStepView;
 
-public class VerticalStepViewActivity extends AppCompatActivity {
+public class VerticalStepViewActivity extends ABaseActivity {
 
     VerticalStepView verticalStepView;
 

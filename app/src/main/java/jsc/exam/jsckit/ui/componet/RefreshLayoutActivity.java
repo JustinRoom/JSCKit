@@ -9,10 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.itemlayout.JSCItemLayout;
 import jsc.kit.refreshlayout.RefreshLayout;
 
-public class RefreshLayoutActivity extends AppCompatActivity {
+public class RefreshLayoutActivity extends ABaseActivity {
 
     RefreshLayout refreshLayout;
     int lastPullState = 0;
@@ -91,6 +92,6 @@ public class RefreshLayoutActivity extends AppCompatActivity {
 
     public void widgetClick(View view) {
         if (view instanceof JSCItemLayout)
-            Toast.makeText(this, ((JSCItemLayout) view).getLabel(), Toast.LENGTH_SHORT).show();
+            showCustomToast(((JSCItemLayout) view).getLabel());
     }
 }

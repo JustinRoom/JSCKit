@@ -29,7 +29,7 @@ import jsc.exam.jsckit.ui.componet.VScrollScreenLayoutActivity;
 import jsc.exam.jsckit.ui.componet.VerticalStepViewActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
 
-public class ComponentListActivity extends AppCompatActivity {
+public class ComponentListActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -19,7 +19,7 @@ import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

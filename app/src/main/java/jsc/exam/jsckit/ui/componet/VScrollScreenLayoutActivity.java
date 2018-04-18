@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.vscrollscreen.VScrollScreenLayout;
 
-public class VScrollScreenLayoutActivity extends AppCompatActivity {
+public class VScrollScreenLayoutActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class VScrollScreenLayoutActivity extends AppCompatActivity {
         scrollScreenLayout.setOnScrollPageChangedListener(new VScrollScreenLayout.OnScrollPageChangedListener() {
             @Override
             public void onScroll(Context context, int pageIndex) {
-                Toast.makeText(context, "The current page is " + (pageIndex + 1), Toast.LENGTH_SHORT).show();
+                showCustomToast("The current page is " + (pageIndex + 1));
             }
         });
     }

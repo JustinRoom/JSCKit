@@ -8,9 +8,10 @@ import android.util.Log;
 import android.view.View;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.rippleview.RippleView;
 
-public class RippleViewActivity extends AppCompatActivity {
+public class RippleViewActivity extends ABaseActivity {
 
     final String TAG = getClass().getSimpleName();
 //    RippleView rippleView;
