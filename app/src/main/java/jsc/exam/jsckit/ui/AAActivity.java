@@ -1,10 +1,10 @@
 package jsc.exam.jsckit.ui;
 
 import jsc.exam.jsckit.InstanceManager;
-import jsc.kit.baseui.BasePermissionCheckActivity;
+import jsc.kit.baseui.APermissionCheckActivity;
 import jsc.kit.utils.CustomToast;
 
-public abstract class ABaseActivity extends BasePermissionCheckActivity {
+public abstract class AAActivity extends APermissionCheckActivity {
 
     public final void showCustomToast(String txt){
         CustomToast.Builder builder = new CustomToast.Builder()

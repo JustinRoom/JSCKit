@@ -11,7 +11,7 @@ import java.util.List;
 
 import jsc.kit.utils.MyPermissionChecker;
 
-public abstract class BasePermissionCheckActivity extends AppCompatActivity {
+public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {

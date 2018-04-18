@@ -3,8 +3,6 @@ package jsc.exam.jsckit.ui.zxing;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,11 +11,8 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,13 +20,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.utils.CustomToast;
+import jsc.exam.jsckit.ui.AAActivity;
 import jsc.kit.utils.MyPermissionChecker;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
-public class ZXingQRCodeActivity extends ABaseActivity {
+public class ZXingQRCodeActivity extends AAActivity {
 
     final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     ImageView ivQRCode;
