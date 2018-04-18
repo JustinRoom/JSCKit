@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -34,68 +35,22 @@ public final class CustomToast {
         windowManager = (WindowManager) applicationContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
-    /**
-     *
-     * @param resId
-     * @see #show(CharSequence, int, long)
-     */
     public void show(@StringRes int resId) {
-        show(resId, 0, -1);
-    }
-
-    /**
-     *
-     * @param resId
-     * @param topMargin
-     * @see #show(CharSequence, int, long)
-     */
-    public void show(@StringRes int resId, int topMargin) {
-        show(resId, topMargin, -1);
-    }
-
-    /**
-     *
-     * @param resId
-     * @param topMargin
-     * @param duration
-     * @see #show(CharSequence, int, long)
-     */
-    public void show(@StringRes int resId, int topMargin, long duration) {
-        if (applicationContext == null)
-            throw new RuntimeException("please init first.");
-
         String txt = applicationContext.getString(resId);
-        show(txt, topMargin, duration);
+        show(txt);
+    }
+
+    public void show(String text) {
+        show(new Builder().text(text));
     }
 
     /**
      *
-     * @param txt
-     * @see #show(CharSequence, int, long)
+     * @param builder
      */
-    public void show(CharSequence txt) {
-        show(txt, 0, -1);
-    }
-
-    /**
-     *
-     * @param txt
-     * @param topMargin
-     * @see #show(CharSequence, int, long)
-     */
-    public void show(CharSequence txt, int topMargin) {
-        show(txt, topMargin, -1);
-    }
-
-    /**
-     *
-     * @param txt
-     * @param topMargin
-     * @param duration the minimum value is {@code 3000}
-     */
-    public void show(CharSequence txt, int topMargin, long duration) {
-        if (applicationContext == null)
-            throw new RuntimeException("please init first.");
+    public void show(Builder builder) {
+        if (builder == null)
+            builder = new Builder();
 
         destroyCustomToast(false);
         DisplayMetrics metrics = applicationContext.getResources().getDisplayMetrics();
@@ -104,11 +59,6 @@ public final class CustomToast {
             int dp64 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, metrics);
             lastToastView = new TextView(applicationContext);
             lastToastView.setPadding(dp12, dp12, dp12, dp12);
-            lastToastView.setBackgroundColor(0xEE00FF00);
-            lastToastView.setGravity(Gravity.CENTER_HORIZONTAL);
-            lastToastView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            lastToastView.setTextColor(Color.BLACK);
-
             toastRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -120,12 +70,16 @@ public final class CustomToast {
             params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
             params.width = metrics.widthPixels - dp64 * 2;
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            params.y = topMargin;
             params.windowAnimations = R.style.customToastWindowAnimations;
         }
-        lastToastView.setText(txt);
+        lastToastView.setBackgroundColor(builder.backgroundColor);
+        lastToastView.setGravity(builder.textGravity);
+        lastToastView.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.textSize);
+        lastToastView.setTextColor(builder.textColor);
+        lastToastView.setText(builder.text);
+        params.y = builder.topMargin;
         windowManager.addView(lastToastView, params);
-        lastToastView.postDelayed(toastRunnable, duration < 3_000 ? 3_000 : duration);
+        lastToastView.postDelayed(toastRunnable, builder.duration);
     }
 
     public WindowManager.LayoutParams getParams() {
@@ -151,6 +105,58 @@ public final class CustomToast {
             lastToastView = null;
             toastRunnable = null;
             params = null;
+        }
+    }
+
+    public static class Builder {
+        CharSequence text = "";
+        int backgroundColor = 0xEE00FF00;
+        int textColor = Color.BLACK;
+        float textSize = 16.0f;
+        int textGravity = Gravity.CENTER_HORIZONTAL;
+        int topMargin  = 0;
+        long duration = 3_000;
+
+        public Builder text(CharSequence text) {
+            this.text = text;
+            return this;
+        }
+
+        public Builder backgroundColor(@ColorInt int backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        public Builder textColor(@ColorInt int textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
+        public Builder textSize(float textSize) {
+            this.textSize = textSize;
+            return this;
+        }
+
+        public Builder topMargin(int topMargin) {
+            this.topMargin = topMargin;
+            return this;
+        }
+
+        public Builder duration(long duration) {
+            this.duration = duration < 3_000 ? 3_000 : duration;
+            return this;
+        }
+
+        /**
+         *
+         *
+         * @param textGravity
+         * @return
+         * @see Gravity
+         */
+        public Builder textGravity(int textGravity) {
+            this.textGravity = textGravity;
+            return this;
         }
     }
 }

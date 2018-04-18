@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.kit.utils.CustomToast;
 import jsc.kit.utils.MyPermissionChecker;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
@@ -73,14 +75,29 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
             @Override
             public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-                showCustomToast("You have denied permission:" + deniedPermissions.get(0));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0, len = deniedPermissions.size(); i < len; i++) {
+                    builder.append(i + 1);
+                    builder.append("、");
+                    builder.append(getPermissionDes(deniedPermissions.get(i)));
+                    if (i < len - 1)
+                        builder.append("\n");
+                }
+
+                CustomToast.Builder toastBuilder = new CustomToast.Builder()
+                        .text("Denied permissions:\n\n" + builder.toString())
+                        .topMargin(getActionBarSize())
+                        .textGravity(Gravity.START)
+                        .textColor(0xFF333333)
+                        .duration(10_000);
+                showCustomToast(toastBuilder);
             }
 
             @Override
             public void shouldShowDeniedPermission(@NonNull String permission) {
                 showPermissionRationaleDialog(permission);
             }
-        }, Manifest.permission.CAMERA);
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 
     private void toScannerActivity() {
@@ -123,7 +140,7 @@ public class ZXingQRCodeActivity extends ABaseActivity {
     private CharSequence getPermissionDes(String permission) {
         try {
             PermissionInfo info = getPackageManager().getPermissionInfo(permission, PackageManager.GET_META_DATA);
-            return info.loadDescription(getPackageManager());
+            return "【" + info.loadLabel(getPackageManager()) + "】" + info.loadDescription(getPackageManager());
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
