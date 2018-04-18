@@ -50,14 +50,14 @@ public class MyPermissionChecker {
                 unGrantedPermissions.add(permission);
         }
 
-        //所有的permission都已经授权允许
+        //所请求的permissions都已授权通过
         if (isAllGranted) {
             if (onCheckListener != null)
                 onCheckListener.onAllGranted(requestCode);
             return;
         }
 
-        //请求permission授权
+        //请求授权
         String[] needCheckPermissions = new String[unGrantedPermissions.size()];
         for (int i = 0; i < unGrantedPermissions.size(); i++) {
             needCheckPermissions[i] = unGrantedPermissions.get(i);
@@ -73,30 +73,34 @@ public class MyPermissionChecker {
      * @param grantResults
      */
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        List<String> grantedPermissions = new ArrayList<>();
-        List<String> deniedPermissions = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            if (grantResults[i] == PackageManager.PERMISSION_GRANTED)
-                grantedPermissions.add(permissions[i]);
-            else
-                deniedPermissions.add(permissions[i]);
-        }
-
         if (onCheckListener == null)
             return;
 
+        List<String> grantedPermissions = new ArrayList<>();
+        List<String> deniedPermissions = new ArrayList<>();
+        List<String> shouldShowPermissions = new ArrayList<>();
+        for (int i = 0; i < grantResults.length; i++) {
+            String permission = permissions[i];
+            if (grantResults[i] == PackageManager.PERMISSION_GRANTED){
+                grantedPermissions.add(permissions[i]);
+            } else {
+                deniedPermissions.add(permissions[i]);
+                boolean shouldShow = ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
+                if (!shouldShow)
+                    shouldShowPermissions.add(permission);
+            }
+        }
+
+        //所请求的permissions中已通过授权的部分permissions
         onCheckListener.onGranted(requestCode, grantedPermissions);
+        //所请求的permissions都已授权通过
         if (deniedPermissions.size() == 0) {
             onCheckListener.onAllGranted(requestCode);
             return;
         }
+        //所请求的permissions中未通过授权的部分permissions
         onCheckListener.onDenied(requestCode, deniedPermissions);
-        List<String> shouldShowPermissions = new ArrayList<>();
-        for (String permission : deniedPermissions) {
-            boolean tempShouldShow = ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
-            if (!tempShouldShow)
-                shouldShowPermissions.add(permission);
-        }
+        //所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
         if (shouldShowPermissions.size() > 0)
             onCheckListener.onShouldShowSettingTips(shouldShowPermissions);
     }
