@@ -34,15 +34,66 @@ public final class CustomToast {
         windowManager = (WindowManager) applicationContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
+    /**
+     *
+     * @param resId
+     * @see #show(CharSequence, int, long)
+     */
+    public void show(@StringRes int resId) {
+        show(resId, 0, -1);
+    }
+
+    /**
+     *
+     * @param resId
+     * @param topMargin
+     * @see #show(CharSequence, int, long)
+     */
     public void show(@StringRes int resId, int topMargin) {
+        show(resId, topMargin, -1);
+    }
+
+    /**
+     *
+     * @param resId
+     * @param topMargin
+     * @param duration
+     * @see #show(CharSequence, int, long)
+     */
+    public void show(@StringRes int resId, int topMargin, long duration) {
         if (applicationContext == null)
             throw new RuntimeException("please init first.");
 
         String txt = applicationContext.getString(resId);
-        show(txt, topMargin);
+        show(txt, topMargin, duration);
     }
 
+    /**
+     *
+     * @param txt
+     * @see #show(CharSequence, int, long)
+     */
+    public void show(CharSequence txt) {
+        show(txt, 0, -1);
+    }
+
+    /**
+     *
+     * @param txt
+     * @param topMargin
+     * @see #show(CharSequence, int, long)
+     */
     public void show(CharSequence txt, int topMargin) {
+        show(txt, topMargin, -1);
+    }
+
+    /**
+     *
+     * @param txt
+     * @param topMargin
+     * @param duration the minimum value is {@code 3000}
+     */
+    public void show(CharSequence txt, int topMargin, long duration) {
         if (applicationContext == null)
             throw new RuntimeException("please init first.");
 
@@ -74,7 +125,7 @@ public final class CustomToast {
         }
         lastToastView.setText(txt);
         windowManager.addView(lastToastView, params);
-        lastToastView.postDelayed(toastRunnable, 10_000);
+        lastToastView.postDelayed(toastRunnable, duration < 3_000 ? 3_000 : duration);
     }
 
     public WindowManager.LayoutParams getParams() {
@@ -102,6 +153,4 @@ public final class CustomToast {
             params = null;
         }
     }
-
-
 }
