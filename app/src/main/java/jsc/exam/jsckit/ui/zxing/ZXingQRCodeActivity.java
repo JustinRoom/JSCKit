@@ -20,12 +20,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.AAActivity;
+import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.utils.MyPermissionChecker;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
-public class ZXingQRCodeActivity extends AAActivity {
+public class ZXingQRCodeActivity extends ABaseActivity {
 
     final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     ImageView ivQRCode;

@@ -4,7 +4,7 @@ import jsc.exam.jsckit.InstanceManager;
 import jsc.kit.baseui.APermissionCheckActivity;
 import jsc.kit.utils.CustomToast;
 
-public abstract class AAActivity extends APermissionCheckActivity {
+public abstract class ABaseActivity extends APermissionCheckActivity {
 
     public final void showCustomToast(String txt){
         CustomToast.Builder builder = new CustomToast.Builder()
