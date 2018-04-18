@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p></p>
+ * <p>permission check tool</p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br>https://github.com/JustinRoom/JSCKit
@@ -102,19 +102,38 @@ public class MyPermissionChecker {
     }
 
     /**
-     * Remove check listener.
+     * Remove check listener:
+     * <br/>{@link #onCheckListener} {@code = null;}
      */
     public void removeCheckListener() {
         onCheckListener = null;
     }
 
     public interface OnCheckListener {
+        /**
+         * 所请求的permissions都已授权通过
+         * @param requestCode
+         */
         void onAllGranted(int requestCode);
 
+        /**
+         * 所请求的permissions中已通过授权的部分permissions
+         * @param requestCode
+         * @param grantedPermissions
+         */
         void onGranted(int requestCode, @NonNull List<String> grantedPermissions);
 
+        /**
+         * 所请求的permissions中未通过授权的部分permissions
+         * @param requestCode
+         * @param deniedPermissions
+         */
         void onDenied(int requestCode, @NonNull List<String> deniedPermissions);
 
+        /**
+         * 所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
+         * @param shouldShowPermissions
+         */
         void onShouldShowSettingTips(List<String> shouldShowPermissions);
     }
 }
