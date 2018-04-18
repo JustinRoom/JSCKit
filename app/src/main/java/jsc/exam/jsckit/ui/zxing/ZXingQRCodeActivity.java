@@ -129,26 +129,4 @@ public class ZXingQRCodeActivity extends ABaseActivity {
                 .setNegativeButton("知道了", null)
                 .show();
     }
-
-    public String getAllPermissionDes(List<String> permissions) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0, len = permissions.size(); i < len; i++) {
-            builder.append(i + 1);
-            builder.append("、");
-            builder.append(getPermissionDes(permissions.get(i)));
-            if (i < len - 1)
-                builder.append("\n");
-        }
-        return builder.toString();
-    }
-
-    private CharSequence getPermissionDes(String permission) {
-        try {
-            PermissionInfo info = getPackageManager().getPermissionInfo(permission, PackageManager.GET_META_DATA);
-            return "【" + info.loadLabel(getPackageManager()) + "】" + info.loadDescription(getPackageManager());
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 }
