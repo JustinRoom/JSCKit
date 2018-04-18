@@ -44,7 +44,7 @@ public abstract class BasePermissionCheckActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public int getStatusBarHeight() {
+    public final int getStatusBarHeight() {
         int statusBarHeight = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -53,7 +53,7 @@ public abstract class BasePermissionCheckActivity extends AppCompatActivity {
         return statusBarHeight;
     }
 
-    public int getActionBarSize() {
+    public final int getActionBarSize() {
         TypedValue typedValue = new TypedValue();
         int[] attribute = new int[]{android.R.attr.actionBarSize};
         TypedArray array = obtainStyledAttributes(typedValue.resourceId, attribute);

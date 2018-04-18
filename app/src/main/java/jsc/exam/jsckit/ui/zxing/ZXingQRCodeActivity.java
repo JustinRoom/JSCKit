@@ -77,13 +77,13 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
             @Override
             public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-                CustomToast.Builder toastBuilder = new CustomToast.Builder()
-                        .text("Denied permissions:\n\n" + getAllPermissionDes(deniedPermissions))
-                        .topMargin(getActionBarSize())
-                        .textGravity(Gravity.START)
-                        .textColor(0xFF333333)
-                        .duration(10_000);
-                showCustomToast(toastBuilder);
+//                CustomToast.Builder toastBuilder = new CustomToast.Builder()
+//                        .text("Denied permissions:\n\n" + getAllPermissionDes(deniedPermissions))
+//                        .topMargin(getActionBarSize())
+//                        .textGravity(Gravity.START)
+//                        .textColor(0xFF333333)
+//                        .duration(10_000);
+//                showCustomToast(toastBuilder);
             }
 
             @Override
@@ -122,7 +122,9 @@ public class ZXingQRCodeActivity extends ABaseActivity {
                 .setPositiveButton("设置", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        //跳转到当前应用的设置界面
+                        intent.setData(Uri.parse("package:" + getPackageName()));
                         startActivity(intent);
                     }
                 })
