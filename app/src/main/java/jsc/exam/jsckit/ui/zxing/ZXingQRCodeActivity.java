@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,20 +13,21 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
 
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.kit.utils.MyPermissionChecker;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
-public class ZXingQRCodeActivity extends AppCompatActivity {
+public class ZXingQRCodeActivity extends ABaseActivity {
 
     final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     ImageView ivQRCode;
@@ -56,8 +58,29 @@ public class ZXingQRCodeActivity extends AppCompatActivity {
 
     public void widgetClick(View v) {
         //打开相机权限
-        if (checkPermission(0x100, Manifest.permission.CAMERA))
-            toScannerActivity();
+        checkPermissions(0x100, new MyPermissionChecker.OnCheckListener() {
+            @Override
+            public void onAllGranted(int requestCode) {
+                removePermissionChecker();
+                toScannerActivity();
+                showCustomToast("Request CAMERA permission successfully.");
+            }
+
+            @Override
+            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
+
+            }
+
+            @Override
+            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
+                showCustomToast("You have denied permission:" + deniedPermissions.get(0));
+            }
+
+            @Override
+            public void shouldShowDeniedPermission(@NonNull String permission) {
+                showPermissionRationaleDialog(permission);
+            }
+        }, Manifest.permission.CAMERA);
     }
 
     private void toScannerActivity() {
@@ -82,25 +105,10 @@ public class ZXingQRCodeActivity extends AppCompatActivity {
         }
     }
 
-
-    public final boolean checkPermission(int requestCode, String permission) {
-        if (ActivityCompat.checkSelfPermission(getBaseContext(), permission) == PackageManager.PERMISSION_GRANTED)
-            return true;
-        ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
-        return false;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            toScannerActivity();
-    }
-
-    @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+    public void showPermissionRationaleDialog(@NonNull String permission) {
         new AlertDialog.Builder(this)
                 .setTitle("温馨提示")
-                .setMessage("当前应用需要【" + getPermissionDeniedTips(permission) + "】权限。")
+                .setMessage("当前应用需要【" + getPermissionDes(permission) + "】权限。")
                 .setPositiveButton("设置", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,17 +118,15 @@ public class ZXingQRCodeActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("知道了", null)
                 .show();
-        return super.shouldShowRequestPermissionRationale(permission);
     }
 
-    private String getPermissionDeniedTips(String permission) {
-        String tip;
-        if (Manifest.permission.ACCESS_NETWORK_STATE.equals(permission))
-            tip = "查看网络状态";
-        else if (Manifest.permission.CALL_PHONE.equals(permission))
-            tip = "拨号";
-        else
-            tip = "未知";
-        return tip;
+    private CharSequence getPermissionDes(String permission) {
+        try {
+            PermissionInfo info = getPackageManager().getPermissionInfo(permission, PackageManager.GET_META_DATA);
+            return info.loadDescription(getPackageManager());
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

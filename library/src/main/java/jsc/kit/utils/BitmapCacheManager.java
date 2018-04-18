@@ -10,39 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
- * Init it in your application's onCreate() method like this:<br/>
- * <br/>{@code BitmapCacheManager.getInstance().init();}
- * </p>
  *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br>https://github.com/JustinRoom/JSCKit
  */
-public class BitmapCacheManager {
+public final class BitmapCacheManager {
 
     private Map<String, SoftReference<Bitmap>> bitmapCache = new HashMap<>();
-    private volatile static BitmapCacheManager instance = null;
-
-    private BitmapCacheManager() {
-    }
-
-    public static BitmapCacheManager getInstance() {
-        if (instance == null) {
-            synchronized (BitmapCacheManager.class) {
-                if (instance == null)
-                    instance = new BitmapCacheManager();
-            }
-        }
-        return instance;
-    }
-
-    /**
-     * Make sure that the singleton is thread_safe.
-     */
-    public void init() {
-
-    }
 
     /**
      * Add a image file to bitmap cache.
