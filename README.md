@@ -88,3 +88,8 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 + [**TurntableView**](/library/src/main/java/jsc/kit/turntable)————————Document:[抽奖转盘TurntableView](https://www.jianshu.com/p/3c473e1e007b)
 + [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview)————————Document:[用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件](https://www.jianshu.com/p/f1da8cd366cb)
 + [**RippleView**](/library/src/main/java/jsc/kit/rippleview)————————Document:[水波纹效果RippView](https://www.jianshu.com/p/e573110c38d4)
+
+### About functionality:
+
++ [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils)————————Document:[简洁易用andrioid6.0+权限请求组件](https://www.jianshu.com/p/47052d575f5b)
++ [**CustomToast**](/library/src/main/java/jsc/kit/utils)————————Document:
