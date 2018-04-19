@@ -1,6 +1,6 @@
 # JSCKit
 current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
-### Usage
+# Usage
 ##### Gradle: 
 **library** dependencies:
 ```
@@ -64,13 +64,46 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 	    <version>0.1.6</version>
 	</dependency>
 ```
-
-### Download
+# ProGuard
+If you are using ProGuard you need to add the following options:
+```
+-keep class jsc.kit.** { *; }
+-keep class jsc.lib.retrofitlibrary.** { *; }
+-keep class jsc.lib.zxinglibrary.** { *; }  
+  
+#>>>zxing
+-keep class com.google.zxing.** { *; }
+  
+#>>>retrofit2
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain service method parameters.
+-keepclassmembernames,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+  
+#>>>okhttp3
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+  
+#>>>rxandroid
+-keep class io.reactivex.android.**{*;}
+-keep class io.reactivex.**{*;}
+```
+Download
+--------
 **Download apk by scanning the QRCode below:**  
 &#32;&#32;Demo version:0.1.6
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
+# Content
 ### Component list:
 
 + [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview)————————Document:[ArcHeaderView和ArcHeaderDrawable](https://www.jianshu.com/p/ded0dc4ea528)
