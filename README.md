@@ -126,3 +126,12 @@ Download
 
 + [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils)————————Document:[简洁易用andrioid6.0+权限请求组件](https://www.jianshu.com/p/47052d575f5b)
 + [**CustomToast**](/library/src/main/java/jsc/kit/utils)————————Document:
+
+| Index | Parameter Name | Meaning |
+|:---:|:---|:---|
+| 1 | rv_layer_count | $1 |
+| 2 | rv_line_width | $1 |
+| 3 | rv_line_color | $1 |
+| 4 | rv_output_color | $1 |
+| 5 | rv_dot_color | $1 |
+| 6 | rv_dot_radius | $1 |
