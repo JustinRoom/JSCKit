@@ -1,5 +1,12 @@
 # JSCKit
 current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
+
+# Download
+**Download apk by scanning the QRCode below:**  
+&#32;&#32;Demo version:0.1.6
+![JSCKitDemo.apk](/capture/apk_qr_code.png)  
+[**Local Download**](/capture/JSCKitDemo.apk?raw=true)
+
 # Usage
 ##### Gradle: 
 **library** dependencies:
@@ -96,11 +103,6 @@ If you are using ProGuard you need to add the following options:
 -keep class io.reactivex.android.**{*;}
 -keep class io.reactivex.**{*;}
 ```
-# Download
-**Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.1.6
-![JSCKitDemo.apk](/capture/apk_qr_code.png)  
-[**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
 # Content
 ### Component list:
