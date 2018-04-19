@@ -80,8 +80,7 @@
         }
     }
 ```
-You also can reference [ZXingQRCodeActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingQRCodeActivity.java).
-You also can reference [ZXingScannerActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingScannerActivity.java).
+You also can reference [ZXingQRCodeActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingQRCodeActivity.java) and [ZXingScannerActivity](../app/src/main/java/jsc/exam/jsckit/ui/zxing/ZXingScannerActivity.java).
 ### tool：
 + QRCode encoder:[QRCodeEncoder](../ZXingLibrary/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeEncoder.java)
 + QRCode decoder:[QRCodeEncoder](../ZXingLibrary/src/main/java/jsc/lib/zxinglibrary/zxing/QRCodeDecoder.java)
