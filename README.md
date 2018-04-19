@@ -109,8 +109,8 @@ Download
 | index | Component | Article |
 |:---:|:---|:---|
 | 1  | [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | [**ArcHeaderView和ArcHeaderDrawable**](https://www.jianshu.com/p/ded0dc4ea528) |
-| 2  | [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | [**同上**](https://www.jianshu.com/p/ded0dc4ea528) |
-| 3  | [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview) | [**同上**](https://www.jianshu.com/p/ded0dc4ea528) |
+| 2  | [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | [***同上***](https://www.jianshu.com/p/ded0dc4ea528) |
+| 3  | [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview) | [***同上***](https://www.jianshu.com/p/ded0dc4ea528) |
 | 4  | [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview) | [**用ViewPager打造高性能广告轮播控件BannerView**](https://www.jianshu.com/p/652090682b31) |
 | 5  | [**MonthView**](/library/src/main/java/jsc/kit/monthview) | [**日历 MonthView**](https://www.jianshu.com/p/2387952b3d34) |
 | 6  | [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout) | [**仿IOS拖拽回弹之进阶ReboundFrameLayout**](https://www.jianshu.com/p/53d13719a6c4) |
