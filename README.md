@@ -109,27 +109,27 @@ If you are using ProGuard you need to add the following options:
 
 | index | Component | Article |
 |:---:|:---|:---|
-| 1  | [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | [**ArcHeaderView和ArcHeaderDrawable**](https://www.jianshu.com/p/ded0dc4ea528) |
-| 2  | [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | [***同上***](https://www.jianshu.com/p/ded0dc4ea528) |
-| 3  | [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview) | [***同上***](https://www.jianshu.com/p/ded0dc4ea528) |
-| 4  | [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview) | [**用ViewPager打造高性能广告轮播控件BannerView**](https://www.jianshu.com/p/652090682b31) |
-| 5  | [**MonthView**](/library/src/main/java/jsc/kit/monthview) | [**日历 MonthView**](https://www.jianshu.com/p/2387952b3d34) |
-| 6  | [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout) | [**仿IOS拖拽回弹之进阶ReboundFrameLayout**](https://www.jianshu.com/p/53d13719a6c4) |
-| 7  | [**RefreshLayout**](/library/src/main/java/jsc/kit/refreshlayout) | [**打造类似SwipeRefreshLayout的下拉刷新控件**](https://www.jianshu.com/p/b582bd08d4f9) |
-| 8  | [**VerticalStepView**](/library/src/main/java/jsc/kit/stepview) | [**公交线路 VerticalStepView**](https://www.jianshu.com/p/7721572fe13c) |
+| 1  | [**LGradientArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | <a href="https://www.jianshu.com/p/ded0dc4ea528" target="_blank">**ArcHeaderView和ArcHeaderDrawable**</a> |
+| 2  | [**PictureArcHeaderView**](/library/src/main/java/jsc/kit/archeaderview) | <a href="https://www.jianshu.com/p/ded0dc4ea528" target="_blank">**同上**</a> |
+| 3  | [**ArcHeaderDrawable**](/library/src/main/java/jsc/kit/archeaderview) | <a href="https://www.jianshu.com/p/ded0dc4ea528" target="_blank">**同上**</a> |
+| 4  | [**JSCBannerView**](/library/src/main/java/jsc/kit/bannerview) | <a href="https://www.jianshu.com/p/652090682b31" target="_blank">**用ViewPager打造高性能广告轮播控件BannerView**</a> |
+| 5  | [**MonthView**](/library/src/main/java/jsc/kit/monthview) | <a href="https://www.jianshu.com/p/2387952b3d34" target="_blank">**日历 MonthView**</a> |
+| 6  | [**ReboundFrameLayout**](/library/src/main/java/jsc/kit/reboundlayout) | <a href="https://www.jianshu.com/p/53d13719a6c4" target="_blank">**仿IOS拖拽回弹之进阶ReboundFrameLayout**</a> |
+| 7  | [**RefreshLayout**](/library/src/main/java/jsc/kit/refreshlayout) | <a href="https://www.jianshu.com/p/b582bd08d4f9" target="_blank">**打造类似SwipeRefreshLayout的下拉刷新控件**</a> |
+| 8  | [**VerticalStepView**](/library/src/main/java/jsc/kit/stepview) | <a href="https://www.jianshu.com/p/7721572fe13c" target="_blank">**公交线路 VerticalStepView**</a> |
 | 9  | [**JSCRoundCornerProgressBar**](/library/src/main/java/jsc/kit/progressbar) |  |
 | 10 | [**JSCItemLayout**](/library/src/main/java/jsc/kit/itemlayout) |  |
-| 11 | [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen) | [**打造上下滑动翻屏VScrollScreenLayout**](https://www.jianshu.com/p/b12afbf7de30) |
-| 12 | [**RadarView**](/library/src/main/java/jsc/kit/radarview) | [**雷达(蜘蛛网)图RadarView**](https://www.jianshu.com/p/94a4b763a4e5) |
-| 13 | [**TurntableView**](/library/src/main/java/jsc/kit/turntable) | [**抽奖转盘TurntableView**](https://www.jianshu.com/p/3c473e1e007b) |
-| 14 | [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview) | [**用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件**](https://www.jianshu.com/p/f1da8cd366cb)|
-| 15 | [**RippleView**](/library/src/main/java/jsc/kit/rippleview) | [**水波纹效果RippView**](https://www.jianshu.com/p/e573110c38d4)|
+| 11 | [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen) | <a href="https://www.jianshu.com/p/b12afbf7de30" target="_blank">**打造上下滑动翻屏VScrollScreenLayout**</a> |
+| 12 | [**RadarView**](/library/src/main/java/jsc/kit/radarview) | <a href="https://www.jianshu.com/p/94a4b763a4e5" target="_blank">**雷达(蜘蛛网)图RadarView**</a> |
+| 13 | [**TurntableView**](/library/src/main/java/jsc/kit/turntable) | <a href="https://www.jianshu.com/p/3c473e1e007b" target="_blank">**抽奖转盘TurntableView**</a> |
+| 14 | [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview) | <a href="https://www.jianshu.com/p/f1da8cd366cb" target="_blank">**用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件**</a> |
+| 15 | [**RippleView**](/library/src/main/java/jsc/kit/rippleview) | <a href="https://www.jianshu.com/p/e573110c38d4" target="_blank">**水波纹效果RippView**</a> |
 
 ### About functionality:
 
 | index | Functionality | Document |
 |:---:|:---|:---|
-| 1  | [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
+| 1  | [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils) | <a href="https://www.jianshu.com/p/47052d575f5b" target="_blank">**简洁易用andrioid6.0+权限请求组件**</a> |
 | 2  | [**CustomToast**](/library/src/main/java/jsc/kit/utils) | |
 
 # Attributions
