@@ -96,8 +96,7 @@ If you are using ProGuard you need to add the following options:
 -keep class io.reactivex.android.**{*;}
 -keep class io.reactivex.**{*;}
 ```
-Download
---------
+# Download
 **Download apk by scanning the QRCode below:**  
 &#32;&#32;Demo version:0.1.6
 ![JSCKitDemo.apk](/capture/apk_qr_code.png)  
@@ -130,6 +129,9 @@ Download
 |:---:|:---|:---|
 | 1  | [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
 | 2  | [**CustomToast**](/library/src/main/java/jsc/kit/utils) | |
+
+# Attributions
++ [**RadarView**](/library/src/main/java/jsc/kit/radarview):
 
 | index | parameter name | meaning | default value |
 |:---:|:---|:---| :---:|
