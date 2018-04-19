@@ -118,7 +118,8 @@ Download
 + [**JSCItemLayout**](/library/src/main/java/jsc/kit/itemlayout)————————Document:[]()
 + [**VScrollScreenLayout**](/library/src/main/java/jsc/kit/vscrollscreen)————————Document:[打造上下滑动翻屏VScrollScreenLayout](https://www.jianshu.com/p/b12afbf7de30)
 + [**RadarView**](/library/src/main/java/jsc/kit/radarview)————————Document:[雷达(蜘蛛网)图RadarView](https://www.jianshu.com/p/94a4b763a4e5)
-| Index | Parameter Name | Meaning | Default Value |
+
+| index | parameter name | meaning | default value |
 |:---:|:---|:---| :---:|
 | 1 | rv_layer_count | 多边形层数 | 4 |
 | 2 | rv_line_width | 边的粗细 | 1px |
@@ -126,6 +127,7 @@ Download
 | 4 | rv_output_color | 数据图层颜色 | 0x66FF4081 |
 | 5 | rv_dot_color | 顶点颜色 | Color.CYAN |
 | 6 | rv_dot_radius | 顶点半径 | 8px |
+
 + [**TurntableView**](/library/src/main/java/jsc/kit/turntable)————————Document:[抽奖转盘TurntableView](https://www.jianshu.com/p/3c473e1e007b)
 + [**SwipeRefreshRecyclerView**](/library/src/main/java/jsc/kit/swiperecyclerview)————————Document:[用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件](https://www.jianshu.com/p/f1da8cd366cb)
 + [**RippleView**](/library/src/main/java/jsc/kit/rippleview)————————Document:[水波纹效果RippView](https://www.jianshu.com/p/e573110c38d4)
