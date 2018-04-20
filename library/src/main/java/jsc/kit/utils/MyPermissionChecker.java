@@ -96,13 +96,15 @@ public class MyPermissionChecker {
         //所请求的permissions都已授权通过
         if (deniedPermissions.size() == 0) {
             onCheckListener.onAllGranted(requestCode);
-            return;
+        } else {
+            //所请求的permissions中未通过授权的部分permissions
+            onCheckListener.onDenied(requestCode, deniedPermissions);
+            //所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
+            if (shouldShowPermissions.size() > 0)
+                onCheckListener.onShouldShowSettingTips(shouldShowPermissions);
         }
-        //所请求的permissions中未通过授权的部分permissions
-        onCheckListener.onDenied(requestCode, deniedPermissions);
-        //所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
-        if (shouldShowPermissions.size() > 0)
-            onCheckListener.onShouldShowSettingTips(shouldShowPermissions);
+        //处理收尾工作
+        onCheckListener.onFinally(requestCode);
     }
 
     /**
@@ -138,6 +140,12 @@ public class MyPermissionChecker {
          * 所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
          * @param shouldShowPermissions
          */
-        void onShouldShowSettingTips(List<String> shouldShowPermissions);
+        void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions);
+
+        /**
+         * 在此方法中做一些收尾工作。例如释放资源。
+         * @param requestCode
+         */
+        void onFinally(int requestCode);
     }
 }

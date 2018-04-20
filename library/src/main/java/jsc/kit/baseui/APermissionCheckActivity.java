@@ -13,14 +13,9 @@ import jsc.kit.utils.MyPermissionChecker;
 
 public abstract class APermissionCheckActivity extends AppCompatActivity {
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+    private MyPermissionChecker myPermissionChecker = null;
 
-    protected MyPermissionChecker myPermissionChecker = null;
-
-    public void checkPermissions(int requestCode, MyPermissionChecker.OnCheckListener checkListener, String... permissions) {
+    public final void checkPermissions(int requestCode, MyPermissionChecker.OnCheckListener checkListener, String... permissions) {
         if (myPermissionChecker == null) {
             myPermissionChecker = new MyPermissionChecker();
         }
@@ -29,9 +24,12 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     }
 
     /**
-     * Recycle {@code "myPermissionChecker"}.
+     * Release resource. I suggest that you should call this method in {@link MyPermissionChecker.OnCheckListener#onFinally(int)}.
+     * <br/>It does two things:
+     * <br/>1、set {@link MyPermissionChecker#onCheckListener} as {@code null}
+     * <br/>2、set {@link #myPermissionChecker} as {@code null}
      */
-    public void removePermissionChecker() {
+    public final void removePermissionChecker() {
         if (myPermissionChecker == null)
             return;
         myPermissionChecker.removeCheckListener();
@@ -44,6 +42,10 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    /**
+     * Get status bar height.
+     * @return
+     */
     public final int getStatusBarHeight() {
         int statusBarHeight = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -53,6 +55,10 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         return statusBarHeight;
     }
 
+    /**
+     * Get action bar height.
+     * @return
+     */
     public final int getActionBarSize() {
         TypedValue typedValue = new TypedValue();
         int[] attribute = new int[]{android.R.attr.actionBarSize};

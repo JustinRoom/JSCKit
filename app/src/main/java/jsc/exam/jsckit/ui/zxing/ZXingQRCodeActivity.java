@@ -59,9 +59,7 @@ public class ZXingQRCodeActivity extends ABaseActivity {
         checkPermissions(0x100, new MyPermissionChecker.OnCheckListener() {
             @Override
             public void onAllGranted(int requestCode) {
-                removePermissionChecker();
                 toScannerActivity();
-                showCustomToast("Request CAMERA permission successfully.");
             }
 
             @Override
@@ -71,18 +69,17 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
             @Override
             public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-//                CustomToast.Builder toastBuilder = new CustomToast.Builder()
-//                        .text("Denied permissions:\n\n" + getAllPermissionDes(deniedPermissions))
-//                        .topMargin(getActionBarSize())
-//                        .textGravity(Gravity.START)
-//                        .textColor(0xFF333333)
-//                        .duration(10_000);
-//                showCustomToast(toastBuilder);
+
             }
 
             @Override
-            public void onShouldShowSettingTips(List<String> shouldShowPermissions) {
+            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
                 showPermissionRationaleDialog(shouldShowPermissions);
+            }
+
+            @Override
+            public void onFinally(int requestCode) {
+                removePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
