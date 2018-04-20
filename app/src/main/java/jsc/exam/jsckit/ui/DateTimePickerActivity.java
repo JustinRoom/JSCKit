@@ -89,6 +89,6 @@ public class DateTimePickerActivity extends ABaseActivity {
                 date2 = date;
                 currentTime.setText(format2.format(date));
             }
-        }, startDate, endDate);
+        }, startDate, endDate, new DateTimePicker.Builder(this).setLoopScroll(true));
     }
 }
