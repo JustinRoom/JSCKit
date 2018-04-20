@@ -34,8 +34,7 @@
         DateTimePicker dateTimePicker1 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
             public void handle(Date date) {
-                DateTimePickerActivity.this.date1 = date;
-                currentDate.setText(format1.format(date));
+               
             }
         }, startDate, endDate, builder);
 
@@ -43,8 +42,7 @@
         DateTimePicker dateTimePicker2 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
             public void handle(Date date) {
-                date2 = date;
-                currentTime.setText(format2.format(date));
+                
             }
         }, startDate, endDate);
 ```
