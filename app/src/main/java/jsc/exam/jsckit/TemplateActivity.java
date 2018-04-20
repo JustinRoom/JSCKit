@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-public class TemplateActivity extends AppCompatActivity {
+import jsc.exam.jsckit.ui.ABaseActivity;
+
+public class TemplateActivity extends ABaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

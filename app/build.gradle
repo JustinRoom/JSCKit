@@ -48,6 +48,7 @@ dependencies {
     implementation project(':library')
     implementation project(':ZXingLibrary')
     implementation project(':Retrofit2Library')
+    implementation project(':DateTimePickerLibrary')
     //glide
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'

@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="title">Select Date</string>
+    <string name="year">Y</string>
+    <string name="month">M</string>
+    <string name="day">D</string>
+    <string name="hour">h</string>
+    <string name="minute">m</string>
+
+</resources>

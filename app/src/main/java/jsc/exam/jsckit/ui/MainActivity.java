@@ -50,6 +50,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("ComponentList", ComponentListActivity.class));
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
+        classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
         classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
         return classItems;
     }

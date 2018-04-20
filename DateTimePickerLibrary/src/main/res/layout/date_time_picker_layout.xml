@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fy_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:padding="10dp"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/segment_line_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:id="@+id/ly_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp">
+
+        <jsc.lib.datetimepicker.widget.DatePickerView
+            android:id="@+id/year_picker"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="3" />
+
+        <TextView
+            android:id="@+id/year_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <jsc.lib.datetimepicker.widget.DatePickerView
+            android:id="@+id/month_picker"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/month_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <jsc.lib.datetimepicker.widget.DatePickerView
+            android:id="@+id/day_picker"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/day_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <jsc.lib.datetimepicker.widget.DatePickerView
+            android:id="@+id/hour_picker"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/hour_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <jsc.lib.datetimepicker.widget.DatePickerView
+            android:id="@+id/minute_picker"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/minute_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

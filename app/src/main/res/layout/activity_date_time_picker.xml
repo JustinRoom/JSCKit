@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="选择日期"
+        android:textColor="#666"
+        android:textSize="15sp" />
+
+    <FrameLayout
+        android:id="@+id/selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:color/white"
+        android:onClick="widgetClick"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="当前日期"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/currentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="15sp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="选择时间"
+        android:textColor="#666"
+        android:textSize="15sp" />
+
+    <FrameLayout
+        android:id="@+id/selectTime"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:color/white"
+        android:onClick="widgetClick"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="当前时间"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="15sp" />
+
+    </FrameLayout>
+
+</LinearLayout>

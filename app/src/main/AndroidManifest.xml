@@ -40,6 +40,7 @@
         <activity android:name=".ui.zxing.ZXingQRCodeActivity" />
         <activity android:name=".ui.zxing.ZXingScannerActivity" />
         <activity android:name=".ui.Retrofit2Activity" />
+        <activity android:name=".ui.DateTimePickerActivity" />
     </application>
 
 </manifest>
