@@ -73,16 +73,15 @@ public class DateTimePickerActivity extends ABaseActivity {
                 .setCancelTextColor(Color.RED)
                 .setOkTextColor(getResources().getColor(R.color.colorPrimary))
                 .setTitleTextColor(0xFF999999)
-                .setSelectedTextColor(getResources().getColor(R.color.colorAccent));
+                .setSelectedTextColor(getResources().getColor(R.color.colorAccent))
+                .setShowTime(false);
         dateTimePicker1 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
             public void handle(Date date) {
                 DateTimePickerActivity.this.date1 = date;
                 currentDate.setText(format1.format(date));
             }
-        }, startDate, endDate, builder); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
-        dateTimePicker1.showSpecificTime(false); // 不显示时和分
-        dateTimePicker1.setIsLoop(false); // 不允许循环滚动
+        }, startDate, endDate, builder);
 
         dateTimePicker2 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
@@ -90,8 +89,6 @@ public class DateTimePickerActivity extends ABaseActivity {
                 date2 = date;
                 currentTime.setText(format2.format(date));
             }
-        }, startDate, endDate); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
-        dateTimePicker2.showSpecificTime(true); // 显示时和分
-        dateTimePicker2.setIsLoop(true); // 允许循环滚动
+        }, startDate, endDate);
     }
 }

@@ -1,9 +1,53 @@
 # DOCUMENT
 
 ## Screenshot
-![](../capture/DateTimePicker01.jpg)
+
+![](../capture/DateTimePicker01.jpg)  
+
 ![](../capture/DateTimePicker02.jpg)
+
+
 ## Usage
+```
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2010);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        Date startDate = calendar.getTime();
+
+        calendar.set(Calendar.YEAR, 2030);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        Date endDate = calendar.getTime();
+        
+        //方式一：构建自己的builder
+        DateTimePicker.Builder builder = new DateTimePicker.Builder(this)
+                .setCancelTextColor(Color.RED)
+                .setOkTextColor(getResources().getColor(R.color.colorPrimary))
+                .setTitleTextColor(0xFF999999)
+                .setSelectedTextColor(getResources().getColor(R.color.colorAccent))
+                .setShowTime(false);
+        DateTimePicker dateTimePicker1 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
+            @Override
+            public void handle(Date date) {
+                DateTimePickerActivity.this.date1 = date;
+                currentDate.setText(format1.format(date));
+            }
+        }, startDate, endDate, builder);
+
+        //方式二：使用默认的builder
+        DateTimePicker dateTimePicker2 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
+            @Override
+            public void handle(Date date) {
+                date2 = date;
+                currentTime.setText(format2.format(date));
+            }
+        }, startDate, endDate);
+```
 
 ## Parameters
 [DateTimePicker.Builder](../DateTimePickerLibrary/src/main/java/jsc/lib/datetimepicker/widget/DateTimePicker.java)'s parameters:
@@ -32,3 +76,5 @@
 | bodyBackgroundColor | setBodyBackgroundColor(@ColorInt int bodyBackgroundColor) | 日期时间部分背景颜色 |
 | segmentingLineColor | setSegmentingLineColor(@ColorInt int segmentingLineColor) | 标题部分与日期时间部分分割线颜色 |
 | segmentingLineHeight | setSegmentingLineHeight(@IntRange(from = 1) int segmentingLineHeight) | 标题部分与日期时间部分分割线高度 |
+| showTime | setShowTime(boolean showTime) | 是否显示“时”和“分”，默认显示 |
+| loopScroll | setLoopScroll(boolean loopScroll) | 是否循环滚动，默认否 |

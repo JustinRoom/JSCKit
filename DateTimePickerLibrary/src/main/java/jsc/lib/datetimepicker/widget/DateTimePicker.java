@@ -164,6 +164,10 @@ public class DateTimePicker {
         dayLabel.setTextColor(builder.dayLabelTextColor);
         hourLabel.setTextColor(builder.hourLabelTextColor);
         minuteLabel.setTextColor(builder.minuteLabelTextColor);
+
+        //
+        showSpecificTime(builder.showTime);
+        setIsLoop(builder.loopScroll);
     }
 
     private void initParameter() {
@@ -531,7 +535,7 @@ public class DateTimePicker {
     /**
      * 设置日期控件是否显示时和分
      */
-    public void showSpecificTime(boolean show) {
+    private void showSpecificTime(boolean show) {
         if (show) {
             disScrollUnit();
             hourPicker.setVisibility(View.VISIBLE);
@@ -550,7 +554,7 @@ public class DateTimePicker {
     /**
      * 设置日期控件是否可以循环滚动
      */
-    public void setIsLoop(boolean isLoop) {
+    private void setIsLoop(boolean isLoop) {
         this.yearPicker.setIsLoop(isLoop);
         this.monthPicker.setIsLoop(isLoop);
         this.dayPicker.setIsLoop(isLoop);
@@ -687,6 +691,8 @@ public class DateTimePicker {
         int bodyBackgroundColor;
         int segmentingLineColor;
         int segmentingLineHeight;
+        boolean showTime;
+        boolean loopScroll;
 
         public Builder(Context context){
             title = context.getString(R.string.title);
@@ -711,6 +717,8 @@ public class DateTimePicker {
             bodyBackgroundColor = Color.WHITE;
             segmentingLineColor = 0xFFC9C9C9;
             segmentingLineHeight = 1;
+            showTime = true;
+            loopScroll = false;
         }
 
         public Builder setTitle(CharSequence title) {
@@ -820,6 +828,16 @@ public class DateTimePicker {
 
         public Builder setSegmentingLineHeight(@IntRange(from = 1) int segmentingLineHeight) {
             this.segmentingLineHeight = segmentingLineHeight;
+            return this;
+        }
+
+        public Builder setShowTime(boolean showTime) {
+            this.showTime = showTime;
+            return this;
+        }
+
+        public Builder setLoopScroll(boolean loopScroll) {
+            this.loopScroll = loopScroll;
             return this;
         }
     }
