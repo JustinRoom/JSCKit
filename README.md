@@ -81,6 +81,7 @@ If you are using ProGuard you need to add the following options:
 -keep class jsc.kit.** { *; }
 -keep class jsc.lib.retrofitlibrary.** { *; }
 -keep class jsc.lib.zxinglibrary.** { *; }  
+-keep class jsc.lib.datetimepicker.** { *; }  
   
 #>>>zxing
 -keep class com.google.zxing.** { *; }
