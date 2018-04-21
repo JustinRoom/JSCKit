@@ -10,7 +10,7 @@
 `xmlns:app="http://schemas.android.com/apk/res-auto"`
 
 | 参数 | 类型 | 含义 |
-|:---:|:---|:---|
+|:---|:---|:---|
 | app:rv_start_angle | int | 偏移角度，默认为`0` |
 | app:rv_layer_count | int | 多边形层数，默认为`4` |
 | app:rv_layer_style | enum | 多边形填充模式：`stroke`、`fill`，默认为`stroke` |
