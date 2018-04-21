@@ -4,8 +4,8 @@ buildscript {
     ext.min_sdk_veriosn = 19
     ext.sdk_veriosn = 27
     ext.component_version = '27.1.1'
-    ext.version_code = 18
-    ext.version_name = "0.1.8"
+    ext.version_code = 19
+    ext.version_name = "0.1.9"
     repositories {
         google()
         jcenter()
