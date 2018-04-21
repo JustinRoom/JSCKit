@@ -4,7 +4,7 @@
 ![](../capture/screenshot/RadarView01.jpg)
 
 ## Link
-[**RadarView**](../library/src/main/java/jsc/kit/radarview)
+[<h3>RadarView</h3>](../library/src/main/java/jsc/kit/radarview)
 
 ## Attributions
 `xmlns:app="http://schemas.android.com/apk/res-auto"`
