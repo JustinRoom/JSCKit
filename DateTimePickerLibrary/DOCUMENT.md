@@ -2,9 +2,9 @@
 
 ## Screenshot
 
-![](../capture/DateTimePicker01.jpg)  
+![](../capture/screenshot/DateTimePicker01.jpg)  
 
-![](../capture/DateTimePicker02.jpg)
+![](../capture/screenshot/DateTimePicker02.jpg)
 
 
 ## Usage

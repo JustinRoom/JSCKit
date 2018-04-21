@@ -20,7 +20,8 @@ public class RadarViewActivity extends ABaseActivity {
         setContentView(R.layout.activity_radar_view);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
-        RadarView radarView = findViewById(R.id.radar_view);
+        RadarView radarView1 = findViewById(R.id.radar_view1);
+        RadarView radarView2 = findViewById(R.id.radar_view2);
         String[] labels = new String[]{"中单", "射手", "辅助", "打野", "上单"};
         float[] data = new float[]{0.6f, 0.95f, 0.45f, 0.9f, 0.7f};
         int[] align = new int[]{RadarEntity.ALIGN_RIGHT, RadarEntity.ALIGN_BOTTOM, RadarEntity.ALIGN_BOTTOM, RadarEntity.ALIGN_LEFT, RadarEntity.ALIGN_TOP};
@@ -32,6 +33,7 @@ public class RadarViewActivity extends ABaseActivity {
             entity.setLabelAlignType(align[i]);
             entities.add(entity);
         }
-        radarView.setRadarEntities(entities);
+        radarView1.setRadarEntities(entities);
+        radarView2.setRadarEntities(entities);
     }
 }

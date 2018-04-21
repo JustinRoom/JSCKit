@@ -1,5 +1,7 @@
 package jsc.kit.radarview;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
@@ -7,7 +9,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class RadarEntity {
+public class RadarEntity implements Parcelable{
     public final static int ALIGN_LEFT = 0;
     public final static int ALIGN_RIGHT = 1;
     public final static int ALIGN_TOP = 2;
@@ -77,5 +79,39 @@ public class RadarEntity {
 
     public void setLabelAlignType(@LabelAlignType int labelAlignType) {
         this.labelAlignType = labelAlignType;
+    }
+
+    protected RadarEntity(Parcel in) {
+        label = in.readString();
+        labelColor = in.readInt();
+        labelTextSize = in.readFloat();
+        labelAlignType = in.readInt();
+        value = in.readFloat();
+    }
+
+    public static final Creator<RadarEntity> CREATOR = new Creator<RadarEntity>() {
+        @Override
+        public RadarEntity createFromParcel(Parcel in) {
+            return new RadarEntity(in);
+        }
+
+        @Override
+        public RadarEntity[] newArray(int size) {
+            return new RadarEntity[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(label);
+        dest.writeInt(labelColor);
+        dest.writeFloat(labelTextSize);
+        dest.writeInt(labelAlignType);
+        dest.writeFloat(value);
     }
 }

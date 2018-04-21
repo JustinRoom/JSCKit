@@ -28,11 +28,13 @@ public class RadarView extends View {
     private List<RadarEntity> radarEntities = new ArrayList<>();
     private int startAngle;
     private int layerCount;
-    private int lineWidth;
-    private int lineColor;
+    private int layerStyle;
+    private int layerStrokeWidth;
+    private int layerColor;
     private int outputColor;
-    private int dotColor;
-    private int dotRadius;
+    private boolean vertexShow;
+    private int vertexColor;
+    private int vertexRadius;
 
     public RadarView(Context context) {
         this(context, null);
@@ -50,22 +52,33 @@ public class RadarView extends View {
         layerCount = Math.abs(tempLayerCount);
         if (layerCount < 1)
             layerCount = 1;
-        int tempLineWidth = a.getDimensionPixelSize(R.styleable.RadarView_rv_line_width, 1);
-        lineWidth = Math.abs(tempLineWidth);
-        if (lineWidth < 1)
-            lineWidth = 1;
-        lineColor = a.getColor(R.styleable.RadarView_rv_line_color, 0xFFCCCCCC);
+        layerStyle = a.getInt(R.styleable.RadarView_rv_layer_style, 0);
+        int tempLineWidth = a.getDimensionPixelSize(R.styleable.RadarView_rv_layer_stroke_width, 1);
+        layerStrokeWidth = Math.abs(tempLineWidth);
+        if (layerStrokeWidth < 1)
+            layerStrokeWidth = 1;
+        layerColor = a.getColor(R.styleable.RadarView_rv_layer_color, 0xFFCCCCCC);
         outputColor = a.getColor(R.styleable.RadarView_rv_output_color, 0x66FF4081);
-        dotColor = a.getColor(R.styleable.RadarView_rv_dot_color, Color.CYAN);
-        int tempDotRadius = a.getDimensionPixelSize(R.styleable.RadarView_rv_dot_radius, 8);
-        dotRadius = Math.abs(tempDotRadius);
-        if (dotRadius <= 0)
-            dotRadius = 8;
+        vertexShow = a.getBoolean(R.styleable.RadarView_rv_vertex_show, false);
+        vertexColor = a.getColor(R.styleable.RadarView_rv_vertex_color, Color.CYAN);
+        int tempDotRadius = a.getDimensionPixelSize(R.styleable.RadarView_rv_vertex_radius, 8);
+        vertexRadius = Math.abs(tempDotRadius);
+        if (vertexRadius <= 0)
+            vertexRadius = 8;
         a.recycle();
     }
 
     public void setRadarEntities(List<RadarEntity> radarEntities) {
         this.radarEntities = radarEntities;
+        postInvalidate();
+    }
+
+    public int getStartAngle() {
+        return startAngle;
+    }
+
+    public void setStartAngle(int startAngle) {
+        this.startAngle = startAngle;
         postInvalidate();
     }
 
@@ -78,58 +91,72 @@ public class RadarView extends View {
         postInvalidate();
     }
 
-    public int getLineWidth() {
-        return lineWidth;
+    public int getLayerStyle() {
+        return layerStyle;
     }
 
-    public void setLineWidth(int lineWidth) {
-        this.lineWidth = lineWidth;
+    /**
+     * 0 represents {@link Paint.Style#STROKE}<br/>
+     * 1 represents {@link Paint.Style#FILL}<br/>
+     *
+     * @param layerStyle
+     */
+    public void setLayerStyle(@IntRange(from = 0, to = 1) int layerStyle) {
+        this.layerStyle = layerStyle;
         postInvalidate();
     }
 
-    public int getLineColor() {
-        return lineColor;
+    public int getLayerStrokeWidth() {
+        return layerStrokeWidth;
     }
 
-    public void setLineColor(int lineColor) {
-        this.lineColor = lineColor;
+    public void setLayerStrokeWidth(@IntRange(from = 1) int layerStrokeWidth) {
+        this.layerStrokeWidth = layerStrokeWidth;
         postInvalidate();
     }
 
-    public int getStartAngle() {
-        return startAngle;
+    public int getLayerColor() {
+        return layerColor;
     }
 
-    public void setStartAngle(int startAngle) {
-        if (this.startAngle == startAngle)
-            return;
-
-        this.startAngle = startAngle;
+    public void setLayerColor(@ColorInt int layerColor) {
+        this.layerColor = layerColor;
         postInvalidate();
     }
 
-    //
+    public int getOutputColor() {
+        return outputColor;
+    }
+
     public void setOutputColor(@ColorInt int outputColor) {
         this.outputColor = outputColor;
         postInvalidate();
     }
 
-    public int getDotColor() {
-        return dotColor;
+    public boolean isVertexShow() {
+        return vertexShow;
     }
 
-    public void setDotColor(@ColorInt int dotColor) {
-        this.dotColor = dotColor;
+    public void setVertexShow(boolean vertexShow) {
+        this.vertexShow = vertexShow;
         postInvalidate();
     }
 
-    public int getDotRadius() {
-        return dotRadius;
+    public int getVertexColor() {
+        return vertexColor;
     }
 
-    public void setDotRadius(int dotRadius) {
-        this.dotRadius = dotRadius;
+    public void setVertexColor(@ColorInt int vertexColor) {
+        this.vertexColor = vertexColor;
         postInvalidate();
+    }
+
+    public int getVertexRadius() {
+        return vertexRadius;
+    }
+
+    public void setVertexRadius(@IntRange(from = 1) int vertexRadius) {
+        this.vertexRadius = vertexRadius;
     }
 
     @Override
@@ -152,12 +179,12 @@ public class RadarView extends View {
 
         int maxHPadding = Math.max(getPaddingLeft(), getPaddingRight());
         int maxVPadding = Math.max(getPaddingTop(), getPaddingBottom());
-        float maxRadius = getWidth() / 2.0f - lineWidth - Math.max(maxHPadding, maxVPadding);
+        float maxRadius = getWidth() / 2.0f - layerStrokeWidth - Math.max(maxHPadding, maxVPadding);
         int count = radarEntities.size();
 
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(lineWidth);
-        paint.setColor(lineColor);
+        paint.setStyle(layerStyle == 0 ? Paint.Style.STROKE : Paint.Style.FILL);
+        paint.setStrokeWidth(layerStrokeWidth);
+        paint.setColor(layerColor);
         pointLists.clear();
         for (int i = 0; i < layerCount; i++) {
             float tempRadius = maxRadius - maxRadius * i / layerCount;
@@ -166,26 +193,33 @@ public class RadarView extends View {
             pointLists.add(points);
         }
 
-        for (int i = 0; i < count; i++) {
-            RadarPoint point1 = pointLists.get(0).get(i);
-            RadarPoint point2 = pointLists.get(layerCount - 1).get(i);
-            drawPolygonLine(canvas, point1, point2, paint);
+        //最外层多边形和最里层多边形相对应顶点vertex间的连线
+        if (layerCount >= 2){
+            for (int i = 0; i < count; i++) {
+                RadarPoint point1 = pointLists.get(0).get(i);
+                RadarPoint point2 = pointLists.get(layerCount - 1).get(i);
+                drawPolygonLine(canvas, point1, point2, paint);
+            }
         }
 
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(dotColor);
-        for (int i = 0; i < count; i++) {
-            RadarPoint point = pointLists.get(0).get(i);
-            canvas.drawCircle(point.getX(), point.getY(), dotRadius, paint);
+        //vertex
+        if (vertexShow){
+            paint.setColor(vertexColor);
+            for (int i = 0; i < count; i++) {
+                RadarPoint point = pointLists.get(0).get(i);
+                canvas.drawCircle(point.getX(), point.getY(), vertexRadius, paint);
+            }
         }
 
+        //output
         paint.setColor(outputColor);
         drawPolygon(canvas, getDataPoints(startAngle, maxRadius, radarEntities), paint);
 
         //labels
         for (int i = 0; i < count; i++) {
             RadarPoint point = pointLists.get(0).get(i);
-            drawLabel(canvas, radarEntities.get(i), point, textPaint, dotRadius + 8);
+            drawLabel(canvas, radarEntities.get(i), point, textPaint, vertexRadius + 8);
         }
     }
 

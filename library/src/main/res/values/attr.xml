@@ -97,11 +97,16 @@
     <declare-styleable name="RadarView">
         <attr name="rv_start_angle" format="integer" />
         <attr name="rv_layer_count" format="integer" />
-        <attr name="rv_line_width" format="dimension" />
-        <attr name="rv_line_color" format="color|reference" />
+        <attr name="rv_layer_style" >
+            <enum name="stroke" value="0"/>
+            <enum name="fill" value="1"/>
+        </attr>
+        <attr name="rv_layer_color" format="color|reference" />
+        <attr name="rv_layer_stroke_width" format="dimension" />
         <attr name="rv_output_color" format="color|reference" />
-        <attr name="rv_dot_color" format="color|reference" />
-        <attr name="rv_dot_radius" format="dimension" />
+        <attr name="rv_vertex_show" format="boolean"/>
+        <attr name="rv_vertex_color" format="color|reference" />
+        <attr name="rv_vertex_radius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="RippleView">

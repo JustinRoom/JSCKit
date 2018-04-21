@@ -6,18 +6,33 @@
     android:orientation="vertical">
 
     <jsc.kit.radarview.RadarView
-        android:id="@+id/radar_view"
+        android:id="@+id/radar_view1"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
         android:padding="24dp"
-        app:rv_output_color="#33FF4081"
+        app:rv_layer_color="#ccc"
         app:rv_layer_count="4"
-        app:rv_line_color="#ccc"
-        app:rv_line_width="2px"
+        app:rv_layer_stroke_width="2px"
+        app:rv_layer_style="stroke"
+        app:rv_output_color="#33FF4081"
         app:rv_start_angle="-18"
-        app:rv_dot_color="@color/colorPrimaryDark"
-        app:rv_dot_radius="3dp" />
+        app:rv_vertex_color="@color/colorPrimaryDark"
+        app:rv_vertex_radius="3dp"
+        app:rv_vertex_show="true" />
+
+    <jsc.kit.radarview.RadarView
+        android:id="@+id/radar_view2"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:padding="24dp"
+        app:rv_layer_color="#223F51B5"
+        app:rv_layer_count="4"
+        app:rv_layer_style="fill"
+        app:rv_output_color="#33FF4081"
+        app:rv_start_angle="-18" />
 
 </LinearLayout>

@@ -137,15 +137,3 @@ If you are using ProGuard you need to add the following options:
 | 1  | [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
 | 2  | [**DateTimePicker**](/DateTimePickerLibrary/src/main/java/jsc/lib/datetimepicker/widget/DateTimePicker.java) | [**日期选择器DateTimePicker**](https://www.jianshu.com/p/db19efcaa226) |
 | 3  | [**CustomToast**](/library/src/main/java/jsc/kit/utils) | |
-
-# Attributions
-+ [**RadarView**](/library/src/main/java/jsc/kit/radarview):
-
-| index | parameter name | meaning | default value |
-|:---:|:---|:---| :---:|
-| 1 | rv_layer_count | 多边形层数 | 4 |
-| 2 | rv_line_width | 边的粗细 | 1px |
-| 3 | rv_line_color | 边的颜色 | 0xFFCCCCCC |
-| 4 | rv_output_color | 数据图层颜色 | 0x66FF4081 |
-| 5 | rv_dot_color | 顶点颜色 | Color.CYAN |
-| 6 | rv_dot_radius | 顶点半径 | 8px |
