@@ -8,7 +8,6 @@ import jsc.kit.utils.CustomToast;
 public class InstanceManager {
     private volatile static InstanceManager instance = null;
     private boolean isInitialized = false;
-    private CustomToast customToast;
     private BitmapCacheManager bitmapCacheManager;
 
     private InstanceManager(){}
@@ -25,13 +24,7 @@ public class InstanceManager {
 
     public void init(Application application){
         isInitialized =  true;
-        customToast = new CustomToast(application);
         bitmapCacheManager = new BitmapCacheManager();
-    }
-
-    public CustomToast getCustomToast() {
-        checkIsInitialized();
-        return customToast;
     }
 
     public BitmapCacheManager getBitmapCacheManager() {

@@ -14,6 +14,6 @@ public abstract class ABaseActivity extends APermissionCheckActivity {
     }
 
     public final void showCustomToast(CustomToast.Builder builder){
-        InstanceManager.getInstance().getCustomToast().show(builder);
+        CustomToast.getInstance().show(builder);
     }
 }

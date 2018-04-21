@@ -1,10 +1,10 @@
 package jsc.kit.utils;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -24,23 +24,33 @@ import jsc.kit.R;
  */
 public final class CustomToast {
 
-    private Application applicationContext;
+    private static CustomToast instance = null;
+    private Context applicationContext;
     private WindowManager windowManager;
     private TextView lastToastView = null;
     private Runnable toastRunnable = null;
     private WindowManager.LayoutParams params = null;
 
-    public CustomToast(Application applicationContext) {
+    private CustomToast() {
+
+    }
+
+    public static CustomToast getInstance() {
+        if (instance == null)
+            instance = new CustomToast();
+        return instance;
+    }
+
+    public void init(Context applicationContext){
         this.applicationContext = applicationContext;
         windowManager = (WindowManager) applicationContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
-    public void show(@StringRes int resId) {
-        String txt = applicationContext.getString(resId);
-        show(txt);
+    public void show(@NonNull Context context, @StringRes int resId){
+        show(context.getString(resId));
     }
 
-    public void show(String text) {
+    public void show(CharSequence text) {
         show(new Builder().text(text));
     }
 
@@ -49,16 +59,17 @@ public final class CustomToast {
      * @param builder
      */
     public void show(Builder builder) {
+        if (applicationContext == null)
+            throw new RuntimeException("Please init this component inside application's onCreate() method.");
+
         if (builder == null)
             builder = new Builder();
 
-        destroyCustomToast(false);
+        destroy(false);
         DisplayMetrics metrics = applicationContext.getResources().getDisplayMetrics();
         if (lastToastView == null) {
-            int dp12 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, metrics);
-            int dp64 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, metrics);
-            lastToastView = new TextView(applicationContext);
-            lastToastView.setPadding(dp12, dp12, dp12, dp12);
+            int dp4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, metrics);
+            lastToastView.setPadding(dp4 * 3, dp4 * 2, dp4 * 3, dp4 * 2);
             toastRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -68,7 +79,7 @@ public final class CustomToast {
             };
             params = getParams();
             params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            params.width = metrics.widthPixels - dp64 * 2;
+            params.width = metrics.widthPixels - dp4 * 32;
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             params.windowAnimations = R.style.customToastWindowAnimations;
         }
@@ -96,7 +107,7 @@ public final class CustomToast {
         return params;
     }
 
-    public void destroyCustomToast(boolean recycleToastView) {
+    public void destroy(boolean recycleToastView) {
         if (lastToastView != null && lastToastView.getParent() != null) {
             lastToastView.removeCallbacks(toastRunnable);
             windowManager.removeView(lastToastView);
@@ -109,13 +120,28 @@ public final class CustomToast {
     }
 
     public static class Builder {
-        CharSequence text = "";
-        int backgroundColor = 0xEE00FF00;
-        int textColor = Color.BLACK;
-        float textSize = 16.0f;
-        int textGravity = Gravity.CENTER_HORIZONTAL;
-        int topMargin  = 0;
-        long duration = 3_000;
+        CharSequence text;
+        int backgroundColor;
+        int textColor;
+        float textSize;
+        int textGravity;
+        int topMargin;
+        long duration;
+
+        public Builder() {
+            text = "";
+            backgroundColor = 0xEE00FF00;
+            textColor = Color.BLACK;
+            textSize = 15.0f;
+            textGravity = Gravity.CENTER_HORIZONTAL;
+            topMargin = 0;
+            duration = 3_000;
+        }
+
+        public Builder text(@NonNull Context context, @StringRes int resId) {
+            this.text = context.getString(resId);
+            return this;
+        }
 
         public Builder text(CharSequence text) {
             this.text = text;

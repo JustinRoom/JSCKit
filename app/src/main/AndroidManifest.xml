@@ -41,6 +41,7 @@
         <activity android:name=".ui.zxing.ZXingScannerActivity" />
         <activity android:name=".ui.Retrofit2Activity" />
         <activity android:name=".ui.DateTimePickerActivity" />
+        <activity android:name=".ui.CustomToastActivity" />
     </application>
 
 </manifest>

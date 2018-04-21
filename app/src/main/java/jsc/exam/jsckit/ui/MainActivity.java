@@ -17,6 +17,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
+import jsc.kit.utils.CustomToast;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
 public class MainActivity extends ABaseActivity {
@@ -51,6 +52,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
+        classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
         return classItems;
     }
