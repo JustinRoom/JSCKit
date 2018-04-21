@@ -21,23 +21,23 @@ import jsc.kit.R;
  * <p></p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br>https://github.com/JustinRoom/JSCKit
  *
  * @author jiangshicheng
  */
 public abstract class BaseArcHeaderView extends View {
     public static final int DIRECTION_DOWN_OUT_SIDE = 0;
     public static final int DIRECTION_DOWN_IN_SIDE = 1;
-
-    protected Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected Path mPath = new Path();
-    protected int arcHeight;// 圆弧高度
-    protected int direction;
-    private Shader shader;
-
     @IntDef({DIRECTION_DOWN_OUT_SIDE, DIRECTION_DOWN_IN_SIDE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Direction {
     }
+
+    protected Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected Path mPath = new Path();
+    protected int direction;
+    protected int arcHeight;// 圆弧高度
+    private Shader shader;
 
     @NonNull
     protected abstract Shader getShader();

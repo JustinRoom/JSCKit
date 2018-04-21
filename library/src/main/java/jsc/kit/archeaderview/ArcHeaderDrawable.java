@@ -1,6 +1,8 @@
 package jsc.kit.archeaderview;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -9,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
@@ -26,7 +29,6 @@ public class ArcHeaderDrawable extends Drawable {
 
     public static final int DIRECTION_DOWN_OUT_SIDE = 0;
     public static final int DIRECTION_DOWN_IN_SIDE = 1;
-
     @IntDef({DIRECTION_DOWN_OUT_SIDE, DIRECTION_DOWN_IN_SIDE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Direction {
@@ -35,8 +37,12 @@ public class ArcHeaderDrawable extends Drawable {
     private Path mPath = new Path();
     private int mArcHeight;// 圆弧高度
     private int direction;
-    private Paint mPaint;
     private Bitmap mBitmap;
+    private Paint mPaint;
+
+    public ArcHeaderDrawable(@NonNull Context context, @DrawableRes int drawableId, int mArcHeight, @Direction int direction) {
+        this(BitmapFactory.decodeResource(context.getResources(), drawableId), mArcHeight, direction);
+    }
 
     public ArcHeaderDrawable(@NonNull Bitmap bitmap, int mArcHeight, @Direction int direction) {
         mBitmap = bitmap;

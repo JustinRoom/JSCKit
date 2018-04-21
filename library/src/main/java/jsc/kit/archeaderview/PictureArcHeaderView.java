@@ -17,6 +17,7 @@ import jsc.kit.R;
  * <p></p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br>https://github.com/JustinRoom/JSCKit
  *
  * @author jiangshicheng
  */
@@ -60,23 +61,18 @@ public class PictureArcHeaderView extends BaseArcHeaderView {
         return new BitmapShader(tempBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
     }
 
-    public void setSrc(@DrawableRes int drawableId) {
+    public void setDrawableResource(@DrawableRes int drawableId) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
-        setSrc(bitmap);
+        setBitmap(bitmap);
     }
 
-    public void setSrc(@NonNull Bitmap bitmap) {
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(@NonNull Bitmap bitmap) {
         resetShader();
         this.bitmap = bitmap;
         postInvalidate();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (bitmap != null && !bitmap.isRecycled()) {
-            bitmap.recycle();
-            bitmap = null;
-        }
     }
 }
