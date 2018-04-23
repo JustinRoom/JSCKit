@@ -28,8 +28,8 @@
 + 可监听每一个banner的点击事件。
 
 **特别提醒**：
-+ 1、JSCBannerView**必须**实现[PageAdapterItemLifeCycle](../../library/src/main/java/jsc/kit/bannerview/PageAdapterItemLifeCycle.java)接口定义Banner的视图。
-+ 2、JSCBannerView只支持[BannerPagerAdapter](../../library/src/main/java/jsc/kit/bannerview/BannerPagerAdapter.java)适配器。
++ 1、JSCBannerView只支持[BannerPagerAdapter](../../library/src/main/java/jsc/kit/bannerview/BannerPagerAdapter.java)适配器。
++ 2、[BannerPagerAdapter](../../library/src/main/java/jsc/kit/bannerview/BannerPagerAdapter.java)**必须**实现[PageAdapterItemLifeCycle](../../library/src/main/java/jsc/kit/bannerview/PageAdapterItemLifeCycle.java)接口定义Banner的视图。
 + 3、是否开启轮播功能是由[BannerPagerAdapter](../../library/src/main/java/jsc/kit/bannerview/BannerPagerAdapter.java)的构造方法里的参数`loop`决定。
 + 4、你可以实现[OnCreateIndicatorViewListener](../../library/src/main/java/jsc/kit/bannerview/OnCreateIndicatorViewListener.java)接口DIY底部指示器。
 + 5、你可以实现[OnPageAdapterItemClickListener](../../library/src/main/java/jsc/kit/bannerview/OnPageAdapterItemClickListener.java)接口监听每一个banner的点击事件。
