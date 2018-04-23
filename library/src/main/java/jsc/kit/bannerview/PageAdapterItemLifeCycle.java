@@ -23,13 +23,13 @@ public interface PageAdapterItemLifeCycle<T> {
     View onInstantiateItem(ViewGroup container, T item);
 
     /**
-     * destroy banner view.The below codes would be added usually.<br>
-     * <code>
-     * container.removeView((View) object);
-     * </code>
+     * destroy banner view.
      *
      * @param container
      * @param object
+     * @return
+     * true-destroy item by your way
+     * <br/>false-destroy item by default way: {@code container.removeView((View) object);}
      */
-    void onDestroyItem(ViewGroup container, Object object);
+    boolean onDestroyItem(ViewGroup container, Object object);
 }

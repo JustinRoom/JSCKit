@@ -77,9 +77,7 @@ public final class BannerPagerAdapter<T> extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        if (pageAdapterItemLifeCycle != null)
-            pageAdapterItemLifeCycle.onDestroyItem(container, object);
-        else
+        if (pageAdapterItemLifeCycle == null || !pageAdapterItemLifeCycle.onDestroyItem(container, object))
             container.removeView((View) object);
     }
 

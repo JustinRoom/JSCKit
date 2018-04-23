@@ -79,8 +79,8 @@ public class JSCBannerViewActivity extends ABaseActivity {
             }
 
             @Override
-            public void onDestroyItem(ViewGroup container, Object object) {
-                container.removeView((View) object);
+            public boolean onDestroyItem(ViewGroup container, Object object) {
+                return false;
             }
         });
         adapter.setOnCreateIndicatorViewListener(new OnCreateIndicatorViewListener<Banner>() {
@@ -132,8 +132,8 @@ public class JSCBannerViewActivity extends ABaseActivity {
             }
 
             @Override
-            public void onDestroyItem(ViewGroup container, Object object) {
-                container.removeView((View) object);
+            public boolean onDestroyItem(ViewGroup container, Object object) {
+                return false;
             }
         });
         adapter.setOnCreateIndicatorViewListener(new OnCreateIndicatorViewListener<Banner>() {
