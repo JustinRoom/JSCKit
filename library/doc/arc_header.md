@@ -1,15 +1,15 @@
 # ArcHeaderView、ArcHeaderDrawable
 
 ## Screenshot
-![](../capture/screenshot/LGradientArcHeaderView01.jpg)
-![](../capture/screenshot/LGradientArcHeaderView02.jpg)
-![](../capture/screenshot/PictureArcHeaderView01.jpg)
-![](../capture/screenshot/PictureArcHeaderView02.jpg)
+![](../../capture/screenshot/LGradientArcHeaderView01.jpg)
+![](../../capture/screenshot/LGradientArcHeaderView02.jpg)
+![](../../capture/screenshot/PictureArcHeaderView01.jpg)
+![](../../capture/screenshot/PictureArcHeaderView02.jpg)
 
 ## Link
-[ArcHeaderDrawable](../library/src/main/java/jsc/kit/archeaderview/ArcHeaderDrawable.java)  
-[LGradientArcHeaderView](../library/src/main/java/jsc/kit/archeaderview/LGradientArcHeaderView.java)  
-[PictureArcHeaderView](../library/src/main/java/jsc/kit/archeaderview/PictureArcHeaderView.java)
+[ArcHeaderDrawable](../src/main/java/jsc/kit/archeaderview/ArcHeaderDrawable.java)  
+[LGradientArcHeaderView](../src/main/java/jsc/kit/archeaderview/LGradientArcHeaderView.java)  
+[PictureArcHeaderView](../src/main/java/jsc/kit/archeaderview/PictureArcHeaderView.java)
 
 ## Attributions
 `xmlns:app="http://schemas.android.com/apk/res-auto"`
