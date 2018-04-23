@@ -7,7 +7,6 @@
 [CustomToast](../../library/src/main/java/jsc/kit/utils/CustomToast.java)
 
 ## Attributions
-`xmlns:app="http://schemas.android.com/apk/res-auto"`
 [CustomToast.Builder](../../library/src/main/java/jsc/kit/utils/CustomToast.java)
 
 | 成员变量 | 类型 | 含义 |
