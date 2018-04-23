@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DateTimePickerLibrary/DateTimePickerLibrary.iml" filepath="$PROJECT_DIR$/DateTimePickerLibrary/DateTimePickerLibrary.iml" />
-      <module fileurl="file://E:\AndroidWorkspace\JSCKit\DateTimePickerLibrary\DateTimePickerLibrary.iml" filepath="E:\AndroidWorkspace\JSCKit\DateTimePickerLibrary\DateTimePickerLibrary.iml" />
+      <module fileurl="file://E:/AndroidWorkspace/JSCKit/DateTimePickerLibrary/DateTimePickerLibrary.iml" filepath="E:/AndroidWorkspace/JSCKit/DateTimePickerLibrary/DateTimePickerLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/JSCKit.iml" filepath="$PROJECT_DIR$/JSCKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/Retrofit2Library/Retrofit2Library.iml" filepath="$PROJECT_DIR$/Retrofit2Library/Retrofit2Library.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZXingLibrary/ZXingLibrary.iml" filepath="$PROJECT_DIR$/ZXingLibrary/ZXingLibrary.iml" />

@@ -60,15 +60,16 @@ public final class CustomToast {
      */
     public void show(Builder builder) {
         if (applicationContext == null)
-            throw new RuntimeException("Please init this component inside application's onCreate() method.");
+            throw new RuntimeException("Please init this component inside application's onCreate() method first.");
 
         if (builder == null)
             builder = new Builder();
 
         destroy(false);
-        DisplayMetrics metrics = applicationContext.getResources().getDisplayMetrics();
         if (lastToastView == null) {
+            DisplayMetrics metrics = applicationContext.getResources().getDisplayMetrics();
             int dp4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, metrics);
+            lastToastView = new TextView(applicationContext);
             lastToastView.setPadding(dp4 * 3, dp4 * 2, dp4 * 3, dp4 * 2);
             toastRunnable = new Runnable() {
                 @Override
@@ -132,7 +133,7 @@ public final class CustomToast {
             text = "";
             backgroundColor = 0xEE00FF00;
             textColor = Color.BLACK;
-            textSize = 15.0f;
+            textSize = 14f;
             textGravity = Gravity.CENTER_HORIZONTAL;
             topMargin = 0;
             duration = 3_000;
@@ -169,7 +170,7 @@ public final class CustomToast {
         }
 
         public Builder duration(long duration) {
-            this.duration = duration < 3_000 ? 3_000 : duration;
+            this.duration = duration;
             return this;
         }
 
