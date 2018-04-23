@@ -91,3 +91,19 @@
         adapter.setBannerItems(banners);
     }
 ```
+轮播有两个先决条件：
++ 1、`BannerPagerAdapter adapter = new BannerPagerAdapter(true)`
++ 2、`adapter.getBannerItemNumber() >= 3`，即数据长度至少是3。
+```
+    @Override
+    protected void onResume() {
+        super.onResume();
+        jscBannerView.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        jscBannerView.stop();
+    }
+```
