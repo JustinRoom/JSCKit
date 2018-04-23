@@ -107,3 +107,12 @@
         jscBannerView.stop();
     }
 ```
+设置PageTransformer实现酷炫效果：
+```
+jscBannerView.setPageTransformer(true, new ScaleTransformer());
+```
+你可以实现自己的PageTransformer，这里简单实现了四个Transformer：
++ 1、[AlphaPageTransformer](../../library/src/main/java/jsc/kit/bannerview/pageTransformer/AlphaPageTransformer.java)
++ 2、[DepthPageTransformer](../../library/src/main/java/jsc/kit/bannerview/pageTransformer/DepthPageTransformer.java)
++ 3、[ScaleTransformer](../../library/src/main/java/jsc/kit/bannerview/pageTransformer/ScaleTransformer.java)
++ 4、[ZoomOutPageTransformer](../../library/src/main/java/jsc/kit/bannerview/pageTransformer/ZoomOutPageTransformer.java)
