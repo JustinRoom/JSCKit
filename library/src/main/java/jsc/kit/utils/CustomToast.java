@@ -37,16 +37,20 @@ public final class CustomToast {
 
     public static CustomToast getInstance() {
         if (instance == null)
-            instance = new CustomToast();
+            synchronized (CustomToast.class) {
+                if (instance == null) {
+                    instance = new CustomToast();
+                }
+            }
         return instance;
     }
 
-    public void init(Context applicationContext){
+    public void init(Context applicationContext) {
         this.applicationContext = applicationContext;
         windowManager = (WindowManager) applicationContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
-    public void show(@NonNull Context context, @StringRes int resId){
+    public void show(@NonNull Context context, @StringRes int resId) {
         show(context.getString(resId));
     }
 
@@ -55,7 +59,6 @@ public final class CustomToast {
     }
 
     /**
-     *
      * @param builder
      */
     public void show(Builder builder) {
@@ -175,8 +178,6 @@ public final class CustomToast {
         }
 
         /**
-         *
-         *
          * @param textGravity
          * @return
          * @see Gravity
