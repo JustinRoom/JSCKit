@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +16,7 @@ import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 
 public class AboutActivity extends ABaseActivity {
 
-    final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
+    final String apkUrl = "https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk";
     TextView tvVersion;
     ImageView ivQRCode;
 
