@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
         android:name=".MyApplication"
@@ -42,6 +43,18 @@
         <activity android:name=".ui.Retrofit2Activity" />
         <activity android:name=".ui.DateTimePickerActivity" />
         <activity android:name=".ui.CustomToastActivity" />
+        <activity android:name=".ui.DownloadFileActivity" />
+
+        <!-- Android 7.0 照片、APK下载保存路径-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="jsc.exam.jsckit.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

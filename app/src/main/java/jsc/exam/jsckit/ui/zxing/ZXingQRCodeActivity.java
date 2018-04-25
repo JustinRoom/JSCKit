@@ -74,7 +74,8 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
             @Override
             public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
-                showPermissionRationaleDialog(shouldShowPermissions);
+                String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
             }
 
             @Override
@@ -104,22 +105,5 @@ public class ZXingQRCodeActivity extends ABaseActivity {
             String result = data.getStringExtra("result");
             tvScanResult.setText("扫描结果：\n" + result);
         }
-    }
-
-    public void showPermissionRationaleDialog(List<String> shouldShowPermissions) {
-        new AlertDialog.Builder(this)
-                .setTitle("温馨提示")
-                .setMessage("当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions))
-                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        //跳转到当前应用的设置界面
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("知道了", null)
-                .show();
     }
 }

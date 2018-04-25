@@ -1,5 +1,6 @@
 package jsc.exam.jsckit.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -16,6 +17,7 @@ public class CustomToastActivity extends ABaseActivity {
     }
 
     public void widgetClick(View v){
-        showCustomToast("Hello, I am a custom toast.");
+        int version = Build.VERSION.SDK_INT;
+        showCustomToast("Hello, I am a custom toast." + version);
     }
 }

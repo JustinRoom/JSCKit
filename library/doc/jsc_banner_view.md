@@ -83,7 +83,7 @@
         });
         adapter.setOnCreateIndicatorViewListener(new OnCreateIndicatorViewListener<Banner>() {
             @Override
-            public View onCreateIndicatorView(Context context, int index, Banner item) {
+            public View onCreateIndicatorView(Context contextWeakReference, int index, Banner item) {
                 return null;
             }
         });

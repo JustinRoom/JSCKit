@@ -2,6 +2,7 @@ package jsc.kit.utils;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
@@ -34,12 +35,13 @@ public class MyPermissionChecker {
     }
 
     /**
+     *
      * @param activity
      * @param requestCode
      * @param permissions
      * @return
      */
-    public void checkPermissions(Activity activity, int requestCode, String... permissions) {
+    public void checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, String... permissions) {
         this.activity = activity;
         boolean isAllGranted = true;
         List<String> unGrantedPermissions = new ArrayList<>();

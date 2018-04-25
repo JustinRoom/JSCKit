@@ -11,4 +11,7 @@ public interface ApiService {
     @GET("user/{userId}")
     Observable<BaseResponse<User>> login(@Path("userId") String userId);
 
+    @GET("JustinRoom/JSCKit/master/capture/output.json")
+    Observable<String> getVersionInfo();
+
 }

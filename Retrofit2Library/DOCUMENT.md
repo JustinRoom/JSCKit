@@ -63,7 +63,7 @@ usage reference: [Retrofit2Activity.java](../app/src/main/java/jsc/exam/jsckit/u
 | ```addHeader(@NonNull Pair<String, String> header)``` |  添加头部请求```Interceptor``` |
 | ```addInterceptor(Interceptor interceptor)``` | 添加其他```Interceptor``` |
 | ```setContext(Application applicationContext)``` | 添加上下文 |
-| ```setCache(String cacheFileName, long maxCacheSize)``` | 设置网络缓存，必须调用```setContext(Application applicationContext)```。```cacheFileName```为文件名称(不包含路径，缓存文件默认保存路径为```context.getCacheDir())```，```maxCacheSize```最大缓存大小 |
+| ```setCache(String cacheFileName, long maxCacheSize)``` | 设置网络缓存，必须调用```setContext(Application applicationContext)```。```cacheFileName```为文件名称(不包含路径，缓存文件默认保存路径为```contextWeakReference.getCacheDir())```，```maxCacheSize```最大缓存大小 |
 
 + about [CustomRetrofit](../Retrofit2Library/src/main/java/jsc/lib/retrofitlibrary/retrofit/CustomRetrofit.java)
 
