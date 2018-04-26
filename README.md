@@ -134,6 +134,13 @@ If you are using ProGuard you need to add the following options:
 
 | index | Functionality | Article |
 |:---:|:---|:---|
-| 1  | [**MyPermissionChecker**](/library/src/main/java/jsc/kit/utils) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
-| 2  | [**DateTimePicker**](/DateTimePickerLibrary/src/main/java/jsc/lib/datetimepicker/widget/DateTimePicker.java) | [**日期选择器DateTimePicker**](https://www.jianshu.com/p/db19efcaa226) |
-| 3  | [**CustomToast**](/library/src/main/java/jsc/kit/utils) | |
+| 1  | [**DateTimePicker**](/DateTimePickerLibrary/src/main/java/jsc/lib/datetimepicker/widget/DateTimePicker.java) | [**日期选择器DateTimePicker**](https://www.jianshu.com/p/db19efcaa226) |
+| 2  | [**CustomToast**](/library/src/main/java/jsc/kit/utils) | |
+
+### About frame:
+
+| index | Functionality | Article |
+|:---:|:---|:---|
+| 1  | [**APermissionCheckActivity**](/library/src/main/java/jsc/kit/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
+| 2  | [**APhotoActivity**](/library/src/main/java/jsc/kit/baseui/APhotoActivity.java) |  |
+
