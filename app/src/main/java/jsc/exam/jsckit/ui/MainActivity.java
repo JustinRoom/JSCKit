@@ -1,5 +1,6 @@
 package jsc.exam.jsckit.ui;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +12,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +35,9 @@ import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
-import jsc.kit.swiperecyclerview.OnItemClickListener;
 import jsc.kit.entity.DownloadEntity;
+import jsc.kit.swiperecyclerview.OnItemClickListener;
+import jsc.kit.utils.MyPermissionChecker;
 import jsc.lib.retrofitlibrary.LoadingDialogObserver;
 import jsc.lib.retrofitlibrary.retrofit.CustomHttpClient;
 import jsc.lib.retrofitlibrary.retrofit.CustomRetrofit;
@@ -158,18 +163,49 @@ public class MainActivity extends ABaseActivity {
                     .setPositiveButton("更新", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            downloadApk(entity.getApkInfo().getVersionName());
+                            checkPermissionBeforeDownloadApk(entity.getApkInfo().getVersionName());
                         }
                     })
                     .setNegativeButton("取消", null)
                     .show();
     }
 
-    public void downloadApk(String versionName){
+    private void checkPermissionBeforeDownloadApk(final String versionName){
+        checkPermissions(0, new MyPermissionChecker.OnCheckListener() {
+            @Override
+            public void onAllGranted(int requestCode) {
+                downloadApk(versionName);
+            }
+
+            @Override
+            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
+
+            }
+
+            @Override
+            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
+
+            }
+
+            @Override
+            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
+                String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+            }
+
+            @Override
+            public void onFinally(int requestCode) {
+                removePermissionChecker();
+            }
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    private void downloadApk(String versionName){
         registerDownloadCompleteReceiver();
         DownloadEntity entity = new DownloadEntity();
         entity.setUrl("https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk");
-        entity.setSubPath("JSCKitDemo"+ versionName + ".apk");
+        entity.setDestinationDirectory(new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS));
+        entity.setSubPath("jsckit/JSCKitDemo"+ versionName + ".apk");
         entity.setTitle("JSCKitDemo"+ versionName + ".apk");
         entity.setDesc("JSCKit Library");
         entity.setMimeType("application/vnd.android.package-archive");

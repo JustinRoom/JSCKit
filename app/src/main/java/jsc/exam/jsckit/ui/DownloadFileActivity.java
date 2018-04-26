@@ -1,5 +1,6 @@
 package jsc.exam.jsckit.ui;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,14 +8,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.entity.DownloadEntity;
+import jsc.kit.utils.MyPermissionChecker;
 
 public class DownloadFileActivity extends ABaseActivity {
 
@@ -39,10 +44,43 @@ public class DownloadFileActivity extends ABaseActivity {
         setTitle(getClass().getSimpleName().replace("Activity", ""));
     }
 
+    private void checkPermissionBeforeDownloadApk(){
+        checkPermissions(0, new MyPermissionChecker.OnCheckListener() {
+            @Override
+            public void onAllGranted(int requestCode) {
+                index ++;
+                long id = download();
+                downloadIds.add(id);
+            }
+
+            @Override
+            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
+
+            }
+
+            @Override
+            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
+
+            }
+
+            @Override
+            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
+                String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+            }
+
+            @Override
+            public void onFinally(int requestCode) {
+                removePermissionChecker();
+            }
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
     public long download(){
         DownloadEntity entity = new DownloadEntity();
         entity.setUrl("https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk");
-        entity.setSubPath("jsckit/JSCKitDemo"+ index + ".apk");
+        entity.setDestinationDirectory(new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS));
+        entity.setSubPath("downloadList/JSCKitDemo"+ index + ".apk");
         entity.setTitle("JSCKitDemo"+ index + ".apk");
         entity.setDesc("test");
         entity.setMimeType("application/vnd.android.package-archive");
@@ -52,9 +90,7 @@ public class DownloadFileActivity extends ABaseActivity {
     public void widgetClick(View view){
         switch (view.getId()){
             case R.id.btn_add_download_task:
-                index ++;
-                long id = download();
-                downloadIds.add(id);
+                checkPermissionBeforeDownloadApk();
                 break;
         }
     }

@@ -70,6 +70,9 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     /**
      * Download file.
+     * <br/>If {@link DownloadEntity#destinationDirectory} is null, it will be downloaded into specific folder.
+     * <br/>The specific path is: {@code request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);}.
+     * <br/></>see {@link DownloadManager.Request#setDestinationInExternalFilesDir(Context, String, String)}
      * @param downloadEntity
      * @return
      */
@@ -96,7 +99,17 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         request.setDescription(downloadEntity.getDesc());
         // 完成后显示通知栏
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);
+        File destinationDirectory = downloadEntity.getDestinationDirectory();
+        if (destinationDirectory != null){
+            if (!destinationDirectory.exists()){
+                destinationDirectory.mkdirs();
+            }
+            Uri destinationUri = FileProviderCompat.getUriForFile(this, destinationDirectory);
+            destinationUri = Uri.withAppendedPath(destinationUri, subPath);
+            request.setDestinationUri(destinationUri);
+        } else {
+            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);
+        }
         request.setMimeType(downloadEntity.getMimeType());
         request.setVisibleInDownloadsUi(true);
 
