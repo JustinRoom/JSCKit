@@ -3,7 +3,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 
 # Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.2.3
+&#32;&#32;Demo version:0.2.4
 ![JSCKitDemo.apk](/capture/download_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
@@ -54,7 +54,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 + 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.2.3'
+	        compile 'com.github.JustinRoom:JSCKit:0.2.4'
 	}
 ```
 ##### Maven: 
@@ -72,7 +72,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.2.3</version>
+	    <version>0.2.4</version>
 	</dependency>
 ```
 # ProGuard
