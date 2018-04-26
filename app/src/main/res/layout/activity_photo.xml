@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:scaleType="center"
+        android:id="@+id/iv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp">
+
+        <Button
+            android:id="@+id/btn_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="widgetClick"
+            android:text="choose_photo" />
+
+        <Button
+            android:id="@+id/btn_choose_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="widgetClick"
+            android:text="choose_crop_photo" />
+
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="widgetClick"
+            android:text="take_photo" />
+
+        <Button
+            android:id="@+id/btn_take_crop_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="widgetClick"
+            android:text="take_crop_photo" />
+
+    </LinearLayout>
+
+</LinearLayout>

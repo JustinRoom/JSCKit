@@ -1,4 +1,4 @@
-package jsc.kit.utils.download;
+package jsc.kit.entity;
 
 public class DownloadEntity {
 

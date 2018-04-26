@@ -24,8 +24,18 @@ import java.util.List;
 
 import jsc.kit.utils.FileProviderCompat;
 import jsc.kit.utils.MyPermissionChecker;
-import jsc.kit.utils.download.DownloadEntity;
+import jsc.kit.entity.DownloadEntity;
 
+/**
+ * <p>
+ *     a frame of checking permission、downloading file
+ * </p>
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br>https://github.com/JustinRoom/JSCKit
+ *
+ * @author jiangshicheng
+ */
 public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     private MyPermissionChecker myPermissionChecker = null;

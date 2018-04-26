@@ -32,7 +32,7 @@ import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
-import jsc.kit.utils.download.DownloadEntity;
+import jsc.kit.entity.DownloadEntity;
 import jsc.lib.retrofitlibrary.LoadingDialogObserver;
 import jsc.lib.retrofitlibrary.retrofit.CustomHttpClient;
 import jsc.lib.retrofitlibrary.retrofit.CustomRetrofit;
@@ -82,6 +82,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
+        classItems.add(new ClassItem("Photo", PhotoActivity.class));
         classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
         return classItems;
     }

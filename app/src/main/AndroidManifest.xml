@@ -44,6 +44,7 @@
         <activity android:name=".ui.DateTimePickerActivity" />
         <activity android:name=".ui.CustomToastActivity" />
         <activity android:name=".ui.DownloadFileActivity" />
+        <activity android:name=".ui.PhotoActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

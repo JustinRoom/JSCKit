@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.utils.download.DownloadEntity;
+import jsc.kit.entity.DownloadEntity;
 
 public class DownloadFileActivity extends ABaseActivity {
 
