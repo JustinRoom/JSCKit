@@ -82,7 +82,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
         if (!directory.exists())
             directory.mkdirs();
         if (photoName == null || photoName.trim().length() == 0)
-            photoName = getDefaultTakePhotoFileName();
+            photoName = getDefaultTakePhotoFileName(Bitmap.CompressFormat.JPEG);
         takePhotoTempFile = new File(directory, photoName);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProviderCompat.getUriForFile(this, takePhotoTempFile));
@@ -93,20 +93,22 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * create default taking photo file name like "IMG_20180426_140554.JPEG" with current system time.
      *
      * @return
+     * @param outputFormat
      */
-    public String getDefaultTakePhotoFileName() {
+    public String getDefaultTakePhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "IMG_" + dateFormat.format(new Date()) + "." + Bitmap.CompressFormat.JPEG;
+        return "IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name();
     }
 
     /**
      * create default cropping photo file name like "CROP_IMG_20180426_140554.JPEG" with current system time.
      *
      * @return
+     * @param outputFormat
      */
-    public String getDefaultCropPhotoFileName() {
+    public String getDefaultCropPhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + Bitmap.CompressFormat.JPEG;
+        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name();
     }
 
     /**
@@ -148,7 +150,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
         if (directory != null) {
             String photoName = config.getPhotoName();
             if (photoName == null || photoName.trim().length() == 0) {
-                photoName = getDefaultCropPhotoFileName();
+                photoName = getDefaultCropPhotoFileName(config.getOutputFormat());
                 config.setPhotoName(photoName);
             }
             if (!directory.exists())
@@ -157,9 +159,9 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
             cropPhotoTempFile = new File(directory, photoName);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProviderCompat.getUriForFile(this, cropPhotoTempFile));
         }
-        intent.putExtra(CropConfig.EXTRA_RETURN_DATA, config.isReturnData());
-        intent.putExtra(CropConfig.EXTRA_RETURN_DATA, true);
+        intent.putExtra(CropConfig.EXTRA_RETURN_DATA, false);
         intent.putExtra(CropConfig.EXTRA_NO_FACE_DETECTION, config.isNoFaceDetection());
+        intent.putExtra(CropConfig.EXTRA_OUTPUT_FORMAT, config.getOutputFormat().name());
         startActivityForResult(intent, REQUEST_CODE_PHOTO_CROP);
     }
 

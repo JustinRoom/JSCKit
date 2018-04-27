@@ -97,9 +97,9 @@ public class PhotoActivity extends APhotoActivity {
         if (needCrop) {
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
-                    .setCrop(false)
-                    .setOutputX(500)
-                    .setOutputY(500)
+                    .setCropType(CropConfig.CROP_TYPE_ASPECT)
+                    .setAspectX(3)
+                    .setAspectY(2)
                     .setDirectory(file);
             cropPhoto(uri, config);
         } else {
@@ -138,8 +138,10 @@ public class PhotoActivity extends APhotoActivity {
     }
 
     private void showImage(String imagePath) {
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
         ivPhoto.setImageBitmap(bitmap);
+        Log.i(TAG, "showImage: " + options.outMimeType);
     }
 
     private void showImage(File file) {

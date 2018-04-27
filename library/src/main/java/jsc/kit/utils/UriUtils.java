@@ -10,7 +10,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
-public class UriUtils {
+public final class UriUtils {
 
     /**
      * Get image path by uri.

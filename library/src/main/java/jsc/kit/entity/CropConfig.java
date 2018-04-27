@@ -1,5 +1,6 @@
 package jsc.kit.entity;
 
+import android.graphics.Bitmap;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ public class CropConfig {
     public static final String EXTRA_OUTPUT_Y = "outputY";
     public static final String EXTRA_RETURN_DATA = "return-data";
     public static final String EXTRA_NO_FACE_DETECTION = "noFaceDetection";
+    public static final String EXTRA_OUTPUT_FORMAT = "outputFormat";
 
     /**
      * crop photo with fixed width and height.
@@ -35,13 +37,15 @@ public class CropConfig {
     public @interface CropType {
     }
 
-    private boolean crop;
-    private int aspectX;
-    private int aspectY;
-    private int outputX;
-    private int outputY;
-    private boolean returnData;
-    private boolean noFaceDetection;
+    private boolean crop;//发送裁剪信号
+    private int aspectX;//X方向上的比例
+    private int aspectY;//Y方向上的比例
+    private int outputX;//裁剪区的宽
+    private int outputY;//裁剪区的高
+    private boolean scale;//是否保留比例
+    private boolean returnData;//是否将数据保留在Bitmap中返回
+    private boolean noFaceDetection;//是否取消人脸识别
+    private Bitmap.CompressFormat outputFormat;
 
     private int cropType;
     private File directory;
@@ -55,6 +59,7 @@ public class CropConfig {
         outputY = 300;
         returnData = false;
         noFaceDetection = true;
+        outputFormat = Bitmap.CompressFormat.JPEG;
 
         cropType = CROP_TYPE_SIZE;
     }
@@ -124,6 +129,15 @@ public class CropConfig {
         return this;
     }
 
+    public boolean isScale() {
+        return scale;
+    }
+
+    public CropConfig setScale(boolean scale) {
+        this.scale = scale;
+        return this;
+    }
+
     public boolean isReturnData() {
         return returnData;
     }
@@ -139,6 +153,15 @@ public class CropConfig {
 
     public CropConfig setNoFaceDetection(boolean noFaceDetection) {
         this.noFaceDetection = noFaceDetection;
+        return this;
+    }
+
+    public Bitmap.CompressFormat getOutputFormat() {
+        return outputFormat;
+    }
+
+    public CropConfig setOutputFormat(@NonNull Bitmap.CompressFormat outputFormat) {
+        this.outputFormat = outputFormat;
         return this;
     }
 
