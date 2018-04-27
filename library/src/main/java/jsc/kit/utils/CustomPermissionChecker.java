@@ -44,6 +44,9 @@ public final class CustomPermissionChecker {
      * @return
      */
     public void checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, String... permissions) {
+        if (permissions == null)
+            return;
+
         this.activity = activity;
         this.permissions = permissions;
         boolean isAllGranted = true;
