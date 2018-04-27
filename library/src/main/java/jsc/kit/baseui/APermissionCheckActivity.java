@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.List;
 
 import jsc.kit.utils.FileProviderCompat;
-import jsc.kit.utils.MyPermissionChecker;
+import jsc.kit.utils.CustomPermissionChecker;
 import jsc.kit.entity.DownloadEntity;
 
 /**
@@ -38,33 +38,33 @@ import jsc.kit.entity.DownloadEntity;
  */
 public abstract class APermissionCheckActivity extends AppCompatActivity {
 
-    private MyPermissionChecker myPermissionChecker = null;
+    private CustomPermissionChecker customPermissionChecker = null;
 
-    public final void checkPermissions(@IntRange(from = 0) int requestCode, MyPermissionChecker.OnCheckListener checkListener, String... permissions) {
-        if (myPermissionChecker == null) {
-            myPermissionChecker = new MyPermissionChecker();
+    public final void checkPermissions(@IntRange(from = 0) int requestCode, CustomPermissionChecker.OnCheckListener checkListener, String... permissions) {
+        if (customPermissionChecker == null) {
+            customPermissionChecker = new CustomPermissionChecker();
         }
-        myPermissionChecker.setOnCheckListener(checkListener);
-        myPermissionChecker.checkPermissions(this, requestCode, permissions);
+        customPermissionChecker.setOnCheckListener(checkListener);
+        customPermissionChecker.checkPermissions(this, requestCode, permissions);
     }
 
     /**
-     * Release resource. I suggest that you should call this method in {@link MyPermissionChecker.OnCheckListener#onFinally(int)}.
+     * Release resource. I suggest that you should call this method in {@link CustomPermissionChecker.OnCheckListener#onFinally(int)}.
      * <br/>It does two things:
-     * <br/>1、set {@link MyPermissionChecker#onCheckListener} as {@code null}
-     * <br/>2、set {@link #myPermissionChecker} as {@code null}
+     * <br/>1、set {@link CustomPermissionChecker#onCheckListener} as {@code null}
+     * <br/>2、set {@link #customPermissionChecker} as {@code null}
      */
     public final void removePermissionChecker() {
-        if (myPermissionChecker == null)
+        if (customPermissionChecker == null)
             return;
-        myPermissionChecker.removeCheckListener();
-        myPermissionChecker = null;
+        customPermissionChecker.removeCheckListener();
+        customPermissionChecker = null;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        myPermissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
+        customPermissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
     }
 
 

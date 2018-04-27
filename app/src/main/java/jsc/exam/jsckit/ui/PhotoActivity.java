@@ -19,7 +19,7 @@ import java.util.List;
 import jsc.exam.jsckit.R;
 import jsc.kit.baseui.APhotoActivity;
 import jsc.kit.entity.CropConfig;
-import jsc.kit.utils.MyPermissionChecker;
+import jsc.kit.utils.CustomPermissionChecker;
 
 public class PhotoActivity extends APhotoActivity {
 
@@ -34,30 +34,15 @@ public class PhotoActivity extends APhotoActivity {
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ivPhoto = findViewById(R.id.iv_photo);
-        checkPermissions(0, new MyPermissionChecker.OnCheckListener() {
+        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
             @Override
-            public void onAllGranted(int requestCode) {
-
-            }
-
-            @Override
-            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
-
-            }
-
-            @Override
-            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-
-            }
-
-            @Override
-            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @NonNull List<String> deniedPermissions, @NonNull List<String> shouldShowPermissions) {
 
             }
 
             @Override
             public void onFinally(int requestCode) {
-
+                removePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }

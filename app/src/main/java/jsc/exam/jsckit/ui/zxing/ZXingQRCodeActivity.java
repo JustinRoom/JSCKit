@@ -1,17 +1,14 @@
 package jsc.exam.jsckit.ui.zxing;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +18,7 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.utils.MyPermissionChecker;
+import jsc.kit.utils.CustomPermissionChecker;
 import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
 import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
 
@@ -56,26 +53,18 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
     public void widgetClick(View v) {
         //打开相机权限
-        checkPermissions(0x100, new MyPermissionChecker.OnCheckListener() {
+        checkPermissions(0x100, new CustomPermissionChecker.OnCheckListener() {
             @Override
-            public void onAllGranted(int requestCode) {
-                toScannerActivity();
-            }
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @NonNull List<String> deniedPermissions, @NonNull List<String> shouldShowPermissions) {
+                if (isAllGranted){
+                    toScannerActivity();
+                    return;
+                }
 
-            @Override
-            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
-
-            }
-
-            @Override
-            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-
-            }
-
-            @Override
-            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
-                String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
-                showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+                if (shouldShowPermissions.size() > 0){
+                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+                }
             }
 
             @Override

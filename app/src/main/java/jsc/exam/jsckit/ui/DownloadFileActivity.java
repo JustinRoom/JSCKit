@@ -19,7 +19,7 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.entity.DownloadEntity;
-import jsc.kit.utils.MyPermissionChecker;
+import jsc.kit.utils.CustomPermissionChecker;
 
 public class DownloadFileActivity extends ABaseActivity {
 
@@ -45,28 +45,20 @@ public class DownloadFileActivity extends ABaseActivity {
     }
 
     private void checkPermissionBeforeDownloadApk(){
-        checkPermissions(0, new MyPermissionChecker.OnCheckListener() {
+        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
             @Override
-            public void onAllGranted(int requestCode) {
-                index ++;
-                long id = download();
-                downloadIds.add(id);
-            }
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @NonNull List<String> deniedPermissions, @NonNull List<String> shouldShowPermissions) {
+                if (isAllGranted){
+                    index ++;
+                    long id = download();
+                    downloadIds.add(id);
+                    return;
+                }
 
-            @Override
-            public void onGranted(int requestCode, @NonNull List<String> grantedPermissions) {
-
-            }
-
-            @Override
-            public void onDenied(int requestCode, @NonNull List<String> deniedPermissions) {
-
-            }
-
-            @Override
-            public void onShouldShowSettingTips(@NonNull List<String> shouldShowPermissions) {
-                String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
-                showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+                if (shouldShowPermissions.size() > 0){
+                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+                }
             }
 
             @Override
