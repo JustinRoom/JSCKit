@@ -102,7 +102,8 @@ public final class CustomPermissionChecker {
             }
         }
 
-        List<String> grantedPermissions = patchGrantedPermissions(deniedPermissions);
+        List<String> grantedPermissions = Arrays.asList(this.permissions);
+        grantedPermissions.removeAll(deniedPermissions);
         onCheckListener.onResult(
                 requestCode,
                 deniedPermissions.size() == 0,
