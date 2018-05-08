@@ -65,10 +65,17 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     }
 
     /**
+     * @see #openCamera(File)
+     */
+    public void openCamera() {
+        openCamera(null);
+    }
+
+    /**
      * @param directory
      * @see #openCamera(File, String)
      */
-    public void openCamera(@NonNull File directory) {
+    public void openCamera(File directory) {
         openCamera(directory, null);
     }
 
@@ -77,14 +84,24 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * <br/>Caller must ensure {@link android.Manifest.permission#CAMERA} permission.
      *
      * @param directory the directory for saving photo
-     * @param photoName photo file name, not including directory path
+     * @param photoPathName photo path name
      */
-    public void openCamera(@NonNull File directory, String photoName) {
-        if (!directory.exists())
-            directory.mkdirs();
-        if (photoName == null || photoName.trim().length() == 0)
-            photoName = getDefaultTakePhotoFileName(Bitmap.CompressFormat.JPEG);
-        takePhotoTempFile = new File(directory, photoName);
+    public void openCamera(File directory, String photoPathName) {
+        //如果没有设置文件夹，拍照后则保存在sdk根目录的Pictures文件夹下面
+        if (directory == null)
+            directory = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_PICTURES);
+
+        //如果没有设置图片名称，则根据当前系统时间设置默认的图片名称
+        if (photoPathName == null || photoPathName.trim().length() == 0)
+            photoPathName = getDefaultTakePhotoFileName(Bitmap.CompressFormat.JPEG);
+
+        takePhotoTempFile = new File(directory, photoPathName);
+        String takePhotoTempFilePath = takePhotoTempFile.getPath();
+        //如果保存图片的文件夹还没有创建，则创建文件夹
+        File dir = new File(takePhotoTempFilePath.substring(0, takePhotoTempFilePath.lastIndexOf(File.separator)));
+        if (!dir.exists())
+            dir.mkdirs();
+
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProviderCompat.getUriForFile(this, takePhotoTempFile));
         startActivityForResult(cameraIntent, REQUEST_CODE_TAKE_PHOTO);
@@ -184,7 +201,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
             config.setDirectory(directory);
         }
 
-        //如果没有设置裁剪后的图片名称，则更加当前系统时间设置默认的图片名称
+        //如果没有设置图片名称，则根据当前系统时间设置默认的图片名称
         String photoPathName = config.getPhotoPathName();
         if (photoPathName == null || photoPathName.trim().length() == 0){
             photoPathName = getDefaultCropPhotoFileName(config.getOutputFormat());
