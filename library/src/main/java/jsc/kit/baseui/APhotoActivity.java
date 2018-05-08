@@ -32,8 +32,8 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     public final static int REQUEST_CODE_PIC_PHOTO = 0x2000;
     public final static int REQUEST_CODE_TAKE_PHOTO = 0x2001;
     public final static int REQUEST_CODE_PHOTO_CROP = 0x2002;
-    private File takePhotoTempFile;// 拍照产生的临时图片
-    private File cropPhotoTempFile;// 裁剪产生的临时图片
+    private File takePhotoTempFile;// 拍照产生的临时文件
+    private File cropPhotoTempFile;// 裁剪产生的临时文件
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
