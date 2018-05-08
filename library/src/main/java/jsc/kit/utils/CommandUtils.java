@@ -162,11 +162,12 @@ public final class CommandUtils {
         if (TextUtils.isEmpty(preCommand) && TextUtils.isEmpty(command))
             return;
 
+        Process process = null;
         BufferedReader successBufferedReader = null;
         BufferedReader errorBufferedReader = null;
         DataOutputStream outputStream = null;
         try {
-            Process process = Runtime.getRuntime().exec(preCommand == null ? command : preCommand);
+            process = Runtime.getRuntime().exec(preCommand == null ? command : preCommand);
             successBufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             errorBufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             outputStream = new DataOutputStream(process.getOutputStream());
@@ -194,12 +195,14 @@ public final class CommandUtils {
             e.printStackTrace();
         } finally {
             try {
+                if (outputStream != null)
+                    outputStream.close();
                 if (successBufferedReader != null)
                     successBufferedReader.close();
                 if (errorBufferedReader != null)
                     errorBufferedReader.close();
-                if (outputStream != null)
-                    outputStream.close();
+                if (process != null)
+                    process.destroy();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -214,11 +217,12 @@ public final class CommandUtils {
      */
     public static String getCurrentAppUser(String packageName) {
         String user = "";
+        Process process = null;
         BufferedReader successBufferedReader = null;
         BufferedReader errorBufferedReader = null;
         DataOutputStream outputStream = null;
         try {
-            Process process = Runtime.getRuntime().exec(COMMAND_PS);
+            process = Runtime.getRuntime().exec(COMMAND_PS);
             successBufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             errorBufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             outputStream = new DataOutputStream(process.getOutputStream());
@@ -242,12 +246,14 @@ public final class CommandUtils {
             e.printStackTrace();
         } finally {
             try {
+                if (outputStream != null)
+                    outputStream.close();
                 if (successBufferedReader != null)
                     successBufferedReader.close();
                 if (errorBufferedReader != null)
                     errorBufferedReader.close();
-                if (outputStream != null)
-                    outputStream.close();
+                if (process != null)
+                    process.destroy();
             } catch (IOException e) {
                 e.printStackTrace();
             }
