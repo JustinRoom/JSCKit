@@ -52,7 +52,7 @@ public final class CommandUtils {
      * Create a screen capture command with photo path_name.
      * <br/>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission if using external storage directory.
      *
-     * @param photoPathName
+     * @param photoPathName photo's name, including path
      * @return
      */
     public static String createScreenCaptureCmd(String photoPathName) {
@@ -76,25 +76,25 @@ public final class CommandUtils {
      * <br/>{@code String video = dateFormat.format(new Date()) + ".mp4";}
      * <br/>{@code String cmd = CommandUtils.createScreenRecordCmd(30, videoDirectory, video);}
      *
-     * @param timeLimitSeconds the record time, the minimum value is 10 seconds
+     * @param limitTimeSeconds record time, the minimum value is 10 seconds
      * @param directory        the directory to save screen record video
      * @param videoName        video name, not including path
      * @return
      * @see #createScreenRecordCmd(int, String)
      */
-    public static String createScreenRecordCmd(@IntRange(from = 10) int timeLimitSeconds, File directory, String videoName) {
-        return createScreenRecordCmd(timeLimitSeconds, new File(directory, videoName).getPath());
+    public static String createScreenRecordCmd(@IntRange(from = 10) int limitTimeSeconds, File directory, String videoName) {
+        return createScreenRecordCmd(limitTimeSeconds, new File(directory, videoName).getPath());
     }
 
     /**
      * Create a screen record command with video path_name.
      * <br/>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission if using external storage directory.
      *
-     * @param timeLimitSeconds the record time, the minimum value is 10 seconds
-     * @param videoPathName    the video's name, including path
+     * @param limitTimeSeconds record time, the minimum value is 10 seconds
+     * @param videoPathName    video's name, including path
      * @return
      */
-    public static String createScreenRecordCmd(@IntRange(from = 10) int timeLimitSeconds, String videoPathName) {
+    public static String createScreenRecordCmd(@IntRange(from = 10) int limitTimeSeconds, String videoPathName) {
         int index = videoPathName.lastIndexOf(File.pathSeparator);
         if (index >= 0) {
             String directory = videoPathName.substring(0, index);
@@ -102,7 +102,7 @@ public final class CommandUtils {
             if (!dir.exists())
                 dir.mkdirs();
         }
-        return "screenrecord --time-limit " + timeLimitSeconds + " " + videoPathName;
+        return "screenrecord --time-limit " + limitTimeSeconds + " " + videoPathName;
     }
 
     /**
