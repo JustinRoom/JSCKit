@@ -97,7 +97,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      */
     public String getDefaultTakePhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name();
+        return "IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name().toLowerCase();
     }
 
     /**
@@ -108,7 +108,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      */
     public String getDefaultCropPhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name();
+        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name().toLowerCase();
     }
 
     /**
