@@ -117,7 +117,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * @param config
      * @see #cropPhoto(Uri, CropConfig)
      */
-    public void cropPhoto(File file, @NonNull CropConfig config) {
+    public void cropPhoto(File file, CropConfig config) {
         if (file == null || !file.exists())
             return;
 
@@ -133,7 +133,9 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * @param uri
      * @param config
      */
-    public void cropPhoto(Uri uri, @NonNull CropConfig config) {
+    public void cropPhoto(Uri uri,CropConfig config) {
+        if (config == null)
+            config = new CropConfig();
         Intent intent = new Intent("com.android.camera.action.CROP");
         FileProviderCompat.setDataAndType(intent, uri, "image/*", true);
         intent.putExtra(CropConfig.EXTRA_CROP, String.valueOf(config.isCrop()));
