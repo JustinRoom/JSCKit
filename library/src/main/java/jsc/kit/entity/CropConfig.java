@@ -1,14 +1,20 @@
 package jsc.kit.entity;
 
 import android.graphics.Bitmap;
-import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import java.io.File;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br>https://github.com/JustinRoom/JSCKit
+ * <p>
+ *     <img src="../../../../../../doc/options_for_image_crop.png"/>
+ * </p>
+ *
+ * @author jiangshicheng
+ */
 public class CropConfig {
 
     public static final String EXTRA_CROP = "crop";
@@ -16,52 +22,31 @@ public class CropConfig {
     public static final String EXTRA_ASPECT_Y = "aspectY";
     public static final String EXTRA_OUTPUT_X = "outputX";
     public static final String EXTRA_OUTPUT_Y = "outputY";
+    public static final String EXTRA_SCALE = "scale";
+    public static final String EXTRA_CIRCLE_CROP = "circleCrop";
     public static final String EXTRA_RETURN_DATA = "return-data";
     public static final String EXTRA_NO_FACE_DETECTION = "noFaceDetection";
     public static final String EXTRA_OUTPUT_FORMAT = "outputFormat";
 
-    /**
-     * crop photo with fixed width and height.
-     * @see #setOutputX(int)
-     * @see #setOutputY(int)
-     */
-    public static final int CROP_TYPE_SIZE = 0;
-    /**
-     * crop photo with proportion.
-     * @see #setAspectX(int)
-     * @see #setAspectY(int)
-     */
-    public static final int CROP_TYPE_ASPECT = 1;
-    @IntDef({CROP_TYPE_SIZE, CROP_TYPE_ASPECT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface CropType {
-    }
-
-    private boolean crop;//发送裁剪信号
+    private boolean crop;//发送裁剪信号(不一定有效)
     private int aspectX;//X方向上的比例
     private int aspectY;//Y方向上的比例
     private int outputX;//裁剪区的宽
     private int outputY;//裁剪区的高
-    private boolean scale;//是否保留比例
+    private boolean scale;//是否保留比例(不一定有效)
+    private boolean circleCrop;//是否是圆形裁剪区域(不一定有效)
     private boolean returnData;//是否将数据保留在Bitmap中返回
     private boolean noFaceDetection;//是否取消人脸识别
-    private Bitmap.CompressFormat outputFormat;
 
-    private int cropType;
-    private File directory;
-    private String photoName;
+    private File directory;//裁剪后的图片的保存目录
+    private String photoPathName;//裁剪后的图片名称，可以包含目录路径
+    private Bitmap.CompressFormat outputFormat;//裁剪后的图片格式，系统默认为jpeg格式(不一定有效)。如果文件格是png，但图片格式可能是jpeg。
 
     public CropConfig() {
         crop = true;
-        aspectX = 1;
-        aspectY = 1;
-        outputX = 300;
-        outputY = 300;
-        returnData = false;
+        scale = true;
         noFaceDetection = true;
         outputFormat = Bitmap.CompressFormat.JPEG;
-
-        cropType = CROP_TYPE_SIZE;
     }
 
     public boolean isCrop() {
@@ -77,11 +62,6 @@ public class CropConfig {
         return aspectX;
     }
 
-    /**
-     * The default value is 1.
-     * @param aspectX
-     * @return
-     */
     public CropConfig setAspectX(@IntRange(from = 1)int aspectX) {
         this.aspectX = aspectX;
         return this;
@@ -91,11 +71,6 @@ public class CropConfig {
         return aspectY;
     }
 
-    /**
-     * The default value is 1.
-     * @param aspectY
-     * @return
-     */
     public CropConfig setAspectY(@IntRange(from = 1)int aspectY) {
         this.aspectY = aspectY;
         return this;
@@ -105,11 +80,6 @@ public class CropConfig {
         return outputX;
     }
 
-    /**
-     * The default value is 300px.
-     * @param outputX
-     * @return
-     */
     public CropConfig setOutputX(@IntRange(from = 100) int outputX) {
         this.outputX = outputX;
         return this;
@@ -119,11 +89,6 @@ public class CropConfig {
         return outputY;
     }
 
-    /**
-     * The default value is 300px.
-     * @param outputY
-     * @return
-     */
     public CropConfig setOutputY(@IntRange(from = 100) int outputY) {
         this.outputY = outputY;
         return this;
@@ -135,6 +100,15 @@ public class CropConfig {
 
     public CropConfig setScale(boolean scale) {
         this.scale = scale;
+        return this;
+    }
+
+    public boolean isCircleCrop() {
+        return circleCrop;
+    }
+
+    public CropConfig setCircleCrop(boolean circleCrop) {
+        this.circleCrop = circleCrop;
         return this;
     }
 
@@ -165,47 +139,21 @@ public class CropConfig {
         return this;
     }
 
-    public int getCropType() {
-        return cropType;
-    }
-
-    /**
-     * one of types:{@link #CROP_TYPE_SIZE}、{@link #CROP_TYPE_ASPECT}
-     * <br/> The default value is {@link #CROP_TYPE_SIZE}.
-     * @param cropType
-     * @return
-     */
-    public CropConfig setCropType(@CropType int cropType) {
-        this.cropType = cropType;
-        return this;
-    }
-
     public File getDirectory() {
         return directory;
     }
 
-    /**
-     * Set the directory of saving crop photo, no including photo file name.
-     * @param directory
-     * @return
-     */
     public CropConfig setDirectory(@NonNull File directory) {
         this.directory = directory;
         return this;
     }
 
-    public String getPhotoName() {
-        return photoName;
+    public String getPhotoPathName() {
+        return photoPathName;
     }
 
-    /**
-     * Set the photo file name, not including it's directory path.
-     *
-     * @param photoName
-     * @return
-     */
-    public CropConfig setPhotoName(String photoName) {
-        this.photoName = photoName;
+    public CropConfig setPhotoPathName(String photoPathName) {
+        this.photoPathName = photoPathName;
         return this;
     }
 }

@@ -82,9 +82,13 @@ public class PhotoActivity extends APhotoActivity {
         if (needCrop) {
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
-                    .setCropType(CropConfig.CROP_TYPE_ASPECT)
-                    .setAspectX(3)
-                    .setAspectY(2)
+                    .setCrop(false)
+                    .setCircleCrop(true)
+//                    .setAspectX(4)
+//                    .setAspectY(3)
+//                    .setOutputX(480)
+//                    .setOutputY(300)
+                    .setScale(true)
                     .setDirectory(file);
             cropPhoto(uri, config);
         } else {
@@ -100,9 +104,8 @@ public class PhotoActivity extends APhotoActivity {
         if (needCrop) {
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
-                    .setCropType(CropConfig.CROP_TYPE_ASPECT)
-                    .setAspectX(4)
-                    .setAspectY(3)
+                    .setAspectX(2)
+                    .setAspectY(1)
                     .setDirectory(file);
             cropPhoto(uri, config);
         } else {

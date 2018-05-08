@@ -3,6 +3,7 @@ package jsc.kit.baseui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +19,7 @@ import jsc.kit.utils.UriUtils;
 
 /**
  * <p>
- *     a frame of choosing photo、taking photo、cropping photo
+ * a frame of choosing photo、taking photo、cropping photo
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -92,23 +93,23 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     /**
      * create default taking photo file name like "IMG_20180426_140554.JPEG" with current system time.
      *
-     * @return
      * @param outputFormat
+     * @return
      */
     public String getDefaultTakePhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name().toLowerCase();
+        return "IMG_" + dateFormat.format(new Date()) + "." + outputFormat.toString();
     }
 
     /**
      * create default cropping photo file name like "CROP_IMG_20180426_140554.JPEG" with current system time.
      *
-     * @return
      * @param outputFormat
+     * @return
      */
     public String getDefaultCropPhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + outputFormat.name().toLowerCase();
+        return "CROP_IMG_" + dateFormat.format(new Date()) + "." + outputFormat.toString();
     }
 
     /**
@@ -116,7 +117,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * @param config
      * @see #cropPhoto(Uri, CropConfig)
      */
-    public void cropPhoto(File file, CropConfig config) {
+    public void cropPhoto(File file, @NonNull CropConfig config) {
         if (file == null || !file.exists())
             return;
 
@@ -125,41 +126,77 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
 
     /**
      * open system crop photo feature.
+     * <br/>1、如果有设置aspectX、aspectY或者outputX、outputY，那么它就是按比例裁剪；否则是自由裁剪
+     * <br/>2、比例优先。举个栗子：如果有设置aspectX=4、aspectY=3、outputX=480、outputY=560，那么它裁剪时真正的outputX=480、outputY=360。
      * <br/>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission.
      *
      * @param uri
      * @param config
      */
-    public void cropPhoto(Uri uri, CropConfig config) {
-        if (config == null)
-            config = new CropConfig();
-
+    public void cropPhoto(Uri uri, @NonNull CropConfig config) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         FileProviderCompat.setDataAndType(intent, uri, "image/*", true);
-        intent.putExtra(CropConfig.EXTRA_CROP, config.isCrop());
-        if (config.getCropType() == CropConfig.CROP_TYPE_SIZE) {
-            intent.putExtra(CropConfig.EXTRA_OUTPUT_X, config.getOutputX());
-            intent.putExtra(CropConfig.EXTRA_OUTPUT_Y, config.getOutputY());
-        } else {
-            intent.putExtra(CropConfig.EXTRA_ASPECT_X, config.getAspectX());
-            intent.putExtra(CropConfig.EXTRA_ASPECT_Y, config.getAspectY());
-        }
+        intent.putExtra(CropConfig.EXTRA_CROP, String.valueOf(config.isCrop()));
+        int outputX = config.getOutputX();
+        int outputY = config.getOutputY();
+        int aspectX = config.getAspectX();
+        int aspectY = config.getAspectY();
+        boolean isOutputSet = outputX > 0 && outputY > 0;
+        boolean isAspectSet = aspectX > 0 && aspectY > 0;
 
-        cropPhotoTempFile = null;
-        File directory = config.getDirectory();
-        if (directory != null) {
-            String photoName = config.getPhotoName();
-            if (photoName == null || photoName.trim().length() == 0) {
-                photoName = getDefaultCropPhotoFileName(config.getOutputFormat());
-                config.setPhotoName(photoName);
+        if (isAspectSet) {
+            intent.putExtra(CropConfig.EXTRA_ASPECT_X, aspectX);
+            intent.putExtra(CropConfig.EXTRA_ASPECT_Y, aspectY);
+            //如果有设置outputX、outputY，则根据aspectX、aspectY计算出合适的outputX、outputY
+            if (isOutputSet) {
+                if (aspectX == aspectY) {
+                    outputX = outputY = Math.min(outputX, outputY);
+                } else {
+                    double ratioX = outputX * 1.0 / aspectX;
+                    double ratioY = outputY * 1.0 / aspectY;
+                    if (ratioX > ratioY) {//以outputY为标准
+                        int avg = outputY / aspectY;
+                        outputX = avg * aspectX;
+                        outputY = avg * aspectY;
+                    } else if (ratioX < ratioY) {//以outputX为标准
+                        int avg = outputX / aspectX;
+                        outputX = avg * aspectX;
+                        outputY = avg * aspectY;
+                    }
+                }
+                config.setOutputX(outputX);
+                config.setOutputY(outputY);
             }
-            if (!directory.exists())
-                directory.mkdirs();
-
-            cropPhotoTempFile = new File(directory, photoName);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProviderCompat.getUriForFile(this, cropPhotoTempFile));
         }
-        intent.putExtra(CropConfig.EXTRA_RETURN_DATA, false);
+        if (isOutputSet) {
+            intent.putExtra(CropConfig.EXTRA_OUTPUT_X, outputX);
+            intent.putExtra(CropConfig.EXTRA_OUTPUT_Y, outputY);
+        }
+        intent.putExtra(CropConfig.EXTRA_SCALE, config.isScale());
+        intent.putExtra(CropConfig.EXTRA_CIRCLE_CROP, String.valueOf(config.isCircleCrop()));
+
+        //如果没有设置文件夹，裁剪后则保存在sdk根目录的Pictures文件夹下面
+        File directory = config.getDirectory();
+        if (directory == null){
+            directory = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_PICTURES);
+            config.setDirectory(directory);
+        }
+
+        //如果没有设置裁剪后的图片名称，则更加当前系统时间设置默认的图片名称
+        String photoPathName = config.getPhotoPathName();
+        if (photoPathName == null || photoPathName.trim().length() == 0){
+            photoPathName = getDefaultCropPhotoFileName(config.getOutputFormat());
+            config.setPhotoPathName(photoPathName);
+        }
+        cropPhotoTempFile = new File(directory, photoPathName);
+        String cropPhotoTempFilePath = cropPhotoTempFile.getPath();
+        //如果保存图片的文件夹还没有创建，则创建文件夹
+        File dir = new File(cropPhotoTempFilePath.substring(0, cropPhotoTempFilePath.lastIndexOf(File.separator)));
+        if (!dir.exists())
+            dir.mkdirs();
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProviderCompat.getUriForFile(this, cropPhotoTempFile));
+        intent.putExtra(CropConfig.EXTRA_RETURN_DATA, config.isReturnData());
         intent.putExtra(CropConfig.EXTRA_NO_FACE_DETECTION, config.isNoFaceDetection());
         intent.putExtra(CropConfig.EXTRA_OUTPUT_FORMAT, config.getOutputFormat().name());
         startActivityForResult(intent, REQUEST_CODE_PHOTO_CROP);
