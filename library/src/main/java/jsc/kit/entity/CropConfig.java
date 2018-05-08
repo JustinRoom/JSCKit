@@ -31,8 +31,8 @@ public class CropConfig {
     private boolean crop;//发送裁剪信号(不一定有效)
     private int aspectX;//X方向上的比例
     private int aspectY;//Y方向上的比例
-    private int outputX;//裁剪区的宽
-    private int outputY;//裁剪区的高
+    private int outputX;//裁剪后的图片的宽。与裁剪框的宽没有半毛钱关系，不要搞混了！
+    private int outputY;//裁剪后的图片的高。与裁剪框的高没有半毛钱关系，不要搞混了！
     private boolean scale;//是否保留比例(不一定有效)
     private boolean circleCrop;//是否是圆形裁剪区域(不一定有效)
     private boolean returnData;//是否将数据保留在Bitmap中返回
