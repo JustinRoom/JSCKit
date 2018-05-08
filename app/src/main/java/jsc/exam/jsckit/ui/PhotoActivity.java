@@ -86,10 +86,9 @@ public class PhotoActivity extends APhotoActivity {
                     .setCircleCrop(true)
 //                    .setAspectX(4)
 //                    .setAspectY(3)
-//                    .setOutputX(480)
-//                    .setOutputY(300)
-                    .setScale(true)
-                    .setDirectory(file);
+                    .setOutputX(200)
+                    .setOutputY(200)
+                    .setScale(true);
             cropPhoto(uri, config);
         } else {
             showImage(imagePath);
