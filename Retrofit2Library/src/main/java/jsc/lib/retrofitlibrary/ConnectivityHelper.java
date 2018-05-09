@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.util.Objects;
+
 /**
  * 
  * ConnectivityHelper 网络工具
@@ -19,6 +21,7 @@ public class ConnectivityHelper {
 
 	public static boolean isNetworkAvailable(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Objects.requireNonNull(cm);
 		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 		return networkInfo != null && networkInfo.isAvailable();
 	}
@@ -32,9 +35,9 @@ public class ConnectivityHelper {
 	public static boolean isConnectivityAvailable(Context context) {
 		// 判断网络是否可用
 		NetworkInfo info = null;
-		ConnectivityManager cManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		info = cManager.getActiveNetworkInfo();
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Objects.requireNonNull(cm);
+		info = cm.getActiveNetworkInfo();
 		if (info == null || !info.isConnected()) {
 			return false;
 		}
@@ -53,8 +56,9 @@ public class ConnectivityHelper {
 	public static boolean WifiIsAvailable(Context context) {
 		// 判断网络是否可用
 		NetworkInfo info = null;
-		ConnectivityManager cManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		info = cManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Objects.requireNonNull(cm);
+		info = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		return info != null && info.isAvailable();
 	}
 	
@@ -67,8 +71,9 @@ public class ConnectivityHelper {
 	public static boolean MobileIsAvailable(Context context) {
 		// 判断网络是否可用
 		NetworkInfo info = null;
-		ConnectivityManager cManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		info = cManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Objects.requireNonNull(cm);
+		info = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		return info != null && info.isAvailable();
 	}
 	
@@ -112,8 +117,9 @@ public class ConnectivityHelper {
 	 */
 	public static int getAPNType(Context context) {
 		int netType = NONET;
-		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Objects.requireNonNull(cm);
+		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
 		if (networkInfo == null) {
 			return netType;

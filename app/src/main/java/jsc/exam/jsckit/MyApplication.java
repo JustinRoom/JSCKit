@@ -1,9 +1,7 @@
 package jsc.exam.jsckit;
 
 import android.app.Application;
-import android.graphics.Color;
 
-import jsc.kit.utils.BitmapCacheManager;
 import jsc.kit.utils.CustomToast;
 
 public class MyApplication extends Application {

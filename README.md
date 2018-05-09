@@ -3,7 +3,7 @@ current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
 
 # Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.2.4
+&#32;&#32;Demo version:0.2.5
 ![JSCKitDemo.apk](/capture/download_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
@@ -54,7 +54,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 + 2、Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.JustinRoom:JSCKit:0.2.4'
+	        compile 'com.github.JustinRoom:JSCKit:0.2.5'
 	}
 ```
 ##### Maven: 
@@ -72,7 +72,7 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 	<dependency>
 	    <groupId>com.github.JustinRoom</groupId>
 	    <artifactId>JSCKit</artifactId>
-	    <version>0.2.4</version>
+	    <version>0.2.5</version>
 	</dependency>
 ```
 # ProGuard
@@ -142,5 +142,5 @@ If you are using ProGuard you need to add the following options:
 | index | Functionality | Article |
 |:---:|:---|:---|
 | 1  | [**APermissionCheckActivity**](/library/src/main/java/jsc/kit/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
-| 2  | [**APhotoActivity**](/library/src/main/java/jsc/kit/baseui/APhotoActivity.java) |  |
+| 2  | [**APhotoActivity**](/library/src/main/java/jsc/kit/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
 

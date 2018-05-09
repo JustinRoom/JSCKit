@@ -40,24 +40,23 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     private CustomPermissionChecker customPermissionChecker = null;
 
-    public final void checkPermissions(@IntRange(from = 0) int requestCode, CustomPermissionChecker.OnCheckListener checkListener, String... permissions) {
+    public final boolean checkPermissions(String... permissions) {
+        return checkPermissions(0, null, permissions);
+    }
+
+    public final boolean checkPermissions(@IntRange(from = 0) int requestCode, CustomPermissionChecker.OnCheckListener checkListener, String... permissions) {
         if (customPermissionChecker == null) {
             customPermissionChecker = new CustomPermissionChecker();
         }
-        customPermissionChecker.setOnCheckListener(checkListener);
-        customPermissionChecker.checkPermissions(this, requestCode, permissions);
+        return customPermissionChecker.checkPermissions(this, requestCode, checkListener, permissions);
     }
 
     /**
      * Release resource. I suggest that you should call this method in {@link CustomPermissionChecker.OnCheckListener#onFinally(int)}.
-     * <br/>It does two things:
-     * <br/>1、set {@link CustomPermissionChecker#onCheckListener} as {@code null}
-     * <br/>2、set {@link #customPermissionChecker} as {@code null}
      */
-    public final void removePermissionChecker() {
+    public final void recyclePermissionChecker() {
         if (customPermissionChecker == null)
             return;
-        customPermissionChecker.removeCheckListener();
         customPermissionChecker = null;
     }
 

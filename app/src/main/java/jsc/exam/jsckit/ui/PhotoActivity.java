@@ -14,12 +14,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.baseui.APhotoActivity;
 import jsc.kit.entity.CropConfig;
-import jsc.kit.utils.CustomPermissionChecker;
 
 public class PhotoActivity extends APhotoActivity {
 
@@ -34,20 +32,12 @@ public class PhotoActivity extends APhotoActivity {
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ivPhoto = findViewById(R.id.iv_photo);
-        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
-            @Override
-            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @NonNull List<String> deniedPermissions, @NonNull List<String> shouldShowPermissions) {
-
-            }
-
-            @Override
-            public void onFinally(int requestCode) {
-                removePermissionChecker();
-            }
-        }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 
     public void widgetClick(View view) {
+        if (!checkPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA))
+            return;
+
         switch (view.getId()) {
             case R.id.btn_choose:
                 needCrop = false;
@@ -82,13 +72,7 @@ public class PhotoActivity extends APhotoActivity {
         if (needCrop) {
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
-                    .setCrop(false)
-                    .setCircleCrop(true)
-//                    .setAspectX(4)
-//                    .setAspectY(3)
-                    .setOutputX(200)
-                    .setOutputY(200)
-                    .setScale(true);
+                    .setDirectory(file);
             cropPhoto(uri, config);
         } else {
             showImage(imagePath);
@@ -103,8 +87,10 @@ public class PhotoActivity extends APhotoActivity {
         if (needCrop) {
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
-                    .setAspectX(2)
-                    .setAspectY(1)
+                    .setAspectX(4)
+                    .setAspectY(3)
+                    .setOutputX(480)
+                    .setOutputY(560)
                     .setDirectory(file);
             cropPhoto(uri, config);
         } else {

@@ -88,7 +88,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
-        classItems.add(new ClassItem("AboutActivity", AboutActivity.class));
+        classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
 
@@ -173,13 +173,13 @@ public class MainActivity extends ABaseActivity {
     private void checkPermissionBeforeDownloadApk(final String versionName){
         checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
             @Override
-            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @NonNull List<String> deniedPermissions, @NonNull List<String> shouldShowPermissions) {
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted){
                     downloadApk(versionName);
                     return;
                 }
 
-                if (shouldShowPermissions.size() > 0){
+                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0){
                     String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
@@ -187,7 +187,7 @@ public class MainActivity extends ABaseActivity {
 
             @Override
             public void onFinally(int requestCode) {
-                removePermissionChecker();
+                recyclePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }

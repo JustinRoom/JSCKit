@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
 import java.util.ArrayList;
@@ -23,32 +24,26 @@ public final class CustomPermissionChecker {
 
     private Activity activity;
     private OnCheckListener onCheckListener;
-    private String[] permissions;
+    private List<String> permissions;
 
     public CustomPermissionChecker() {
     }
 
-    public CustomPermissionChecker(OnCheckListener onCheckListener) {
-        this.onCheckListener = onCheckListener;
-    }
-
-    public void setOnCheckListener(OnCheckListener onCheckListener) {
-        this.onCheckListener = onCheckListener;
-    }
-
     /**
+     *
      *
      * @param activity
      * @param requestCode
      * @param permissions
      * @return
      */
-    public void checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, String... permissions) {
-        if (permissions == null)
-            return;
+    public boolean checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, OnCheckListener onCheckListener, String... permissions) {
+        if (permissions == null || permissions.length == 0)
+            throw new NullPointerException("The parameter permissions can't be null.");
 
         this.activity = activity;
-        this.permissions = permissions;
+        this.onCheckListener = onCheckListener;
+        this.permissions = Arrays.asList(permissions);
         boolean isAllGranted = true;
         List<String> unGrantedPermissions = new ArrayList<>();
         for (String permission : permissions) {
@@ -64,19 +59,16 @@ public final class CustomPermissionChecker {
                 onCheckListener.onResult(
                         requestCode,
                         true,
-                        Arrays.asList(permissions),
-                        new ArrayList<String>(),
-                        new ArrayList<String>()
+                        this.permissions,
+                        null,
+                        null
                 );
-            return;
+            return true;
         }
 
         //请求授权
-        String[] needCheckPermissions = new String[unGrantedPermissions.size()];
-        for (int i = 0; i < unGrantedPermissions.size(); i++) {
-            needCheckPermissions[i] = unGrantedPermissions.get(i);
-        }
-        ActivityCompat.requestPermissions(activity, needCheckPermissions, requestCode);
+        ActivityCompat.requestPermissions(activity, unGrantedPermissions.toArray(new String[unGrantedPermissions.size()]), 0);
+        return false;
     }
 
     /**
@@ -102,38 +94,17 @@ public final class CustomPermissionChecker {
             }
         }
 
-        List<String> grantedPermissions = Arrays.asList(this.permissions);
-        grantedPermissions.removeAll(deniedPermissions);
+        //移除掉已拒绝的之后就是授权通过的
+        this.permissions.removeAll(deniedPermissions);
         onCheckListener.onResult(
                 requestCode,
                 deniedPermissions.size() == 0,
-                grantedPermissions,
+                this.permissions,
                 deniedPermissions,
                 shouldShowPermissions
         );
         //处理收尾工作
         onCheckListener.onFinally(requestCode);
-    }
-
-    /**
-     * 匹配出已经授权通过的权限
-     * @param deniedPermissions
-     * @return
-     */
-    private List<String> patchGrantedPermissions(List<String> deniedPermissions){
-        if (deniedPermissions.size() == 0)
-            return Arrays.asList(permissions);
-
-        List<String> grantedPermissions = new ArrayList<>();
-        for (String permission : permissions) {
-            boolean isGranted = true;
-            for (String deniedPermission : deniedPermissions) {
-                isGranted = isGranted && !permission.equals(deniedPermission);
-            }
-            if (isGranted)
-                grantedPermissions.add(permission);
-        }
-        return grantedPermissions;
     }
 
     /**
@@ -157,8 +128,8 @@ public final class CustomPermissionChecker {
         void onResult(int requestCode,
                       boolean isAllGranted,
                       @NonNull List<String> grantedPermissions,
-                      @NonNull List<String> deniedPermissions,
-                      @NonNull List<String> shouldShowPermissions);
+                      @Nullable List<String> deniedPermissions,
+                      @Nullable List<String> shouldShowPermissions);
 
         /**
          * 在此方法中做一些收尾工作。例如释放资源。
