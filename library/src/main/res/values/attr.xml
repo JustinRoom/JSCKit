@@ -129,4 +129,10 @@
         <attr name="y_aspect"/>
     </declare-styleable>
 
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
+    </declare-styleable>
+
 </resources>

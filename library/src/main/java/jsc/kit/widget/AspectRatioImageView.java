@@ -5,13 +5,14 @@ import android.content.res.TypedArray;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import jsc.kit.R;
+
 /**
  * <p>
- *     自定义宽高比例的LinearLayout，例如2:5、4:3等等。
+ *     自定义宽高比例的FrameLayout，例如2:5、4:3等等。
  *     默认为1:1。
  * </p>
  * <br>Email:1006368252@qq.com
@@ -20,25 +21,25 @@ import jsc.kit.R;
  *
  * @author jiangshicheng
  */
-public class AspectRatioLinearLayout extends LinearLayout {
+public class AspectRatioImageView extends AppCompatImageView {
     private int baseWhat;
     private int xAspect;
     private int yAspect;
-    public AspectRatioLinearLayout(@NonNull Context context) {
+    public AspectRatioImageView(@NonNull Context context) {
         this(context, null);
     }
 
-    public AspectRatioLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public AspectRatioImageView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AspectRatioLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public AspectRatioImageView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioLinearLayout, defStyleAttr, 0);
-        baseWhat = a.getInt(R.styleable.AspectRatioLinearLayout_base_what, 0);
-        xAspect = a.getInteger(R.styleable.AspectRatioLinearLayout_x_aspect, 1);
-        yAspect = a.getInteger(R.styleable.AspectRatioLinearLayout_y_aspect, 1);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioImageView, defStyleAttr, 0);
+        baseWhat = a.getInt(R.styleable.AspectRatioImageView_base_what, 0);
+        xAspect = a.getInteger(R.styleable.AspectRatioImageView_x_aspect, 1);
+        yAspect = a.getInteger(R.styleable.AspectRatioImageView_y_aspect, 1);
         a.recycle();
 
         if (xAspect <= 0)
