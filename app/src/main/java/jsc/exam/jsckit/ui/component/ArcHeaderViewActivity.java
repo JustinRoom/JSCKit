@@ -1,10 +1,7 @@
-package jsc.exam.jsckit.ui.componet;
+package jsc.exam.jsckit.ui.component;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.SeekBar;
 

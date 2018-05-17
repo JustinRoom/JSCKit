@@ -1,6 +1,5 @@
 package jsc.exam.jsckit.ui;
 
-import jsc.exam.jsckit.InstanceManager;
 import jsc.kit.baseui.APermissionCheckActivity;
 import jsc.kit.utils.CustomToast;
 

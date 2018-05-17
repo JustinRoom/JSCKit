@@ -114,7 +114,7 @@ public final class CustomToast {
     public void destroy(boolean recycleToastView) {
         if (lastToastView != null && lastToastView.getParent() != null) {
             lastToastView.removeCallbacks(toastRunnable);
-            windowManager.removeView(lastToastView);
+            windowManager.removeViewImmediate(lastToastView);
         }
         if (recycleToastView) {
             lastToastView = null;

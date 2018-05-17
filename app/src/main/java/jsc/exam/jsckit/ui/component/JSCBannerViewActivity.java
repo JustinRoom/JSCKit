@@ -1,4 +1,4 @@
-package jsc.exam.jsckit.ui.componet;
+package jsc.exam.jsckit.ui.component;
 
 import android.content.Context;
 import android.os.Bundle;

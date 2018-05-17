@@ -16,27 +16,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".LaunchActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.componet.ArcHeaderViewActivity" />
-        <activity android:name=".ui.componet.JSCBannerViewActivity" />
-        <activity android:name=".ui.componet.MonthViewActivity" />
-        <activity android:name=".ui.componet.ReboundLayoutActivity" />
-        <activity android:name=".ui.componet.VerticalStepViewActivity" />
-        <activity android:name=".ui.componet.RefreshLayoutActivity" />
-        <activity android:name=".ui.componet.JSCRoundCornerProgressBarActivity" />
-        <activity android:name=".ui.componet.JSCItemLayoutActivity" />
-        <activity android:name=".ui.componet.VScrollScreenLayoutActivity" />
+        <activity android:name=".ui.MainActivity" android:launchMode="singleTask"/>
+        <activity android:name=".ui.component.ArcHeaderViewActivity" />
+        <activity android:name=".ui.component.JSCBannerViewActivity" />
+        <activity android:name=".ui.component.MonthViewActivity" />
+        <activity android:name=".ui.component.ReboundLayoutActivity" />
+        <activity android:name=".ui.component.VerticalStepViewActivity" />
+        <activity android:name=".ui.component.RefreshLayoutActivity" />
+        <activity android:name=".ui.component.JSCRoundCornerProgressBarActivity" />
+        <activity android:name=".ui.component.JSCItemLayoutActivity" />
+        <activity android:name=".ui.component.VScrollScreenLayoutActivity" />
         <activity android:name=".ui.AboutActivity" />
-        <activity android:name=".ui.componet.RadarViewActivity" />
-        <activity android:name=".ui.componet.TurntableViewActivity" />
-        <activity android:name=".ui.componet.SwipeRecyclerViewActivity" />
-        <activity android:name=".ui.componet.RippleViewActivity" />
+        <activity android:name=".ui.component.RadarViewActivity" />
+        <activity android:name=".ui.component.TurntableViewActivity" />
+        <activity android:name=".ui.component.SwipeRecyclerViewActivity" />
+        <activity android:name=".ui.component.RippleViewActivity" />
         <activity android:name=".ui.ComponentListActivity" />
         <activity android:name=".ui.zxing.ZXingQRCodeActivity" />
         <activity android:name=".ui.zxing.ZXingScannerActivity" />
@@ -45,6 +46,7 @@
         <activity android:name=".ui.CustomToastActivity" />
         <activity android:name=".ui.DownloadFileActivity" />
         <activity android:name=".ui.PhotoActivity" />
+        <activity android:name=".ui.component.AdvertisementViewActivity" android:theme="@style/AppTheme.NoActionBar"/>
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider
@@ -56,6 +58,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <service android:name=".ScreenshotService" />
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package jsc.exam.jsckit.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,19 +13,20 @@ import java.util.List;
 
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
-import jsc.exam.jsckit.ui.componet.ArcHeaderViewActivity;
-import jsc.exam.jsckit.ui.componet.JSCBannerViewActivity;
-import jsc.exam.jsckit.ui.componet.JSCItemLayoutActivity;
-import jsc.exam.jsckit.ui.componet.JSCRoundCornerProgressBarActivity;
-import jsc.exam.jsckit.ui.componet.MonthViewActivity;
-import jsc.exam.jsckit.ui.componet.RadarViewActivity;
-import jsc.exam.jsckit.ui.componet.ReboundLayoutActivity;
-import jsc.exam.jsckit.ui.componet.RefreshLayoutActivity;
-import jsc.exam.jsckit.ui.componet.RippleViewActivity;
-import jsc.exam.jsckit.ui.componet.SwipeRecyclerViewActivity;
-import jsc.exam.jsckit.ui.componet.TurntableViewActivity;
-import jsc.exam.jsckit.ui.componet.VScrollScreenLayoutActivity;
-import jsc.exam.jsckit.ui.componet.VerticalStepViewActivity;
+import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
+import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
+import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
+import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
+import jsc.exam.jsckit.ui.component.JSCRoundCornerProgressBarActivity;
+import jsc.exam.jsckit.ui.component.MonthViewActivity;
+import jsc.exam.jsckit.ui.component.RadarViewActivity;
+import jsc.exam.jsckit.ui.component.ReboundLayoutActivity;
+import jsc.exam.jsckit.ui.component.RefreshLayoutActivity;
+import jsc.exam.jsckit.ui.component.RippleViewActivity;
+import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
+import jsc.exam.jsckit.ui.component.TurntableViewActivity;
+import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
+import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.swiperecyclerview.OnItemClickListener;
 
 public class ComponentListActivity extends ABaseActivity {
@@ -71,6 +71,7 @@ public class ComponentListActivity extends ABaseActivity {
         classItems.add(new ClassItem("RadarView", RadarViewActivity.class));
         classItems.add(new ClassItem("TurntableView", TurntableViewActivity.class));
         classItems.add(new ClassItem("RippleView", RippleViewActivity.class));
+        classItems.add(new ClassItem("AdvertisementView", AdvertisementViewActivity.class));
         return classItems;
     }
 }

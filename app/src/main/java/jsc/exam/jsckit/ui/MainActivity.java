@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import jsc.exam.jsckit.ScreenshotService;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
@@ -61,7 +64,10 @@ public class MainActivity extends ABaseActivity {
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
             public void onItemClick(View view, ClassItem item) {
-                startActivity(new Intent(view.getContext(), item.getCls()));
+                if (item.getLabel().equals("Screenshot")) {
+                    startScreenCaptureIntent();
+                } else
+                    startActivity(new Intent(view.getContext(), item.getCls()));
             }
 
             @Override
@@ -88,6 +94,8 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            classItems.add(new ClassItem("Screenshot", null));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
@@ -138,7 +146,6 @@ public class MainActivity extends ABaseActivity {
     }
 
     /**
-     *
      * @param entity
      */
     private void showUpdateTipsDialog(final VersionEntity entity) {
@@ -170,16 +177,16 @@ public class MainActivity extends ABaseActivity {
                     .show();
     }
 
-    private void checkPermissionBeforeDownloadApk(final String versionName){
+    private void checkPermissionBeforeDownloadApk(final String versionName) {
         checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
-                if (isAllGranted){
+                if (isAllGranted) {
                     downloadApk(versionName);
                     return;
                 }
 
-                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0){
+                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
                     String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
@@ -192,13 +199,13 @@ public class MainActivity extends ABaseActivity {
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void downloadApk(String versionName){
+    private void downloadApk(String versionName) {
         registerDownloadCompleteReceiver();
         DownloadEntity entity = new DownloadEntity();
         entity.setUrl("https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk");
         entity.setDestinationDirectory(new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS));
-        entity.setSubPath("jsckit/JSCKitDemo"+ versionName + ".apk");
-        entity.setTitle("JSCKitDemo"+ versionName + ".apk");
+        entity.setSubPath("jsckit/JSCKitDemo" + versionName + ".apk");
+        entity.setTitle("JSCKitDemo" + versionName + ".apk");
         entity.setDesc("JSCKit Library");
         entity.setMimeType("application/vnd.android.package-archive");
         downloadFile(entity);
@@ -207,12 +214,12 @@ public class MainActivity extends ABaseActivity {
     /**
      * 注册下载完成监听
      */
-    private void registerDownloadCompleteReceiver(){
+    private void registerDownloadCompleteReceiver() {
         if (downloadReceiver == null)
             downloadReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())){
+                    if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
                         unRegisterDownloadCompleteReceiver();
                         long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                         findDownloadFileUri(downloadId);
@@ -227,8 +234,8 @@ public class MainActivity extends ABaseActivity {
     /**
      * 注销下载完成监听
      */
-    private void unRegisterDownloadCompleteReceiver(){
-        if (downloadReceiver != null){
+    private void unRegisterDownloadCompleteReceiver() {
+        if (downloadReceiver != null) {
             unregisterReceiver(downloadReceiver);
             downloadReceiver = null;
         }
@@ -240,12 +247,46 @@ public class MainActivity extends ABaseActivity {
             return;
 
         //8.0有未知应用安装请求权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //先获取是否有安装未知来源应用的权限
             if (getPackageManager().canRequestPackageInstalls())
                 installApk(uri);
         } else {
             installApk(uri);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void startScreenCaptureIntent() {
+        if (!checkPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            return;
+
+        MediaProjectionManager mMediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        startActivityForResult(mMediaProjectionManager.createScreenCaptureIntent(), 0x100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+
+        Intent intent = new Intent(getApplicationContext(), ScreenshotService.class);
+        intent.setAction(ScreenshotService.ACTION_SCREEN_SHOT);
+        intent.putExtra("result_code", resultCode);
+        intent.setSelector(data);
+        startService(intent);
+    }
+
+    long lastClickTime = 0;
+    @Override
+    public void onBackPressed() {
+        long curTime = System.currentTimeMillis();
+        if (curTime - lastClickTime < 3_000){
+            super.onBackPressed();
+        } else {
+            showCustomToast("再次点击返回按钮退出应用");
+            lastClickTime = curTime;
         }
     }
 }
