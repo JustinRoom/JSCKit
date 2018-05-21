@@ -20,7 +20,7 @@ import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
 import jsc.exam.jsckit.ui.component.JSCRoundCornerProgressBarActivity;
 import jsc.exam.jsckit.ui.component.MonthViewActivity;
 import jsc.exam.jsckit.ui.component.RadarViewActivity;
-import jsc.exam.jsckit.ui.component.ReboundLayoutActivity;
+import jsc.exam.jsckit.ui.component.ReboundFrameLayoutActivity;
 import jsc.exam.jsckit.ui.component.RefreshLayoutActivity;
 import jsc.exam.jsckit.ui.component.RippleViewActivity;
 import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
@@ -61,7 +61,7 @@ public class ComponentListActivity extends ABaseActivity {
         classItems.add(new ClassItem("ArcHeaderView", ArcHeaderViewActivity.class));
         classItems.add(new ClassItem("JSCBannerView", JSCBannerViewActivity.class));
         classItems.add(new ClassItem("MonthView", MonthViewActivity.class));
-        classItems.add(new ClassItem("ReboundLayout", ReboundLayoutActivity.class));
+        classItems.add(new ClassItem("ReboundFrameLayout", ReboundFrameLayoutActivity.class));
         classItems.add(new ClassItem("VerticalStepView", VerticalStepViewActivity.class));
         classItems.add(new ClassItem("RefreshLayout", RefreshLayoutActivity.class));
         classItems.add(new ClassItem("SwipeRecyclerView", SwipeRecyclerViewActivity.class));

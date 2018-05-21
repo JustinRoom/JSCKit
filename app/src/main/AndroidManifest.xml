@@ -27,7 +27,7 @@
         <activity android:name=".ui.component.ArcHeaderViewActivity" />
         <activity android:name=".ui.component.JSCBannerViewActivity" />
         <activity android:name=".ui.component.MonthViewActivity" />
-        <activity android:name=".ui.component.ReboundLayoutActivity" />
+        <activity android:name=".ui.component.ReboundFrameLayoutActivity" />
         <activity android:name=".ui.component.VerticalStepViewActivity" />
         <activity android:name=".ui.component.RefreshLayoutActivity" />
         <activity android:name=".ui.component.JSCRoundCornerProgressBarActivity" />

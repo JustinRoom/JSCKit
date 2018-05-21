@@ -1,7 +1,6 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +30,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import jsc.exam.jsckit.ScreenshotService;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
@@ -64,10 +61,7 @@ public class MainActivity extends ABaseActivity {
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
             public void onItemClick(View view, ClassItem item) {
-                if (item.getLabel().equals("Screenshot")) {
-                    startScreenCaptureIntent();
-                } else
-                    startActivity(new Intent(view.getContext(), item.getCls()));
+                startActivity(new Intent(view.getContext(), item.getCls()));
             }
 
             @Override
@@ -94,8 +88,6 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            classItems.add(new ClassItem("Screenshot", null));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
@@ -256,33 +248,12 @@ public class MainActivity extends ABaseActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void startScreenCaptureIntent() {
-        if (!checkPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            return;
-
-        MediaProjectionManager mMediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
-        startActivityForResult(mMediaProjectionManager.createScreenCaptureIntent(), 0x100);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK)
-            return;
-
-        Intent intent = new Intent(getApplicationContext(), ScreenshotService.class);
-        intent.setAction(ScreenshotService.ACTION_SCREEN_SHOT);
-        intent.putExtra("result_code", resultCode);
-        intent.setSelector(data);
-        startService(intent);
-    }
-
     long lastClickTime = 0;
+
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
-        if (curTime - lastClickTime < 3_000){
+        if (curTime - lastClickTime < 3_000) {
             super.onBackPressed();
         } else {
             showCustomToast("再次点击返回按钮退出应用");
