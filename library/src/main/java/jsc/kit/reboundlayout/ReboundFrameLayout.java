@@ -29,7 +29,6 @@ public class ReboundFrameLayout extends FrameLayout {
 
     private float mStart;
     private Scroller mScroller;
-    private boolean su;
     /**
      * the ratio of sliding on vertical direction.
      */
@@ -56,16 +55,12 @@ public class ReboundFrameLayout extends FrameLayout {
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
         Log.i(TAG, "addView: ");
-        if (getChildCount() > 1)
-            throw new RuntimeException("Only contain one child at most.");
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         Log.i(TAG, "onFinishInflate: ");
-        if (getChildCount() > 1)
-            throw new RuntimeException("Only contain one child at most.");
     }
 
     @Override
@@ -98,7 +93,7 @@ public class ReboundFrameLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 float mCurY = ev.getY();
-                int mark = (int) (mCurY - mStart);
+                int mark = (int) (mStart - mCurY);
                 int slop = Math.abs(mark);
                 mStart = mCurY;
                 //如果滑动的距离小于10px，我们认为这次滑动是无效的，把这次事件传递给contentView去消费。例如contentView的child的点击事件。
@@ -126,17 +121,12 @@ public class ReboundFrameLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 float mCurY = ev.getY();
-                int mYOffset = (int) ((mCurY - mStart) * slidingScaleRatio);
+                int mYOffset = (int) ((mStart - mCurY) * slidingScaleRatio);
                 executeScroll(getChildAt(0), mYOffset);
                 mStart = mCurY;
                 return true;
 
             case MotionEvent.ACTION_UP:
-//                if (getScrollY() > 0){
-//                    View target = getChildAt(0);
-//                    Log.i(TAG, "onTouchEvent: top = " + (target.getMeasuredHeight() - getHeight()) + ", scrollY = " + target.getScrollY());
-//                    target.scrollBy(0, target.getMeasuredHeight() - getHeight() - target.getScrollY());
-//                }
                 mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), reboundAnimationDuration);
                 postInvalidate();
                 break;
@@ -158,7 +148,7 @@ public class ReboundFrameLayout extends FrameLayout {
     private void executeScroll(View target, int mYOffset) {
         //为了方便下面的描述，我们用content代表target的内容，即：content=target的内容。
         //content下滑的高度
-        int childScrolledY = target.getScrollY();
+        int childScrollY = target.getScrollY();
         //content在target中的可见区域
         Rect rect = new Rect();
         target.getLocalVisibleRect(rect);
@@ -169,14 +159,15 @@ public class ReboundFrameLayout extends FrameLayout {
         // 如果target底部已向上经拉出屏幕外，则认为distanceFromBottom为0
         int distanceFromBottom = rect.bottom < 0 ? 0 : realHeight - rect.bottom;
 
-        int distance = Math.abs(mYOffset);
         int scrollY = getScrollY();
-        if (mYOffset > 0) {//向下滑动
+        int childScrolledY = Math.abs(childScrollY);
+        int scrolledY = Math.abs(scrollY);
+        int distance = Math.abs(mYOffset);
+        if (mYOffset < 0){//向下滑动
             //向下滑动target与ReboundFrameLayout底部对齐
-            scrollBy(0, -Math.min(distance, scrollY));
-            distance = distance - scrollY;
+            scrollBy(0, -Math.min(distance, scrolledY));
+            distance = distance - scrolledY;
             if (distance <= 0){
-                Log.i(TAG, "executeScroll: scrollY = " + target.getScrollY());
                 return;
             }
 
@@ -184,22 +175,16 @@ public class ReboundFrameLayout extends FrameLayout {
             target.scrollBy(0, -Math.min(distance, childScrolledY));
             distance = distance - childScrolledY;
             if (distance <= 0){
-                Log.i(TAG, "executeScroll: scrollY = " + target.getScrollY());
                 return;
             }
 
             //向下滑动target
             scrollBy(0, -distance);
-        } else if (mYOffset < 0) {//向上滑动
+        } else if (mYOffset > 0) {//向上滑动
             //向上滑动target与ReboundFrameLayout顶部对齐
-            if (scrollY < 0) {
-                scrollY = Math.abs(scrollY);
-                scrollBy(0, Math.min(distance, scrollY));
-                distance = distance - scrollY;
-            }
-
+            scrollBy(0, Math.min(distance, scrolledY));
+            distance = distance - scrolledY;
             if (distance <= 0){
-                Log.i(TAG, "executeScroll: scrollY = " + target.getScrollY());
                 return;
             }
 
@@ -207,14 +192,12 @@ public class ReboundFrameLayout extends FrameLayout {
             target.scrollBy(0, Math.min(distance, distanceFromBottom));
             distance = distance - distanceFromBottom;
             if (distance <= 0){
-                Log.i(TAG, "executeScroll: scrollY = " + target.getScrollY());
                 return;
             }
 
             //向上滑动target
             scrollBy(0, distance);
         }
-        Log.i(TAG, "executeScroll: scrollY = " + target.getScrollY());
     }
 
     public float getSlidingScaleRatio() {

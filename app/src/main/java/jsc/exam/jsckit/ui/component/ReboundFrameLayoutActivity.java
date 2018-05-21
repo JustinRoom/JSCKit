@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -72,6 +73,13 @@ public class ReboundFrameLayoutActivity extends ABaseActivity implements View.On
 //        reboundFrameLayout.setSlidingScaleRatio(0.55f);
             //设置回弹动画时间，默认为300
             reboundFrameLayout.setReboundAnimationDuration(1200);
+
+            AppCompatImageView imageView = new AppCompatImageView(this);
+            imageView.setImageResource(R.mipmap.ic_launcher_round);
+            ReboundFrameLayout.LayoutParams params = new ReboundFrameLayout.LayoutParams(ReboundFrameLayout.LayoutParams.WRAP_CONTENT, ReboundFrameLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+            params.bottomMargin = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+            reboundFrameLayout.addView(imageView, params);
         }
     }
 
