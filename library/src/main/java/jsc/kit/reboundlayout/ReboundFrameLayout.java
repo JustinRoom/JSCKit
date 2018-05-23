@@ -160,6 +160,7 @@ public class ReboundFrameLayout extends FrameLayout {
         int distanceFromBottom = rect.bottom < 0 ? 0 : realHeight - rect.bottom;
 
         int scrollY = getScrollY();
+        Log.i(TAG, "executeScroll: scrollY = " + scrollY);
         int childScrolledY = Math.abs(childScrollY);
         int scrolledY = Math.abs(scrollY);
         int distance = Math.abs(mYOffset);

@@ -1,14 +1,22 @@
 package jsc.exam.jsckit.ui.component;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ActionMenuView;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.itemlayout.JSCItemLayout;
 import jsc.kit.refreshlayout.RefreshLayout;
 
 public class RefreshLayoutActivity extends ABaseActivity {
@@ -19,13 +27,64 @@ public class RefreshLayoutActivity extends ABaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initActionBar();
+        inflateRefreshLayout();
+
+    }
+
+
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null)
+            return;
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        FrameLayout customView = new FrameLayout(this);
+        customView.setPadding(padding, 0, 0, 0);
+        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getActionBarSize());
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customView, barParams);
+        //
+        TextView tvTitle = new TextView(this);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
+        FrameLayout.LayoutParams titleParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        titleParams.gravity = Gravity.CENTER_VERTICAL;
+        customView.addView(tvTitle, titleParams);
+
+        ActionMenuView actionMenuView = new ActionMenuView(this);
+        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        customView.addView(actionMenuView, menuParams);
+        actionMenuView.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case Menu.FIRST + 1:
+                        break;
+                    case Menu.FIRST + 2:
+                        break;
+                    case Menu.FIRST + 3:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "Xml");
+        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "ListView");
+        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 3, Menu.NONE, "TextView");
+    }
+
+    private void inflateRefreshLayout(){
         setContentView(R.layout.activity_refresh_layout);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
-
         refreshLayout = findViewById(R.id.refresh_layout);
 //        refreshLayout.setPullRatioY(0.55f);
 //        refreshLayout.setPullToRefreshRatio(0.45f);
 //        refreshLayout.setReleaseToRefreshRatio(0.65f);
+        refreshLayout.setReboundAnimationDuration(800);
         refreshLayout.setOnScrollListener(new RefreshLayout.OnScrollListener() {
             @Override
             public void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY, boolean isRefreshing) {
@@ -86,10 +145,5 @@ public class RefreshLayoutActivity extends ABaseActivity {
                 headerView.findViewById(R.id.loading_view).setVisibility(View.INVISIBLE);
             }
         });
-    }
-
-    public void widgetClick(View view) {
-        if (view instanceof JSCItemLayout)
-            showCustomToast(((JSCItemLayout) view).getLabel());
     }
 }

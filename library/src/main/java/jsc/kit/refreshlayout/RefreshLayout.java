@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.CallSuper;
 import android.support.annotation.FloatRange;
-import android.support.annotation.IdRes;
+import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -24,8 +22,8 @@ import jsc.kit.R;
 
 /**
  * <p>
- *     Pull to refresh layout.You can't scroll up from bottom if {@link #isRefreshing()} is true.
- *     The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
+ * Pull to refresh layout.You can't scroll up from bottom if {@link #isRefreshing()} is true.
+ * The minimal compatible sdk version is {@link Build.VERSION_CODES#ICE_CREAM_SANDWICH}.
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -36,20 +34,39 @@ import jsc.kit.R;
 public class RefreshLayout extends ViewGroup {
 
     private final String TAG = getClass().getSimpleName();
+    /**
+     *
+     */
+    public final static int STATE_PULL_INIT = -1;
+    public final static int STATE_PULL_TO_REFRESH = 0;
+    public final static int STATE_RELEASE_TO_REFRESH = 1;
+
     private final float DEFAULT_PULL_RATIO_Y = 0.55f;
     private final float DEFAULT_PULL_TO_REFRESH_RATIO = 0.45f;
     private final float DEFAULT_RELEASE_TO_REFRESH_RATIO = 0.65f;
-    private final int ANIM_TIME = 300;
+    private final int DEFAULT_REBOUND_ANIMATION_DURATION = 300;
     private float mLastY;
     private Scroller mScroller;
 
     private View headerView;
     private View contentView;
-    private int contentViewHeight = 0;
     private boolean isRefreshing = false;
+    /**
+     * the ration of pulling on vertical direction
+     */
     private float pullRatioY = DEFAULT_PULL_RATIO_Y;
+    /**
+     * the ratio of pulling to refresh
+     */
     private float pullToRefreshRatio = DEFAULT_PULL_TO_REFRESH_RATIO;
+    /**
+     * the ratio of releasing to refresh
+     */
     private float releaseToRefreshRatio = DEFAULT_RELEASE_TO_REFRESH_RATIO;
+    /**
+     * the duration of rebound animation
+     */
+    private int reboundAnimationDuration = DEFAULT_REBOUND_ANIMATION_DURATION;
 
     private OnScrollListener onScrollListener;
     private OnRefreshListener onRefreshListener;
@@ -57,12 +74,13 @@ public class RefreshLayout extends ViewGroup {
     public interface OnScrollListener {
         /**
          * Scroll callback.
-         * @param headerView The header view added by yourself.
-         * @param headerHeight The header's height.
-         * @param pullToRefreshRatio Pull to refresh ratio, <code>pullToRefreshHeight = headerHeight * pullToRefreshRatio</code>.
-         * @param releaseToRefreshRatio Release to refresh ratio, <code>releaseToRefreshHeight = headerHeight * releaseToRefreshRatio</code>.
-         * @param scrollY {@link #getScrollY()}. Negative to scroll down from top, positive to scroll up from bottom.
-         * @param isRefreshing {@link #isRefreshing()}
+         *
+         * @param headerView            the header view
+         * @param headerHeight          the height of header view
+         * @param pullToRefreshRatio    the ratio of pulling to refresh
+         * @param releaseToRefreshRatio the ratio of releasing to refresh
+         * @param scrollY               the scroll on vertical direction. Negative to scroll down from top, positive to scroll up from bottom. {@link #getScrollY()}
+         * @param isRefreshing          true, doing refreshing action
          * @see #setPullToRefreshRatio(float)
          * @see #setReleaseToRefreshRatio(float)
          */
@@ -72,6 +90,7 @@ public class RefreshLayout extends ViewGroup {
     public interface OnRefreshListener {
         /**
          * Do something here before refreshing action.For example, start header view animation.
+         *
          * @param headerView The header view added by yourself.
          */
         void onStartRefresh(View headerView);
@@ -83,6 +102,7 @@ public class RefreshLayout extends ViewGroup {
 
         /**
          * do something here after refreshing action.For example, stop header view animation.
+         *
          * @param headerView The header view added by yourself.
          */
         void onEndRefresh(View headerView);
@@ -105,14 +125,14 @@ public class RefreshLayout extends ViewGroup {
 
     private void init(Context context, TypedArray a) {
         mScroller = new Scroller(context);
-        if (a.hasValue(R.styleable.RefreshLayout_rf_headerLayout)){
+        if (a.hasValue(R.styleable.RefreshLayout_rf_headerLayout)) {
             int headerLayoutId = a.getResourceId(R.styleable.RefreshLayout_rf_headerLayout, 0);
             addHeader(headerLayoutId);
         } else {
             addHeader(createDefaultHeader());
         }
 
-        if (a.hasValue(R.styleable.RefreshLayout_rf_contentLayout)){
+        if (a.hasValue(R.styleable.RefreshLayout_rf_contentLayout)) {
             int headerLayoutId = a.getResourceId(R.styleable.RefreshLayout_rf_contentLayout, 0);
             addContent(headerLayoutId);
         } else {
@@ -121,73 +141,54 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * Find header child by id.
-     * @param id
-     * @param <T>
-     * @return
-     */
-    public final <T extends View> T findHeaderChildView(@IdRes int id){
-        return headerView.findViewById(id);
-    }
-
-    /**
-     * Find content child by id.
-     * @param id
-     * @param <T>
-     * @return
-     */
-    public final <T extends View> T findContentChildView(@IdRes int id){
-        return contentView.findViewById(id);
-    }
-
-    /**
-     * @see #addHeader(View)
      * @param layoutId
      * @return
+     * @see #addHeader(View)
      */
-    public View addHeader(@LayoutRes int layoutId){
+    public void addHeader(@LayoutRes int layoutId) {
         View header = LayoutInflater.from(getContext()).inflate(layoutId, null);
         addHeader(header);
-        return headerView;
     }
 
     /**
      * 添加下拉刷新头部view
+     *
      * @param header
      */
     public void addHeader(View header) {
         if (headerView != null)
             removeView(headerView);
         headerView = header;
-        addView(headerView, new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        addView(headerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         requestLayout();
     }
 
     /**
-     * @see #addContent(View)
      * @param layoutId
      * @return
+     * @see #addContent(View)
      */
-    public View addContent(@LayoutRes int layoutId){
+    public void addContent(@LayoutRes int layoutId) {
         View content = LayoutInflater.from(getContext()).inflate(layoutId, null);
         addContent(content);
-        return contentView;
     }
 
     /**
      * Ddd a custom content view.
+     *
      * @param content
      */
     public void addContent(View content) {
         if (contentView != null)
             removeView(contentView);
         contentView = content;
-        addView(contentView, new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        addView(contentView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         requestLayout();
     }
 
     /**
      * Add scroll listener.
+     *
      * @param onScrollListener
      */
     public void setOnScrollListener(OnScrollListener onScrollListener) {
@@ -196,6 +197,7 @@ public class RefreshLayout extends ViewGroup {
 
     /**
      * Add refresh listener.
+     *
      * @param onRefreshListener
      */
     public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
@@ -203,8 +205,8 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @see #setPullRatioY(float)
      * @return
+     * @see #setPullRatioY(float)
      */
     public float getPullRatioY() {
         return pullRatioY;
@@ -212,6 +214,7 @@ public class RefreshLayout extends ViewGroup {
 
     /**
      * The Y coordinate pull ratio. The default value is {@link #DEFAULT_PULL_RATIO_Y}.
+     *
      * @param pullRatioY float,value is in [0, 1].
      */
     public void setPullRatioY(@FloatRange(from = 0, to = 1.0f) float pullRatioY) {
@@ -219,8 +222,8 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @see #setPullToRefreshRatio(float)
      * @return
+     * @see #setPullToRefreshRatio(float)
      */
     public float getPullToRefreshRatio() {
         return pullToRefreshRatio;
@@ -228,6 +231,7 @@ public class RefreshLayout extends ViewGroup {
 
     /**
      * The default value is {@link #DEFAULT_PULL_TO_REFRESH_RATIO}.
+     *
      * @param pullToRefreshRatio float,value is in [0, 1].
      */
     public void setPullToRefreshRatio(@FloatRange(from = 0, to = 1.0f) float pullToRefreshRatio) {
@@ -235,8 +239,8 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @see #setReleaseToRefreshRatio(float)
      * @return
+     * @see #setReleaseToRefreshRatio(float)
      */
     public float getReleaseToRefreshRatio() {
         return releaseToRefreshRatio;
@@ -244,45 +248,70 @@ public class RefreshLayout extends ViewGroup {
 
     /**
      * The default value is {@link #DEFAULT_RELEASE_TO_REFRESH_RATIO}.
+     *
      * @param releaseToRefreshRatio float,value is in [0, 1].
      */
-    public void setReleaseToRefreshRatio(@FloatRange(from = 0, to = 1.0f)float releaseToRefreshRatio) {
+    public void setReleaseToRefreshRatio(@FloatRange(from = 0, to = 1.0f) float releaseToRefreshRatio) {
         this.releaseToRefreshRatio = releaseToRefreshRatio;
     }
 
+    /**
+     * Check refresh state.
+     *
+     * @return
+     */
+    public boolean isRefreshing() {
+        return isRefreshing;
+    }
+
+    public int getReboundAnimationDuration() {
+        return reboundAnimationDuration;
+    }
+
+    /**
+     * The default value is {@link #DEFAULT_REBOUND_ANIMATION_DURATION}.
+     *
+     * @param reboundAnimationDuration
+     */
+    public void setReboundAnimationDuration(@IntRange(from = 0) int reboundAnimationDuration) {
+        this.reboundAnimationDuration = reboundAnimationDuration;
+    }
+
     @Override
-    @CallSuper
+    public void addView(View child, int index, LayoutParams params) {
+        super.addView(child, index, params);
+        if (getChildCount() > 2)
+            throw new IllegalArgumentException("There are two children at most.");
+    }
+
+    @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         if (getChildCount() > 2)
-            throw new IllegalArgumentException("Couldn't add more children.");
+            throw new IllegalArgumentException("There are two children at most.");
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = getDefaultSize(0, widthMeasureSpec);
-        int height = getDefaultSize(0, heightMeasureSpec);
-        setMeasuredDimension(width, height);
-        contentViewHeight = height;
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        height = contentViewHeight + headerView.getMeasuredHeight();
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        View header = getChildAt(0);
-        View content = getChildAt(1);
-        header.layout(0, -header.getMeasuredHeight(), getWidth(), 0);
-        content.layout(0, 0, getWidth(), contentViewHeight);
+        if (headerView != null)
+            headerView.layout(0, 0 - headerView.getMeasuredHeight(), getWidth(), 0);
+        if (contentView != null)
+            contentView.layout(0, 0, getWidth(), getHeight());
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (!isRefreshing && !mScroller.isFinished()) {
+                    mScroller.forceFinished(true);
+                }
                 mLastY = ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -320,9 +349,6 @@ public class RefreshLayout extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_UP:
-                if (!mScroller.isFinished()) {
-                    mScroller.forceFinished(true);
-                }
                 rebound();
                 break;
             default:
@@ -350,43 +376,44 @@ public class RefreshLayout extends ViewGroup {
         int headerHeight = -headerView.getMeasuredHeight();
         //正在刷新
         if (isRefreshing) {
-            mScroller.startScroll(0, scrollY, 0, -(scrollY - headerHeight), ANIM_TIME);
+            mScroller.startScroll(0, scrollY, 0, -(scrollY - headerHeight), reboundAnimationDuration);
             invalidate();
             return;
         }
 
         if (scrollY <= headerHeight * releaseToRefreshRatio) {//向下滑动
-            mScroller.startScroll(0, scrollY, 0, -(scrollY - headerHeight), ANIM_TIME);
+            mScroller.startScroll(0, scrollY, 0, -(scrollY - headerHeight), reboundAnimationDuration);
             invalidate();
             isRefreshing = true;
-            if (onRefreshListener != null){
+            if (onRefreshListener != null) {
                 onRefreshListener.onStartRefresh(headerView);
                 onRefreshListener.onRefresh();
             }
             return;
         }
 
-        mScroller.startScroll(0, scrollY, 0, -scrollY, ANIM_TIME);
+        mScroller.startScroll(0, scrollY, 0, -scrollY, reboundAnimationDuration);
         invalidate();
     }
 
     /**
      * You can forwardly call this method to start refresh action after a minute.
      * It would do nothing if it is refreshing.
+     *
      * @param delay delay time in milliseconds
      * @see #isRefreshing()
      */
-    public void startRefresh(long delay){
+    public void startRefresh(long delay) {
         postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (isRefreshing)
                     return;
 
-                mScroller.startScroll(0, getScrollY(), 0, -(getScrollY() - (0 - headerView.getMeasuredHeight())), ANIM_TIME);
+                mScroller.startScroll(0, getScrollY(), 0, -(getScrollY() - (0 - headerView.getMeasuredHeight())), reboundAnimationDuration);
                 invalidate();
                 isRefreshing = true;
-                if (onRefreshListener != null){
+                if (onRefreshListener != null) {
                     onRefreshListener.onStartRefresh(headerView);
                     onRefreshListener.onRefresh();
                 }
@@ -405,18 +432,10 @@ public class RefreshLayout extends ViewGroup {
         postDelayed(new Runnable() {
             @Override
             public void run() {
-                mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), ANIM_TIME);
+                mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), reboundAnimationDuration);
                 invalidate();
             }
         }, 100);
-    }
-
-    /**
-     * Check refresh state.
-     * @return
-     */
-    public boolean isRefreshing() {
-        return isRefreshing;
     }
 
     private View createDefaultContent() {

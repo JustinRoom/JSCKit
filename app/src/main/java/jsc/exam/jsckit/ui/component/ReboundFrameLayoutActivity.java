@@ -140,7 +140,7 @@ public class ReboundFrameLayoutActivity extends ABaseActivity implements View.On
         itemContainer.setOrientation(LinearLayout.VERTICAL);
         int margin = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         int itemHeight = getResources().getDimensionPixelSize(R.dimen.item_height);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             JSCItemLayout itemLayout = new JSCItemLayout(this);
             itemLayout.setPadding(margin, 0, margin, 0);
             itemLayout.setBackgroundResource(R.drawable.ripple_round_corner_white_r4);
