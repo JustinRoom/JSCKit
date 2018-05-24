@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="base_what">
+        <enum name="baseWidth" value="0"/>
+        <enum name="baseHeight" value="1"/>
+    </attr>
+    <attr name="x_aspect" format="integer"/>
+    <attr name="y_aspect" format="integer"/>
+
+    <declare-styleable name="JSCBannerView">
+        <attr name="bv_indicator_padding_left" format="dimension"/>
+        <attr name="bv_indicator_padding_right" format="dimension"/>
+        <attr name="bv_indicator_padding_top" format="dimension"/>
+        <attr name="bv_indicator_padding_bottom" format="dimension"/>
+        <attr name="bv_indicator_align">
+            <enum name="ALIGN_LEFT" value="-1"/>
+            <enum name="ALIGN_CENTER" value="0"/>
+            <enum name="ALIGN_RIGHT" value="1"/>
+        </attr>
+        <attr name="bv_view_pager_left_margin" format="dimension"/>
+        <attr name="bv_view_pager_right_margin" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseArcHeaderView">
+        <attr name="ahv_height" format="dimension|reference"/>
+        <attr name="ahv_start_color" format="color|reference"/>
+        <attr name="ahv_end_color" format="color|reference"/>
+        <attr name="ahv_src" format="reference"/>
+        <attr name="ahv_direction">
+            <enum name="downOutSide" value="0"/>
+            <enum name="downInSide" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="VerticalStepView">
+        <attr name="vs_line_width" format="dimension|reference" />
+        <attr name="vs_line_color" format="color|reference" />
+        <attr name="vs_draw_circle" format="boolean" />
+        <attr name="vs_draw_index" format="boolean" />
+        <attr name="vs_draw_transit" format="boolean" />
+        <attr name="vs_draw_label" format="boolean" />
+        <attr name="vs_draw_cursor" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MonthView">
+        <attr name="mv_show_sub_label" format="boolean" />
+        <attr name="mv_row_space" format="dimension|reference" />
+        <attr name="mv_column_space" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="JSCRoundCornerProgressBar">
+        <attr name="rc_background_color" format="color|reference" />
+        <attr name="rc_progress_color" format="color|reference" />
+        <attr name="rc_second_progress_color" format="color|reference" />
+        <attr name="rc_max" format="integer" />
+        <attr name="rc_progress" format="integer" />
+        <attr name="rc_second_progress" format="integer" />
+        <attr name="rc_text" format="string|reference" />
+        <attr name="rc_text_color" format="color|reference" />
+        <attr name="rc_text_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RefreshLayout">
+        <attr name="rf_headerLayout" format="reference"/>
+        <attr name="rf_contentLayout" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="JSCItemLayout">
+        <!--left icon -->
+        <attr name="il_icon" format="reference"/>
+        <!-- label -->
+        <attr name="il_label" format="string|reference"/>
+        <!-- label color -->
+        <attr name="il_label_color" format="color|reference"/>
+        <!-- show dot view or not -->
+        <attr name="il_show_dot" format="boolean|reference"/>
+        <!-- dot view's size. If set "layout_width = 20dp", the height equals "20dp" also.  -->
+        <attr name="il_dot_size" format="dimension|reference"/>
+        <!-- dot view's color -->
+        <attr name="il_dot_color" format="color|reference"/>
+        <!-- dot view's text. For example, "5" represents that five unread messages. -->
+        <attr name="il_dot_text" format="string|reference"/>
+        <attr name="il_dot_text_color" format="color|reference"/>
+        <attr name="il_dot_text_size" format="dimension"/>
+        <!-- right arrow icon -->
+        <attr name="il_arrow_icon" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="VScrollScreenLayout">
+        <attr name="vssl_y_slide_ratio" format="float"/>
+        <attr name="vssl_flip_ratio" format="float"/>
+        <attr name="vssl_rebound_anim_time" format="integer"/>
+        <attr name="vssl_flip_anim_time" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="RadarView">
+        <attr name="rv_start_angle" format="integer" />
+        <attr name="rv_layer_count" format="integer" />
+        <attr name="rv_layer_style" >
+            <enum name="stroke" value="0"/>
+            <enum name="fill" value="1"/>
+        </attr>
+        <attr name="rv_layer_color" format="color|reference" />
+        <attr name="rv_layer_stroke_width" format="dimension" />
+        <attr name="rv_output_color" format="color|reference" />
+        <attr name="rv_vertex_show" format="boolean"/>
+        <attr name="rv_vertex_color" format="color|reference" />
+        <attr name="rv_vertex_radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RippleView">
+        <attr name="rv_color" format="color"/>
+        <attr name="rv_mini_radius" format="dimension"/>
+        <attr name="rv_radius_step" format="dimension"/>
+        <attr name="rv_repeat_count" format="integer"/>
+        <attr name="rv_auto_run_on_attached" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioLinearLayout">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="base_what"/>
+        <attr name="x_aspect"/>
+        <attr name="y_aspect"/>
+    </declare-styleable>
+
+</resources>
