@@ -24,6 +24,16 @@ Other resources about zxing library:
 ```
 compile 'jsc.kit.zxing:ZXingLibrary:_latestVersion'
 ```
+### optional:
+You may need to add maven url in your app gradle file as below:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/justinquote/maven" }
+    }
+}
+``` 
 ### ProGuard:
 ```
 #>>>zxing

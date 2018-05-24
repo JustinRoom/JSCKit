@@ -19,6 +19,16 @@ implementation 'com.android.support:recyclerview-v7:27.1.1'
 ```
 compile 'jsc.kit.component:BaseComponentLibrary:_latestVersion'
 ```
+### optional:
+You may need to add maven url in your app gradle file as below:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/justinquote/maven" }
+    }
+}
+``` 
 ### ProGuard:
 ### Content:
 ### Component list:

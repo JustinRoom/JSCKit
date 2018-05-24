@@ -18,6 +18,16 @@ implementation 'com.android.support:appcompat-v7:27.1.1'
 ```
 compile 'jsc.kit.datetimepicker:DateTimePickerLibrary:_latestVersion'
 ```
+### optional:
+You may need to add maven url in your app gradle file as below:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/justinquote/maven" }
+    }
+}
+``` 
 ### ProGuard:
 ### Content:
 ### Component list:

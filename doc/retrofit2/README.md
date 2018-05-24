@@ -30,6 +30,16 @@ Here is more about [retrofit](https://github.com/square/retrofit).
 ```
 compile 'jsc.kit.retrofit2:Retrofit2Library:_latestVersion'
 ```
+### optional:
+You may need to add maven url in your app gradle file as below:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/justinquote/maven" }
+    }
+}
+``` 
 ### ProGuard:
 ```
 #>>>retrofit2
