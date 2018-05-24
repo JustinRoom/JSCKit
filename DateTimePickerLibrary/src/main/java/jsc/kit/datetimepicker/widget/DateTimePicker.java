@@ -24,8 +24,8 @@ import jsc.kit.datetimepicker.R;
 /**
  * <p>
  *     日期时间选择器
- *     <br/>本库是基于<a href="https://github.com/liuwan1992/CustomDatePicker" target="_blank">https://github.com/liuwan1992/CustomDatePicker</a>上的修改提炼而成。
- *     <br/><br/>非常感谢作者<a href="https://github.com/liuwan1992" target=""><h3>liuwan1992</h3></a>
+ *     <br>本库是基于<a href="https://github.com/liuwan1992/CustomDatePicker" target="_blank">https://github.com/liuwan1992/CustomDatePicker</a>上的修改提炼而成。
+ *     <br>非常感谢作者<a href="https://github.com/liuwan1992" target="_blank">liuwan1992</a>
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
