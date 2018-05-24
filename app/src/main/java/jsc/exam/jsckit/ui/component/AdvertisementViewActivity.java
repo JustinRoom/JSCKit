@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import jsc.exam.jsckit.Configration;
 import jsc.kit.component.advertisement.AdvertisementView;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
@@ -34,7 +35,7 @@ public class AdvertisementViewActivity extends AppCompatActivity {
         //获取ImageView, 设置显示图片
         //这样设计是为了方便调用者使用不同的图片加载框架。比如Picsso、Fresco、ImageLoader...
 //        advertisementView.getImageView().setImageResource(R.drawable.header);
-        String picPathName = SharePreferencesUtils.getInstance().getString("picPathName");
+        String picPathName = SharePreferencesUtils.getInstance().getString(Configration.SP_ADVERTISEMENT_PICTURE);
         loadPicture(new File(picPathName));
 
         advertisementView.init(5000, 1000, new AdvertisementView.OnComponentActionListener() {
