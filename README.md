@@ -1,9 +1,9 @@
 # JSCKit
-current version:&#8195;![](https://jitpack.io/v/JustinRoom/JSCKit.svg)
+ [ ![Download](https://api.bintray.com/packages/justinquote/maven/BaseComponentLibrary/images/download.svg) ](https://bintray.com/justinquote/maven/BaseComponentLibrary/_latestVersion)
 
 # Download
 **Download apk by scanning the QRCode below:**  
-&#32;&#32;Demo version:0.2.7
+&#32;&#32;Demo version:${latestVersion}
 ![JSCKitDemo.apk](/capture/download_qr_code.png)  
 [**Local Download**](/capture/JSCKitDemo.apk?raw=true)
 
