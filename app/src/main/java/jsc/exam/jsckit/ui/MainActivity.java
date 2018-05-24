@@ -35,12 +35,12 @@ import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
-import jsc.kit.entity.DownloadEntity;
-import jsc.kit.swiperecyclerview.OnItemClickListener;
-import jsc.kit.utils.CustomPermissionChecker;
-import jsc.lib.retrofitlibrary.LoadingDialogObserver;
-import jsc.lib.retrofitlibrary.retrofit.CustomHttpClient;
-import jsc.lib.retrofitlibrary.retrofit.CustomRetrofit;
+import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.swiperecyclerview.OnItemClickListener;
+import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.retrofit2.LoadingDialogObserver;
+import jsc.kit.retrofit2.retrofit.CustomHttpClient;
+import jsc.kit.retrofit2.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 

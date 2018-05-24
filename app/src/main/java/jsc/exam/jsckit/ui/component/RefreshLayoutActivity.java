@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.refreshlayout.RefreshLayout;
+import jsc.kit.component.refreshlayout.RefreshLayout;
 
 public class RefreshLayoutActivity extends ABaseActivity {
 

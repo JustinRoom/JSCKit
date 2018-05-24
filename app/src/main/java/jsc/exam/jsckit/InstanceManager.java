@@ -2,8 +2,7 @@ package jsc.exam.jsckit;
 
 import android.app.Application;
 
-import jsc.kit.utils.BitmapCacheManager;
-import jsc.kit.utils.CustomToast;
+import jsc.kit.component.utils.BitmapCacheManager;
 
 public class InstanceManager {
     private volatile static InstanceManager instance = null;

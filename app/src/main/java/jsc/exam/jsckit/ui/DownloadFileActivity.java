@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.entity.DownloadEntity;
-import jsc.kit.utils.CustomPermissionChecker;
+import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.utils.CustomPermissionChecker;
 
 public class DownloadFileActivity extends ABaseActivity {
 

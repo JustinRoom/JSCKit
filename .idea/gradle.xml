@@ -8,11 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BaseComponentLibrary" />
             <option value="$PROJECT_DIR$/DateTimePickerLibrary" />
             <option value="$PROJECT_DIR$/Retrofit2Library" />
             <option value="$PROJECT_DIR$/ZXingLibrary" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

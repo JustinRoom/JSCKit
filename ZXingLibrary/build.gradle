@@ -1,10 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion sdk_veriosn
-
-
-
     defaultConfig {
         minSdkVersion min_sdk_veriosn
         targetSdkVersion sdk_veriosn
@@ -20,6 +18,15 @@ android {
         }
     }
 
+}
+
+publish {
+    userOrg = "$user_org"
+    groupId = 'jsc.kit.zxing'
+    artifactId = 'ZXingLibrary'
+    publishVersion = "$version_name"
+    desc = 'A library base on xzing library.'
+    website = 'https://github.com/JustinRoom/JSCKit/ZXingLibrary'
 }
 
 dependencies {

@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.Banner;
-import jsc.kit.itemlayout.JSCItemLayout;
-import jsc.kit.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.itemlayout.JSCItemLayout;
+import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 
 public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder> {
 

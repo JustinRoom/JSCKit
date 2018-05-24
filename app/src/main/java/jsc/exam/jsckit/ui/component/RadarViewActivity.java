@@ -8,8 +8,8 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.radarview.RadarEntity;
-import jsc.kit.radarview.RadarView;
+import jsc.kit.component.radarview.RadarEntity;
+import jsc.kit.component.radarview.RadarView;
 
 public class RadarViewActivity extends ABaseActivity {
 

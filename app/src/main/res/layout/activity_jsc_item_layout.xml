@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
-    <jsc.kit.itemlayout.JSCItemLayout
+    <jsc.kit.component.itemlayout.JSCItemLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginBottom="2dp"
@@ -18,7 +18,7 @@
         app:il_label="Default Attr Menu"
         app:il_show_dot="true" />
 
-    <jsc.kit.itemlayout.JSCItemLayout
+    <jsc.kit.component.itemlayout.JSCItemLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginBottom="2dp"

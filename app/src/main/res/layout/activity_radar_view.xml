@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <jsc.kit.radarview.RadarView
+    <jsc.kit.component.radarview.RadarView
         android:id="@+id/radar_view1"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:rv_vertex_radius="3dp"
         app:rv_vertex_show="true" />
 
-    <jsc.kit.radarview.RadarView
+    <jsc.kit.component.radarview.RadarView
         android:id="@+id/radar_view2"
         android:layout_width="220dp"
         android:layout_height="wrap_content"

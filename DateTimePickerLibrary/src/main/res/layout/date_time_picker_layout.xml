@@ -53,7 +53,7 @@
         android:paddingRight="16dp"
         android:paddingTop="12dp">
 
-        <jsc.lib.datetimepicker.widget.DatePickerView
+        <jsc.kit.datetimepicker.widget.DatePickerView
             android:id="@+id/year_picker"
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -67,7 +67,7 @@
             android:gravity="center"
             android:textSize="18sp" />
 
-        <jsc.lib.datetimepicker.widget.DatePickerView
+        <jsc.kit.datetimepicker.widget.DatePickerView
             android:id="@+id/month_picker"
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -81,7 +81,7 @@
             android:gravity="center"
             android:textSize="18sp" />
 
-        <jsc.lib.datetimepicker.widget.DatePickerView
+        <jsc.kit.datetimepicker.widget.DatePickerView
             android:id="@+id/day_picker"
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -95,7 +95,7 @@
             android:gravity="center"
             android:textSize="18sp" />
 
-        <jsc.lib.datetimepicker.widget.DatePickerView
+        <jsc.kit.datetimepicker.widget.DatePickerView
             android:id="@+id/hour_picker"
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -109,7 +109,7 @@
             android:gravity="center"
             android:textSize="18sp" />
 
-        <jsc.lib.datetimepicker.widget.DatePickerView
+        <jsc.kit.datetimepicker.widget.DatePickerView
             android:id="@+id/minute_picker"
             android:layout_width="0dp"
             android:layout_height="160dp"

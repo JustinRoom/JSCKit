@@ -7,7 +7,7 @@ import android.view.View;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.vscrollscreen.VScrollScreenLayout;
+import jsc.kit.component.vscrollscreen.VScrollScreenLayout;
 
 public class VScrollScreenLayoutActivity extends ABaseActivity {
 

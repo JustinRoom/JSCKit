@@ -27,7 +27,7 @@ import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.TurntableViewActivity;
 import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
-import jsc.kit.swiperecyclerview.OnItemClickListener;
+import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
 public class ComponentListActivity extends ABaseActivity {
 

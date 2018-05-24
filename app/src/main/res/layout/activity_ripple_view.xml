@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <jsc.kit.rippleview.RippleView
+    <jsc.kit.component.rippleview.RippleView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -16,7 +16,7 @@
         app:rv_radius_step="1dp"
         app:rv_repeat_count="-1" />
 
-    <jsc.kit.rippleview.RippleView
+    <jsc.kit.component.rippleview.RippleView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -26,12 +26,12 @@
         app:rv_radius_step="-2dp"
         app:rv_repeat_count="-1" />
 
-    <jsc.kit.widget.AspectRatioFrameLayout
+    <jsc.kit.component.widget.AspectRatioFrameLayout
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin">
 
-        <jsc.kit.rippleview.RippleView
+        <jsc.kit.component.rippleview.RippleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rv_mini_radius="48dp" />
@@ -42,6 +42,6 @@
             android:layout_margin="32dp"
             android:src="@mipmap/default_user_header" />
 
-    </jsc.kit.widget.AspectRatioFrameLayout>
+    </jsc.kit.component.widget.AspectRatioFrameLayout>
 
 </LinearLayout>

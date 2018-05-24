@@ -3,7 +3,6 @@ package jsc.exam.jsckit.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Pair;
 
@@ -13,10 +12,10 @@ import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.User;
 import jsc.exam.jsckit.service.ApiService;
-import jsc.lib.retrofitlibrary.LoadingDialogObserver;
-import jsc.lib.retrofitlibrary.response.BaseResponse;
-import jsc.lib.retrofitlibrary.retrofit.CustomHttpClient;
-import jsc.lib.retrofitlibrary.retrofit.CustomRetrofit;
+import jsc.kit.retrofit2.LoadingDialogObserver;
+import jsc.kit.retrofit2.response.BaseResponse;
+import jsc.kit.retrofit2.retrofit.CustomHttpClient;
+import jsc.kit.retrofit2.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 

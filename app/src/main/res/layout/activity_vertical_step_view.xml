@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:scrollbars="none">
 
-        <jsc.kit.stepview.VerticalStepView
+        <jsc.kit.component.stepview.VerticalStepView
             android:id="@+id/step_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

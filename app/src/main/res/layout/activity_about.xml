@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="210dp">
 
-        <jsc.kit.archeaderview.LGradientArcHeaderView
+        <jsc.kit.component.archeaderview.LGradientArcHeaderView
             android:id="@+id/lg_header_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

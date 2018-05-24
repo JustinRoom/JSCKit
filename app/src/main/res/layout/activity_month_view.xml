@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <jsc.kit.monthview.MonthView
+        <jsc.kit.component.monthview.MonthView
             android:id="@+id/month_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

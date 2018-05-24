@@ -2,7 +2,7 @@ package jsc.exam.jsckit.service;
 
 import io.reactivex.Observable;
 import jsc.exam.jsckit.entity.User;
-import jsc.lib.retrofitlibrary.response.BaseResponse;
+import jsc.kit.retrofit2.response.BaseResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 

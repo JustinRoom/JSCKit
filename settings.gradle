@@ -1,1 +1,1 @@
-include ':app', ':library', ':ZXingLibrary', ':Retrofit2Library', ':DateTimePickerLibrary'
+include ':app', ':BaseComponentLibrary', ':ZXingLibrary', ':Retrofit2Library', ':DateTimePickerLibrary'

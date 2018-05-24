@@ -9,8 +9,8 @@ import android.util.Log;
 import java.io.File;
 
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
-import jsc.kit.utils.CustomToast;
-import jsc.kit.utils.SharePreferencesUtils;
+import jsc.kit.component.utils.CustomToast;
+import jsc.kit.component.utils.SharePreferencesUtils;
 
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
 

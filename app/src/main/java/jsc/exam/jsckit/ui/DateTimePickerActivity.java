@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import jsc.exam.jsckit.R;
-import jsc.lib.datetimepicker.widget.DateTimePicker;
+import jsc.kit.datetimepicker.widget.DateTimePicker;
 
 public class DateTimePickerActivity extends ABaseActivity {
 

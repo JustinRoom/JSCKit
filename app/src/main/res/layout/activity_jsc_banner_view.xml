@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <jsc.kit.bannerview.JSCBannerView
+    <jsc.kit.component.bannerview.JSCBannerView
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="240dp"

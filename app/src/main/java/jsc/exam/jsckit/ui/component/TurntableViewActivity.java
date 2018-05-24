@@ -14,8 +14,8 @@ import java.util.Random;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.turntable.GiftEntity;
-import jsc.kit.turntable.TurntableView;
+import jsc.kit.component.turntable.GiftEntity;
+import jsc.kit.component.turntable.TurntableView;
 
 public class TurntableViewActivity extends ABaseActivity {
 

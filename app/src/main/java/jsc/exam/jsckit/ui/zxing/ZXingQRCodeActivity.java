@@ -18,9 +18,9 @@ import java.util.List;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.utils.CustomPermissionChecker;
-import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
-import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
+import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.zxing.zxing.QRCodeEncoder;
+import jsc.kit.zxing.zxing.ui.ZXingFragment;
 
 public class ZXingQRCodeActivity extends ABaseActivity {
 

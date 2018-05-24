@@ -3,15 +3,14 @@ package jsc.exam.jsckit.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ClassItem;
-import jsc.kit.itemlayout.JSCItemLayout;
-import jsc.kit.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.itemlayout.JSCItemLayout;
+import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 
 public class ClassItemAdapter extends BaseRecyclerViewAdapter<ClassItem, ClassItemAdapter.ClassItemViewHolder> {
 

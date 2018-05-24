@@ -15,8 +15,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import jsc.kit.advertisement.AdvertisementView;
-import jsc.kit.utils.SharePreferencesUtils;
+import jsc.kit.component.advertisement.AdvertisementView;
+import jsc.kit.component.utils.SharePreferencesUtils;
 
 public class AdvertisementViewActivity extends AppCompatActivity {
 

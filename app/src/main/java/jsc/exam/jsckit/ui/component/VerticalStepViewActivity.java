@@ -10,8 +10,8 @@ import java.util.Random;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.stepview.RouteViewPoint;
-import jsc.kit.stepview.VerticalStepView;
+import jsc.kit.component.stepview.RouteViewPoint;
+import jsc.kit.component.stepview.VerticalStepView;
 
 public class VerticalStepViewActivity extends ABaseActivity {
 

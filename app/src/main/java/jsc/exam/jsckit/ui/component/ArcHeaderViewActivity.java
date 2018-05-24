@@ -7,9 +7,9 @@ import android.widget.SeekBar;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.archeaderview.BaseArcHeaderView;
-import jsc.kit.archeaderview.LGradientArcHeaderView;
-import jsc.kit.archeaderview.PictureArcHeaderView;
+import jsc.kit.component.archeaderview.BaseArcHeaderView;
+import jsc.kit.component.archeaderview.LGradientArcHeaderView;
+import jsc.kit.component.archeaderview.PictureArcHeaderView;
 
 public class ArcHeaderViewActivity extends ABaseActivity {
 

@@ -1,7 +1,7 @@
 package jsc.exam.jsckit.ui;
 
-import jsc.kit.baseui.APermissionCheckActivity;
-import jsc.kit.utils.CustomToast;
+import jsc.kit.component.baseui.APermissionCheckActivity;
+import jsc.kit.component.utils.CustomToast;
 
 public abstract class ABaseActivity extends APermissionCheckActivity {
 

@@ -19,8 +19,8 @@ import java.io.InputStream;
 
 import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.exam.jsckit.ui.MainActivity;
-import jsc.kit.entity.DownloadEntity;
-import jsc.kit.utils.SharePreferencesUtils;
+import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.utils.SharePreferencesUtils;
 
 public class LaunchActivity extends ABaseActivity {
 

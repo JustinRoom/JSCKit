@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
-import jsc.lib.zxinglibrary.zxing.QRCodeEncoder;
+import jsc.kit.zxing.zxing.QRCodeEncoder;
 
 public class AboutActivity extends ABaseActivity {
 

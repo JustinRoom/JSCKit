@@ -7,7 +7,7 @@ import android.view.View;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.lib.zxinglibrary.zxing.ui.ZXingFragment;
+import jsc.kit.zxing.zxing.ui.ZXingFragment;
 
 public class ZXingScannerActivity extends ABaseActivity {
 

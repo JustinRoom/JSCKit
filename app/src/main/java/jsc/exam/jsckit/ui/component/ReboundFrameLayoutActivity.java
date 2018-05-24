@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.itemlayout.JSCItemLayout;
-import jsc.kit.reboundlayout.ReboundFrameLayout;
+import jsc.kit.component.itemlayout.JSCItemLayout;
+import jsc.kit.component.reboundlayout.ReboundFrameLayout;
 
 public class ReboundFrameLayoutActivity extends ABaseActivity implements View.OnClickListener {
 

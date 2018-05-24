@@ -16,8 +16,8 @@ import android.widget.Toast;
 import java.io.File;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.baseui.APhotoActivity;
-import jsc.kit.entity.CropConfig;
+import jsc.kit.component.baseui.APhotoActivity;
+import jsc.kit.component.entity.CropConfig;
 
 public class PhotoActivity extends APhotoActivity {
 

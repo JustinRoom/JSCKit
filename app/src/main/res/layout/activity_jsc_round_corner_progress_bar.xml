@@ -54,7 +54,7 @@
         android:layout_marginTop="32dp"
         android:text="JSCRoundCornerProgressBar:" />
 
-    <jsc.kit.progressbar.JSCRoundCornerProgressBar
+    <jsc.kit.component.progressbar.JSCRoundCornerProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
@@ -63,7 +63,7 @@
         app:rc_progress="2"
         app:rc_progress_color="@color/colorAccent" />
 
-    <jsc.kit.progressbar.JSCRoundCornerProgressBar
+    <jsc.kit.component.progressbar.JSCRoundCornerProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
@@ -72,7 +72,7 @@
         app:rc_progress="20"
         app:rc_progress_color="@color/colorAccent" />
 
-    <jsc.kit.progressbar.JSCRoundCornerProgressBar
+    <jsc.kit.component.progressbar.JSCRoundCornerProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
@@ -81,7 +81,7 @@
         app:rc_progress="98"
         app:rc_progress_color="@color/colorAccent" />
 
-    <jsc.kit.progressbar.JSCRoundCornerProgressBar
+    <jsc.kit.component.progressbar.JSCRoundCornerProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
