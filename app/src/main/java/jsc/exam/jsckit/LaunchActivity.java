@@ -1,11 +1,13 @@
 package jsc.exam.jsckit;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
@@ -16,10 +18,12 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.exam.jsckit.ui.MainActivity;
 import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.utils.CustomPermissionChecker;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
 public class LaunchActivity extends ABaseActivity {
@@ -70,11 +74,9 @@ public class LaunchActivity extends ABaseActivity {
      * 后台下载广告图片。下载图片存放在当前应用的cache文件夹下，不需要SD的读写权限
      */
     private void downloadPictureIfNecessary(){
-        File directory = new File(getExternalCacheDir(), Environment.DIRECTORY_PICTURES);
-        if (!directory.exists())
-            directory.mkdirs();
+        File directory = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_PICTURES);
         String[] splits = url.split(File.separator);
-        String fileName = splits[splits.length - 1];
+        String fileName = "advertisement" + File.separator + splits[splits.length - 1];
         File pic = new File(directory, fileName);
         SharePreferencesUtils.getInstance().saveString(Configration.SP_ADVERTISEMENT_PICTURE, pic.getPath());
         if (!pic.exists()){
@@ -89,11 +91,34 @@ public class LaunchActivity extends ABaseActivity {
         }
     }
 
+    private void checkPermissionBeforeDownloadPicture() {
+        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
+            @Override
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
+                if (isAllGranted) {
+                    downloadPictureIfNecessary();
+                    toGuideIfNecessary();
+                    return;
+                }
+
+                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
+                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
+                }
+            }
+
+            @Override
+            public void onFinally(int requestCode) {
+                recyclePermissionChecker();
+            }
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
     /**
      * 跳转到主界面。如果业务需要，可跳转到引导页。
      */
     private void toGuideIfNecessary(){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -108,8 +133,7 @@ public class LaunchActivity extends ABaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                downloadPictureIfNecessary();
-                toGuideIfNecessary();
+                checkPermissionBeforeDownloadPicture();
             }
 
             @Override

@@ -24,8 +24,6 @@
 -keep class com.wang.avi.indicators.** { *; }
 
 -keep class jsc.kit.** { *; }
--keep class jsc.lib.retrofitlibrary.** { *; }
--keep class jsc.lib.zxinglibrary.** { *; }
 #>>>zxing
 -keep class com.google.zxing.** { *; }
 

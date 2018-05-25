@@ -3,7 +3,13 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        Release {
+        debug {
+            keyAlias 'Jsc'
+            keyPassword '123456'
+            storeFile file('../JscTestKeyStore.jks')
+            storePassword '123456'
+        }
+        release {
             keyAlias 'Jsc'
             keyPassword '123456'
             storeFile file('../JscTestKeyStore.jks')
@@ -23,10 +29,13 @@ android {
         resValue("string", "BASE_URL", "https://github.com/")
     }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.Release
+            signingConfig signingConfigs.release
         }
     }
 

@@ -3,6 +3,7 @@ package jsc.kit.component.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -99,9 +100,13 @@ public final class CustomToast {
 
     public WindowManager.LayoutParams getParams() {
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.type = WindowManager.LayoutParams.TYPE_TOAST;// 系统提示window
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
+            params.type = WindowManager.LayoutParams.TYPE_TOAST;// 系统提示window
+        else
+            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;// 系统提示window
         params.format = PixelFormat.TRANSLUCENT;// 支持透明
 //        mParams.format = PixelFormat.RGBA_8888;
+        params.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
         params.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;// 焦点
 //        mParams.width = 490;//窗口的宽和高
 //        mParams.height = 160;

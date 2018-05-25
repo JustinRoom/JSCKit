@@ -7,6 +7,7 @@
     <external-files-path>代表context.getExternalFilesDirs()
     <external-cache-path>代表getExternalCacheDirs()
     "."代表当前目录
+    博客文章:https://blog.csdn.net/Next_Second/article/details/78585745
 -->
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <root-path
@@ -25,10 +26,14 @@
         path="." />
 
     <external-files-path
-        name="external_file_path"
-        path="Download" />
+        name="efp_download"
+        path="Download/" />
+    <external-files-path
+        name="efp_pictures"
+        path="Pictures/" />
     <external-cache-path
         name="external_cache_path"
         path="." />
+
 
 </paths>

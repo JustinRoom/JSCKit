@@ -97,7 +97,7 @@ public class DownloadFileActivity extends ABaseActivity {
     @Override
     protected void onDownloadCompleted(Uri uri) {
         if (uri != null){
-            showCustomToast(uri.getLastPathSegment() + " was downloaded successfully.");
+            showCustomToast(uri.toString());
         }
     }
 

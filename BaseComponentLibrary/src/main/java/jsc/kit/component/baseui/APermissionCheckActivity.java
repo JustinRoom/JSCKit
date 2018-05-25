@@ -17,9 +17,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import jsc.kit.component.utils.FileProviderCompat;
@@ -28,7 +30,7 @@ import jsc.kit.component.entity.DownloadEntity;
 
 /**
  * <p>
- *     a frame of checking permission、downloading file
+ * a frame of checking permission、downloading file
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -72,6 +74,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
      * <br>If {@link DownloadEntity#destinationDirectory} is null, it will be downloaded into specific folder.
      * <br>The specific path is: {@code request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);}.
      * <br>see {@link DownloadManager.Request#setDestinationInExternalFilesDir(Context, String, String)}
+     *
      * @param downloadEntity
      * @return
      */
@@ -86,11 +89,30 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
             subPath = uri.getLastPathSegment();
         }
 
-        //在下载之前应该删除已有文件
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), subPath);
-        if (file.exists()) {
-            file.delete();
+        File destinationDirectory = downloadEntity.getDestinationDirectory();
+        if (destinationDirectory == null) {
+            destinationDirectory = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         }
+
+        File file = new File(destinationDirectory, subPath);
+        File directory = file.getParentFile();
+        if (!directory.exists()){//创建文件保存目录
+            boolean result = directory.mkdirs();
+            if (!result)
+                Log.e("APermissionCheck", "Failed to make directories.");
+        }
+
+        if (file.exists()){
+//            boolean result = file.delete();
+//            if (!result)
+//                Log.e("APermissionCheck", "Failed to delete file.");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         DownloadManager.Request request = new DownloadManager.Request(uri);
         //设置title
         request.setTitle(downloadEntity.getTitle());
@@ -98,17 +120,11 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         request.setDescription(downloadEntity.getDesc());
         // 完成后显示通知栏
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        File destinationDirectory = downloadEntity.getDestinationDirectory();
-        if (destinationDirectory != null){
-            if (!destinationDirectory.exists()){
-                destinationDirectory.mkdirs();
-            }
-            Uri destinationUri = FileProviderCompat.getUriForFile(this, destinationDirectory);
-            destinationUri = Uri.withAppendedPath(destinationUri, subPath);
-            request.setDestinationUri(destinationUri);
-        } else {
-            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);
-        }
+        //
+        Uri destinationUri = Uri.withAppendedPath(Uri.fromFile(destinationDirectory), subPath);
+//        Uri destinationUri = FileProviderCompat.getUriForFile(this, file);
+        request.setDestinationUri(destinationUri);
+//        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);
         request.setMimeType(downloadEntity.getMimeType());
         request.setVisibleInDownloadsUi(true);
 
@@ -117,7 +133,6 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param downLoadId
      */
     public final void progress(long downLoadId) {
@@ -128,7 +143,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         int totalBytes = 0;
         int downStatus = 0;
         try {
-            assert  downloadManager != null;
+            assert downloadManager != null;
             c = downloadManager.query(query);
             if (c != null && c.moveToFirst()) {
                 //已经下载的字节数
@@ -148,6 +163,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     /**
      * Get uri by download id.
+     *
      * @param completeDownLoadId
      */
     public final void findDownloadFileUri(long completeDownLoadId) {
@@ -155,7 +171,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // 6.0以下
             DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            assert  downloadManager != null;
+            assert downloadManager != null;
             uri = downloadManager.getUriForDownloadedFile(completeDownLoadId);
         } else {
             File file = queryDownloadedFile(completeDownLoadId);
@@ -188,9 +204,10 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     /**
      * Install application.
+     *
      * @param uri
      */
-    public final void installApk(Uri uri){
+    public final void installApk(Uri uri) {
         Intent intentInstall = new Intent();
         intentInstall.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intentInstall.setAction(Intent.ACTION_VIEW);
@@ -214,14 +231,14 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
      *
      * @param uri
      */
-    protected void onDownloadCompleted(Uri uri){
+    protected void onDownloadCompleted(Uri uri) {
 
     }
 
 
-
     /**
      * Get status bar height.
+     *
      * @return
      */
     public final int getStatusBarHeight() {
@@ -235,6 +252,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
 
     /**
      * Get action bar height.
+     *
      * @return
      */
     public final int getActionBarSize() {
