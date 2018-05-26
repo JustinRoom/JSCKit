@@ -183,12 +183,11 @@ public class VScrollScreenLayout extends ViewGroup {
         if (getChildCount() == 0)
             return super.onInterceptTouchEvent(ev);
 
-        //如果正在滚动，则立即停止滚动
-        if (!mScroller.isFinished())
-            mScroller.abortAnimation();
-
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                //如果正在滚动，则立即停止滚动
+                if (!mScroller.isFinished())
+                    mScroller.abortAnimation();
                 mLastY = ev.getY();
                 curPageIndex = getScrollY() / pageHeight;
                 break;

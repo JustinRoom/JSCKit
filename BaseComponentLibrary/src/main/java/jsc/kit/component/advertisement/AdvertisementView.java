@@ -18,6 +18,7 @@ import jsc.kit.component.R;
 
 public class AdvertisementView extends FrameLayout {
 
+    private final static String DEFAULT_COUNT_DOWN_FORMATTER_LABEL = "%1$ds\u2000跳过";
     /**the code of clicking advertisement image*/
     public final static int ACTION_CODE_PREVIEW = 0x00;
     /**the code of clicking jump_button*/
@@ -32,6 +33,7 @@ public class AdvertisementView extends FrameLayout {
     private long millisInFuture;
     private long countDownInterval;
     private AdvertisementCountDownTimer advertisementCountDownTimer;
+    private String countDownFormatterLabel = DEFAULT_COUNT_DOWN_FORMATTER_LABEL;
 
     public AdvertisementView(@NonNull Context context) {
         this(context, null);
@@ -84,6 +86,19 @@ public class AdvertisementView extends FrameLayout {
         });
     }
 
+    /**
+     * Because this is a formatter string, so it look like:"%1$d...".
+     * @param countDownFormatterLabel the formatter string
+     * @see java.util.Formatter
+     */
+    public void setCountDownFormatterLabel(String countDownFormatterLabel) {
+        this.countDownFormatterLabel = countDownFormatterLabel;
+    }
+
+    public String getCountDownFormatterLabel() {
+        return countDownFormatterLabel;
+    }
+
     public AppCompatImageView getImageView() {
         return imageView;
     }
@@ -98,7 +113,7 @@ public class AdvertisementView extends FrameLayout {
         this.millisInFuture = millisInFuture;
         this.countDownInterval = countDownInterval;
         this.onComponentActionListener = onComponentActionListener;
-        textView.setText((millisInFuture / 1000) + "s\u2000跳过");
+        textView.setText(String.format(countDownFormatterLabel, millisInFuture / 1000));
     }
 
     public void startCountDown() {
@@ -128,12 +143,12 @@ public class AdvertisementView extends FrameLayout {
         @Override
         public void onTick(long millisUntilFinished) {
             long s = millisUntilFinished / 1000;
-            textView.setText(s + "s\u2000跳过");
+            textView.setText(String.format(countDownFormatterLabel, s));
         }
 
         @Override
         public void onFinish() {
-            textView.setText("0s\u2000跳过");
+            textView.setText(String.format(countDownFormatterLabel, 0L));
             textView.setEnabled(false);
             cancelCountDown();
             if (onComponentActionListener != null) {
