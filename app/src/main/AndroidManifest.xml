@@ -48,6 +48,7 @@
         <activity android:name=".ui.DownloadFileActivity" />
         <activity android:name=".ui.PhotoActivity" />
         <activity android:name=".ui.component.AdvertisementViewActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.BottomNavigationViewActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

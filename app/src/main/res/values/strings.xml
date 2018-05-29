@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">JSCKit</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_circumference">Circumference</string>
+    <string name="menu_navigation">Navigation</string>
+    <string name="menu_me">Me</string>
     <string name="article">
         \u3000\u3000Most parents genuinely do their best to provide their children with a happy and healthy upbringing, but even these individuals can accidentally make mistakes that may result in future therapy appointments.
         \n\u3000\u3000Unfortunately, some parents go beyond the occasional mistake and veer into the toxic category. Regardless of whether or not a parent is purposefully being toxic, there are several behaviors that can cause so much emotional and mental damage to a child that it ends up greatly affecting them even after they have grown up.

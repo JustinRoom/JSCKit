@@ -88,6 +88,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
+        classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
