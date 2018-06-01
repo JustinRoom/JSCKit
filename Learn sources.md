@@ -28,6 +28,7 @@
 + [Android反射机制的理解](https://www.jianshu.com/p/7fdb8c828602)
 
 ### 五、优化
++ [关于Drawable的缓存机制应该了解的知识](https://blog.csdn.net/heqiangflytosky/article/details/73278146)
 + [Android开发优化之——使用软引用和弱引用](https://blog.csdn.net/arui319/article/details/8489451)
 + [Java中三个引用类SoftReference 、 WeakReference 和 PhantomReference的区别](https://blog.csdn.net/huoyin/article/details/5891998)
 + [Java引用总结--StrongReference、SoftReference、WeakReference、PhantomReference](https://www.cnblogs.com/skywang12345/p/3154474.html)

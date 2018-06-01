@@ -20,21 +20,21 @@ import android.view.View;
 public class DynamicDrawableFactory {
 
     //>>>>>>>rectangle
-    public static Drawable cornerRectangleDrawable(@ColorInt int backgroundColor, float cornerRadius) {
+    public static GradientDrawable cornerRectangleDrawable(@ColorInt int backgroundColor, float cornerRadius) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(cornerRadius);
         drawable.setColor(backgroundColor);
         return drawable;
     }
 
-    public static Drawable cornerRectangleDrawable(@ColorInt int backgroundColor, float[] cornerRadii) {
+    public static GradientDrawable cornerRectangleDrawable(@ColorInt int backgroundColor, float[] cornerRadii) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadii(cornerRadii);
         drawable.setColor(backgroundColor);
         return drawable;
     }
 
-    public static Drawable cornerRectangleDrawable(@ColorInt int backgroundColor, float[] cornerRadii, @IntRange(from = 1) int borderWidth, @ColorInt int borderColor) {
+    public static GradientDrawable cornerRectangleDrawable(@ColorInt int backgroundColor, float[] cornerRadii, @IntRange(from = 1) int borderWidth, @ColorInt int borderColor) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadii(cornerRadii);
         drawable.setStroke(borderWidth, borderColor);
@@ -43,7 +43,7 @@ public class DynamicDrawableFactory {
     }
 
     //>>>>>>oval
-    public static Drawable ovalDrawable(@ColorInt int color) {
+    public static GradientDrawable ovalDrawable(@ColorInt int color) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
         drawable.setColor(color);

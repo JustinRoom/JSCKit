@@ -39,7 +39,7 @@
         <activity android:name=".ui.component.TurntableViewActivity" />
         <activity android:name=".ui.component.SwipeRecyclerViewActivity" />
         <activity android:name=".ui.component.RippleViewActivity" />
-        <activity android:name=".ui.ComponentListActivity" />
+        <activity android:name=".ui.ComponentsActivity" />
         <activity android:name=".ui.zxing.ZXingQRCodeActivity" />
         <activity android:name=".ui.zxing.ZXingScannerActivity" />
         <activity android:name=".ui.Retrofit2Activity" />
@@ -49,6 +49,8 @@
         <activity android:name=".ui.PhotoActivity" />
         <activity android:name=".ui.component.AdvertisementViewActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.BottomNavigationViewActivity" />
+        <activity android:name=".ui.CircularRevealActivity" />
+        <activity android:name=".ui.SharedTransitionActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

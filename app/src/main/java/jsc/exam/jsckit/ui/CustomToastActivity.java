@@ -28,13 +28,13 @@ public class CustomToastActivity extends ABaseActivity {
         setContentView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
+        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
         TextView textView = new TextView(this);
         textView.setTextColor(DynamicDrawableFactory.colorStateList(Color.WHITE, getResources().getColor(R.color.colorAccent)));
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         textView.setBackground(createCircleButtonSelector());
         textView.setText("Show");
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size);
         params.gravity = Gravity.CENTER;
         contentView.addView(textView, params);
@@ -54,6 +54,7 @@ public class CustomToastActivity extends ABaseActivity {
 
     private void showBottomSheetDialog() {
         if (dialog == null) {
+            Drawable.ConstantState constantState = createButtonSelector().getConstantState();
             int padding = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
@@ -62,7 +63,7 @@ public class CustomToastActivity extends ABaseActivity {
             LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params1.bottomMargin = padding / 4;
             Button btnToast = new Button(this);
-            btnToast.setBackground(createButtonSelector());
+            btnToast.setBackground(constantState == null ? null : constantState.newDrawable());
             btnToast.setTextColor(Color.WHITE);
             btnToast.setText("Show Toast");
             layout.addView(btnToast, params1);
@@ -77,7 +78,7 @@ public class CustomToastActivity extends ABaseActivity {
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params2.bottomMargin = padding / 4;
             Button btnCancel = new Button(this);
-            btnCancel.setBackground(createButtonSelector());
+            btnCancel.setBackground(constantState == null ? null : constantState.newDrawable());
             btnCancel.setTextColor(Color.WHITE);
             btnCancel.setText("Cancel");
             layout.addView(btnCancel, params2);

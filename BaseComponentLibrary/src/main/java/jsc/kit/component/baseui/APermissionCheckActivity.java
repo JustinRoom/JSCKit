@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -15,18 +14,16 @@ import android.provider.Settings;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import jsc.kit.component.utils.FileProviderCompat;
-import jsc.kit.component.utils.CustomPermissionChecker;
 import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.component.utils.FileProviderCompat;
 
 /**
  * <p>
@@ -38,7 +35,7 @@ import jsc.kit.component.entity.DownloadEntity;
  *
  * @author jiangshicheng
  */
-public abstract class APermissionCheckActivity extends AppCompatActivity {
+public abstract class APermissionCheckActivity extends BaseAppCompatActivity {
 
     private CustomPermissionChecker customPermissionChecker = null;
 
@@ -75,8 +72,8 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
      * <br>The specific path is: {@code request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, subPath);}.
      * <br>see {@link DownloadManager.Request#setDestinationInExternalFilesDir(Context, String, String)}
      *
-     * @param downloadEntity
-     * @return
+     * @param downloadEntity download config entity
+     * @return download id
      */
     public final long downloadFile(DownloadEntity downloadEntity) {
         String url = downloadEntity.getUrl();
@@ -133,7 +130,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     }
 
     /**
-     * @param downLoadId
+     * @param downLoadId download id
      */
     public final void progress(long downLoadId) {
         DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
@@ -164,7 +161,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     /**
      * Get uri by download id.
      *
-     * @param completeDownLoadId
+     * @param completeDownLoadId download id
      */
     public final void findDownloadFileUri(long completeDownLoadId) {
         Uri uri;
@@ -205,7 +202,7 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     /**
      * Install application.
      *
-     * @param uri
+     * @param uri apk uri
      */
     public final void installApk(Uri uri) {
         Intent intentInstall = new Intent();
@@ -216,11 +213,11 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     }
 
     /**
-     * Observer downloading progress.
+     * Observe downloading progress.
      *
-     * @param downloadedBytes
-     * @param totalBytes
-     * @param downStatus
+     * @param downloadedBytes downloaded bytes
+     * @param totalBytes total bytes
+     * @param downStatus download status
      */
     protected void onDownloadProgress(int downloadedBytes, int totalBytes, int downStatus) {
 
@@ -229,39 +226,10 @@ public abstract class APermissionCheckActivity extends AppCompatActivity {
     /**
      * Download successfully.
      *
-     * @param uri
+     * @param uri file uri
      */
     protected void onDownloadCompleted(Uri uri) {
 
-    }
-
-
-    /**
-     * Get status bar height.
-     *
-     * @return
-     */
-    public final int getStatusBarHeight() {
-        int statusBarHeight = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        }
-        return statusBarHeight;
-    }
-
-    /**
-     * Get action bar height.
-     *
-     * @return
-     */
-    public final int getActionBarSize() {
-        TypedValue typedValue = new TypedValue();
-        int[] attribute = new int[]{android.R.attr.actionBarSize};
-        TypedArray array = obtainStyledAttributes(typedValue.resourceId, attribute);
-        int actionBarSize = array.getDimensionPixelSize(0, 0);
-        array.recycle();
-        return actionBarSize;
     }
 
     public void showPermissionRationaleDialog(String title, String message, String positiveButton, String negativeButton) {

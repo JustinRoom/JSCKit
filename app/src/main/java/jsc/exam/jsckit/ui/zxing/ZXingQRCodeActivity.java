@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
@@ -16,6 +16,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.ABaseActivity;
 import jsc.kit.component.utils.CustomPermissionChecker;
@@ -36,19 +43,39 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
         ivQRCode = findViewById(R.id.iv_qr_code);
         tvScanResult = findViewById(R.id.tv_scan_result);
-        showQRCode();
+        sendUIEmptyMessageDelay(0, 350);
     }
 
-    private void showQRCode() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int[] colors = {Color.GREEN, 0x99FF4081, Color.BLUE, Color.CYAN};
-                int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
-                Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(apkUrl, size, size, colors);
-                ivQRCode.setImageBitmap(bitmap);
-            }
-        }, 300);
+    @Override
+    public void handleUIMessage(Message msg) {
+        super.handleUIMessage(msg);
+        createAndShowQRCode();
+    }
+
+    private void createAndShowQRCode() {
+        Disposable disposable = Observable.just(apkUrl)
+                .flatMap(new Function<String, ObservableSource<Bitmap>>() {
+                    @Override
+                    public ObservableSource<Bitmap> apply(String s) throws Exception {
+                        int[] colors = {Color.GREEN, 0x99FF4081, Color.BLUE, Color.CYAN};
+                        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
+                        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(s, size, size, colors);
+                        return Observable.just(bitmap);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Bitmap>() {
+                    @Override
+                    public void accept(Bitmap bitmap) throws Exception {
+                        ivQRCode.setImageBitmap(bitmap);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
     }
 
     public void widgetClick(View v) {
@@ -56,12 +83,12 @@ public class ZXingQRCodeActivity extends ABaseActivity {
         checkPermissions(0x100, new CustomPermissionChecker.OnCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
-                if (isAllGranted){
+                if (isAllGranted) {
                     toScannerActivity();
                     return;
                 }
 
-                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0){
+                if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
                     String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
@@ -76,11 +103,11 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
     private void toScannerActivity() {
         Intent intent = new Intent(this, ZXingScannerActivity.class);
-            Uri uri = Uri.parse("zxinglibrary://" + getPackageName()).buildUpon()
-                    .appendPath("scanner")
-                    .appendQueryParameter(ZXingFragment.SHOW_FLASH_LIGHT, "true") //是否显示灯光按钮
-                    .build();
-            intent.setData(uri);
+        Uri uri = Uri.parse("zxinglibrary://" + getPackageName()).buildUpon()
+                .appendPath("scanner")
+                .appendQueryParameter(ZXingFragment.SHOW_FLASH_LIGHT, "true") //是否显示灯光按钮
+                .build();
+        intent.setData(uri);
         startActivityForResult(intent, 0x666);
     }
 

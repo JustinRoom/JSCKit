@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.PopupOverlay2" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+    <style name="AppTheme.NoActionBar.PopupOverlay2" parent="Widget.AppCompat.PopupMenu.Overflow">
         <!--弹出层是否覆盖在Toolbar之上-->
         <item name="overlapAnchor">false</item>
         <!--弹出层的背景颜色-->

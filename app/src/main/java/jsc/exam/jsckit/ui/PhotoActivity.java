@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +34,41 @@ public class PhotoActivity extends APhotoActivity {
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ivPhoto = findViewById(R.id.iv_photo);
+    }
+
+    @Override
+    public void handleUIMessage(Message msg) {
+
+    }
+
+    @Override
+    public void handleWorkMessage(Message msg) {
+
+    }
+
+    @Override
+    public Transition createEnterTransition() {
+        return createTransition(getIntent().getStringExtra("transition"), 300L);
+    }
+
+    @Override
+    public Transition createExitTransition() {
+        return null;
+    }
+
+    @Override
+    public Transition createReturnTransition() {
+        return null;
+    }
+
+    @Override
+    public Transition createReenterTransition() {
+        return null;
+    }
+
+    @Override
+    public void initSharedElement() {
+
     }
 
     public void widgetClick(View view) {

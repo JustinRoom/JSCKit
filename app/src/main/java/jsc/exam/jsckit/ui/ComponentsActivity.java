@@ -1,10 +1,16 @@
 package jsc.exam.jsckit.ui;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -27,9 +33,31 @@ import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.TurntableViewActivity;
 import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
+import jsc.kit.component.entity.TransitionEnum;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
-public class ComponentListActivity extends ABaseActivity {
+public class ComponentsActivity extends ABaseActivity {
+
+    @Override
+    public Transition createExitTransition() {
+        return createFade(300L);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public Transition createReturnTransition() {
+        Slide slide = createSlide(300L);
+        slide.setSlideEdge(Gravity.START);
+        return slide;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public Transition createReenterTransition() {
+        Slide slide = createSlide(300L);
+        slide.setSlideEdge(Gravity.BOTTOM);
+        return slide;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +73,7 @@ public class ComponentListActivity extends ABaseActivity {
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
             public void onItemClick(View view, ClassItem item) {
-                startActivity(new Intent(view.getContext(), item.getCls()));
+                toNewActivity(item);
             }
 
             @Override
@@ -54,6 +82,17 @@ public class ComponentListActivity extends ABaseActivity {
             }
         });
         adapter.setItems(getClassItems());
+    }
+
+    private void toNewActivity(ClassItem item){
+        Intent mIntent = new Intent();
+        mIntent.setClass(this, item.getCls());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mIntent.putExtra("transition", TransitionEnum.SLIDE.getLabel());
+            startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            startActivity(mIntent);
+        }
     }
 
     private List<ClassItem> getClassItems() {

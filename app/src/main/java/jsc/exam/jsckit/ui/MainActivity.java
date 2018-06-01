@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
+import android.app.ActivityOptions;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -36,6 +38,7 @@ import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.component.entity.DownloadEntity;
+import jsc.kit.component.entity.TransitionEnum;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.utils.CustomPermissionChecker;
 import jsc.kit.retrofit2.LoadingDialogObserver;
@@ -47,6 +50,11 @@ import retrofit2.Retrofit;
 public class MainActivity extends ABaseActivity {
 
     private BroadcastReceiver downloadReceiver;
+
+    @Override
+    public Transition createExitTransition() {
+        return createFade(300L);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +69,7 @@ public class MainActivity extends ABaseActivity {
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
             public void onItemClick(View view, ClassItem item) {
-                startActivity(new Intent(view.getContext(), item.getCls()));
+                toNewActivity(item);
             }
 
             @Override
@@ -81,7 +89,7 @@ public class MainActivity extends ABaseActivity {
 
     private List<ClassItem> getClassItems() {
         List<ClassItem> classItems = new ArrayList<>();
-        classItems.add(new ClassItem("ComponentList", ComponentListActivity.class));
+        classItems.add(new ClassItem("Components", ComponentsActivity.class));
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
@@ -89,8 +97,20 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
+        classItems.add(new ClassItem("SharedTransition", SharedTransitionActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
+    }
+
+    private void toNewActivity(ClassItem item){
+        Intent mIntent = new Intent();
+        mIntent.setClass(this, item.getCls());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mIntent.putExtra("transition", TransitionEnum.SLIDE.getLabel());
+            startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            startActivity(mIntent);
+        }
     }
 
     private void loadVersionInfo() {
@@ -130,12 +150,6 @@ public class MainActivity extends ABaseActivity {
 
                     }
                 });
-    }
-
-    private AlertDialog createLoadingDialog() {
-        return new AlertDialog.Builder(this)
-                .setMessage("正在检查更新...")
-                .create();
     }
 
     /**
