@@ -51,7 +51,14 @@ allprojects {
 | 14 | [**SwipeRefreshRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview) | [**用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件**](https://www.jianshu.com/p/f1da8cd366cb)|
 | 15 | [**RippleView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/rippleview) | [**水波纹效果RippView**](https://www.jianshu.com/p/e573110c38d4)|
 | 16 | [**CustomToast**](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils) | |
-| 16 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | |
-| 17 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
-| 18 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
+| 16 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | [记一次App从后台切换到前台显示全屏广告实践](https://www.jianshu.com/p/b6b0f3c4efb1) |
+| 17 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
+| 18 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
+| 19 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
+
+### Usage examples：
+
+| index | Component | Article |
+|:---:|:---|:---|
+| 1  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
 
