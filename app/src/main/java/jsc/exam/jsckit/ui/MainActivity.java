@@ -14,7 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -45,7 +45,6 @@ import jsc.kit.retrofit2.LoadingDialogObserver;
 import jsc.kit.retrofit2.retrofit.CustomHttpClient;
 import jsc.kit.retrofit2.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
 
 public class MainActivity extends ABaseActivity {
 
@@ -79,12 +78,13 @@ public class MainActivity extends ABaseActivity {
         });
         adapter.setItems(getClassItems());
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadVersionInfo();
-            }
-        }, 500);
+        sendUIEmptyMessageDelay(0, 350L);
+    }
+
+    @Override
+    public void handleUIMessage(Message msg) {
+        super.handleUIMessage(msg);
+        loadVersionInfo();
     }
 
     private List<ClassItem> getClassItems() {
@@ -102,7 +102,7 @@ public class MainActivity extends ABaseActivity {
         return classItems;
     }
 
-    private void toNewActivity(ClassItem item){
+    private void toNewActivity(ClassItem item) {
         Intent mIntent = new Intent();
         mIntent.setClass(this, item.getCls());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -118,12 +118,12 @@ public class MainActivity extends ABaseActivity {
                 .setConnectTimeout(5_000)
                 .setShowLog(true)
                 .createOkHttpClient();
-        Retrofit retrofit = new CustomRetrofit()
+        new CustomRetrofit()
                 //我在app的build.gradle文件的defaultConfig标签里定义了BASE_URL
                 .setBaseUrl("https://raw.githubusercontent.com/")
                 .setOkHttpClient(client)
-                .createRetrofit();
-        retrofit.create(ApiService.class)
+                .createRetrofit()
+                .create(ApiService.class)
                 .getVersionInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -268,7 +268,7 @@ public class MainActivity extends ABaseActivity {
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
-        if (curTime - lastClickTime < 3_000) {
+        if (lastClickTime > 0 && (curTime - lastClickTime < 3_000)) {
             super.onBackPressed();
         } else {
             showCustomToast("再次点击返回按钮退出应用");
