@@ -1,6 +1,8 @@
 # LearnSources
 
 ## 优秀技术文章收集如下：
++ [BeesAndroid](https://github.com/guoxiaoxing/android-open-source-project-analysis)
+
 ### 一、应用框架
 + [Android高精战争（MVC、MVP、MVVM）](https://blog.csdn.net/lihaoxiang123/article/details/78977181)
 + [认清Android框架 MVC，MVP和MVVM](https://blog.csdn.net/jdsjlzx/article/details/51174396)
