@@ -55,6 +55,7 @@ allprojects {
 | 17 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
 | 18 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
 | 19 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
+| 20 | [**ABaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/ABaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
 
 ### Usage examples：
 
