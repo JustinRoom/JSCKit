@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -16,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
- * @createTime 6/7/2018 1:00 PM
+ * create time: 6/7/2018 1:00 PM
  * @author jiangshicheng
  */
 public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInterface.OnCancelListener {
@@ -52,6 +51,7 @@ public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInt
 
     /**
      * Constructor.
+     * @param loadingDialog loading dialog
      */
     public LoadingDialogObserver(Dialog loadingDialog) {
         this(loadingDialog, true);
@@ -60,7 +60,7 @@ public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInt
     /**
      * Constructor.
      *
-     * @param loadingDialog
+     * @param loadingDialog loading dialog
      * @param ifShowDialog  Show loadingDialog if true else not.
      */
     public LoadingDialogObserver(Dialog loadingDialog, boolean ifShowDialog) {
@@ -89,7 +89,6 @@ public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInt
 
     @Override
     public void onError(Throwable e) {
-        Log.e("LoadingDialogObserver", "onError: ", null);
         if (ifShowDialog)
             handler.sendEmptyMessage(HIDE_DIALOG);
         onException(e);
@@ -98,7 +97,6 @@ public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInt
 
     @Override
     public void onComplete() {
-        Log.e("LoadingDialogObserver", "onComplete: ", null);
         if (ifShowDialog)
             handler.sendEmptyMessage(HIDE_DIALOG);
         onCompleteOrCancel(disposable);

@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
+ * create time: 2018-06-06 9:35 AM Wednesday
  * @author jiangshicheng
- * @createTime 2018-06-06 9:35 AM Wednesday
  */
 public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> {
     private V view;

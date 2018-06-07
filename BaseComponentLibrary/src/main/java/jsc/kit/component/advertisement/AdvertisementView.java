@@ -105,9 +105,9 @@ public class AdvertisementView extends FrameLayout {
 
     /**
      *
-     * @param millisInFuture
-     * @param countDownInterval
-     * @param onComponentActionListener
+     * @param millisInFuture future time
+     * @param countDownInterval interval count down step
+     * @param onComponentActionListener action listener
      */
     public void init(long millisInFuture, long countDownInterval, OnComponentActionListener onComponentActionListener) {
         this.millisInFuture = millisInFuture;

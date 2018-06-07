@@ -99,7 +99,7 @@ public class RadarView extends View {
      * 0 represents {@link Paint.Style#STROKE}<br>
      * 1 represents {@link Paint.Style#FILL}<br>
      *
-     * @param layerStyle
+     * @param layerStyle the style of paint
      */
     public void setLayerStyle(@IntRange(from = 0, to = 1) int layerStyle) {
         this.layerStyle = layerStyle;

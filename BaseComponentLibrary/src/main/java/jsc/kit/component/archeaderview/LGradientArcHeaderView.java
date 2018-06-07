@@ -56,8 +56,8 @@ public class LGradientArcHeaderView extends BaseArcHeaderView {
     }
 
     /**
-     * @param startColor
-     * @param endColor
+     * @param startColor start color
+     * @param endColor end color
      */
     public void setColors(@ColorInt int startColor, @ColorInt int endColor) {
         resetShader();

@@ -72,7 +72,7 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     }
 
     /**
-     * @param directory
+     * @param directory folder
      * @see #openCamera(File, String)
      */
     public void openCamera(File directory) {
@@ -110,8 +110,8 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     /**
      * create default taking photo file name like "IMG_20180426_140554.JPEG" with current system time.
      *
-     * @param outputFormat
-     * @return
+     * @param outputFormat the format of picture
+     * @return default photo name
      */
     public String getDefaultTakePhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
@@ -121,8 +121,8 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     /**
      * create default cropping photo file name like "CROP_IMG_20180426_140554.JPEG" with current system time.
      *
-     * @param outputFormat
-     * @return
+     * @param outputFormat the format of picture
+     * @return default photo name
      */
     public String getDefaultCropPhotoFileName(@NonNull Bitmap.CompressFormat outputFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
@@ -130,8 +130,8 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     }
 
     /**
-     * @param file
-     * @param config
+     * @param file file
+     * @param config the config of crop image
      * @see #cropPhoto(Uri, CropConfig)
      */
     public void cropPhoto(File file, CropConfig config) {
@@ -147,8 +147,8 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      * <br>2、比例优先。举个栗子：如果有设置aspectX=4、aspectY=3、outputX=480、outputY=560，那么它裁剪时真正的outputX=480、outputY=360。
      * <br>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission.
      *
-     * @param uri
-     * @param config
+     * @param uri uri
+     * @param config the config of crop image
      */
     public void cropPhoto(Uri uri,CropConfig config) {
         if (config == null)
@@ -222,27 +222,27 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
     }
 
     /**
-     * @param uri
+     * @param uri uri
      */
     public abstract void onPickPhotoResult(Uri uri);
 
     /**
-     * @param uri
-     * @param tempFile
+     * @param uri uri
+     * @param tempFile temp file
      */
     public abstract void onTakePhotoResult(Uri uri, @NonNull File tempFile);
 
     /**
-     * @param uri
-     * @param tempFile
+     * @param uri uri
+     * @param tempFile temp file
      */
     public abstract void onCropPhotoResult(@Nullable Uri uri, @Nullable File tempFile);
 
     /**
      * Get image path by uri.
      *
-     * @param uri
-     * @return
+     * @param uri uri
+     * @return the absolute path of image
      */
     public String getRealImagePathFromUri(Uri uri) {
         return UriUtils.getImagePathByUri(this, uri);

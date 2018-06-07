@@ -16,7 +16,6 @@ import android.widget.TextView;
 import jsc.kit.component.R;
 
 /**
- * <p></p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br>https://github.com/JustinRoom/JSCKit
@@ -60,7 +59,7 @@ public final class CustomToast {
     }
 
     /**
-     * @param builder
+     * @param builder builder
      */
     public void show(Builder builder) {
         if (applicationContext == null)
@@ -183,8 +182,8 @@ public final class CustomToast {
         }
 
         /**
-         * @param textGravity
-         * @return
+         * @param textGravity text gravity
+         * @return builder
          * @see Gravity
          */
         public Builder textGravity(int textGravity) {

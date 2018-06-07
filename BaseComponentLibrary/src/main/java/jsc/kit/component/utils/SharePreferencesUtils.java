@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * <p></p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br>https://github.com/JustinRoom/JSCKit

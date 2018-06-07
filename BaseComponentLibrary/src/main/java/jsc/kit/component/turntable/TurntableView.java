@@ -127,7 +127,7 @@ public class TurntableView extends FrameLayout {
 
     /**
      * it is rotating or not.
-     * @return
+     * @return {@code true} rotating, else not.
      */
     public boolean isRotating() {
         return isRotating;
@@ -175,7 +175,7 @@ public class TurntableView extends FrameLayout {
      * 实际旋转角度 = 30 * (66 + 1) = 2010
      * </code>
      *
-     * @param angle
+     * @param angle angle
      */
     public void turntableByAngle(int angle) {
         int giftCount = chassisView.getGiftCount();
@@ -198,7 +198,7 @@ public class TurntableView extends FrameLayout {
      * 实际旋转角度 = 30 * 127 = 3810
      * </code>
      *
-     * @param turnCount
+     * @param turnCount turn count
      */
     public void turntableByCount(int turnCount) {
         int giftCount = chassisView.getGiftCount();

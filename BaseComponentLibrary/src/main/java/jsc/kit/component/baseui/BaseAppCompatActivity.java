@@ -84,6 +84,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * @param message message
      * @see #handleWorkMessage(Message)
      */
     public final void sendWorkMessage(Message message) {
@@ -92,6 +93,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * @param message message
+     * @param delayMillis delay time
      * @see #handleWorkMessage(Message)
      */
     public final void sendWorkMessageDelay(Message message, long delayMillis) {
@@ -100,6 +103,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * @param what what
      * @see #handleWorkMessage(Message)
      */
     public final void sendWorkEmptyMessage(int what) {
@@ -108,6 +112,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * @param what what
+     * @param delayMillis delay time
      * @see #handleWorkMessage(Message)
      */
     public final void sendWorkEmptyMessageDelay(int what, long delayMillis) {
@@ -143,14 +149,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * Do your ui operations here, in UI thread.
      *
-     * @param msg
+     * @param msg message
      */
     public abstract void handleUIMessage(Message msg);
 
     /**
      * Do your long-running operations here, in none UI thread.
      *
-     * @param msg
+     * @param msg message
      */
     public abstract void handleWorkMessage(Message msg);
 

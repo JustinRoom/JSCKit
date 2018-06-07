@@ -215,7 +215,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Set refreshing listener.
      *
-     * @param customRefreshListener
+     * @param customRefreshListener customized refresh listener
      */
     public void setCustomRefreshListener(OnCustomRefreshListener customRefreshListener) {
         this.customRefreshListener = customRefreshListener;
@@ -254,7 +254,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * to start refresh.
      *
-     * @param delay
+     * @param delay the delay to refresh
      */
     public void refreshDelay(long delay) {
         swipeRefreshLayout.setRefreshing(true);
@@ -272,7 +272,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Whether it is refreshing or loading more.
      *
-     * @return
+     * @return {@code true} loading, else not.
      */
     public boolean isLoading() {
         return isLoading;
@@ -285,14 +285,14 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Open or close loading more feature.
      *
-     * @param loadMoreEnable
+     * @param loadMoreEnable enable load more or not.
      */
     public void setLoadMoreEnable(boolean loadMoreEnable) {
         this.loadMoreEnable = loadMoreEnable;
     }
 
     /**
-     * @return
+     * @return {@code true} enable load more, else disable.
      * @see #setLoadMoreEnable(boolean)
      */
     public boolean isLoadMoreEnable() {
@@ -300,7 +300,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     }
 
     /**
-     * @return
+     * @return {@code true} present that more data can be load.
      * @see #setHaveMore(boolean)
      */
     public boolean isHaveMore() {
@@ -310,7 +310,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * If set true, it presenter that your can scroll up to load next page.
      *
-     * @param haveMore
+     * @param haveMore set whether have more data.
      */
     public void setHaveMore(boolean haveMore) {
         isHaveMore = haveMore;
@@ -344,22 +344,22 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
         /**
          * show your custom loading more action.
          *
-         * @param swipeRefreshRecyclerView
-         * @param refreshListener
+         * @param swipeRefreshRecyclerView swipeRefreshRecyclerView
+         * @param refreshListener refresh listener
          */
         void onLoadMoreStartAnim(@NonNull final SwipeRefreshRecyclerView swipeRefreshRecyclerView, @Nullable final OnCustomRefreshListener refreshListener);
 
         /**
          * show your custom loading more completed action.
          *
-         * @param swipeRefreshRecyclerView
-         * @param refreshListener
+         * @param swipeRefreshRecyclerView swipeRefreshRecyclerView
+         * @param refreshListener refresh listener
          */
         void onLoadMoreCompleteAnim(@NonNull final SwipeRefreshRecyclerView swipeRefreshRecyclerView, @Nullable final OnCustomRefreshListener refreshListener);
     }
 
     /**
-     * @param layout_empty
+     * @param layout_empty layout resource id
      * @see #setEmptyView(View)
      */
     public void setEmptyView(@LayoutRes int layout_empty) {
@@ -367,7 +367,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     }
 
     /**
-     * @param layout_empty
+     * @param layout_empty layout resource id
+     * @param params layout params
      * @see #setEmptyView(View)
      */
     public void setEmptyView(@LayoutRes int layout_empty, LayoutParams params) {
@@ -377,7 +378,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Set your customized empty view.
      *
-     * @param emptyView
+     * @param emptyView empty view
      */
     public void setEmptyView(View emptyView) {
         setEmptyView(emptyView, null);
@@ -386,7 +387,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Set your customized empty view.
      *
-     * @param emptyView
+     * @param emptyView empty view
+     * @param params layout params
      */
     public void setEmptyView(View emptyView, LayoutParams params) {
         if (emptyView == null)
@@ -408,7 +410,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     }
 
     /**
-     * @param layout_load_more
+     * @param layout_load_more layout resource id
      * @see #setEmptyView(View)
      */
     public void setLoadMoreView(@LayoutRes int layout_load_more) {
@@ -418,7 +420,7 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * Set your customized load more view.
      *
-     * @param loadMoreView
+     * @param loadMoreView load more view
      */
     public void setLoadMoreView(View loadMoreView) {
         if (loadMoreView == null)
@@ -436,8 +438,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * the default empty view.
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return the default empty view
      */
     private View getDefaultEmptyView(Context context) {
         TextView textView = new TextView(context);
@@ -450,8 +452,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     /**
      * the default load more view.
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return the default load more view.
      */
     private View getDefaultLoadMoreView(Context context) {
         int dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());

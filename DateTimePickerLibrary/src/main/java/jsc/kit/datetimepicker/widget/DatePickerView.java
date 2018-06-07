@@ -9,7 +9,6 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.ColorInt;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import jsc.kit.datetimepicker.R;
 
 /**
  * Created by liuwan on 2016/9/28.
@@ -104,6 +101,7 @@ public class DatePickerView extends View {
 
     /**
      * 选择选中的item的index
+     * @param selected the selected index
      */
     public void setSelected(int selected) {
         mCurrentSelected = selected;
@@ -126,6 +124,7 @@ public class DatePickerView extends View {
 
     /**
      * 选择选中的内容
+     * @param mSelectItem selected item
      */
     public void setSelected(String mSelectItem) {
         for (int i = 0; i < mDataList.size(); i++) {
@@ -343,6 +342,7 @@ public class DatePickerView extends View {
 
     /**
      * 控制内容是否首尾相连
+     * @param isLoop loop scroll or not
      */
     public void setIsLoop(boolean isLoop) {
         loop = isLoop;

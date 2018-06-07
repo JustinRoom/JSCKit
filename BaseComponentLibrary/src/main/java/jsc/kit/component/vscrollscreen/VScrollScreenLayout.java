@@ -39,8 +39,8 @@ public class VScrollScreenLayout extends ViewGroup {
 
     public interface OnScrollPageChangedListener {
         /**
-         * @param pageIndex
-         *         The index of first page is 0.
+         * @param context  context
+         * @param pageIndex The index of first page is 0.
          */
         void onScroll(Context context, int pageIndex);
     }
@@ -71,7 +71,7 @@ public class VScrollScreenLayout extends ViewGroup {
 
     /**
      *
-     * @return
+     * @return the slide ratio on vertical direction
      * @see #setySlideRatio(float)
      */
     public float getySlideRatio() {
@@ -81,14 +81,14 @@ public class VScrollScreenLayout extends ViewGroup {
     /**
      * <br>Set the ratio of sliding in Y axis.
      * <br>Default value is {@link #DEFAULT_Y_SLIDE_RATIO}.
-     * @param ySlideRatio
+     * @param ySlideRatio the slide ratio on vertical direction
      */
     public void setySlideRatio(float ySlideRatio) {
         this.ySlideRatio = ySlideRatio < 0f ? DEFAULT_Y_SLIDE_RATIO : ySlideRatio;
     }
 
     /**
-     * @return
+     * @return the flip ratio
      * @see #setFlipRatio(float)
      */
     public float getFlipRatio() {
@@ -112,7 +112,7 @@ public class VScrollScreenLayout extends ViewGroup {
     }
 
     /**
-     * @return
+     * @return rebound animation duration
      * @see #setReboundAnimTime(int)
      */
     public int getReboundAnimTime() {
@@ -123,14 +123,14 @@ public class VScrollScreenLayout extends ViewGroup {
      * <br>Set the animation time of rebounding.
      * <br>Default value is {@link #DEFAULT_REBOUND_ANIM_TIME}.
      *
-     * @param reboundAnimTime
+     * @param reboundAnimTime rebound animation duration
      */
     public void setReboundAnimTime(int reboundAnimTime) {
         this.reboundAnimTime = reboundAnimTime <= 0 ? DEFAULT_REBOUND_ANIM_TIME : reboundAnimTime;
     }
 
     /**
-     * @return
+     * @return flip animation duration
      * @see #setFlipAnimTime(int)
      */
     public int getFlipAnimTime() {
@@ -141,7 +141,7 @@ public class VScrollScreenLayout extends ViewGroup {
      * <br>Set the animation time of turning to the next page.
      * <br>Default value is {@link #DEFAULT_FLIP_ANIM_TIME}.
      *
-     * @param flipAnimTime
+     * @param flipAnimTime flip animation duration
      */
     public void setFlipAnimTime(int flipAnimTime) {
         this.flipAnimTime = flipAnimTime <= 0 ? DEFAULT_FLIP_ANIM_TIME : flipAnimTime;
@@ -152,7 +152,7 @@ public class VScrollScreenLayout extends ViewGroup {
     }
 
     /**
-     * @param onScrollPageChangedListener
+     * @param onScrollPageChangedListener page scroll changed listener
      */
     public void setOnScrollPageChangedListener(OnScrollPageChangedListener onScrollPageChangedListener) {
         this.onScrollPageChangedListener = onScrollPageChangedListener;

@@ -3,7 +3,6 @@ package jsc.kit.zxing.zxing;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -13,7 +12,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,6 +36,7 @@ public class QRCodeEncoder {
      *
      * @param content 要生成的二维码图片内容
      * @param size    图片宽高，单位为px
+     * @return bitmap
      */
     public static Bitmap syncEncodeQRCode(String content, int size) {
         return syncEncodeQRCode(content, size, Color.BLACK, Color.WHITE, null);
@@ -49,6 +48,7 @@ public class QRCodeEncoder {
      * @param content         要生成的二维码图片内容
      * @param size            图片宽高，单位为px
      * @param foregroundColor 二维码图片的前景色
+     * @return bitmap
      */
     public static Bitmap syncEncodeQRCode(String content, int size, int foregroundColor) {
         return syncEncodeQRCode(content, size, foregroundColor, Color.WHITE, null);
@@ -61,6 +61,7 @@ public class QRCodeEncoder {
      * @param size            图片宽高，单位为px
      * @param foregroundColor 二维码图片的前景色
      * @param logo            二维码图片的logo
+     * @return bitmap
      */
     public static Bitmap syncEncodeQRCode(String content, int size, int foregroundColor, Bitmap logo) {
         return syncEncodeQRCode(content, size, foregroundColor, Color.WHITE, logo);
@@ -74,6 +75,7 @@ public class QRCodeEncoder {
      * @param foregroundColor 二维码图片的前景色
      * @param backgroundColor 二维码图片的背景色
      * @param logo            二维码图片的logo
+     * @return bitmap
      */
     public static Bitmap syncEncodeQRCode(String content, int size, int foregroundColor, int backgroundColor, Bitmap logo) {
         try {
@@ -99,9 +101,9 @@ public class QRCodeEncoder {
     /**
      * 添加logo到二维码图片上
      *
-     * @param src
-     * @param logo
-     * @return
+     * @param src source
+     * @param logo logo
+     * @return bitmap
      */
     private static Bitmap addLogoToQRCode(Bitmap src, Bitmap logo) {
         if (src == null || logo == null) {
@@ -131,11 +133,11 @@ public class QRCodeEncoder {
     /**
      * 同步创建指定前景色、指定背景色、带logo的二维码图片。该方法是耗时操作，请在子线程中调用。
      *
-     * @param content
-     * @param width
-     * @param height
+     * @param content text
+     * @param width width
+     * @param height height
      * @param foregroundColors 上下左右四部分前景色，背景默认透明。
-     * @return
+     * @return bitmap
      */
     public static Bitmap syncEncodeQRCode(String content, int width, int height, int[] foregroundColors) {
         int[] newColors = new int[4];

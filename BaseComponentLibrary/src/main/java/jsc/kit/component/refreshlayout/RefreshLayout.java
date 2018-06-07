@@ -141,7 +141,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @param layoutId
+     * @param layoutId layout resource id
      * @see #addHeader(View)
      */
     public void addHeader(@LayoutRes int layoutId) {
@@ -152,7 +152,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * 添加下拉刷新头部view
      *
-     * @param header
+     * @param header header view
      */
     public void addHeader(View header) {
         if (headerView != null)
@@ -163,7 +163,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @param layoutId
+     * @param layoutId layout resource id
      * @see #addContent(View)
      */
     public void addContent(@LayoutRes int layoutId) {
@@ -174,7 +174,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * Ddd a custom content view.
      *
-     * @param content
+     * @param content content view
      */
     public void addContent(View content) {
         if (contentView != null)
@@ -187,7 +187,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * Add scroll listener.
      *
-     * @param onScrollListener
+     * @param onScrollListener scroll listener
      */
     public void setOnScrollListener(OnScrollListener onScrollListener) {
         this.onScrollListener = onScrollListener;
@@ -196,14 +196,14 @@ public class RefreshLayout extends ViewGroup {
     /**
      * Add refresh listener.
      *
-     * @param onRefreshListener
+     * @param onRefreshListener refresh listener
      */
     public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
         this.onRefreshListener = onRefreshListener;
     }
 
     /**
-     * @return
+     * @return pull ratio on vertical direction
      * @see #setPullRatioY(float)
      */
     public float getPullRatioY() {
@@ -220,7 +220,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @return
+     * @return pull to refresh ratio
      * @see #setPullToRefreshRatio(float)
      */
     public float getPullToRefreshRatio() {
@@ -237,7 +237,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * @return
+     * @return release to refresh ratio
      * @see #setReleaseToRefreshRatio(float)
      */
     public float getReleaseToRefreshRatio() {
@@ -256,7 +256,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * Check refresh state.
      *
-     * @return
+     * @return {@code true} refreshing, else not.
      */
     public boolean isRefreshing() {
         return isRefreshing;
@@ -269,7 +269,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * The default value is {@link #DEFAULT_REBOUND_ANIMATION_DURATION}.
      *
-     * @param reboundAnimationDuration
+     * @param reboundAnimationDuration rebound animation duration
      */
     public void setReboundAnimationDuration(@IntRange(from = 0) int reboundAnimationDuration) {
         this.reboundAnimationDuration = reboundAnimationDuration;

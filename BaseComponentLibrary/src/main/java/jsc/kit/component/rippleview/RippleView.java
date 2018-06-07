@@ -81,7 +81,7 @@ public class RippleView extends View {
     /**
      * Set the start color of an animation.
      *
-     * @param color
+     * @param color start color
      */
     public void setColor(@ColorInt int color) {
         mPaint.setColor(color);
@@ -141,7 +141,7 @@ public class RippleView extends View {
      * It runs animation automatically if pass <code>true</code> value.
      * <br>The default value is true.
      *
-     * @param autoRunOnAttached
+     * @param autoRunOnAttached {@code true} auto run animation when it is attached.
      * @see #onAttachedToWindow()
      */
     public void setAutoRunOnAttached(boolean autoRunOnAttached) {
@@ -151,7 +151,7 @@ public class RippleView extends View {
     /**
      * Set animation listener.
      *
-     * @param animListener
+     * @param animListener animation listener
      */
     public void setAnimListener(AnimListener animListener) {
         this.animListener = animListener;

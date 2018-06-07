@@ -32,8 +32,8 @@ public final class BitmapCacheManager {
     /**
      * Add a bitmap to bitmap cache.
      *
-     * @param key
-     * @param bitmap
+     * @param key key
+     * @param bitmap bitmap
      */
     public void addBitmapToCache(@NonNull String key, @NonNull Bitmap bitmap) {
         SoftReference<Bitmap> bitmapSoftReference = new SoftReference<>(bitmap);
@@ -43,7 +43,7 @@ public final class BitmapCacheManager {
     /**
      * Destroy a bitmap from cache.
      *
-     * @param key
+     * @param key key
      */
     public void destroyBitmapFromCache(@NonNull String key) {
         SoftReference<Bitmap> bitmapSoftReference = bitmapCache.get(key);
@@ -60,7 +60,8 @@ public final class BitmapCacheManager {
     /**
      * Remove a bitmap from cache.
      *
-     * @param key
+     * @param key key
+     * @return bitmap
      */
     @Nullable
     public Bitmap removeBitmapFromCache(@NonNull String key) {
@@ -75,7 +76,7 @@ public final class BitmapCacheManager {
      * <br>If not exist, a bitmap will be created and added to cache.
      *
      * @param path the image file path
-     * @return
+     * @return bitmap
      */
     @NonNull
     public Bitmap getBitmapByPath(@NonNull String path) {

@@ -573,6 +573,7 @@ public class DateTimePicker {
 
     /**
      * 设置日期控件默认选中的时间
+     * @param time date
      */
     public void setSelectedTime(Date time) {
         Calendar tempCalendar = Calendar.getInstance();

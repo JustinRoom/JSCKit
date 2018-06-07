@@ -13,9 +13,9 @@ public class FileProviderCompat {
      * Get uri for file.
      * <br>System provides {@link android.support.v4.content.FileProvider} to find uri of file for security since android {@link Build.VERSION_CODES#N}.
      *
-     * @param context
-     * @param file
-     * @return
+     * @param context context
+     * @param file file
+     * @return uri
      */
     public static Uri getUriForFile(Context context, File file) {
         Uri fileUri = null;

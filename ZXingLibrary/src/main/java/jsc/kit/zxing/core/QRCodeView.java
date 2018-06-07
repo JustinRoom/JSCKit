@@ -140,7 +140,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
     /**
      * 延迟delay毫秒后开始识别
      *
-     * @param delay
+     * @param delay delay
      */
     public void startSpotDelay(int delay) {
         mSpotAble = true;
@@ -249,7 +249,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
     /**
      * 当前是否为条码扫描样式
      *
-     * @return
+     * @return boolean
      */
     public boolean getIsScanBarcodeStyle() {
         return mScanBoxView.getIsBarcode();
@@ -297,7 +297,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
         /**
          * 处理扫描结果
          *
-         * @param result
+         * @param result the scan result
          */
         void onScanQRCodeSuccess(String result);
 

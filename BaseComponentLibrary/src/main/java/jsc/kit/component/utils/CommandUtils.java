@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * <p></p>
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br>https://github.com/JustinRoom/JSCKit
@@ -41,7 +41,7 @@ public final class CommandUtils {
      *
      * @param directory the directory to save screen capture
      * @param photoName photo name, not including path
-     * @return
+     * @return the image path
      * @see #createScreenCaptureCmd(String)
      */
     public static String createScreenCaptureCmd(File directory, String photoName) {
@@ -53,7 +53,7 @@ public final class CommandUtils {
      * <br>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission if using external storage directory.
      *
      * @param photoPathName photo's name, including path
-     * @return
+     * @return the image path
      */
     public static String createScreenCaptureCmd(String photoPathName) {
         int index = photoPathName.lastIndexOf(File.pathSeparator);
@@ -79,7 +79,7 @@ public final class CommandUtils {
      * @param limitTimeSeconds record time, the minimum value is 10 seconds
      * @param directory        the directory to save screen record video
      * @param videoName        video name, not including path
-     * @return
+     * @return the image path
      * @see #createScreenRecordCmd(int, String)
      */
     public static String createScreenRecordCmd(@IntRange(from = 10) int limitTimeSeconds, File directory, String videoName) {
@@ -92,7 +92,7 @@ public final class CommandUtils {
      *
      * @param limitTimeSeconds record time, the minimum value is 10 seconds
      * @param videoPathName    video's name, including path
-     * @return
+     * @return the image path
      */
     public static String createScreenRecordCmd(@IntRange(from = 10) int limitTimeSeconds, String videoPathName) {
         int index = videoPathName.lastIndexOf(File.pathSeparator);
@@ -108,7 +108,7 @@ public final class CommandUtils {
     /**
      * Execute su command.
      *
-     * @param command
+     * @param command command
      * @see #execSuCommand(String, StringBuilder, StringBuilder)
      */
     public static void execSuCommand(String command) {
@@ -118,9 +118,9 @@ public final class CommandUtils {
     /**
      * Execute su command.
      *
-     * @param command
-     * @param successMessageBuilder
-     * @param errorMessageBuilder
+     * @param command command
+     * @param successMessageBuilder successful message string builder
+     * @param errorMessageBuilder failed message string builder
      */
     public static void execSuCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(COMMAND_SU, command, successMessageBuilder, errorMessageBuilder);
@@ -129,7 +129,7 @@ public final class CommandUtils {
     /**
      * Execute sh command.
      *
-     * @param command
+     * @param command command
      * @see #execShCommand(String, StringBuilder, StringBuilder)
      */
     public static void execShCommand(String command) {
@@ -139,9 +139,9 @@ public final class CommandUtils {
     /**
      * Execute sh command.
      *
-     * @param command
-     * @param successMessageBuilder
-     * @param errorMessageBuilder
+     * @param command command
+     * @param successMessageBuilder successful message string builder
+     * @param errorMessageBuilder failed message string builder
      */
     public static void execShCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(COMMAND_SH, command, successMessageBuilder, errorMessageBuilder);
@@ -150,9 +150,9 @@ public final class CommandUtils {
     /**
      * Execute common command.
      *
-     * @param command
-     * @param successMessageBuilder
-     * @param errorMessageBuilder
+     * @param command command
+     * @param successMessageBuilder successful message string builder
+     * @param errorMessageBuilder failed message string builder
      */
     public static void execCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(null, command, successMessageBuilder, errorMessageBuilder);
@@ -212,8 +212,8 @@ public final class CommandUtils {
     /**
      * Get the user of current application process.
      *
-     * @param packageName
-     * @return
+     * @param packageName package name
+     * @return current user id
      */
     public static String getCurrentAppUser(String packageName) {
         String user = "";

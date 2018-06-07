@@ -16,7 +16,7 @@ import android.view.View;
 import jsc.kit.component.R;
 
 /**
- * <p></p>
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  *

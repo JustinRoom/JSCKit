@@ -32,10 +32,11 @@ public final class CustomPermissionChecker {
     /**
      *
      *
-     * @param activity
-     * @param requestCode
-     * @param permissions
-     * @return
+     * @param activity activity
+     * @param requestCode requestCode
+     * @param permissions permissions
+     * @param onCheckListener check listener
+     * @return is all permissions granted.
      */
     public boolean checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, OnCheckListener onCheckListener, String... permissions) {
         if (permissions == null || permissions.length == 0)
@@ -74,9 +75,9 @@ public final class CustomPermissionChecker {
     /**
      * Call this method inside {@link Activity#onRequestPermissionsResult(int, String[], int[])}.
      *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode requestCode
+     * @param permissions permissions
+     * @param grantResults grant result
      */
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (onCheckListener == null)
@@ -119,7 +120,7 @@ public final class CustomPermissionChecker {
 
         /**
          *
-         * @param requestCode
+         * @param requestCode requestCode
          * @param isAllGranted if true, all permissions are granted.
          * @param grantedPermissions    所请求的permissions中已通过授权的部分permissions
          * @param deniedPermissions 所请求的permissions中未通过授权的部分permissions
@@ -133,7 +134,7 @@ public final class CustomPermissionChecker {
 
         /**
          * 在此方法中做一些收尾工作。例如释放资源。
-         * @param requestCode
+         * @param requestCode requestCode
          */
         void onFinally(int requestCode);
     }

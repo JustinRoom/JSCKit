@@ -15,9 +15,9 @@ public final class UriUtils {
     /**
      * Get image path by uri.
      *
-     * @param context
-     * @param uri
-     * @return
+     * @param context context
+     * @param uri uri
+     * @return the path of image
      */
     public static String getImagePathByUri(@NonNull Context context, Uri uri) {
         // DocumentProvider
@@ -78,6 +78,7 @@ public final class UriUtils {
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
      *
+     * @param context context
      * @param uri           The Uri to query.
      * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.

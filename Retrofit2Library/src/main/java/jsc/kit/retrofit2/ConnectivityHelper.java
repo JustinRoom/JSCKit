@@ -29,8 +29,8 @@ public class ConnectivityHelper {
 	/**
 	 * 判断网络是否可用
 	 * 
-	 * @param context
-	 * @return
+	 * @param context context
+	 * @return boolean
 	 */
 	public static boolean isConnectivityAvailable(Context context) {
 		// 判断网络是否可用
@@ -50,8 +50,8 @@ public class ConnectivityHelper {
 	/**
 	 * 判断wifi网络是否可用
 	 * 
-	 * @param context
-	 * @return
+	 * @param context context
+	 * @return boolean
 	 */
 	public static boolean WifiIsAvailable(Context context) {
 		// 判断网络是否可用
@@ -65,8 +65,8 @@ public class ConnectivityHelper {
 	/**
 	 * 判断moblie网络是否可用
 	 * 
-	 * @param context
-	 * @return
+	 * @param context context
+	 * @return boolean
 	 */
 	public static boolean MobileIsAvailable(Context context) {
 		// 判断网络是否可用
@@ -80,6 +80,8 @@ public class ConnectivityHelper {
 	/**
 	 * 
 	 * 获得手机网络类别
+	 * @param IMSI IMSI
+     * @return net work type
 	 */
 
 	public static int getPhoneNetworkType(String IMSI) {
@@ -112,8 +114,8 @@ public class ConnectivityHelper {
 	/**
 	 * 获取当前的网络状态 -1：没有网络 1：WIFI网络2：wap网络3：net网络
 	 * 
-	 * @param context
-	 * @return
+	 * @param context context
+	 * @return net work type
 	 */
 	public static int getAPNType(Context context) {
 		int netType = NONET;

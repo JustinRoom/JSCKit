@@ -67,7 +67,7 @@ public class RadarEntity implements Parcelable{
     /**
      * The text size of label. The unit is <code>sp</code>.
      *
-     * @param labelTextSize
+     * @param labelTextSize label text size
      */
     public void setLabelTextSize(float labelTextSize) {
         this.labelTextSize = labelTextSize;
