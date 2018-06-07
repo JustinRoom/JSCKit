@@ -13,7 +13,6 @@ import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -156,9 +155,5 @@ public class PhotoActivity extends APhotoActivity {
 
     private void showImage(File file) {
         showImage(file.getAbsolutePath());
-    }
-
-    public void showToast(CharSequence txt) {
-        Toast.makeText(this, txt, Toast.LENGTH_SHORT).show();
     }
 }

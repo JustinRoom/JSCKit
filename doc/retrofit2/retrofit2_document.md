@@ -25,18 +25,18 @@ usage reference: [Retrofit2Activity.java](../../app/src/main/java/jsc/exam/jscki
                     }
 
                     @Override
-                    public void onNetStart(Disposable disposable) {
-                        Log.i(getTitle().toString(), "onNetStart: ");
+                    public void onStart(Disposable disposable) {
+                        Log.i(getTitle().toString(), "onStart: ");
                     }
 
                     @Override
-                    public void onNetError(Throwable e) {
-                        Log.i(getTitle().toString(), "onNetError: " + e.getLocalizedMessage());
+                    public void onException(Throwable e) {
+                        Log.i(getTitle().toString(), "onException: " + e.getLocalizedMessage());
                     }
 
                     @Override
-                    public void onNetFinish(Disposable disposable) {
-                        Log.i(getTitle().toString(), "onNetFinish: ");
+                    public void onCompleteOrCancel(Disposable disposable) {
+                        Log.i(getTitle().toString(), "onCompleteOrCancel: ");
                     }
                 });
     }

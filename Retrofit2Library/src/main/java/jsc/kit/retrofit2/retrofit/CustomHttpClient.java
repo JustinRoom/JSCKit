@@ -21,11 +21,12 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * <p></p>
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
+ * @createTime 6/6/2018 6:02 PM
  * @author jiangshicheng
  */
 public class CustomHttpClient {
@@ -33,16 +34,11 @@ public class CustomHttpClient {
     private int connectTimeout = 10_000;
     private int readTimeout = 10_000;
     private int writeTimeout = 10_000;
-    private List<Pair<String, String>> headers = new ArrayList<>();
-    private List<Interceptor> interceptors = new ArrayList<>();
+    private List<Pair<String, String>> headers = null;
+    private List<Interceptor> interceptors = null;
     private Context context;
     private Cache cache;
 
-    /**
-     *
-     * @param showLog
-     * @return
-     */
     public CustomHttpClient setShowLog(boolean showLog) {
         this.showLog = showLog;
         return this;
@@ -63,12 +59,18 @@ public class CustomHttpClient {
         return this;
     }
 
-    public CustomHttpClient addHeader(@NonNull Pair<String, String> header){
+    public CustomHttpClient addHeader(@NonNull Pair<String, String> header) {
+        if (headers == null) {
+            headers = new ArrayList<>();
+        }
         headers.add(header);
-       return this;
+        return this;
     }
 
     public CustomHttpClient addInterceptor(Interceptor interceptor) {
+        if (interceptors == null) {
+            interceptors = new ArrayList<>();
+        }
         interceptors.add(interceptor);
         return this;
     }
@@ -93,27 +95,29 @@ public class CustomHttpClient {
         //拦截服务器端的Log日志并打印,如果未debug状态就打印日志，否则就什么都不做
         builder.addInterceptor(new HttpLoggingInterceptor().setLevel(showLog ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE));
 
-        if (!headers.isEmpty())
+        if (headers != null && !headers.isEmpty())
             builder.addInterceptor(createHeaderInterceptor());
 
-        for (Interceptor it : interceptors) {
-            builder.addInterceptor(it);
+        if (interceptors != null && !interceptors.isEmpty()) {
+            for (Interceptor it : interceptors) {
+                builder.addInterceptor(it);
+            }
         }
 
-        if (cache != null){
+        if (cache != null) {
             builder.cache(cache);
             builder.addNetworkInterceptor(createCacheInterceptor());
         }
         return builder.build();
     }
 
-    private Interceptor createHeaderInterceptor(){
+    private Interceptor createHeaderInterceptor() {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder();
-                for (Pair<String, String> header : headers){
+                for (Pair<String, String> header : headers) {
                     requestBuilder.addHeader(header.first, header.second);
                 }
                 Request request = requestBuilder.build();
@@ -122,7 +126,7 @@ public class CustomHttpClient {
         };
     }
 
-    private Interceptor createCacheInterceptor(){
+    private Interceptor createCacheInterceptor() {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

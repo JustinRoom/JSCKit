@@ -304,7 +304,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         return createLoadingDialog("Loading…");
     }
 
-    protected Dialog createLoadingDialog(String txt) {
+    protected Dialog createLoadingDialog(CharSequence txt) {
         LoadingDialog dialog = new LoadingDialog(this);
         dialog.setMessage(txt);
         dialog.showMessageView(!TextUtils.isEmpty(txt));
@@ -315,7 +315,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
     }
 
-    public final void showToast(String txt) {
+    public final void showToast(CharSequence txt) {
         Toast.makeText(this, txt, Toast.LENGTH_SHORT).show();
     }
 }

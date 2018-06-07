@@ -5,16 +5,18 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * <p></p>
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
+ * @createTime 6/7/2018 1:00 PM
  * @author jiangshicheng
  */
 public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInterface.OnCancelListener {
@@ -73,33 +75,62 @@ public abstract class LoadingDialogObserver<T> implements Observer<T>, DialogInt
         disposable = d;
         if (ifShowDialog)
             handler.sendEmptyMessage(SHOW_DIALOG);
-        onNetStart(d);
+        onStart(d);
+    }
+
+    @Override
+    public void onNext(T t) {
+        try {
+            onResult(t);
+        } catch (Exception e){
+            onError(e);
+        }
     }
 
     @Override
     public void onError(Throwable e) {
+        Log.e("LoadingDialogObserver", "onError: ", null);
         if (ifShowDialog)
             handler.sendEmptyMessage(HIDE_DIALOG);
-        onNetError(e);
-        onNetFinish(disposable);
+        onException(e);
+        onCompleteOrCancel(disposable);
     }
 
     @Override
     public void onComplete() {
+        Log.e("LoadingDialogObserver", "onComplete: ", null);
         if (ifShowDialog)
             handler.sendEmptyMessage(HIDE_DIALOG);
-        onNetFinish(disposable);
+        onCompleteOrCancel(disposable);
     }
 
     @Override
     public void onCancel(DialogInterface dialog) {
         disposable.dispose();
-        onNetFinish(disposable);
+        onCompleteOrCancel(disposable);
     }
 
-    public abstract void onNetStart(Disposable disposable);
+    /**
+     * Show loading dialog here if necessary.
+     * @param disposable disposable, the same as the return of {@link io.reactivex.Observable#subscribe(Observer)}.
+     */
+    public abstract void onStart(Disposable disposable);
 
-    public abstract void onNetError(Throwable e);
+    /**
+     * Call back the response.
+     * @param t response
+     */
+    public abstract void onResult(T t);
 
-    public abstract void onNetFinish(Disposable disposable);
+    /**
+     * Call back when a exception appears.
+     * @param e exception
+     */
+    public abstract void onException(Throwable e);
+
+    /**
+     * Call back when {@link Observer#onComplete()} or loading dialog is canceled.
+     * @param disposable disposable, the same as the return of {@link io.reactivex.Observable#subscribe(Observer)}.
+     */
+    public abstract void onCompleteOrCancel(Disposable disposable);
 }

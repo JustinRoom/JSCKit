@@ -3,7 +3,6 @@ package jsc.exam.jsckit.ui;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -69,22 +68,22 @@ public class Retrofit2Activity extends ABaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new LoadingDialogObserver<String>(createLoadingDialog()) {
                     @Override
-                    public void onNext(String s) {
+                    public void onStart(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onResult(String s) {
                         textView.setText(s);
                     }
 
                     @Override
-                    public void onNetStart(Disposable disposable) {
-                        Log.i("MainActivity", "onNetStart: ");
-                    }
-
-                    @Override
-                    public void onNetError(Throwable e) {
+                    public void onException(Throwable e) {
 
                     }
 
                     @Override
-                    public void onNetFinish(Disposable disposable) {
+                    public void onCompleteOrCancel(Disposable disposable) {
 
                     }
                 });

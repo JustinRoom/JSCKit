@@ -56,7 +56,7 @@ public class LoadingDialog extends Dialog {
         linearLayout.addView(textView, txtParams);
     }
 
-    public void setMessage(String message) {
+    public void setMessage(CharSequence message) {
         textView.setText(message);
     }
 

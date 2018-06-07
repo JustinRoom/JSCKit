@@ -21,7 +21,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -36,6 +35,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
+import jsc.exam.jsckit.ui.mvp.activity.TestActivity;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.component.entity.DownloadEntity;
 import jsc.kit.component.entity.TransitionEnum;
@@ -98,6 +98,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
         classItems.add(new ClassItem("SharedTransition", SharedTransitionActivity.class));
+        classItems.add(new ClassItem("Test(MVP)", TestActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
@@ -129,24 +130,24 @@ public class MainActivity extends ABaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new LoadingDialogObserver<String>(createLoadingDialog()) {
                     @Override
-                    public void onNext(String s) {
+                    public void onStart(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onResult(String s) {
                         s = s.substring(1, s.length() - 1);
                         VersionEntity entity = VersionEntity.fromJson(s);
                         showUpdateTipsDialog(entity);
                     }
 
                     @Override
-                    public void onNetStart(Disposable disposable) {
-                        Log.i("MainActivity", "onNetStart: ");
-                    }
-
-                    @Override
-                    public void onNetError(Throwable e) {
+                    public void onException(Throwable e) {
 
                     }
 
                     @Override
-                    public void onNetFinish(Disposable disposable) {
+                    public void onCompleteOrCancel(Disposable disposable) {
 
                     }
                 });
