@@ -51,12 +51,13 @@ allprojects {
 | 14 | [**SwipeRefreshRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview) | [**用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件**](https://www.jianshu.com/p/f1da8cd366cb)|
 | 15 | [**RippleView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/rippleview) | [**水波纹效果RippView**](https://www.jianshu.com/p/e573110c38d4)|
 | 16 | [**CustomToast**](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils) | |
-| 16 | [**VerticalColumnarGraphView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) | [**自定义优美的柱形图控件**](https://www.jianshu.com/p/c4b08cf5ce48) |
-| 17 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | [**记一次App从后台切换到前台显示全屏广告实践**](https://www.jianshu.com/p/b6b0f3c4efb1) |
-| 18 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
-| 19 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
-| 20 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
-| 21 | [**ABaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/ABaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
+| 17 | [**AntiShakeUtils**](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils) | [**这才是实现防抖动(防快速点击)的最优雅写法**](https://www.jianshu.com/p/06c5b35b4e51) |
+| 18 | [**VerticalColumnarGraphView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) | [**自定义优美的柱形图控件**](https://www.jianshu.com/p/c4b08cf5ce48) |
+| 19 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | [**记一次App从后台切换到前台显示全屏广告实践**](https://www.jianshu.com/p/b6b0f3c4efb1) |
+| 20 | [**PermissionChecker**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/permission/PermissionChecker.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
+| 21 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
+| 22 | [**BasePhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/photo/BasePhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
+| 23 | [**BaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/basemvp/BaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
 
 ### Usage examples：
 
