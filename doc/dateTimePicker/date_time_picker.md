@@ -34,7 +34,9 @@
 | bodyBackgroundColor | setBodyBackgroundColor(@ColorInt int bodyBackgroundColor) | 日期时间部分背景颜色 |
 | segmentingLineColor | setSegmentingLineColor(@ColorInt int segmentingLineColor) | 标题部分与日期时间部分分割线颜色 |
 | segmentingLineHeight | setSegmentingLineHeight(@IntRange(from = 1) int segmentingLineHeight) | 标题部分与日期时间部分分割线高度 |
-| showTime | setShowTime(boolean showTime) | 是否显示“时”和“分”，默认显示 |
+| showType | setShowType(ShowType showType) | 显示级别 |
+| keepLastSelected | setKeepLastSelected(boolean keepLastSelected) | 是否保留上一次的选择 |
+| showYMDHMLabel | setShowYMDHMLabel(boolean showYMDHMLabel) | 是否显示"年"，"月"，"日"，"时"，"分" |
 | loopScroll | setLoopScroll(boolean loopScroll) | 是否循环滚动，默认否 |
 
 ## Usage
@@ -55,18 +57,21 @@
         Date endDate = calendar.getTime();
         
         //方式一：构建自己的builder
-        DateTimePicker.Builder builder = new DateTimePicker.Builder(this)
-                .setCancelTextColor(Color.RED)
-                .setOkTextColor(getResources().getColor(R.color.colorPrimary))
-                .setTitleTextColor(0xFF999999)
-                .setSelectedTextColor(getResources().getColor(R.color.colorAccent))
-                .setShowTime(false);
+        DateTimePicker.Builder TBuilder = new DateTimePicker.Builder(this)
+                        .setTitle("选择年月日")
+                        .setCancelTextColor(Color.RED)
+                        .setOkTextColor(getResources().getColor(R.color.colorPrimary))
+                        .setTitleTextColor(0xFF999999)
+                        .setSelectedTextColor(getResources().getColor(R.color.colorAccent))
+                        .setKeepLastSelected(true)
+                        .setShowYMDHMLabel(true)
+                        .setShowType(DateTimePicker.ShowType.DAY);
         DateTimePicker dateTimePicker1 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
             public void handle(Date date) {
                
             }
-        }, startDate, endDate, builder);
+        }, startDate, endDate, TBuilder);
 
         //方式二：使用默认的builder
         DateTimePicker dateTimePicker2 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {

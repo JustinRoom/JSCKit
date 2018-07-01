@@ -2,14 +2,13 @@ package jsc.exam.jsckit.ui.zxing;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.zxing.zxing.ui.ZXingFragment;
 
-public class ZXingScannerActivity extends ABaseActivity {
+public class ZXingScannerActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

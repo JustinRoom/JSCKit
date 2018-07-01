@@ -69,13 +69,13 @@
     }
     
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent items) {
+        super.onActivityResult(requestCode, resultCode, items);
         if (resultCode != RESULT_OK)
             return;
 
         if (requestCode == 0x666) {
-            String result = data.getStringExtra("result");
+            String result = items.getStringExtra("result");
             tvScanResult.setText("扫描结果：\n" + result);
         }
     }

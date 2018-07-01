@@ -87,7 +87,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
     /**
      * 打开指定摄像头开始预览，但是并未开始识别
      *
-     * @param cameraFacing
+     * @param cameraFacing camera facing
      */
     public void startCamera(int cameraFacing) {
         if (mCamera != null) {

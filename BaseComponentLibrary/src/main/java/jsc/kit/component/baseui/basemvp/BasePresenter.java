@@ -1,4 +1,4 @@
-package jsc.kit.component.baseui;
+package jsc.kit.component.baseui.basemvp;
 
 import android.support.annotation.NonNull;
 

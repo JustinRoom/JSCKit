@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Random;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.turntable.GiftEntity;
 import jsc.kit.component.turntable.TurntableView;
 
-public class TurntableViewActivity extends ABaseActivity {
+public class TurntableViewActivity extends BaseActivity {
 
     private TurntableView turntableView;
 

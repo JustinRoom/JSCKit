@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.archeaderview.BaseArcHeaderView;
 import jsc.kit.component.archeaderview.LGradientArcHeaderView;
 import jsc.kit.component.archeaderview.PictureArcHeaderView;
 
-public class ArcHeaderViewActivity extends ABaseActivity {
+public class ArcHeaderViewActivity extends BaseActivity {
 
     LGradientArcHeaderView lGradientArcHeaderView;
     PictureArcHeaderView pictureArcHeaderView;

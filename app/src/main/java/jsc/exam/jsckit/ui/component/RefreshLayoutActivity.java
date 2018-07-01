@@ -16,10 +16,11 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.refreshlayout.RefreshLayout;
+import jsc.kit.component.utils.WindowUtils;
 
-public class RefreshLayoutActivity extends ABaseActivity {
+public class RefreshLayoutActivity extends BaseActivity {
 
     RefreshLayout refreshLayout;
     int lastPullState = 0;
@@ -41,7 +42,7 @@ public class RefreshLayoutActivity extends ABaseActivity {
         int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         FrameLayout customView = new FrameLayout(this);
         customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getActionBarSize());
+        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(customView, barParams);
         //

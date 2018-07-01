@@ -1,4 +1,4 @@
-package jsc.kit.component.entity;
+package jsc.kit.component.baseui.download;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

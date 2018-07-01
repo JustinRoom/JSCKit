@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.radarview.RadarEntity;
 import jsc.kit.component.radarview.RadarView;
 
-public class RadarViewActivity extends ABaseActivity {
+public class RadarViewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

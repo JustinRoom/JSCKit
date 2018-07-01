@@ -41,10 +41,7 @@ public class ConnectivityHelper {
 		if (info == null || !info.isConnected()) {
 			return false;
 		}
-		if (info.isAvailable()) {
-			return true;
-		}
-		return info.isRoaming();
+		return info.isAvailable() || info.isRoaming();
 	}
 
 	/**

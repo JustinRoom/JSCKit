@@ -37,22 +37,23 @@ import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.mvp.activity.TestActivity;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
-import jsc.kit.component.entity.DownloadEntity;
-import jsc.kit.component.entity.TransitionEnum;
+import jsc.kit.component.baseui.transition.TransitionProvider;
+import jsc.kit.component.baseui.download.DownloadEntity;
+import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
-import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.retrofit2.LoadingDialogObserver;
 import jsc.kit.retrofit2.retrofit.CustomHttpClient;
 import jsc.kit.retrofit2.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends ABaseActivity {
+public class MainActivity extends BaseActivity {
 
     private BroadcastReceiver downloadReceiver;
 
     @Override
     public Transition createExitTransition() {
-        return createFade(300L);
+        return TransitionProvider.createFade(300L);
     }
 
     @Override
@@ -78,13 +79,20 @@ public class MainActivity extends ABaseActivity {
         });
         adapter.setItems(getClassItems());
 
-        sendUIEmptyMessageDelay(0, 350L);
+        handlerProvider.sendUIEmptyMessageDelay(0, 350L);
     }
 
     @Override
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
-        loadVersionInfo();
+        switch (msg.what){
+            case 0:
+                loadVersionInfo();
+                break;
+            case 1:
+
+                break;
+        }
     }
 
     private List<ClassItem> getClassItems() {
@@ -99,6 +107,7 @@ public class MainActivity extends ABaseActivity {
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
         classItems.add(new ClassItem("SharedTransition", SharedTransitionActivity.class));
         classItems.add(new ClassItem("Test(MVP)", TestActivity.class));
+        classItems.add(new ClassItem("BaseView", BaseViewShowActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
@@ -186,7 +195,7 @@ public class MainActivity extends ABaseActivity {
     }
 
     private void checkPermissionBeforeDownloadApk(final String versionName) {
-        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
+        permissionChecker.checkPermissions(this,0, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted) {
@@ -195,20 +204,14 @@ public class MainActivity extends ABaseActivity {
                 }
 
                 if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
-                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    String message = "当前应用需要以下权限:\n\n" + PermissionChecker.getAllPermissionDes(getBaseContext(), shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
-            }
-
-            @Override
-            public void onFinally(int requestCode) {
-                recyclePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void downloadApk(String versionName) {
-        registerDownloadCompleteReceiver();
         DownloadEntity entity = new DownloadEntity();
         entity.setUrl("https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk");
         entity.setDestinationDirectory(new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS));
@@ -216,41 +219,18 @@ public class MainActivity extends ABaseActivity {
         entity.setTitle("JSCKitDemo" + versionName + ".apk");
         entity.setDesc("JSCKit Library");
         entity.setMimeType("application/vnd.android.package-archive");
-        downloadFile(entity);
-    }
-
-    /**
-     * 注册下载完成监听
-     */
-    private void registerDownloadCompleteReceiver() {
-        if (downloadReceiver == null)
-            downloadReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
-                        unRegisterDownloadCompleteReceiver();
-                        long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                        findDownloadFileUri(downloadId);
-                    }
-                }
-            };
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        registerReceiver(downloadReceiver, intentFilter);
-    }
-
-    /**
-     * 注销下载完成监听
-     */
-    private void unRegisterDownloadCompleteReceiver() {
-        if (downloadReceiver != null) {
-            unregisterReceiver(downloadReceiver);
-            downloadReceiver = null;
-        }
+        fileDownloader.registerDownloadCompleteReceiver();
+        fileDownloader.downloadFile(entity);
     }
 
     @Override
-    protected void onDownloadCompleted(Uri uri) {
+    public void onDownloadProgress(int downloadedBytes, int totalBytes, int downStatus) {
+
+    }
+
+    @Override
+    public void onDownloadCompleted(Uri uri) {
+        fileDownloader.unRegisterDownloadCompleteReceiver();
         if (uri == null)
             return;
 
@@ -272,7 +252,7 @@ public class MainActivity extends ABaseActivity {
         if (lastClickTime > 0 && (curTime - lastClickTime < 3_000)) {
             super.onBackPressed();
         } else {
-            showCustomToast("再次点击返回按钮退出应用");
+            showToast("再次点击返回按钮退出应用");
             lastClickTime = curTime;
         }
     }

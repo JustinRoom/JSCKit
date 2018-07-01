@@ -51,11 +51,12 @@ allprojects {
 | 14 | [**SwipeRefreshRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview) | [**用SwipeRefreshLayout+RecyclerView精心打造下拉刷新控件**](https://www.jianshu.com/p/f1da8cd366cb)|
 | 15 | [**RippleView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/rippleview) | [**水波纹效果RippView**](https://www.jianshu.com/p/e573110c38d4)|
 | 16 | [**CustomToast**](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils) | |
-| 16 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | [**记一次App从后台切换到前台显示全屏广告实践**](https://www.jianshu.com/p/b6b0f3c4efb1) |
-| 17 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
-| 18 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
-| 19 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
-| 20 | [**ABaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/ABaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
+| 16 | [**VerticalColumnarGraphView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) | |
+| 17 | [**AdvertisementView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/advertisement/AdvertisementView.java) | [**记一次App从后台切换到前台显示全屏广告实践**](https://www.jianshu.com/p/b6b0f3c4efb1) |
+| 18 | [**BaseAppCompatActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseAppCompatActivity.java) |  |
+| 19 | [**APermissionCheckActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APermissionCheckActivity.java) | [**简洁易用andrioid6.0+权限请求组件**](https://www.jianshu.com/p/47052d575f5b)|
+| 20 | [**APhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/APhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
+| 21 | [**ABaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/ABaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
 
 ### Usage examples：
 

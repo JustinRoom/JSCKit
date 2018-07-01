@@ -1,4 +1,4 @@
-package jsc.kit.component.entity;
+package jsc.kit.component.baseui.transition;
 
 import android.support.annotation.Nullable;
 

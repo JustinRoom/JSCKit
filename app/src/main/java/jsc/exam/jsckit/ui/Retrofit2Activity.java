@@ -21,7 +21,7 @@ import jsc.kit.retrofit2.retrofit.CustomRetrofit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
-public class Retrofit2Activity extends ABaseActivity {
+public class Retrofit2Activity extends BaseActivity {
 
     final String token = "751sadlsuonERASDFn8asFDSajn";
     TextView textView;
@@ -42,7 +42,7 @@ public class Retrofit2Activity extends ABaseActivity {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         layout.addView(textView, params);
-        sendUIEmptyMessageDelay(0, 400);
+        handlerProvider.sendUIEmptyMessageDelay(0, 400);
     }
 
     @Override

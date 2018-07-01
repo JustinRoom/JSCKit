@@ -3,9 +3,9 @@ package jsc.exam.jsckit;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 
-public class TemplateActivity extends ABaseActivity {
+public class TemplateActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

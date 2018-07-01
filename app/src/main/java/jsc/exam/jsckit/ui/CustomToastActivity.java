@@ -18,7 +18,7 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
-public class CustomToastActivity extends ABaseActivity {
+public class CustomToastActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Random;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.stepview.RouteViewPoint;
 import jsc.kit.component.stepview.VerticalStepView;
 
-public class VerticalStepViewActivity extends ABaseActivity {
+public class VerticalStepViewActivity extends BaseActivity {
 
     VerticalStepView verticalStepView;
 

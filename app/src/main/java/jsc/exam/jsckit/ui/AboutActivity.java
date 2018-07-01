@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
 import jsc.kit.zxing.zxing.QRCodeEncoder;
 
-public class AboutActivity extends ABaseActivity {
+public class AboutActivity extends BaseActivity {
 
     final String apkUrl = "https://raw.githubusercontent.com/JustinRoom/JSCKit/master/capture/JSCKitDemo.apk";
     TextView tvVersion;
@@ -36,7 +36,7 @@ public class AboutActivity extends ABaseActivity {
         tvVersion = findViewById(R.id.tv_version);
         ivQRCode = findViewById(R.id.iv_qr_code);
         showVersion();
-        sendUIEmptyMessageDelay(0, 350);
+        handlerProvider.sendUIEmptyMessageDelay(0, 350);
 
     }
 

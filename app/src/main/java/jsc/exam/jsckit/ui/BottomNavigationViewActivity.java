@@ -22,7 +22,7 @@ import jsc.exam.jsckit.ui.fragment.DefaultFragment;
 import jsc.kit.component.widget.DotView;
 import jsc.kit.component.widget.NoScrollViewPager;
 
-public class BottomNavigationViewActivity extends ABaseActivity {
+public class BottomNavigationViewActivity extends BaseActivity {
 
     int[] MENU_ID = {R.id.menu_home, R.id.menu_circumference, R.id.menu_navigation, R.id.menu_me};
     NoScrollViewPager noScrollViewPager;

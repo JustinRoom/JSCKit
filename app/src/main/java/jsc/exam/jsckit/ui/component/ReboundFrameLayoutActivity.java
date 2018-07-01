@@ -12,16 +12,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.reboundlayout.ReboundFrameLayout;
+import jsc.kit.component.utils.WindowUtils;
 
-public class ReboundFrameLayoutActivity extends ABaseActivity implements View.OnClickListener {
+public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnClickListener {
 
     ActionMenuView actionMenuView;
     ReboundFrameLayout reboundFrameLayout;
@@ -91,7 +93,7 @@ public class ReboundFrameLayoutActivity extends ABaseActivity implements View.On
         int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         FrameLayout customView = new FrameLayout(this);
         customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getActionBarSize());
+        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(customView, barParams);
         //

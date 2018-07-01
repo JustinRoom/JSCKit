@@ -26,12 +26,12 @@ import java.util.Random;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
 
-public class SwipeRecyclerViewActivity extends ABaseActivity {
+public class SwipeRecyclerViewActivity extends BaseActivity {
 
     SwipeRefreshRecyclerView swipeRefreshRecyclerView;
     LinearAdapter adapter;

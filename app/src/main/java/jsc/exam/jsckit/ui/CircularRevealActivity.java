@@ -23,8 +23,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import jsc.exam.jsckit.R;
+import jsc.kit.component.utils.WindowUtils;
 
-public class CircularRevealActivity extends ABaseActivity {
+public class CircularRevealActivity extends BaseActivity {
 
     ImageView imageView;
 
@@ -38,7 +39,7 @@ public class CircularRevealActivity extends ABaseActivity {
         imageView.setScaleType(ImageView.ScaleType.CENTER);
         setContentView(imageView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         initSharedElement();
-        sendUIEmptyMessageDelay(0, 0);
+        handlerProvider.sendUIEmptyMessageDelay(0, 0);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class CircularRevealActivity extends ABaseActivity {
         int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         FrameLayout customView = new FrameLayout(this);
         customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getActionBarSize());
+        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(customView, barParams);
         //

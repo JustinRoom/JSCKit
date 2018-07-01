@@ -66,13 +66,13 @@
         RadarView radarView1 = findViewById(R.id.radar_view1);
         RadarView radarView2 = findViewById(R.id.radar_view2);
         String[] labels = new String[]{"中单", "射手", "辅助", "打野", "上单"};
-        float[] data = new float[]{0.6f, 0.95f, 0.45f, 0.9f, 0.7f};
+        float[] items = new float[]{0.6f, 0.95f, 0.45f, 0.9f, 0.7f};
         int[] align = new int[]{RadarEntity.ALIGN_RIGHT, RadarEntity.ALIGN_BOTTOM, RadarEntity.ALIGN_BOTTOM, RadarEntity.ALIGN_LEFT, RadarEntity.ALIGN_TOP};
         List<RadarEntity> entities = new ArrayList<>();
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < items.length; i++) {
             RadarEntity entity = new RadarEntity();
             entity.setLabel(labels[i]);
-            entity.setValue(data[i]);
+            entity.setValue(items[i]);
             entity.setLabelAlignType(align[i]);
             entities.add(entity);
         }

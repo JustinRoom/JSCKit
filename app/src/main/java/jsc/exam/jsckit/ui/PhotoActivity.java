@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.transition.Transition;
@@ -17,10 +16,11 @@ import android.widget.ImageView;
 import java.io.File;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.component.baseui.APhotoActivity;
+import jsc.kit.component.baseui.photo.BasePhotoActivity;
+import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.entity.CropConfig;
 
-public class PhotoActivity extends APhotoActivity {
+public class PhotoActivity extends BasePhotoActivity {
 
     final String TAG = getClass().getSimpleName();
     ImageView ivPhoto;
@@ -36,42 +36,12 @@ public class PhotoActivity extends APhotoActivity {
     }
 
     @Override
-    public void handleUIMessage(Message msg) {
-
-    }
-
-    @Override
-    public void handleWorkMessage(Message msg) {
-
-    }
-
-    @Override
     public Transition createEnterTransition() {
-        return createTransition(getIntent().getStringExtra("transition"), 300L);
-    }
-
-    @Override
-    public Transition createExitTransition() {
-        return null;
-    }
-
-    @Override
-    public Transition createReturnTransition() {
-        return null;
-    }
-
-    @Override
-    public Transition createReenterTransition() {
-        return null;
-    }
-
-    @Override
-    public void initSharedElement() {
-
+        return TransitionProvider.createTransition(getIntent().getStringExtra("transition"), 300L);
     }
 
     public void widgetClick(View view) {
-        if (!checkPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA))
+        if (!permissionChecker.checkPermissions(this, 0, null, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA))
             return;
 
         switch (view.getId()) {

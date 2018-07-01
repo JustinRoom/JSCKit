@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.BuildConfig;
@@ -16,7 +18,8 @@ import jsc.exam.jsckit.ui.mvp.model.TestModel;
 import jsc.exam.jsckit.ui.mvp.presenter.TestPresenter;
 import jsc.exam.jsckit.ui.mvp.view.CommonView;
 import jsc.exam.jsckit.ui.mvp.view.ITestView;
-import jsc.kit.component.baseui.ABaseMVPActivity;
+import jsc.kit.component.baseui.basemvp.BaseMVPActivity;
+import jsc.kit.component.utils.AntiShakeUtils;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -26,7 +29,7 @@ import jsc.kit.component.baseui.ABaseMVPActivity;
  * @author jiangshicheng
  * @createTime 2018-06-06 1:45 PM Wednesday
  */
-public class TestActivity extends ABaseMVPActivity implements ITestView, CommonView {
+public class TestActivity extends BaseMVPActivity implements ITestView, CommonView {
 
     private TextView textView;
     private TestPresenter testPresenter;
@@ -34,9 +37,28 @@ public class TestActivity extends ABaseMVPActivity implements ITestView, CommonV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL);
+
         textView = new TextView(this);
-        textView.setGravity(Gravity.CENTER);
-        setContentView(textView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        layout.addView(textView);
+
+        Button button = new Button(this);
+        button.setText("AntiShake");
+        layout.addView(button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AntiShakeUtils.isInvalidClick(v, 1500)) {
+                    showToast("InvalidClick");
+                    return;
+                }
+                showToast("AntiShake");
+            }
+        });
+
+        setContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setTitle(getClass().getSimpleName().replace("Activity", ""));
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +70,7 @@ public class TestActivity extends ABaseMVPActivity implements ITestView, CommonV
         testPresenter = new TestPresenter(this, new TestModel());
         testPresenter.setCommonView(this);
         addToPresenterManager(testPresenter);
-        sendUIEmptyMessageDelay(0, 350L);
+        handlerProvider.sendUIEmptyMessageDelay(0, 350L);
     }
 
     @Override
@@ -84,7 +106,7 @@ public class TestActivity extends ABaseMVPActivity implements ITestView, CommonV
 
     @Override
     public void onLoadVersionInfo(String result) {
-        if (!TextUtils.isEmpty(result)){
+        if (!TextUtils.isEmpty(result)) {
             textView.setText(result);
         } else {
             textView.setText("");

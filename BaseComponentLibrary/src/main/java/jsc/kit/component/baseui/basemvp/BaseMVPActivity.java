@@ -1,11 +1,13 @@
-package jsc.kit.component.baseui;
+package jsc.kit.component.baseui.basemvp;
 
+import android.net.Uri;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.transition.Transition;
 
 import java.util.ArrayList;
 import java.util.List;
+import jsc.kit.component.baseui.BaseAppCompatActivity;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -15,7 +17,7 @@ import java.util.List;
  * create time: 2018-06-06 9:33 AM Wednesday
  * @author jiangshicheng
  */
-public abstract class ABaseMVPActivity extends APermissionCheckActivity {
+public abstract class BaseMVPActivity extends BaseAppCompatActivity {
     private List<BasePresenter> presenterManager = null;
 
     /**
@@ -83,6 +85,16 @@ public abstract class ABaseMVPActivity extends APermissionCheckActivity {
 
     @Override
     public void initSharedElement() {
+
+    }
+
+    @Override
+    public void onDownloadProgress(int downloadedBytes, int totalBytes, int downStatus) {
+
+    }
+
+    @Override
+    public void onDownloadCompleted(Uri uri) {
 
     }
 

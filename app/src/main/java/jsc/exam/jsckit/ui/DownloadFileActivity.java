@@ -18,24 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.component.entity.DownloadEntity;
-import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.component.baseui.download.DownloadEntity;
+import jsc.kit.component.baseui.permission.PermissionChecker;
 
-public class DownloadFileActivity extends ABaseActivity {
+public class DownloadFileActivity extends BaseActivity {
 
     private int index;
     private List<Long> downloadIds = new ArrayList<>();
-    private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())){
-                long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                findDownloadFileUri(downloadId);
-            } else if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(intent.getAction())){
-                startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-            }
-        }
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +34,7 @@ public class DownloadFileActivity extends ABaseActivity {
     }
 
     private void checkPermissionBeforeDownloadApk(){
-        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
+        permissionChecker.checkPermissions(this, 0, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted){
@@ -56,14 +45,9 @@ public class DownloadFileActivity extends ABaseActivity {
                 }
 
                 if (shouldShowPermissions != null && shouldShowPermissions.size() > 0){
-                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    String message = "当前应用需要以下权限:\n\n" + PermissionChecker.getAllPermissionDes(getBaseContext(), shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
-            }
-
-            @Override
-            public void onFinally(int requestCode) {
-                recyclePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
@@ -76,7 +60,7 @@ public class DownloadFileActivity extends ABaseActivity {
         entity.setTitle("JSCKitDemo"+ index + ".apk");
         entity.setDesc("test");
         entity.setMimeType("application/vnd.android.package-archive");
-        return downloadFile(entity);
+        return fileDownloader.downloadFile(entity);
     }
 
     public void widgetClick(View view){
@@ -87,15 +71,8 @@ public class DownloadFileActivity extends ABaseActivity {
         }
     }
 
-    private void registerDownloadCompleteReceiver(){
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        intentFilter.addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED);
-        registerReceiver(downloadReceiver, intentFilter);
-    }
-
     @Override
-    protected void onDownloadCompleted(Uri uri) {
+    public void onDownloadCompleted(Uri uri) {
         if (uri != null){
             showCustomToast(uri.toString());
         }
@@ -104,12 +81,12 @@ public class DownloadFileActivity extends ABaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerDownloadCompleteReceiver();
+        fileDownloader.registerDownloadCompleteReceiver();
     }
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(downloadReceiver);
+        fileDownloader.unRegisterDownloadCompleteReceiver();
         super.onDestroy();
     }
 }

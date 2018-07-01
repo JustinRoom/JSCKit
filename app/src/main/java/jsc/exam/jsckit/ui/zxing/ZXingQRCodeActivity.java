@@ -24,12 +24,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
-import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.zxing.zxing.QRCodeEncoder;
 import jsc.kit.zxing.zxing.ui.ZXingFragment;
 
-public class ZXingQRCodeActivity extends ABaseActivity {
+public class ZXingQRCodeActivity extends BaseActivity {
 
     final String apkUrl = "https://github.com/JustinRoom/JSCKit/blob/master/capture/JSCKitDemo.apk?raw=true";
     ImageView ivQRCode;
@@ -43,7 +43,7 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
         ivQRCode = findViewById(R.id.iv_qr_code);
         tvScanResult = findViewById(R.id.tv_scan_result);
-        sendUIEmptyMessageDelay(0, 350);
+        handlerProvider.sendUIEmptyMessageDelay(0, 350);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ZXingQRCodeActivity extends ABaseActivity {
 
     public void widgetClick(View v) {
         //打开相机权限
-        checkPermissions(0x100, new CustomPermissionChecker.OnCheckListener() {
+        permissionChecker.checkPermissions(this,0x100, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted) {
@@ -89,14 +89,9 @@ public class ZXingQRCodeActivity extends ABaseActivity {
                 }
 
                 if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
-                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    String message = "当前应用需要以下权限:\n\n" + PermissionChecker.getAllPermissionDes(getBaseContext(), shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
-            }
-
-            @Override
-            public void onFinally(int requestCode) {
-                recyclePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }

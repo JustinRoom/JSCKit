@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.vscrollscreen.VScrollScreenLayout;
 
-public class VScrollScreenLayoutActivity extends ABaseActivity {
+public class VScrollScreenLayoutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

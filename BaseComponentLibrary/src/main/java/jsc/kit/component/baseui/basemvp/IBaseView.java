@@ -1,4 +1,4 @@
-package jsc.kit.component.baseui;
+package jsc.kit.component.baseui.basemvp;
 
 /**
  * <br>Email:1006368252@qq.com

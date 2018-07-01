@@ -1,7 +1,9 @@
-package jsc.kit.component.utils;
+package jsc.kit.component.baseui.permission;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,32 +20,43 @@ import java.util.List;
  * <br>https://github.com/JustinRoom/JSCKit
  *
  * @author jiangshicheng
- * @see android.support.v4.content.PermissionChecker
  */
-public final class CustomPermissionChecker {
+public final class PermissionChecker {
 
     private Activity activity;
-    private OnCheckListener onCheckListener;
+    private OnPermissionCheckListener onPermissionCheckListener;
     private List<String> permissions;
 
-    public CustomPermissionChecker() {
+    public PermissionChecker() {
+
+    }
+
+    /**
+     * check permissions with default request code 0
+     *
+     * @param activity activity
+     * @param permissions permissions
+     * @param onPermissionCheckListener check listener
+     * @return is all permissions granted.
+     */
+    public boolean checkPermissions(Activity activity, OnPermissionCheckListener onPermissionCheckListener, String... permissions) {
+        return checkPermissions(activity, 0, onPermissionCheckListener, permissions);
     }
 
     /**
      *
-     *
      * @param activity activity
      * @param requestCode requestCode
      * @param permissions permissions
-     * @param onCheckListener check listener
+     * @param onPermissionCheckListener check listener
      * @return is all permissions granted.
      */
-    public boolean checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, OnCheckListener onCheckListener, String... permissions) {
+    public boolean checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, OnPermissionCheckListener onPermissionCheckListener, String... permissions) {
         if (permissions == null || permissions.length == 0)
             throw new NullPointerException("The parameter permissions can't be null.");
 
         this.activity = activity;
-        this.onCheckListener = onCheckListener;
+        this.onPermissionCheckListener = onPermissionCheckListener;
         this.permissions = Arrays.asList(permissions);
         boolean isAllGranted = true;
         List<String> unGrantedPermissions = new ArrayList<>();
@@ -56,8 +69,8 @@ public final class CustomPermissionChecker {
 
         //所请求的permissions都已授权通过
         if (isAllGranted) {
-            if (onCheckListener != null)
-                onCheckListener.onResult(
+            if (onPermissionCheckListener != null)
+                onPermissionCheckListener.onResult(
                         requestCode,
                         true,
                         this.permissions,
@@ -80,7 +93,7 @@ public final class CustomPermissionChecker {
      * @param grantResults grant result
      */
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (onCheckListener == null)
+        if (onPermissionCheckListener == null)
             return;
 
         List<String> deniedPermissions = new ArrayList<>();
@@ -97,27 +110,39 @@ public final class CustomPermissionChecker {
 
         //移除掉已拒绝的之后就是授权通过的
         this.permissions.removeAll(deniedPermissions);
-        onCheckListener.onResult(
+        onPermissionCheckListener.onResult(
                 requestCode,
                 deniedPermissions.size() == 0,
                 this.permissions,
                 deniedPermissions,
                 shouldShowPermissions
         );
-        //处理收尾工作
-        onCheckListener.onFinally(requestCode);
     }
 
-    /**
-     * Remove check listener:
-     * <br>{@link #onCheckListener} {@code = null;}
-     */
-    public void removeCheckListener() {
-        onCheckListener = null;
+    public static String getAllPermissionDes(@NonNull Context context, List<String> permissions) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0, len = permissions.size(); i < len; i++) {
+            builder.append(i + 1);
+            builder.append("、");
+            builder.append(getPermissionDes(context, permissions.get(i)));
+            if (i < len - 1)
+                builder.append("\n");
+        }
+        return builder.toString();
     }
 
-    public interface OnCheckListener {
+    public static CharSequence getPermissionDes(@NonNull Context context,String permission) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PermissionInfo info = packageManager.getPermissionInfo(permission, PackageManager.GET_META_DATA);
+            return "【" + info.loadLabel(packageManager) + "】" + info.loadDescription(packageManager);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
+    public interface OnPermissionCheckListener {
         /**
          *
          * @param requestCode requestCode
@@ -132,10 +157,5 @@ public final class CustomPermissionChecker {
                       @Nullable List<String> deniedPermissions,
                       @Nullable List<String> shouldShowPermissions);
 
-        /**
-         * 在此方法中做一些收尾工作。例如释放资源。
-         * @param requestCode requestCode
-         */
-        void onFinally(int requestCode);
     }
 }

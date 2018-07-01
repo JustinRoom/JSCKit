@@ -14,10 +14,11 @@ import java.util.Locale;
 import jsc.exam.jsckit.R;
 import jsc.kit.datetimepicker.widget.DateTimePicker;
 
-public class DateTimePickerActivity extends ABaseActivity {
+public class DateTimePickerActivity extends BaseActivity {
 
     private TextView currentDate, currentTime;
-    private DateTimePicker dateTimePicker1, dateTimePicker2;
+    private DateTimePicker dateTimePicker1;
+    private DateTimePicker dateTimePicker2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class DateTimePickerActivity extends ABaseActivity {
         format1 = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         format2 = new SimpleDateFormat("yyyy-MM-dd  HH:mm", Locale.CHINA);
         Calendar calendar = Calendar.getInstance();
+        Date endDate = calendar.getTime();
         date2 = date1 = calendar.getTime();
         currentDate.setText(format1.format(date1));
         currentTime.setText(format2.format(date1));
@@ -61,20 +63,17 @@ public class DateTimePickerActivity extends ABaseActivity {
         calendar.set(Calendar.MINUTE, 0);
         Date startDate = calendar.getTime();
 
-        calendar.set(Calendar.YEAR, 2030);
-        calendar.set(Calendar.MONTH, 0);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        Date endDate = calendar.getTime();
 
 
         DateTimePicker.Builder builder = new DateTimePicker.Builder(this)
+                .setTitle("选择年月日")
                 .setCancelTextColor(Color.RED)
                 .setOkTextColor(getResources().getColor(R.color.colorPrimary))
                 .setTitleTextColor(0xFF999999)
                 .setSelectedTextColor(getResources().getColor(R.color.colorAccent))
-                .setShowTime(false);
+                .setKeepLastSelected(true)
+                .setShowYMDHMLabel(true)
+                .setShowType(DateTimePicker.ShowType.DAY);
         dateTimePicker1 = new DateTimePicker(this, new DateTimePicker.ResultHandler() {
             @Override
             public void handle(Date date) {

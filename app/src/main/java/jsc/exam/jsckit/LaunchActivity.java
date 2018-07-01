@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.exam.jsckit.ui.MainActivity;
-import jsc.kit.component.entity.DownloadEntity;
-import jsc.kit.component.utils.CustomPermissionChecker;
+import jsc.kit.component.baseui.download.DownloadEntity;
+import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
-public class LaunchActivity extends ABaseActivity {
+public class LaunchActivity extends BaseActivity {
 
     AppCompatImageView imageView;
     String url = "https://raw.githubusercontent.com/JustinRoom/JSCKit/master/app/src/main/assets/img/6.jpg";
@@ -87,12 +87,12 @@ public class LaunchActivity extends ABaseActivity {
             entity.setTitle("Download advertisement picture");
             entity.setDesc("");
             entity.setMimeType("image/jpeg");
-            downloadFile(entity);
+            fileDownloader.downloadFile(entity);
         }
     }
 
     private void checkPermissionBeforeDownloadPicture() {
-        checkPermissions(0, new CustomPermissionChecker.OnCheckListener() {
+        permissionChecker.checkPermissions(this, 0, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted) {
@@ -102,14 +102,9 @@ public class LaunchActivity extends ABaseActivity {
                 }
 
                 if (shouldShowPermissions != null && shouldShowPermissions.size() > 0) {
-                    String message = "当前应用需要以下权限:\n\n" + getAllPermissionDes(shouldShowPermissions);
+                    String message = "当前应用需要以下权限:\n\n" + PermissionChecker.getAllPermissionDes(getBaseContext(), shouldShowPermissions);
                     showPermissionRationaleDialog("温馨提示", message, "设置", "知道了");
                 }
-            }
-
-            @Override
-            public void onFinally(int requestCode) {
-                recyclePermissionChecker();
             }
         }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }

@@ -52,6 +52,8 @@
         <activity android:name=".ui.CircularRevealActivity" />
         <activity android:name=".ui.SharedTransitionActivity" />
         <activity android:name=".ui.mvp.activity.TestActivity" />
+        <activity android:name=".ui.BaseViewShowActivity" />
+        <activity android:name=".ui.component.VerticalColumnarGraphViewActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

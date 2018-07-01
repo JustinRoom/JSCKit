@@ -18,15 +18,16 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import jsc.kit.component.entity.TransitionEnum;
+import jsc.kit.component.baseui.transition.TransitionEnum;
+import jsc.kit.component.baseui.transition.TransitionProvider;
 
-public class SharedTransitionActivity extends ABaseActivity {
+public class SharedTransitionActivity extends BaseActivity {
 
     ImageView imageView;
 
     @Override
     public Transition createExitTransition() {
-        return createFade(300L);
+        return TransitionProvider.createFade(300L);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class SharedTransitionActivity extends ABaseActivity {
             }
         });
         initSharedElement();
-        sendUIEmptyMessageDelay(0, 350);
+        handlerProvider.sendUIEmptyMessageDelay(0, 350);
     }
 
     private void toCircularReveal() {

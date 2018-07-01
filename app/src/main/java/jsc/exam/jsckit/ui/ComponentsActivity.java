@@ -32,21 +32,23 @@ import jsc.exam.jsckit.ui.component.RippleViewActivity;
 import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.TurntableViewActivity;
 import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
+import jsc.exam.jsckit.ui.component.VerticalColumnarGraphViewActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
-import jsc.kit.component.entity.TransitionEnum;
+import jsc.kit.component.baseui.transition.TransitionEnum;
+import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
-public class ComponentsActivity extends ABaseActivity {
+public class ComponentsActivity extends BaseActivity {
 
     @Override
     public Transition createExitTransition() {
-        return createFade(300L);
+        return TransitionProvider.createFade(300L);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Transition createReturnTransition() {
-        Slide slide = createSlide(300L);
+        Slide slide = TransitionProvider.createSlide(300L);
         slide.setSlideEdge(Gravity.START);
         return slide;
     }
@@ -54,7 +56,7 @@ public class ComponentsActivity extends ABaseActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Transition createReenterTransition() {
-        Slide slide = createSlide(300L);
+        Slide slide = TransitionProvider.createSlide(300L);
         slide.setSlideEdge(Gravity.BOTTOM);
         return slide;
     }
@@ -111,6 +113,7 @@ public class ComponentsActivity extends ABaseActivity {
         classItems.add(new ClassItem("TurntableView", TurntableViewActivity.class));
         classItems.add(new ClassItem("RippleView", RippleViewActivity.class));
         classItems.add(new ClassItem("AdvertisementView", AdvertisementViewActivity.class));
+        classItems.add(new ClassItem("VerticalColumnarGraphView", VerticalColumnarGraphViewActivity.class));
         return classItems;
     }
 }

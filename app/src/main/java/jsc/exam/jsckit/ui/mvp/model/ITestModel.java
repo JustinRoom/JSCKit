@@ -1,7 +1,7 @@
 package jsc.exam.jsckit.ui.mvp.model;
 
 import io.reactivex.Observable;
-import jsc.kit.component.baseui.IBaseModel;
+import jsc.kit.component.baseui.basemvp.IBaseModel;
 
 /**
  * <br>Email:1006368252@qq.com

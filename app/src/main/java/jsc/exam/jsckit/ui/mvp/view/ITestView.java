@@ -1,6 +1,6 @@
 package jsc.exam.jsckit.ui.mvp.view;
 
-import jsc.kit.component.baseui.IBaseView;
+import jsc.kit.component.baseui.basemvp.IBaseView;
 
 /**
  * <br>Email:1006368252@qq.com

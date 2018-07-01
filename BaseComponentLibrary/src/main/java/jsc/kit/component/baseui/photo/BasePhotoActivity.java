@@ -1,18 +1,22 @@
-package jsc.kit.component.baseui;
+package jsc.kit.component.baseui.photo;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.Transition;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import jsc.kit.component.baseui.BaseAppCompatActivity;
+import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.entity.CropConfig;
 import jsc.kit.component.utils.FileProviderCompat;
 import jsc.kit.component.utils.UriUtils;
@@ -27,7 +31,7 @@ import jsc.kit.component.utils.UriUtils;
  *
  * @author jiangshicheng
  */
-public abstract class APhotoActivity extends APermissionCheckActivity {
+public abstract class BasePhotoActivity extends BaseAppCompatActivity {
 
     public final static int REQUEST_CODE_PIC_PHOTO = 0x2000;
     public final static int REQUEST_CODE_TAKE_PHOTO = 0x2001;
@@ -246,5 +250,51 @@ public abstract class APhotoActivity extends APermissionCheckActivity {
      */
     public String getRealImagePathFromUri(Uri uri) {
         return UriUtils.getImagePathByUri(this, uri);
+    }
+
+
+    @Override
+    public void handleUIMessage(Message msg) {
+
+    }
+
+    @Override
+    public void handleWorkMessage(Message msg) {
+
+    }
+
+    @Override
+    public Transition createEnterTransition() {
+        return null;
+    }
+
+    @Override
+    public Transition createExitTransition() {
+        return null;
+    }
+
+    @Override
+    public Transition createReturnTransition() {
+        return null;
+    }
+
+    @Override
+    public Transition createReenterTransition() {
+        return null;
+    }
+
+    @Override
+    public void initSharedElement() {
+
+    }
+
+    @Override
+    public void onDownloadProgress(int downloadedBytes, int totalBytes, int downStatus) {
+
+    }
+
+    @Override
+    public void onDownloadCompleted(Uri uri) {
+
     }
 }

@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.ui.ABaseActivity;
+import jsc.exam.jsckit.ui.BaseActivity;
 
-public class RippleViewActivity extends ABaseActivity {
+public class RippleViewActivity extends BaseActivity {
 
     final String TAG = getClass().getSimpleName();
 //    RippleView rippleView;
