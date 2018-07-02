@@ -16,14 +16,27 @@ import android.widget.TextView;
 
 import jsc.kit.component.R;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class AdvertisementView extends FrameLayout {
 
     private final static String DEFAULT_COUNT_DOWN_FORMATTER_LABEL = "%1$ds\u2000跳过";
-    /**the code of clicking advertisement image*/
+    /**
+     * the code of clicking advertisement image
+     */
     public final static int ACTION_CODE_PREVIEW = 0x00;
-    /**the code of clicking jump_button*/
+    /**
+     * the code of clicking jump_button
+     */
     public final static int ACTION_CODE_JUMP = 0x01;
-    /**the code of finishing count down timer*/
+    /**
+     * the code of finishing count down timer
+     */
     public final static int ACTION_CODE_FINISH = 0x02;
 
     private AppCompatImageView imageView;
@@ -88,6 +101,7 @@ public class AdvertisementView extends FrameLayout {
 
     /**
      * Because this is a formatter string, so it look like:"%1$d...".
+     *
      * @param countDownFormatterLabel the formatter string
      * @see java.util.Formatter
      */
@@ -104,9 +118,8 @@ public class AdvertisementView extends FrameLayout {
     }
 
     /**
-     *
-     * @param millisInFuture future time
-     * @param countDownInterval interval count down step
+     * @param millisInFuture            future time
+     * @param countDownInterval         interval count down step
      * @param onComponentActionListener action listener
      */
     public void init(long millisInFuture, long countDownInterval, OnComponentActionListener onComponentActionListener) {

@@ -36,11 +36,11 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         baseViewProvider.setBaseViewCreateDelegate(this);
         setContentView(baseViewProvider.provide());
 
-        if (baseViewProvider.getEmptyView() != null){
+        if (baseViewProvider.getEmptyView() != null) {
             baseViewProvider.getEmptyView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()){
+                    if (!baseViewProvider.isLoading()) {
                         baseViewProvider.showLoadingPage(null);
                         reload();
                     }
@@ -48,11 +48,11 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
             });
         }
 
-        if (baseViewProvider.getErrorView() != null){
+        if (baseViewProvider.getErrorView() != null) {
             baseViewProvider.getErrorView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()){
+                    if (!baseViewProvider.isLoading()) {
                         baseViewProvider.showLoadingPage(null);
                         reload();
                     }

@@ -5,12 +5,21 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class DownloadEntity {
 
     private String mimeType;
     private String url;
     private File destinationDirectory;
-    /**the path within the external directory, including the destination filename*/
+    /**
+     * the path within the external directory, including the destination filename
+     */
     private String subPath;
     private String title;
     private String desc;
@@ -39,6 +48,7 @@ public class DownloadEntity {
      * Set the local destination for the downloaded file. Must be a file URI to a path on
      * external storage, and the calling application must have the WRITE_EXTERNAL_STORAGE
      * permission.
+     *
      * @param destinationDirectory the directory to save downloaded file
      * @see android.app.DownloadManager.Request#setDestinationUri(Uri)
      */

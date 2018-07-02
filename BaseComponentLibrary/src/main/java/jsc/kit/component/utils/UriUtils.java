@@ -10,13 +10,20 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public final class UriUtils {
 
     /**
      * Get image path by uri.
      *
      * @param context context
-     * @param uri uri
+     * @param uri     uri
      * @return the path of image
      */
     public static String getImagePathByUri(@NonNull Context context, Uri uri) {
@@ -78,7 +85,7 @@ public final class UriUtils {
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
      *
-     * @param context context
+     * @param context       context
      * @param uri           The Uri to query.
      * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.
@@ -91,7 +98,7 @@ public final class UriUtils {
         String path = null;
         final String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
-        if (cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             int index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             path = cursor.getString(index);

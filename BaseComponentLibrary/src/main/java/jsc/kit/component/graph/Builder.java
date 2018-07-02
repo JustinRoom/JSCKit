@@ -8,6 +8,10 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
  * @author jiangshicheng
  */
 public class Builder {
@@ -125,6 +129,7 @@ public class Builder {
 
     /**
      * 设置XY轴刻度
+     *
      * @param xAxisLabels x axis labels
      * @param yAxisLabels y axis labels
      * @return builder
@@ -137,9 +142,10 @@ public class Builder {
 
     /**
      * 设置XY轴刻度字体大小
+     *
      * @param context context
-     * @param unit unit
-     * @param value value
+     * @param unit    unit
+     * @param value   value
      * @return builder
      * @see TypedValue#applyDimension(int, float, DisplayMetrics)
      */
@@ -151,11 +157,12 @@ public class Builder {
     /**
      * 设置柱形间隔以及柱形数目。
      * <br>柱形间隔和柱形数目决定了柱形的宽度。
-     * @param space space between two columns
+     *
+     * @param space  space between two columns
      * @param column column number
      * @return builder
      */
-    public Builder setSpaceColumn(@IntRange(from = 0) int space, @IntRange(from = 1) int column){
+    public Builder setSpaceColumn(@IntRange(from = 0) int space, @IntRange(from = 1) int column) {
         this.space = space;
         this.column = column;
         return this;
@@ -164,9 +171,10 @@ public class Builder {
     /**
      * 设置四个方向的偏移量。
      * <br>偏移量用来留出空间画刻度。
-     * @param leftOffset left offset
-     * @param topOffset top offset
-     * @param rightOffset right offset
+     *
+     * @param leftOffset   left offset
+     * @param topOffset    top offset
+     * @param rightOffset  right offset
      * @param bottomOffset bottom offset
      * @return builder
      */

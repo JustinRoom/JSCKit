@@ -16,9 +16,9 @@ import android.view.View;
 import jsc.kit.component.R;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -65,7 +65,7 @@ public class JSCRoundCornerProgressBar extends View {
         init();
     }
 
-    private void init(){
+    private void init() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
     }
@@ -100,7 +100,7 @@ public class JSCRoundCornerProgressBar extends View {
         postInvalidate();
     }
 
-    public void setRcColors(int rcBackgroundColor, int rcProgressColor, int rcSecondProgressColor){
+    public void setRcColors(int rcBackgroundColor, int rcProgressColor, int rcSecondProgressColor) {
         this.rcBackgroundColor = rcBackgroundColor;
         this.rcProgressColor = rcProgressColor;
         this.rcSecondProgressColor = rcSecondProgressColor;
@@ -135,9 +135,10 @@ public class JSCRoundCornerProgressBar extends View {
 
     /**
      * progress
+     *
      * @param canvas
      */
-    private void drawProgress(Canvas canvas, int progress, int progressColor){
+    private void drawProgress(Canvas canvas, int progress, int progressColor) {
         if (progress <= 0)
             return;
 
@@ -155,7 +156,7 @@ public class JSCRoundCornerProgressBar extends View {
 
     private void drawProgressbar(Canvas canvas, boolean clip, RectF rectF, Rect rect, Paint paint) {
         float radius = rectF.height() / 2.0f;
-        if (clip){
+        if (clip) {
             canvas.save(Canvas.ALL_SAVE_FLAG);
             canvas.clipRect(rect);
             canvas.drawRoundRect(rectF, radius, radius, paint);

@@ -17,7 +17,7 @@ import jsc.kit.component.R;
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -25,6 +25,7 @@ public class AspectRatioImageView extends AppCompatImageView {
     private int baseWhat;
     private int xAspect;
     private int yAspect;
+
     public AspectRatioImageView(@NonNull Context context) {
         this(context, null);
     }
@@ -53,7 +54,7 @@ public class AspectRatioImageView extends AppCompatImageView {
         setMeasuredDimension(getDefaultSize(0, widthMeasureSpec), getDefaultSize(0, heightMeasureSpec));
         int width;
         int height;
-        switch (baseWhat){
+        switch (baseWhat) {
             case 0://width
                 width = getMeasuredWidth();
                 height = width * yAspect / xAspect;

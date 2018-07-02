@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -108,7 +108,7 @@ public class MonthUtils {
      * 获取某一个月的天数
      *
      * @param date date
-     * @return  当月的天数
+     * @return 当月的天数
      */
     public static int getMonthDayCount(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -120,7 +120,7 @@ public class MonthUtils {
      * 获取某一个月的天数
      *
      * @param calendar 日历
-     * @return  当月天数
+     * @return 当月天数
      */
     public static int getMonthDayCount(Calendar calendar) {
         if (calendar == null)

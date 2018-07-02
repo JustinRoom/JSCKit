@@ -18,6 +18,10 @@ import java.io.IOException;
 import jsc.kit.component.utils.FileProviderCompat;
 
 /**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
  * @author jiangshicheng
  */
 public final class FileDownloader {
@@ -49,7 +53,7 @@ public final class FileDownloader {
                     if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
                         long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                         findDownloadFileUri(downloadId);
-                    } else if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(intent.getAction())){
+                    } else if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(intent.getAction())) {
                         context.startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
                     }
                 }

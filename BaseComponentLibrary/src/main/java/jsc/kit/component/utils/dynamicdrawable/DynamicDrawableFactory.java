@@ -10,10 +10,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -51,12 +50,11 @@ public class DynamicDrawableFactory {
     }
 
     /**
-     *
-     * @param disable the drawable on component's disable state. See {@link View#isEnabled()}.
-     * @param pressed   the drawable on component's pressed state. See {@link View#isPressed()}
-     * @param selected  the drawable on component's selected state. See {@link View#isSelected()}.
-     * @param focused   the drawable on component's focused state. See {@link View#isFocused()}.
-     * @param normal    the drawable on component's normal state.
+     * @param disable  the drawable on component's disable state. See {@link View#isEnabled()}.
+     * @param pressed  the drawable on component's pressed state. See {@link View#isPressed()}
+     * @param selected the drawable on component's selected state. See {@link View#isSelected()}.
+     * @param focused  the drawable on component's focused state. See {@link View#isFocused()}.
+     * @param normal   the drawable on component's normal state.
      * @return drawable of combining all drawable on component's states.
      */
     public static StateListDrawable stateListDrawable(Drawable disable, Drawable pressed, Drawable selected, Drawable focused, @NonNull Drawable normal) {
@@ -94,6 +92,6 @@ public class DynamicDrawableFactory {
         states[2] = new int[]{android.R.attr.state_selected};
         states[3] = new int[]{android.R.attr.state_focused};
         states[4] = new int[]{};
-        return new ColorStateList(states,colors);
+        return new ColorStateList(states, colors);
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import java.io.File;
+
 /**
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -59,7 +60,7 @@ public class CropConfig {
         return aspectX;
     }
 
-    public CropConfig setAspectX(@IntRange(from = 1)int aspectX) {
+    public CropConfig setAspectX(@IntRange(from = 1) int aspectX) {
         this.aspectX = aspectX;
         return this;
     }
@@ -68,7 +69,7 @@ public class CropConfig {
         return aspectY;
     }
 
-    public CropConfig setAspectY(@IntRange(from = 1)int aspectY) {
+    public CropConfig setAspectY(@IntRange(from = 1) int aspectY) {
         this.aspectY = aspectY;
         return this;
     }

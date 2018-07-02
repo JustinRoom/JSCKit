@@ -20,6 +20,13 @@ import java.util.List;
 
 import jsc.kit.component.R;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class RadarView extends View {
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
@@ -194,7 +201,7 @@ public class RadarView extends View {
         }
 
         //最外层多边形和最里层多边形相对应顶点vertex间的连线
-        if (layerCount >= 2){
+        if (layerCount >= 2) {
             for (int i = 0; i < count; i++) {
                 RadarPoint point1 = pointLists.get(0).get(i);
                 RadarPoint point2 = pointLists.get(layerCount - 1).get(i);
@@ -204,7 +211,7 @@ public class RadarView extends View {
 
         paint.setStyle(Paint.Style.FILL);
         //vertex
-        if (vertexShow){
+        if (vertexShow) {
             paint.setColor(vertexColor);
             for (int i = 0; i < count; i++) {
                 RadarPoint point = pointLists.get(0).get(i);

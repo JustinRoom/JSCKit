@@ -17,10 +17,9 @@ import jsc.kit.component.R;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -60,7 +59,7 @@ public class LoadingDialog extends Dialog {
         textView.setText(message);
     }
 
-    public void showMessageView(boolean show){
+    public void showMessageView(boolean show) {
         textView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

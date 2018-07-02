@@ -12,10 +12,9 @@ import android.util.AttributeSet;
 import jsc.kit.component.R;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -57,7 +56,7 @@ public class LGradientArcHeaderView extends BaseArcHeaderView {
 
     /**
      * @param startColor start color
-     * @param endColor end color
+     * @param endColor   end color
      */
     public void setColors(@ColorInt int startColor, @ColorInt int endColor) {
         resetShader();

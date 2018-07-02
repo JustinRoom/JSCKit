@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import jsc.kit.component.R;
+
 /**
  * <p>
  *     自定义宽高比例的LinearLayout，例如2:5、4:3等等。
@@ -16,7 +17,7 @@ import jsc.kit.component.R;
  * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -24,6 +25,7 @@ public class AspectRatioLinearLayout extends LinearLayout {
     private int baseWhat;
     private int xAspect;
     private int yAspect;
+
     public AspectRatioLinearLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -52,7 +54,7 @@ public class AspectRatioLinearLayout extends LinearLayout {
         setMeasuredDimension(getDefaultSize(0, widthMeasureSpec), getDefaultSize(0, heightMeasureSpec));
         int width;
         int height;
-        switch (baseWhat){
+        switch (baseWhat) {
             case 0://width
                 width = getMeasuredWidth();
                 height = width * yAspect / xAspect;

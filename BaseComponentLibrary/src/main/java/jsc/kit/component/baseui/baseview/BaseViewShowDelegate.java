@@ -16,8 +16,11 @@ import android.view.View;
 public interface BaseViewShowDelegate {
 
     void onShowContentPage(@NonNull View contentView, @Nullable Bundle bundle);
+
     void onShowEmptyPage(@NonNull View emptyView, @Nullable Bundle bundle);
+
     void onShowLoadingPage(@NonNull View loadingView, @Nullable Bundle bundle);
+
     void onShowErrorPage(@NonNull View errorView, @Nullable Bundle bundle);
 
 }

@@ -18,16 +18,16 @@ import java.lang.annotation.RetentionPolicy;
 import jsc.kit.component.R;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
 public abstract class BaseArcHeaderView extends View {
     public static final int DIRECTION_DOWN_OUT_SIDE = 0;
     public static final int DIRECTION_DOWN_IN_SIDE = 1;
+
     @IntDef({DIRECTION_DOWN_OUT_SIDE, DIRECTION_DOWN_IN_SIDE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Direction {

@@ -7,6 +7,13 @@ import android.os.Build;
 
 import java.io.File;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class FileProviderCompat {
 
     /**
@@ -14,7 +21,7 @@ public class FileProviderCompat {
      * <br>System provides {@link android.support.v4.content.FileProvider} to find uri of file for security since android {@link Build.VERSION_CODES#N}.
      *
      * @param context context
-     * @param file file
+     * @param file    file
      * @return uri
      */
     public static Uri getUriForFile(Context context, File file) {

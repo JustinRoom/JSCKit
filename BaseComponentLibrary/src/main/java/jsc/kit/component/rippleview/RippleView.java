@@ -13,9 +13,9 @@ import android.view.View;
 import jsc.kit.component.R;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -206,7 +206,7 @@ public class RippleView extends View {
             return;
 
         curRadius += radiusStep;
-        if (radiusStep > 0){//波纹从里往外扩展
+        if (radiusStep > 0) {//波纹从里往外扩展
             if (curRadius > maxRadius) {
                 curRadius = minRadius;
                 repeatIndex++;

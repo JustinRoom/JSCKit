@@ -23,15 +23,16 @@ import android.widget.TextView;
 
 /**
  * refresh component with {@link SwipeRefreshLayout} and {@link RecyclerView}.
- * <p>
- * features:
- * <br>1、pull down to refresh
- * <br>2、pull up to load more
- * <br>3、custom empty view
- * <br>4、custom load more view
- * </p>
+ * <br>features:
+ * <ul>
+ *     <li>1、pull down to refresh</li>
+ *     <li>2、pull up to load more</li>
+ *     <li>3、custom empty view</li>
+ *     <li>4、custom load more view</li>
+ * </ul>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */

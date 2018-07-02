@@ -27,7 +27,6 @@ import jsc.kit.component.utils.AntiShakeUtils;
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
- * @createTime 2018-06-06 1:45 PM Wednesday
  */
 public class TestActivity extends BaseMVPActivity implements ITestView, CommonView {
 

@@ -11,13 +11,12 @@ import android.widget.Scroller;
 import jsc.kit.component.R;
 
 /**
- * <p>
- *     Flip layout.
- * </p>
+ * Flip layout.
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
- * @author jsc
+ * @author jiangshicheng
  */
 public class VScrollScreenLayout extends ViewGroup {
     private final float DEFAULT_Y_SLIDE_RATIO = 0.65f;
@@ -39,7 +38,7 @@ public class VScrollScreenLayout extends ViewGroup {
 
     public interface OnScrollPageChangedListener {
         /**
-         * @param context  context
+         * @param context   context
          * @param pageIndex The index of first page is 0.
          */
         void onScroll(Context context, int pageIndex);
@@ -70,7 +69,6 @@ public class VScrollScreenLayout extends ViewGroup {
     }
 
     /**
-     *
      * @return the slide ratio on vertical direction
      * @see #setySlideRatio(float)
      */
@@ -81,6 +79,7 @@ public class VScrollScreenLayout extends ViewGroup {
     /**
      * <br>Set the ratio of sliding in Y axis.
      * <br>Default value is {@link #DEFAULT_Y_SLIDE_RATIO}.
+     *
      * @param ySlideRatio the slide ratio on vertical direction
      */
     public void setySlideRatio(float ySlideRatio) {
@@ -104,8 +103,7 @@ public class VScrollScreenLayout extends ViewGroup {
      * <br>distance = pageHeight * flipRatio
      * </code>
      *
-     * @param flipRatio
-     *         The value is in (0, 1).
+     * @param flipRatio The value is in (0, 1).
      */
     public void setFlipRatio(@FloatRange(from = 0.0f, to = 1.0f) float flipRatio) {
         this.flipRatio = (flipRatio == 0f || flipRatio == 1.0f) ? DEFAULT_FLIP_RATIO : flipRatio;

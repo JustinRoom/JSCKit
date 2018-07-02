@@ -14,11 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 /**
- * <p>
  * Rebound after dragging like IOS.
- * </p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -164,18 +163,18 @@ public class ReboundFrameLayout extends FrameLayout {
         int childScrolledY = Math.abs(childScrollY);
         int scrolledY = Math.abs(scrollY);
         int distance = Math.abs(mYOffset);
-        if (mYOffset < 0){//向下滑动
+        if (mYOffset < 0) {//向下滑动
             //向下滑动target与ReboundFrameLayout底部对齐
             scrollBy(0, -Math.min(distance, scrolledY));
             distance = distance - scrolledY;
-            if (distance <= 0){
+            if (distance <= 0) {
                 return;
             }
 
             //向下滑动content与target顶部对齐
             target.scrollBy(0, -Math.min(distance, childScrolledY));
             distance = distance - childScrolledY;
-            if (distance <= 0){
+            if (distance <= 0) {
                 return;
             }
 
@@ -185,14 +184,14 @@ public class ReboundFrameLayout extends FrameLayout {
             //向上滑动target与ReboundFrameLayout顶部对齐
             scrollBy(0, Math.min(distance, scrolledY));
             distance = distance - scrolledY;
-            if (distance <= 0){
+            if (distance <= 0) {
                 return;
             }
 
             //向上滑动content与target底部对齐
             target.scrollBy(0, Math.min(distance, distanceFromBottom));
             distance = distance - distanceFromBottom;
-            if (distance <= 0){
+            if (distance <= 0) {
                 return;
             }
 

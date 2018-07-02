@@ -21,6 +21,13 @@ import java.util.List;
 
 import jsc.kit.component.R;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class TurntableView extends FrameLayout {
 
     public final static int ROTATION_TYPE_CHASSIS = 0;
@@ -127,6 +134,7 @@ public class TurntableView extends FrameLayout {
 
     /**
      * it is rotating or not.
+     *
      * @return {@code true} rotating, else not.
      */
     public boolean isRotating() {

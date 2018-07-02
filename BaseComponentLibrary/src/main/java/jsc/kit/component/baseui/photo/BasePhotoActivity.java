@@ -85,7 +85,7 @@ public abstract class BasePhotoActivity extends BaseAppCompatActivity {
      * open system camera to take a photo.
      * <br>Caller must ensure {@link android.Manifest.permission#CAMERA} permission.
      *
-     * @param directory the directory for saving photo
+     * @param directory     the directory for saving photo
      * @param photoPathName photo path name
      */
     public void openCamera(File directory, String photoPathName) {
@@ -132,7 +132,7 @@ public abstract class BasePhotoActivity extends BaseAppCompatActivity {
     }
 
     /**
-     * @param file file
+     * @param file   file
      * @param config the config of crop image
      * @see #cropPhoto(Uri, CropConfig)
      */
@@ -149,10 +149,10 @@ public abstract class BasePhotoActivity extends BaseAppCompatActivity {
      * <br>2、比例优先。举个栗子：如果有设置aspectX=4、aspectY=3、outputX=480、outputY=560，那么它裁剪时真正的outputX=480、outputY=360。
      * <br>Caller must ensure {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE} permission.
      *
-     * @param uri uri
+     * @param uri    uri
      * @param config the config of crop image
      */
-    public void cropPhoto(Uri uri,CropConfig config) {
+    public void cropPhoto(Uri uri, CropConfig config) {
         if (config == null)
             config = new CropConfig();
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -198,14 +198,14 @@ public abstract class BasePhotoActivity extends BaseAppCompatActivity {
 
         //如果没有设置文件夹，裁剪后则保存在sdk根目录的Pictures文件夹下面
         File directory = config.getDirectory();
-        if (directory == null){
+        if (directory == null) {
             directory = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_PICTURES);
             config.setDirectory(directory);
         }
 
         //如果没有设置图片名称，则根据当前系统时间设置默认的图片名称
         String photoPathName = config.getPhotoPathName();
-        if (photoPathName == null || photoPathName.trim().length() == 0){
+        if (photoPathName == null || photoPathName.trim().length() == 0) {
             photoPathName = getDefaultCropPhotoFileName(config.getOutputFormat());
             config.setPhotoPathName(photoPathName);
         }
@@ -229,13 +229,13 @@ public abstract class BasePhotoActivity extends BaseAppCompatActivity {
     public abstract void onPickPhotoResult(Uri uri);
 
     /**
-     * @param uri uri
+     * @param uri      uri
      * @param tempFile temp file
      */
     public abstract void onTakePhotoResult(Uri uri, @NonNull File tempFile);
 
     /**
-     * @param uri uri
+     * @param uri      uri
      * @param tempFile temp file
      */
     public abstract void onCropPhotoResult(@Nullable Uri uri, @Nullable File tempFile);

@@ -28,6 +28,13 @@ import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.utils.FileProviderCompat;
 import jsc.kit.component.widget.dialog.LoadingDialog;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public abstract class BaseAppCompatActivity extends AppCompatActivity implements HandlerDelegate, TransitionDelegate, DownloadListener {
 
     public HandlerProvider handlerProvider;

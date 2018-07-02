@@ -17,7 +17,7 @@ import java.util.List;
  * <p>permission check tool</p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -34,22 +34,21 @@ public final class PermissionChecker {
     /**
      * check permissions with default request code 0
      *
-     * @param activity activity
-     * @param permissions permissions
+     * @param activity                  activity
+     * @param permissions               permissions
      * @param onPermissionCheckListener check listener
-     * @return is all permissions granted.
+     * @return {@code true} all permissions are granted, else {@code false}.
      */
     public boolean checkPermissions(Activity activity, OnPermissionCheckListener onPermissionCheckListener, String... permissions) {
         return checkPermissions(activity, 0, onPermissionCheckListener, permissions);
     }
 
     /**
-     *
-     * @param activity activity
-     * @param requestCode requestCode
-     * @param permissions permissions
+     * @param activity                  activity
+     * @param requestCode               requestCode
+     * @param permissions               permissions
      * @param onPermissionCheckListener check listener
-     * @return is all permissions granted.
+     * @return {@code true} all permissions are granted, else {@code false}.
      */
     public boolean checkPermissions(Activity activity, @IntRange(from = 0) int requestCode, OnPermissionCheckListener onPermissionCheckListener, String... permissions) {
         if (permissions == null || permissions.length == 0)
@@ -88,8 +87,8 @@ public final class PermissionChecker {
     /**
      * Call this method inside {@link Activity#onRequestPermissionsResult(int, String[], int[])}.
      *
-     * @param requestCode requestCode
-     * @param permissions permissions
+     * @param requestCode  requestCode
+     * @param permissions  permissions
      * @param grantResults grant result
      */
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -100,7 +99,7 @@ public final class PermissionChecker {
         List<String> shouldShowPermissions = new ArrayList<>();
         for (int i = 0; i < grantResults.length; i++) {
             String permission = permissions[i];
-            if (grantResults[i] == PackageManager.PERMISSION_DENIED){
+            if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                 deniedPermissions.add(permissions[i]);
                 boolean shouldShow = ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
                 if (!shouldShow)
@@ -131,7 +130,7 @@ public final class PermissionChecker {
         return builder.toString();
     }
 
-    public static CharSequence getPermissionDes(@NonNull Context context,String permission) {
+    public static CharSequence getPermissionDes(@NonNull Context context, String permission) {
         try {
             PackageManager packageManager = context.getPackageManager();
             PermissionInfo info = packageManager.getPermissionInfo(permission, PackageManager.GET_META_DATA);
@@ -144,11 +143,10 @@ public final class PermissionChecker {
 
     public interface OnPermissionCheckListener {
         /**
-         *
-         * @param requestCode requestCode
-         * @param isAllGranted if true, all permissions are granted.
+         * @param requestCode           requestCode
+         * @param isAllGranted          {@code true} all permissions are granted, else {@code false}.
          * @param grantedPermissions    所请求的permissions中已通过授权的部分permissions
-         * @param deniedPermissions 所请求的permissions中未通过授权的部分permissions
+         * @param deniedPermissions     所请求的permissions中未通过授权的部分permissions
          * @param shouldShowPermissions 所请求的permissions中未通过授权的部分permissions中的已勾选为【不再提醒】的permissions
          */
         void onResult(int requestCode,

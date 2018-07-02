@@ -21,9 +21,9 @@ import java.util.List;
 import jsc.kit.component.R;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -71,7 +71,7 @@ public class VerticalStepView extends View {
 
         String[] transits = {"", "16路", "", ""};
         String[] labels = {"起点", "东圃(站)", "珠村(站)", "终点"};
-        String[] cursors = {"", "上","下", ""};
+        String[] cursors = {"", "上", "下", ""};
         int[] distances = {0, 80, 80, 80};
         int len = labels.length;
         for (int i = 0; i < len; i++) {
@@ -107,6 +107,7 @@ public class VerticalStepView extends View {
 
     /**
      * Set all points.
+     *
      * @param points route points
      */
     public void setPoints(List<RouteViewPoint> points) {
@@ -119,6 +120,7 @@ public class VerticalStepView extends View {
 
     /**
      * Set line width of the vertical line.
+     *
      * @param lineWidth the width of vertical line
      */
     public void setLineWidth(int lineWidth) {
@@ -128,6 +130,7 @@ public class VerticalStepView extends View {
 
     /**
      * Set line color of the vertical line.
+     *
      * @param lineColor the color of vertical line
      */
     public void setLineColor(@ColorInt int lineColor) {
@@ -141,6 +144,7 @@ public class VerticalStepView extends View {
 
     /**
      * Draw the circle background of index if pass true.
+     *
      * @param drawCircle true, draw circle, else not.
      */
     public void setDrawCircle(boolean drawCircle) {
@@ -154,6 +158,7 @@ public class VerticalStepView extends View {
 
     /**
      * Draw index if pass true.
+     *
      * @param drawIndex true, draw index, else not
      */
     public void setDrawIndex(boolean drawIndex) {
@@ -167,6 +172,7 @@ public class VerticalStepView extends View {
 
     /**
      * Draw transit if pass true.
+     *
      * @param drawTransit true, draw transit, else not.
      */
     public void setDrawTransit(boolean drawTransit) {
@@ -181,6 +187,7 @@ public class VerticalStepView extends View {
 
     /**
      * Draw label if pass true.
+     *
      * @param drawLabel true, draw label, else not.
      */
     public void setDrawLabel(boolean drawLabel) {
@@ -194,6 +201,7 @@ public class VerticalStepView extends View {
 
     /**
      * Draw cursor if pass true.
+     *
      * @param drawCursor true, draw cursor, else not.
      */
     public void setDrawCursor(boolean drawCursor) {

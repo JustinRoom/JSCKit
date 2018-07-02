@@ -3,18 +3,33 @@ package jsc.kit.component.turntable;
 import android.graphics.Bitmap;
 import android.support.annotation.ColorInt;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public class GiftEntity {
-    /**备用字段。*/
+    /**
+     * 备用字段。
+     */
     private int key;
     private Bitmap bitmap;
-    /**备用字段。例如：本地图片路径、网络图片路径...假如是图片路径，我们可以通过此字段获取bitmap，然后再调用{@link #setBitmap(Bitmap)}设置图片。*/
+    /**
+     * 备用字段。例如：本地图片路径、网络图片路径...假如是图片路径，我们可以通过此字段获取bitmap，然后再调用{@link #setBitmap(Bitmap)}设置图片。
+     */
     private String url;
     private String label;
     private int labelTextColor;
     private int backgroundColor;
-    /**图饼的起始角度。会自动赋值，不需要设置。*/
+    /**
+     * 图饼的起始角度。会自动赋值，不需要设置。
+     */
     private float startAngle;
-    /**图饼的扫描角度。会自动赋值，不需要设置。*/
+    /**
+     * 图饼的扫描角度。会自动赋值，不需要设置。
+     */
     private float sweepAngle;
 
     public GiftEntity() {
@@ -86,8 +101,8 @@ public class GiftEntity {
         this.sweepAngle = sweepAngle;
     }
 
-    public void recycleBitmap(){
-        if (bitmap != null && !bitmap.isRecycled()){
+    public void recycleBitmap() {
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }

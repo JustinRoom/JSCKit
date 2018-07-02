@@ -9,25 +9,43 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class RadarEntity implements Parcelable{
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
+public class RadarEntity implements Parcelable {
     public final static int ALIGN_LEFT = 0;
     public final static int ALIGN_RIGHT = 1;
     public final static int ALIGN_TOP = 2;
     public final static int ALIGN_BOTTOM = 3;
+
     @IntDef({ALIGN_LEFT, ALIGN_RIGHT, ALIGN_TOP, ALIGN_BOTTOM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LabelAlignType {
     }
 
-    /**标签*/
+    /**
+     * 标签
+     */
     private String label;
-    /**标签字体颜色， 默认为：0xFF333333*/
+    /**
+     * 标签字体颜色， 默认为：0xFF333333
+     */
     private int labelColor;
-    /**标签字体大小， 默认为：12sp*/
+    /**
+     * 标签字体大小， 默认为：12sp
+     */
     private float labelTextSize;
-    /**标签相对于顶点的位置*/
+    /**
+     * 标签相对于顶点的位置
+     */
     private int labelAlignType;
-    /**有效值百分比*/
+    /**
+     * 有效值百分比
+     */
     private float value;
 
     public RadarEntity() {

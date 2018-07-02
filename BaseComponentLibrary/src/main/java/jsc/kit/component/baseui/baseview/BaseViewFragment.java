@@ -44,11 +44,11 @@ public abstract class BaseViewFragment extends BaseLazyLoadFragment implements B
         if (baseViewProvider == null)
             return null;
 
-        if (baseViewProvider.getEmptyView() != null){
+        if (baseViewProvider.getEmptyView() != null) {
             baseViewProvider.getEmptyView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()){
+                    if (!baseViewProvider.isLoading()) {
                         baseViewProvider.showLoadingPage(null);
                         reLazyLoad();
                     }
@@ -56,11 +56,11 @@ public abstract class BaseViewFragment extends BaseLazyLoadFragment implements B
             });
         }
 
-        if (baseViewProvider.getErrorView() != null){
+        if (baseViewProvider.getErrorView() != null) {
             baseViewProvider.getErrorView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()){
+                    if (!baseViewProvider.isLoading()) {
                         baseViewProvider.showLoadingPage(null);
                         reLazyLoad();
                     }

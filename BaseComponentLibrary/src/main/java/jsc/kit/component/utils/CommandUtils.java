@@ -10,10 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
- * <br>https://github.com/JustinRoom/JSCKit
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
  *
  * @author jiangshicheng
  */
@@ -118,9 +117,9 @@ public final class CommandUtils {
     /**
      * Execute su command.
      *
-     * @param command command
+     * @param command               command
      * @param successMessageBuilder successful message string builder
-     * @param errorMessageBuilder failed message string builder
+     * @param errorMessageBuilder   failed message string builder
      */
     public static void execSuCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(COMMAND_SU, command, successMessageBuilder, errorMessageBuilder);
@@ -139,9 +138,9 @@ public final class CommandUtils {
     /**
      * Execute sh command.
      *
-     * @param command command
+     * @param command               command
      * @param successMessageBuilder successful message string builder
-     * @param errorMessageBuilder failed message string builder
+     * @param errorMessageBuilder   failed message string builder
      */
     public static void execShCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(COMMAND_SH, command, successMessageBuilder, errorMessageBuilder);
@@ -150,9 +149,9 @@ public final class CommandUtils {
     /**
      * Execute common command.
      *
-     * @param command command
+     * @param command               command
      * @param successMessageBuilder successful message string builder
-     * @param errorMessageBuilder failed message string builder
+     * @param errorMessageBuilder   failed message string builder
      */
     public static void execCommand(String command, StringBuilder successMessageBuilder, StringBuilder errorMessageBuilder) {
         execCommand(null, command, successMessageBuilder, errorMessageBuilder);

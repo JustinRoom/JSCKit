@@ -2,10 +2,17 @@ package jsc.kit.component.baseui.transition;
 
 import android.support.annotation.Nullable;
 
+/**
+ * <br>Email:1006368252@qq.com
+ * <br>QQ:1006368252
+ * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
+ *
+ * @author jiangshicheng
+ */
 public enum TransitionEnum {
     SLIDE((byte) 0, "slide"),
-    EXPLODE((byte)1, "explode"),
-    FADE((byte)2, "fade");
+    EXPLODE((byte) 1, "explode"),
+    FADE((byte) 2, "fade");
 
     private byte value;
     private String label;
@@ -24,7 +31,7 @@ public enum TransitionEnum {
     }
 
     @Nullable
-    public static TransitionEnum createTransitionByValue(byte value){
+    public static TransitionEnum createTransitionByValue(byte value) {
         if (value == 0)
             return SLIDE;
         if (value == 1)
@@ -35,7 +42,7 @@ public enum TransitionEnum {
     }
 
     @Nullable
-    public static TransitionEnum createTransitionByLabel(String label){
+    public static TransitionEnum createTransitionByLabel(String label) {
         if (SLIDE.getLabel().equalsIgnoreCase(label))
             return SLIDE;
         if (EXPLODE.getLabel().equalsIgnoreCase(label))
