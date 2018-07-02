@@ -22,8 +22,6 @@ public class MyApplication extends Application implements Application.ActivityLi
         Log.e(TAG, "onCreate()");
         super.onCreate();
         InstanceManager.getInstance().init(this);
-        // TODO: 4/13/2018
-        CustomToast.getInstance().init(this);
         //初始化SharedPreferences工具
         SharePreferencesUtils.getInstance().init(this, "share_data");
         //注册activity生命周期监听

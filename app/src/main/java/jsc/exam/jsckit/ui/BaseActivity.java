@@ -16,24 +16,8 @@ import jsc.kit.component.utils.WindowUtils;
 
 public abstract class BaseActivity extends BaseAppCompatActivity {
 
-
-
-    public final void showCustomToast(@StringRes int resId) {
-        CustomToast.Builder builder = new CustomToast.Builder()
-                .text(this, resId)
-                .topMargin(WindowUtils.getActionBarSize(this));
-        showCustomToast(builder);
-    }
-
     public final void showCustomToast(String txt) {
-        CustomToast.Builder builder = new CustomToast.Builder()
-                .text(txt)
-                .topMargin(WindowUtils.getActionBarSize(this));
-        showCustomToast(builder);
-    }
-
-    public final void showCustomToast(CustomToast.Builder builder) {
-        CustomToast.getInstance().show(builder);
+        CustomToast.showCustomToast(this, txt);
     }
 
     public final void requestSystemAlertWindowPermission() {

@@ -252,7 +252,7 @@ public class MainActivity extends BaseActivity {
         if (lastClickTime > 0 && (curTime - lastClickTime < 3_000)) {
             super.onBackPressed();
         } else {
-            showToast("再次点击返回按钮退出应用");
+            showCustomToast("再次点击返回按钮退出应用");
             lastClickTime = curTime;
         }
     }
