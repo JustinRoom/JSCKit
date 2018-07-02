@@ -1,4 +1,4 @@
-package jsc.kit.component.entity;
+package jsc.kit.component.baseui.photo;
 
 import android.graphics.Bitmap;
 import android.support.annotation.IntRange;

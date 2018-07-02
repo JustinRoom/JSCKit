@@ -18,7 +18,7 @@ import java.io.File;
 import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.photo.BasePhotoActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
-import jsc.kit.component.entity.CropConfig;
+import jsc.kit.component.baseui.photo.CropConfig;
 
 public class PhotoActivity extends BasePhotoActivity {
 

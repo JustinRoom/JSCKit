@@ -16,8 +16,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import jsc.kit.component.baseui.BaseAppCompatActivity;
-import jsc.kit.component.baseui.transition.TransitionProvider;
-import jsc.kit.component.entity.CropConfig;
 import jsc.kit.component.utils.FileProviderCompat;
 import jsc.kit.component.utils.UriUtils;
 
