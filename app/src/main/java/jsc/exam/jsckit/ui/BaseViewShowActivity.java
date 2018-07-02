@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import java.util.Random;
+
 import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.baseview.BaseViewActivity;
 import jsc.kit.component.baseui.baseview.BaseViewShowDelegate;
@@ -34,7 +36,22 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
 
     @Override
     public void handleUIMessage(Message msg) {
-        baseViewProvider.showLoadingPage(null);
+        switch (msg.what){
+            case 0:
+                baseViewProvider.showLoadingPage(null);
+                int what = new Random().nextInt(3) + 1;
+                handlerProvider.sendUIEmptyMessageDelay(what, 2000);
+                break;
+            case 1:
+                baseViewProvider.showContentPage(null);
+                break;
+            case 2:
+                baseViewProvider.showEmptyPage(null);
+                break;
+            case 3:
+                baseViewProvider.showErrorPage(null);
+                break;
+        }
     }
 
     @Override
@@ -72,38 +89,9 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    int index;
     @Override
     public View createTitleBar(@NonNull LayoutInflater inflater, @NonNull LinearLayout parent) {
-        Button button = new Button(parent.getContext());
-        button.setText("click");
-        parent.addView(button, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AntiShakeUtils.isInvalidClick(v))
-                    return;
-
-                index ++;
-                if (index == 4)
-                    index = 0;
-                switch (index){
-                    case 0:
-                        baseViewProvider.showLoadingPage(null);
-                        break;
-                    case 1:
-                        baseViewProvider.showContentPage(null);
-                        break;
-                    case 2:
-                        baseViewProvider.showEmptyPage(null);
-                        break;
-                    case 3:
-                        baseViewProvider.showErrorPage(null);
-                        break;
-                }
-            }
-        });
-        return button;
+        return null;
     }
 
     @Override
@@ -132,7 +120,8 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
 
     @Override
     public void reload() {
-
+        int what = new Random().nextInt(3) + 1;
+        handlerProvider.sendUIEmptyMessageDelay(what, 1000);
     }
 
     @Override

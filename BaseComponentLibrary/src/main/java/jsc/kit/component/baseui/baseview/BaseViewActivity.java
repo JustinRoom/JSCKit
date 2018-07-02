@@ -61,6 +61,16 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         }
     }
 
+    public void setEmptyViewEnable(boolean enable){
+        if (baseViewProvider.getEmptyView() != null)
+            baseViewProvider.getEmptyView().setEnabled(enable);
+    }
+
+    public void setErrorViewEnable(boolean enable){
+        if (baseViewProvider.getErrorView() != null)
+            baseViewProvider.getErrorView().setEnabled(enable);
+    }
+
     public abstract void reload();
 
     @Nullable
