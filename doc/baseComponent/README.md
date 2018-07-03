@@ -1,5 +1,5 @@
 # BaseComponentLibrary
- [ ![Download](https://api.bintray.com/packages/justinquote/maven/BaseComponentLibrary/images/download.svg) ](https://bintray.com/justinquote/maven/BaseComponentLibrary/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/justinquote/maven/BaseComponentLibrary/images/download.svg?version=0.3.4) ](https://bintray.com/justinquote/maven/BaseComponentLibrary/0.3.4/link)
 
 ### dependencies:
 ```

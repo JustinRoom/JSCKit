@@ -1,5 +1,5 @@
 # Retrofit2Library
-[ ![Download](https://api.bintray.com/packages/justinquote/maven/Retrofit2Library/images/download.svg) ](https://bintray.com/justinquote/maven/Retrofit2Library/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/justinquote/maven/Retrofit2Library/images/download.svg?version=0.3.4) ](https://bintray.com/justinquote/maven/Retrofit2Library/0.3.4/link)
 
 ### dependencies:   
 ```

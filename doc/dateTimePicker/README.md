@@ -1,5 +1,5 @@
 # DateTimePickerLibrary
-[ ![Download](https://api.bintray.com/packages/justinquote/maven/DateTimePickerLibrary/images/download.svg) ](https://bintray.com/justinquote/maven/DateTimePickerLibrary/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/justinquote/maven/DateTimePickerLibrary/images/download.svg?version=0.3.1) ](https://bintray.com/justinquote/maven/DateTimePickerLibrary/0.3.1/link)
 
 ### dependencies:
 ```
