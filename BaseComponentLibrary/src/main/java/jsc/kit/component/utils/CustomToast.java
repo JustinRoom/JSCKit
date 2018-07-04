@@ -1,26 +1,15 @@
 package jsc.kit.component.utils;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import jsc.kit.component.R;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -36,9 +25,9 @@ public final class CustomToast {
         int padding = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, context.getResources().getDisplayMetrics()) + 0.5f);
         textView.setPadding(0, padding, 0, padding);
         textView.setGravity(Gravity.CENTER);
-        textView.setBackgroundColor(0xEE00FF00);
+        textView.setBackgroundColor(0x33333333);
         textView.setTextColor(0xFF333333);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
         textView.setText(txt);
         showCustomToast(context, textView);
     }

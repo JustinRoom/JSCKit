@@ -98,8 +98,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                     return;
                 }
 
-                boolean isFirstItemVisiable;
-                boolean isLastItemVisiable;
+                boolean isFirstItemVisible;
+                boolean isLastItemVisible;
                 int itemCount = adapter.getItemCount();
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
@@ -107,8 +107,8 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                         swipeRefreshLayout.setEnabled(false);
                         return;
                     }
-                    isFirstItemVisiable = (itemCount == 0 || linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0);
-                    isLastItemVisiable = linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == itemCount;
+                    isFirstItemVisible = (itemCount == 0 || linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0);
+                    isLastItemVisible = linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == itemCount;
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
                     if (staggeredGridLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL){
@@ -117,15 +117,15 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                     }
                     int[] firstItemPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(null);
 //                    Log.i(TAG, "onScrolled: " + Arrays.toString(firstItemPositions));
-                    isFirstItemVisiable = itemCount == 0 || (firstItemPositions.length > 0 && firstItemPositions[0] == 0);
+                    isFirstItemVisible = itemCount == 0 || (firstItemPositions.length > 0 && firstItemPositions[0] == 0);
                     int[] lastItemPositions = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
-                    isLastItemVisiable = lastItemPositions.length > 0 && (lastItemPositions[lastItemPositions.length - 1] + 1 == itemCount);
+                    isLastItemVisible = lastItemPositions.length > 0 && (lastItemPositions[lastItemPositions.length - 1] + 1 == itemCount);
                 } else {
                     return;
                 }
-                swipeRefreshLayout.setEnabled(isRefreshEnable() && isFirstItemVisiable);
+                swipeRefreshLayout.setEnabled(isRefreshEnable() && isFirstItemVisible);
 
-                if (isLoading || !isLoadMoreEnable() || !isHaveMore || !isLastItemVisiable)
+                if (isLoading || !isLoadMoreEnable() || !isHaveMore || !isLastItemVisible)
                     return;
 
                 if (customRefreshListener != null) {

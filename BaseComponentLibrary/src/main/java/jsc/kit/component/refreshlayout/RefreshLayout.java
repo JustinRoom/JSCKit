@@ -425,12 +425,12 @@ public class RefreshLayout extends ViewGroup {
      * Reset refresh state.
      */
     public void refreshComplete() {
-        if (onRefreshListener != null)
-            onRefreshListener.onEndRefresh(headerView);
-        isRefreshing = false;
         postDelayed(new Runnable() {
             @Override
             public void run() {
+                isRefreshing = false;
+                if (onRefreshListener != null)
+                    onRefreshListener.onEndRefresh(headerView);
                 mScroller.startScroll(0, getScrollY(), 0, -getScrollY(), reboundAnimationDuration);
                 invalidate();
             }

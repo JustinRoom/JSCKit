@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,9 +17,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.adapter.ClassItemAdapter;
+import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.refreshlayout.RefreshLayout;
+import jsc.kit.component.refreshlayout.RefreshLayout2;
 import jsc.kit.component.utils.WindowUtils;
 
 public class RefreshLayoutActivity extends BaseActivity {
@@ -30,9 +38,8 @@ public class RefreshLayoutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initActionBar();
         inflateRefreshLayout();
-
+        initXmlContent();
     }
-
 
     private void initActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -63,29 +70,29 @@ public class RefreshLayoutActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case Menu.FIRST + 1:
+                        initXmlContent();
                         break;
                     case Menu.FIRST + 2:
-                        break;
-                    case Menu.FIRST + 3:
+                        initRecyclerViewContent();
                         break;
                 }
                 return true;
             }
         });
 
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "Xml");
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "ListView");
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 3, Menu.NONE, "TextView");
+        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "CustomView");
+        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "RecyclerView");
     }
 
     private void inflateRefreshLayout(){
-        setContentView(R.layout.activity_refresh_layout);
+        refreshLayout = new RefreshLayout(this);
+        refreshLayout.addHeader(R.layout.refresh_layout_header);
+        setContentView(refreshLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setTitle(getClass().getSimpleName().replace("Activity", ""));
-        refreshLayout = findViewById(R.id.refresh_layout);
 //        refreshLayout.setPullRatioY(0.55f);
 //        refreshLayout.setPullToRefreshRatio(0.45f);
 //        refreshLayout.setReleaseToRefreshRatio(0.65f);
-        refreshLayout.setReboundAnimationDuration(800);
+        refreshLayout.setReboundAnimationDuration(2000);
         refreshLayout.setOnScrollListener(new RefreshLayout.OnScrollListener() {
             @Override
             public void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY, boolean isRefreshing) {
@@ -136,7 +143,7 @@ public class RefreshLayoutActivity extends BaseActivity {
                     public void run() {
                         refreshLayout.refreshComplete();
                     }
-                }, 4000);
+                }, 2000);
             }
 
             @Override
@@ -146,5 +153,23 @@ public class RefreshLayoutActivity extends BaseActivity {
                 headerView.findViewById(R.id.loading_view).setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void initXmlContent(){
+        refreshLayout.addContent(R.layout.refresh_layout_content);
+    }
+
+    private void initRecyclerViewContent(){
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ClassItemAdapter adapter = new ClassItemAdapter();
+        recyclerView.setAdapter(adapter);
+        refreshLayout.addContent(recyclerView);
+
+        List<ClassItem> items = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            items.add(new ClassItem("Item " + (i < 10 ? "0" + i : "" + i), null));
+        }
+        adapter.setItems(items);
     }
 }
