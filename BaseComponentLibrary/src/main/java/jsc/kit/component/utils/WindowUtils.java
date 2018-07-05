@@ -1,7 +1,10 @@
 package jsc.kit.component.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
@@ -42,5 +45,21 @@ public final class WindowUtils {
         int actionBarSize = array.getDimensionPixelSize(0, 0);
         array.recycle();
         return actionBarSize;
+    }
+
+    /**
+     * Get system selectable item background borderless.
+     * @param context context
+     * @return selectable item background borderless
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static Drawable getSelectableItemBackgroundBorderless(Context context){
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true);
+        int[] attribute = new int[]{android.R.attr.selectableItemBackgroundBorderless};
+        TypedArray typedArray = context.obtainStyledAttributes(typedValue.resourceId, attribute);
+        Drawable drawable = typedArray.getDrawable(0);
+        typedArray.recycle();
+        return drawable;
     }
 }

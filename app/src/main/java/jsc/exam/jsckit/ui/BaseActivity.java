@@ -54,7 +54,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         if (actionBar == null)
             return;
 
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
 //        customView.setPadding(padding, 0, padding, 0);
         ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
@@ -68,9 +68,10 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         customView.addView(tvTitle, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         //添加返回按钮
         ivBack = new ImageView(this);
+        ivBack.setPadding(padding / 2, 0, padding / 2, 0);
         ivBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         ivBack.setImageResource(R.drawable.ic_chevron_left_white_24dp);
-        ivBack.setPadding(padding / 2, 0, padding / 2, 0);
+        ivBack.setBackground(WindowUtils.getSelectableItemBackgroundBorderless(this));
         customView.addView(ivBack, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

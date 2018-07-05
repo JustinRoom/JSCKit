@@ -8,4 +8,6 @@
     <dimen name="item_height">48dp</dimen>
 
     <dimen name="cover_height">240dp</dimen>
+
+    <dimen name="space_12">12dp</dimen>
 </resources>
