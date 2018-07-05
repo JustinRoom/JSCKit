@@ -34,7 +34,7 @@ public class BottomNavigationViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation_view);
 //        setTitle(getClass().getSimpleName().replace("Activity", ""));
-        setTitle(R.string.menu_home);
+        setTitleBarTitle(R.string.menu_home);
 
         noScrollViewPager = findViewById(R.id.view_pager);
         navigation = findViewById(R.id.navigation);
@@ -44,7 +44,7 @@ public class BottomNavigationViewActivity extends BaseActivity {
                 if (item.isChecked())
                     return false;
                 item.setChecked(true);
-                setTitle(item.getTitle());
+                setTitleBarTitle(item.getTitle());
                 int index = 0;
                 for (int i = 0; i < MENU_ID.length; i++) {
                     if (item.getItemId() == MENU_ID[i]) {

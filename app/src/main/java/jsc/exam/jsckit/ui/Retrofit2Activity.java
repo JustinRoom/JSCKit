@@ -34,7 +34,7 @@ public class Retrofit2Activity extends BaseActivity {
         int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         layout.setPadding(padding, 0, padding, 0);
         setContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         textView  = new TextView(this);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);

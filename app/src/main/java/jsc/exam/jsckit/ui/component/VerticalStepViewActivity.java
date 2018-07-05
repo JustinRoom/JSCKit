@@ -21,7 +21,7 @@ public class VerticalStepViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vertical_step_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         verticalStepView = findViewById(R.id.step_view);
         verticalStepView.setPoints(gePoints());

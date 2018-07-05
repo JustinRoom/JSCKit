@@ -25,7 +25,7 @@ public class TurntableViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turntable_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         turntableView = findViewById(R.id.turntable_view);
 //        turntableView.setLabelTextSize(14.0f);

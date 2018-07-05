@@ -28,7 +28,7 @@ public class MonthViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         initView();
     }

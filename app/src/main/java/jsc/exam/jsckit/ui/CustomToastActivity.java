@@ -33,7 +33,7 @@ public class CustomToastActivity extends BaseActivity {
         contentView.setGravity(Gravity.CENTER_HORIZONTAL);
         contentView.setWeightSum(3);
         setContentView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
         TextView textView = new TextView(this);

@@ -42,7 +42,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swip_recycler_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         swipeRefreshRecyclerView = findViewById(R.id.swipe_recycler_view);
         //添加LayoutManager

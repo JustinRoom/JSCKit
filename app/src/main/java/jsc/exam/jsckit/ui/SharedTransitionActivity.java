@@ -35,7 +35,7 @@ public class SharedTransitionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         FrameLayout layout = new FrameLayout(this);
         setContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size);

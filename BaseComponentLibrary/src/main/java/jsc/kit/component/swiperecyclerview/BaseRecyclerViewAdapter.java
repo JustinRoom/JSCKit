@@ -44,6 +44,11 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         }
     }
 
+    public void removeItem(int position){
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public OnItemClickListener<T> getOnItemClickListener() {
         return onItemClickListener;
     }

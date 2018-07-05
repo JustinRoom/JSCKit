@@ -37,7 +37,7 @@ public class JSCBannerViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jsc_banner_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         jscBannerView = findViewById(R.id.banner_view);
         LGradientArcHeaderView backgroundView = new LGradientArcHeaderView(this);

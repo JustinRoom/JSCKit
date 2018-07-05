@@ -14,7 +14,7 @@ public class ZXingScannerActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_z_xing_scanner);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ZXingFragment()).commit();
     }

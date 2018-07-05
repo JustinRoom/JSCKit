@@ -17,7 +17,7 @@ public class RadarViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radar_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         RadarView radarView1 = findViewById(R.id.radar_view1);
         RadarView radarView2 = findViewById(R.id.radar_view2);

@@ -49,8 +49,6 @@ import okhttp3.OkHttpClient;
 
 public class MainActivity extends BaseActivity {
 
-    private BroadcastReceiver downloadReceiver;
-
     @Override
     public Transition createExitTransition() {
         return TransitionProvider.createFade(300L);
@@ -63,6 +61,8 @@ public class MainActivity extends BaseActivity {
         recyclerView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setContentView(recyclerView);
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        showTitleBarBackView(false);
 
         ClassItemAdapter adapter = new ClassItemAdapter();
         recyclerView.setAdapter(adapter);

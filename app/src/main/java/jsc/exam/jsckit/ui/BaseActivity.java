@@ -1,14 +1,23 @@
 package jsc.exam.jsckit.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ActionMenuView;
 import android.transition.Transition;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.BaseAppCompatActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.utils.CustomToast;
@@ -28,6 +37,70 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         intent.setData(Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, 0x100);
     }
+
+    @Override
+    public void initComponent() {
+        super.initComponent();
+        if (!fullScreen())
+            initActionBar();
+    }
+
+    private ImageView ivBack;
+    private TextView tvTitle;
+    private ActionMenuView actionMenuView;
+
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null)
+            return;
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        FrameLayout customView = new FrameLayout(this);
+//        customView.setPadding(padding, 0, padding, 0);
+        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customView, barParams);
+        //添加标题
+        tvTitle = new TextView(this);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        tvTitle.setGravity(Gravity.CENTER);
+        customView.addView(tvTitle, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        //添加返回按钮
+        ivBack = new ImageView(this);
+        ivBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ivBack.setImageResource(R.drawable.ic_chevron_left_white_24dp);
+        ivBack.setPadding(padding / 2, 0, padding / 2, 0);
+        customView.addView(ivBack, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        //添加menu菜单
+        actionMenuView = new ActionMenuView(this);
+        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        customView.addView(actionMenuView, menuParams);
+    }
+
+    public ActionMenuView getActionMenuView() {
+        return actionMenuView;
+    }
+
+    public final void showTitleBarBackView(boolean show) {
+        ivBack.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public final void setTitleBarTitle(CharSequence title) {
+        tvTitle.setText(title);
+    }
+
+    public final void setTitleBarTitle(@StringRes int resId) {
+        tvTitle.setText(resId);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

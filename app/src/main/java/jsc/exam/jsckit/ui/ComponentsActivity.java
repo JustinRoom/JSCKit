@@ -25,6 +25,7 @@ import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
 import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
 import jsc.exam.jsckit.ui.component.JSCRoundCornerProgressBarActivity;
 import jsc.exam.jsckit.ui.component.MonthViewActivity;
+import jsc.exam.jsckit.ui.component.ReboundRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.RadarViewActivity;
 import jsc.exam.jsckit.ui.component.ReboundFrameLayoutActivity;
 import jsc.exam.jsckit.ui.component.RefreshLayoutActivity;
@@ -68,7 +69,7 @@ public class ComponentsActivity extends BaseActivity {
         recyclerView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setContentView(recyclerView);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ClassItemAdapter adapter = new ClassItemAdapter();
         recyclerView.setAdapter(adapter);
@@ -103,6 +104,7 @@ public class ComponentsActivity extends BaseActivity {
         classItems.add(new ClassItem("JSCBannerView", JSCBannerViewActivity.class));
         classItems.add(new ClassItem("MonthView", MonthViewActivity.class));
         classItems.add(new ClassItem("ReboundFrameLayout", ReboundFrameLayoutActivity.class));
+        classItems.add(new ClassItem("ReboundRecyclerView", ReboundRecyclerViewActivity.class));
         classItems.add(new ClassItem("VerticalStepView", VerticalStepViewActivity.class));
         classItems.add(new ClassItem("RefreshLayout", RefreshLayoutActivity.class));
         classItems.add(new ClassItem("SwipeRecyclerView", SwipeRecyclerViewActivity.class));

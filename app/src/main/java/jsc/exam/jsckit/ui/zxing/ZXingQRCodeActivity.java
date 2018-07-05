@@ -39,7 +39,7 @@ public class ZXingQRCodeActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_z_xing_qr_code);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ivQRCode = findViewById(R.id.iv_qr_code);
         tvScanResult = findViewById(R.id.tv_scan_result);

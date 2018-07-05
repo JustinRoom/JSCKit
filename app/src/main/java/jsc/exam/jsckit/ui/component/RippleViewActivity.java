@@ -16,7 +16,7 @@ public class RippleViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ripple_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
 //        rippleView = findViewById(R.id.ripple_view);
 //        rippleView.setColor(Color.CYAN);

@@ -23,7 +23,7 @@ public class ArcHeaderViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arc_header_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
         lGradientArcHeaderView = findViewById(R.id.lg_header_view);
         pictureArcHeaderView = findViewById(R.id.p_header_view);

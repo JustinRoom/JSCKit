@@ -1,19 +1,15 @@
 package jsc.exam.jsckit.ui.component;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,11 +17,9 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.reboundlayout.ReboundFrameLayout;
-import jsc.kit.component.utils.WindowUtils;
 
 public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnClickListener {
 
-    ActionMenuView actionMenuView;
     ReboundFrameLayout reboundFrameLayout;
     int viewType = -1;
     int subViewType = -1;
@@ -33,8 +27,8 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
         showView(1);
+        initMenu();
     }
 
     private void showView(int viewType) {
@@ -44,14 +38,9 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
         this.viewType = viewType;
         if (this.viewType == 1){
             setContentView(R.layout.activity_rebound_layout);
-            setTitle(getClass().getSimpleName().replace("Activity", ""));
-            actionMenuView.getMenu().removeItem(Menu.FIRST + 1);
-            actionMenuView.getMenu().removeItem(Menu.FIRST + 2);
         } else {
             createReboundFrameLayoutIfNecessary();
             setContentView(reboundFrameLayout);
-            actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "ListView");
-            actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "TextView");
         }
     }
 
@@ -85,47 +74,21 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
         }
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null)
-            return;
-
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-        FrameLayout customView = new FrameLayout(this);
-        customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(customView, barParams);
-        //
-        TextView tvTitle = new TextView(this);
-        tvTitle.setTextColor(Color.WHITE);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
-        FrameLayout.LayoutParams titleParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        titleParams.gravity = Gravity.CENTER_VERTICAL;
-        customView.addView(tvTitle, titleParams);
-
-        //
-        actionMenuView = new ActionMenuView(this);
-//        actionMenuView.setPopupTheme(R.style.AppTheme_NoActionBar_PopupOverlay2);
-        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        customView.addView(actionMenuView, menuParams);
-        actionMenuView.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+    private void initMenu() {
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        getActionMenuView().setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case Menu.FIRST + 10:
                         showView(1);
                         break;
-                    case Menu.FIRST + 11:
+                    case Menu.FIRST + 1:
                         showView(2);
                         showSubView(1);
                         break;
-                    case Menu.FIRST + 1:
-                        showSubView(1);
-                        break;
                     case Menu.FIRST + 2:
+                        showView(2);
                         showSubView(2);
                         break;
                 }
@@ -133,8 +96,10 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
             }
         });
 
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 10, Menu.NONE, "Xml").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 11, Menu.NONE, "View").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 10, Menu.NONE, "Xml");
+        SubMenu subMenu = getActionMenuView().getMenu().addSubMenu(Menu.NONE, Menu.FIRST + 11, Menu.NONE, "View");
+        subMenu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "ListView");
+        subMenu.add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "TextView");
     }
 
     private View getListView() {

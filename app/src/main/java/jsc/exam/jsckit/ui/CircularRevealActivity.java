@@ -32,12 +32,12 @@ public class CircularRevealActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
 //        setContentView(R.layout.activity_circular_reveal);
 //        setTitle(getClass().getSimpleName().replace("Activity", ""));
         imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER);
         setContentView(imageView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        initMenu();
         initSharedElement();
         handlerProvider.sendUIEmptyMessageDelay(0, 0);
     }
@@ -57,33 +57,9 @@ public class CircularRevealActivity extends BaseActivity {
         imageView.setTransitionName("share_img");
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null)
-            return;
-
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-        FrameLayout customView = new FrameLayout(this);
-        customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(customView, barParams);
-        //
-        TextView tvTitle = new TextView(this);
-        tvTitle.setTextColor(Color.WHITE);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
-        FrameLayout.LayoutParams titleParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        titleParams.gravity = Gravity.CENTER_VERTICAL;
-        customView.addView(tvTitle, titleParams);
-
-        //
-        ActionMenuView actionMenuView = new ActionMenuView(this);
-//        actionMenuView.setPopupTheme(R.style.AppTheme_NoActionBar_PopupOverlay2);
-        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        customView.addView(actionMenuView, menuParams);
-        actionMenuView.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+    private void initMenu() {
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        getActionMenuView().setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
@@ -105,7 +81,7 @@ public class CircularRevealActivity extends BaseActivity {
             }
         });
 
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "HideImg").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "HideImg").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
 

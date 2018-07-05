@@ -25,7 +25,6 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.refreshlayout.RefreshLayout;
-import jsc.kit.component.refreshlayout.RefreshLayout2;
 import jsc.kit.component.utils.WindowUtils;
 
 public class RefreshLayoutActivity extends BaseActivity {
@@ -36,36 +35,14 @@ public class RefreshLayoutActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
+        initMenu();
         inflateRefreshLayout();
         initXmlContent();
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null)
-            return;
-
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-        FrameLayout customView = new FrameLayout(this);
-        customView.setPadding(padding, 0, 0, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(customView, barParams);
-        //
-        TextView tvTitle = new TextView(this);
-        tvTitle.setTextColor(Color.WHITE);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
-        FrameLayout.LayoutParams titleParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        titleParams.gravity = Gravity.CENTER_VERTICAL;
-        customView.addView(tvTitle, titleParams);
-
-        ActionMenuView actionMenuView = new ActionMenuView(this);
-        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        customView.addView(actionMenuView, menuParams);
-        actionMenuView.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+    private void initMenu() {
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        getActionMenuView().setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
@@ -80,8 +57,8 @@ public class RefreshLayoutActivity extends BaseActivity {
             }
         });
 
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "CustomView");
-        actionMenuView.getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "RecyclerView");
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "CustomView");
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "RecyclerView");
     }
 
     private void inflateRefreshLayout(){

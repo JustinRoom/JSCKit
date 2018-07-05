@@ -29,7 +29,7 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vertical_columnar_graph_view);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         verticalColumnarGraphView = findViewById(R.id.vertical_columnar_graph);
 
         handlerProvider.sendUIEmptyMessageDelay(0, 350);
