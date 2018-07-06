@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +86,7 @@ public class VerticalColumnarGraphView extends View {
         for (int i = 0; i < column; i++) {
             ColumnarItem item = new ColumnarItem();
             item.setColor(colors[i]);
+            item.setSelectedColor(colors[column - 1 - i]);
             item.setRatio(ratios[i]);
             item.setLabel(labels[i]);
             item.setValue(values[i]);
@@ -93,13 +95,19 @@ public class VerticalColumnarGraphView extends View {
         return data;
     }
 
-    private int getSelectedIndex(float x, float y) {
+    /**
+     * @param x                 touch x coordination
+     * @param y                 touch y coordination
+     * @param hExpandClickPixel expand click area on horizontal direction to increase clicking sensitivity
+     * @return the index of selected item
+     */
+    private int getSelectedIndex(float x, float y, int hExpandClickPixel) {
         if (items == null || items.isEmpty())
             return -1;
 
         for (int i = 0; i < items.size(); i++) {
             ColumnarItem item = items.get(i);
-            if (x >= item.getLeft() && x <= item.getRight() && y >= item.getTop() && y <= item.getBottom())
+            if (x >= (item.getLeft() - hExpandClickPixel) && x <= (item.getRight() + hExpandClickPixel) && y >= item.getTop() && y <= item.getBottom())
                 return i;
         }
         return -1;
@@ -117,9 +125,10 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 个性化定制UI。
+     *
      * @param builder builder
      */
-    public void initCustomUI(Builder builder){
+    public void initCustomUI(Builder builder) {
         if (builder == null)
             return;
         xAxisLabels = builder.getXAxisLabels();
@@ -154,12 +163,12 @@ public class VerticalColumnarGraphView extends View {
             case MotionEvent.ACTION_DOWN:
                 if (!isPressed) {
                     isPressed = true;
-                    selectedIndex = getSelectedIndex(event.getX(), event.getY());
+                    selectedIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 isPressed = false;
-                int tempIndex = getSelectedIndex(event.getX(), event.getY());
+                int tempIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
                 if (tempIndex != -1 && tempIndex == selectedIndex) {
 
                 } else {
@@ -197,7 +206,13 @@ public class VerticalColumnarGraphView extends View {
 
         clipRect.set(getPaddingLeft() + lOffset, getPaddingTop() + tOffset, getWidth() - getPaddingRight() - rOffset, getHeight() - getPaddingBottom() - bOffset);
         drawItems(canvas);
-        drawSelectedItem(canvas);
+
+        if (isPressed) {
+            drawTouchedItem(canvas);
+        } else {
+            drawSelectedItem(canvas);
+        }
+
     }
 
     /**
@@ -218,7 +233,8 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 画X轴上的刻度线
-     * @param canvas canvas
+     *
+     * @param canvas      canvas
      * @param xAxisScales X轴上刻度线的X坐标集合
      * @param scaleHeight 刻度线的高度
      */
@@ -232,9 +248,10 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 画Y轴上的刻度线
-     * @param canvas canvas
+     *
+     * @param canvas      canvas
      * @param yAxisScales Y轴上刻度线的Y坐标集合
-     * @param scaleWidth 刻度线的宽度
+     * @param scaleWidth  刻度线的宽度
      */
     private void drawYAxisScales(Canvas canvas, float[] yAxisScales, int scaleWidth) {
         if (yAxisLabels == null || yAxisLabels.length <= 1)
@@ -246,6 +263,7 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 计算X轴上刻度线的X坐标集合
+     *
      * @param originX 坐标系原点X坐标
      * @return X轴上刻度线的X坐标集合
      */
@@ -264,6 +282,7 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 计算Y轴上刻度线的Y坐标集合
+     *
      * @param originY 坐标系原点Y坐标
      * @return Y轴上刻度线的Y坐标集合
      */
@@ -282,7 +301,8 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 画X轴上的刻度
-     * @param canvas canvas
+     *
+     * @param canvas      canvas
      * @param xAxisScales X轴上刻度线的X坐标集合
      */
     private void drawXAxisLabels(Canvas canvas, float[] xAxisScales) {
@@ -305,7 +325,8 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 画Y轴上的刻度
-     * @param canvas canvas
+     *
+     * @param canvas      canvas
      * @param yAxisScales Y轴上刻度线的Y坐标集合
      */
     private void drawYAxisLabels(Canvas canvas, float[] yAxisScales) {
@@ -328,6 +349,7 @@ public class VerticalColumnarGraphView extends View {
 
     /**
      * 画柱形
+     *
      * @param canvas canvas
      */
     private void drawItems(Canvas canvas) {
@@ -335,7 +357,7 @@ public class VerticalColumnarGraphView extends View {
             return;
 
         paint.setStyle(Paint.Style.FILL);
-        int chartWidth = (clipRect.width() - space * (column + 1)) / column;
+        int chartWidth = calculateSuitableChartWidth(clipRect.width());
         int chartHeight = clipRect.height();
         for (int i = 0; i < items.size(); i++) {
             ColumnarItem item = items.get(i);
@@ -354,8 +376,29 @@ public class VerticalColumnarGraphView extends View {
     }
 
     /**
+     * Calculate suitable chart width.
+     *
+     * @param width columnar area width
+     * @return chart width
+     */
+    private int calculateSuitableChartWidth(int width) {
+        int chartWidth = (width - space * (column + 1)) / column;
+        int minimumChartWidth = width / (column * 2 + 1);
+        if (chartWidth < minimumChartWidth) {
+            chartWidth = minimumChartWidth;
+            space = minimumChartWidth;
+        }
+        return chartWidth;
+    }
+
+    protected void drawTouchedItem(Canvas canvas) {
+
+    }
+
+    /**
      * 画选中柱形后显示的相关详细信息。
      * 如果需展示自己的效果，请重写此方法。
+     *
      * @param canvas canvas
      */
     protected void drawSelectedItem(Canvas canvas) {
@@ -370,25 +413,17 @@ public class VerticalColumnarGraphView extends View {
         int margin = 16;
         ColumnarItem selectedItem = items.get(selectedIndex);
         selectedItem.initRectF(rectF);
-        String label = selectedItem.getLabel();
-        String value = selectedItem.getValue();
-        textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        textPaint.getTextBounds("Text", 0, 4, rect);
-        int ch = rect.height();
-        int lw = 0;
-        int vw = 0;
-        if (label != null && label.length() > 0) {
-            textPaint.getTextBounds(label, 0, label.length(), rect);
-            lw = rect.width();
-        }
-        if (value != null && value.length() > 0) {
-            textPaint.getTextBounds(value, 0, value.length(), rect);
-            vw = rect.width();
-        }
+        //画选中柱形边框
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(selectedItem.getSelectedColor());
+        canvas.drawRoundRect(rectF, 4, 4, paint);
 
-        int bgw = dotRadius * 2 + padding * 2 + margin + Math.max(lw, vw);
-        bgw = Math.max(bgw, 240);
-        int bgh = padding * 2 + ch * 2 + margin * 2;
+        String maxLengthString = getMaxLengthString();
+        textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        textPaint.getTextBounds(maxLengthString, 0, maxLengthString.length(), rect);
+        int ch = rect.height();
+        int bgw = dotRadius * 2 + padding * 2 + margin + rect.width();
+        int bgh = padding * 2 + ch * 2 + margin;
 
         float left = rectF.right - (bgw + rectF.width()) / 2.0f;
         float bottom = rectF.top - 10;
@@ -406,6 +441,7 @@ public class VerticalColumnarGraphView extends View {
             clipRectF.bottom = bgh;
         }
 
+        paint.setStyle(Paint.Style.FILL);
         //画背景
         paint.setColor(0xFF485465);
         canvas.drawRoundRect(clipRectF, 6, 6, paint);
@@ -415,7 +451,7 @@ public class VerticalColumnarGraphView extends View {
 
         textPaint.setColor(Color.WHITE);
         //画标签
-        label = selectedItem.getLabel();
+        String label = selectedItem.getLabel();
         if (label != null && label.trim().length() > 0) {
             textPaint.setAlpha(0x99);
             Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
@@ -425,7 +461,7 @@ public class VerticalColumnarGraphView extends View {
             canvas.drawText(label, 0, label.length(), x, baseLine, textPaint);
         }
         //画值
-        value = selectedItem.getValue();
+        String value = selectedItem.getValue();
         if (value != null && value.trim().length() > 0) {
             textPaint.setAlpha(0xFF);
             Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
@@ -437,13 +473,60 @@ public class VerticalColumnarGraphView extends View {
     }
 
     /**
+     * Get the longest string of {@link #items}.
+     *
+     * @return the longest string of {@link #items}
+     */
+    private String getMaxLengthString() {
+        if (items == null || items.isEmpty())
+            return "";
+        String result = "";
+        for (int i = 0; i < items.size(); i++) {
+            String itemStr = getItemMaxLengthString(items.get(i));
+            int resultLen = getHalfStringLength(result);
+            int itemLen = getHalfStringLength(itemStr);
+            result = resultLen > itemLen ? result : itemStr;
+        }
+        return result;
+    }
+
+    /**
+     * Get the longest string of columnar item.
+     *
+     * @param item columnar item
+     * @return the longest string. One of {@link ColumnarItem#label}, {@link ColumnarItem#value}.
+     */
+    private String getItemMaxLengthString(ColumnarItem item) {
+        int labelLen = getHalfStringLength(item.getLabel());
+        int valueLen = getHalfStringLength(item.getValue());
+        return labelLen > valueLen ? item.getLabel() : item.getValue();
+    }
+
+    /**
+     * 半角长度获取
+     *
+     * @param ss 源字符串
+     * @return 字符串半角长度
+     */
+    public int getHalfStringLength(String ss) {
+        if (ss == null || ss.length() == 0)
+            return 0;
+
+        try {
+            return ss.getBytes("GBK").length;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
      * 监听柱形选中状态。
      */
     public interface OnSelectedChangeListener {
 
         /**
-         *
-         * @param selectedIndex the selected index
+         * @param selectedIndex the selected index。It represents no item was selected when return -1.
          */
         void onSelectedChange(int selectedIndex);
     }

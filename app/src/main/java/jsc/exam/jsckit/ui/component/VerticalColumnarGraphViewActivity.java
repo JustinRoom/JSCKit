@@ -60,6 +60,7 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
         for (int i = 0; i < 7; i++) {
             ColumnarItem item = new ColumnarItem();
             item.setColor(colors[i]);
+            item.setSelectedColor(colors[6-i]);
             item.setRatio(ratios[i]);
             item.setLabel(labels[i]);
             item.setValue(values[i]);
