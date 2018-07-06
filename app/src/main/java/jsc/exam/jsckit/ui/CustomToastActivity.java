@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.component.utils.AntiShakeUtils;
+import jsc.kit.component.utils.CompatColorResourceUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
 public class CustomToastActivity extends BaseActivity {
@@ -37,7 +38,7 @@ public class CustomToastActivity extends BaseActivity {
 
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
         TextView textView = new TextView(this);
-        textView.setTextColor(DynamicDrawableFactory.colorStateList(Color.WHITE, getResources().getColor(R.color.colorAccent)));
+        textView.setTextColor(DynamicDrawableFactory.colorStateList(Color.WHITE, CompatColorResourceUtils.getColor(this, R.color.colorAccent)));
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         textView.setBackground(createRectButtonSelector());
@@ -121,9 +122,9 @@ public class CustomToastActivity extends BaseActivity {
     }
 
     private Drawable createCircleButtonSelector(){
-        int colorPrimaryDark = getResources().getColor(R.color.colorPrimaryDark);
-        int colorPrimary = getResources().getColor(R.color.colorPrimary);
-        int colorAccent = getResources().getColor(R.color.colorAccent);
+        int colorPrimaryDark = CompatColorResourceUtils.getColor(this, R.color.colorPrimaryDark);
+        int colorPrimary = CompatColorResourceUtils.getColor(this, R.color.colorPrimary);
+        int colorAccent = CompatColorResourceUtils.getColor(this, R.color.colorAccent);
 
         GradientDrawable pressed = new GradientDrawable();
         pressed.setShape(GradientDrawable.OVAL);
@@ -138,10 +139,6 @@ public class CustomToastActivity extends BaseActivity {
     }
 
     private Drawable createRectButtonSelector(){
-        int colorPrimaryDark = getResources().getColor(R.color.colorPrimaryDark);
-        int colorPrimary = getResources().getColor(R.color.colorPrimary);
-        int colorAccent = getResources().getColor(R.color.colorAccent);
-
         GradientDrawable pressed = new GradientDrawable();
         pressed.setShape(GradientDrawable.RECTANGLE);
         pressed.setOrientation(GradientDrawable.Orientation.RIGHT_LEFT);
@@ -155,8 +152,8 @@ public class CustomToastActivity extends BaseActivity {
     }
 
     private Drawable createButtonSelector(){
-        int pressedColor = getResources().getColor(R.color.colorPrimaryDark);
-        int normalColor = getResources().getColor(R.color.colorAccent);
+        int pressedColor = CompatColorResourceUtils.getColor(this, R.color.colorPrimaryDark);
+        int normalColor = CompatColorResourceUtils.getColor(this, R.color.colorAccent);
         float cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
         Drawable pressed = DynamicDrawableFactory.cornerRectangleDrawable(pressedColor, cornerRadius);
         Drawable normal = DynamicDrawableFactory.cornerRectangleDrawable(normalColor, cornerRadius);

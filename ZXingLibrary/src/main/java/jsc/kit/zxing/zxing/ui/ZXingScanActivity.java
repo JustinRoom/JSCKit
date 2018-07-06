@@ -2,7 +2,9 @@ package jsc.kit.zxing.zxing.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -51,7 +53,14 @@ public class ZXingScanActivity extends AppCompatActivity implements QRCodeView.D
 
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
+        if (vibrator == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, 0x8F));
+        } else {
+            vibrator.vibrate(200);
+        }
     }
 
     @Override

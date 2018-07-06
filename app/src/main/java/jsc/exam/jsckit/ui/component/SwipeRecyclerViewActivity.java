@@ -30,6 +30,7 @@ import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
+import jsc.kit.component.utils.CompatDrawableResourceUtils;
 
 public class SwipeRecyclerViewActivity extends BaseActivity {
 
@@ -51,7 +52,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
 //        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
         //添加ItemDecoration
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(getResources().getDrawable(R.drawable.item_decoration_shape));
+        decoration.setDrawable(CompatDrawableResourceUtils.getDrawable(this, R.drawable.item_decoration_shape));
         swipeRefreshRecyclerView.getRecyclerView().addItemDecoration(decoration);
         //
         swipeRefreshRecyclerView.getSwipeRefreshLayout().setColorSchemeColors(0xFF3F51B5, 0xFF303F9F, 0xFFFF4081, Color.CYAN);

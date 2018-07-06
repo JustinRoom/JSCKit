@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
@@ -34,7 +33,7 @@ public class ReboundRecyclerView extends FrameLayout {
     /**
      * default rebound duration
      */
-    public final static int DEFAULT_REBOUND_DURATION = 1000;
+    public final static int DEFAULT_MAX_REBOUND_DURATION = 1000;
 
     private OverScroller overScroller;
     private VelocityTracker velocityTracker;
@@ -42,7 +41,7 @@ public class ReboundRecyclerView extends FrameLayout {
     private int mMaximumVelocity;
     private int scaledTouchSlop;
 
-    private int reboundAnimDuration = DEFAULT_REBOUND_DURATION;
+    private int maxReboundAnimDuration = DEFAULT_MAX_REBOUND_DURATION;
     private float scrollRatio = DEFAULT_SCROLL_RATIO;
     private RecyclerView recyclerView;
     private float mLastTouchY;
@@ -75,25 +74,10 @@ public class ReboundRecyclerView extends FrameLayout {
         mMinimumVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
         mMaximumVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
         scaledTouchSlop = viewConfiguration.getScaledTouchSlop();
-//        Log.i(TAG, "init: scaledTouchSlop = " + scaledTouchSlop);
 
         recyclerView = new RecyclerView(context);
         recyclerView.setVerticalScrollBarEnabled(false);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                //如果recyclerView已经停止滚动，则rebound
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    rebound(300);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
         addView(recyclerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
@@ -110,12 +94,15 @@ public class ReboundRecyclerView extends FrameLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                //记录是否按下
                 if (!pressed) {
                     pressed = true;
                 }
+                //停止自动滑动
                 if (!overScroller.isFinished()) {
                     overScroller.forceFinished(true);
                 }
+                //停止RecyclerView列表的滑动
                 recyclerView.stopScroll();
                 mLastTouchY = ev.getY();
                 break;
@@ -123,6 +110,7 @@ public class ReboundRecyclerView extends FrameLayout {
                 float curTouchY = ev.getY();
                 float deltaY = mLastTouchY - curTouchY;
                 mLastTouchY = curTouchY;
+                //如果滑动距离小于scaledTouchSlop，则把事件交给子View消耗；否则此事件交由自己的onTouchEvent(MotionEvent event)方法消耗。
                 if (Math.abs(deltaY) >= scaledTouchSlop)
                     return true;
                 break;
@@ -135,6 +123,7 @@ public class ReboundRecyclerView extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        //跟踪滑动事件，在MotionEvent.ACTION_UP计算滑动速度
         trackerEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -145,28 +134,34 @@ public class ReboundRecyclerView extends FrameLayout {
                 float dy = mLastTouchY - curTouchY;
                 int deltaY = (int) (dy);
                 mLastTouchY = curTouchY;
+                //执行滑动处理
                 move(deltaY);
                 break;
             case MotionEvent.ACTION_UP:
+                //计算滑动速度
                 int initialVelocity = getYVelocity();
                 if (Math.abs(initialVelocity) > mMinimumVelocity) {
                     int verticalOffset = recyclerView.computeVerticalScrollOffset();
                     int distanceFromBottom = recyclerView.computeVerticalScrollRange() - verticalOffset - recyclerView.getMeasuredHeight();
                     if ((initialVelocity > 0 && verticalOffset > 0)
                             || (initialVelocity < 0 && distanceFromBottom > 0)) {
+                        //执行RecyclerView平滑
                         recyclerView.fling(0, -initialVelocity);
-                    } else {
-                        rebound(reboundAnimDuration);
                     }
-                } else {
-                    rebound(reboundAnimDuration);
                 }
+                //执行反弹
+                rebound();
+                //释放滑动事件跟踪器
                 recycleVelocityTracker();
                 break;
         }
         return true;
     }
 
+    /**
+     *
+     * @param deltaY negative value represents moving down, positive value represents moving up.
+     */
     private void move(int deltaY) {
         int verticalOffset = recyclerView.computeVerticalScrollOffset();
         int distanceFromBottom = recyclerView.computeVerticalScrollRange() - verticalOffset - recyclerView.getMeasuredHeight();
@@ -211,11 +206,23 @@ public class ReboundRecyclerView extends FrameLayout {
         }
     }
 
-    private void rebound(int duration) {
+    private void rebound() {
         if (getScrollY() == 0)
             return;
-        overScroller.startScroll(0, getScrollY(), 0, -getScrollY(), duration);
+        overScroller.startScroll(0, getScrollY(), 0, -getScrollY(), calculateDurationByScrollY());
         invalidate();
+    }
+
+    /**
+     * Calculate suitable rebound duration by scroll distance.
+     *
+     * @return suitable rebound duration. The minimum duration is 300, and the maximal is {@link #getMaxReboundAnimDuration()}.
+     */
+    private int calculateDurationByScrollY() {
+        int duration = Math.abs(getScrollY()) * 2;
+        duration = Math.max(duration, 300);
+        duration = Math.min(duration, maxReboundAnimDuration);
+        return duration;
     }
 
     private void trackerEvent(MotionEvent event) {
@@ -249,22 +256,27 @@ public class ReboundRecyclerView extends FrameLayout {
     }
 
     /**
-     * The default value is {@link #DEFAULT_SCROLL_RATIO}.
+     * Set the ratio of scrolling on vertical direction.
+     * <p>For example: {@code distance = scrollY * ratio;}
+     * <br>The default value is {@link #DEFAULT_SCROLL_RATIO}.
+     *
      * @param scrollRatio scroll ratio on vertical direction
      */
     public void setScrollRatio(@FloatRange(from = 0) float scrollRatio) {
         this.scrollRatio = scrollRatio;
     }
 
-    public int getReboundAnimDuration() {
-        return reboundAnimDuration;
+    public int getMaxReboundAnimDuration() {
+        return maxReboundAnimDuration;
     }
 
     /**
-     * The default value is {@link #DEFAULT_REBOUND_DURATION}.
-     * @param reboundAnimDuration  the duration of rebound animation
+     * Set the maximal rebound animation duration.
+     * The default value is {@link #DEFAULT_MAX_REBOUND_DURATION}.
+     *
+     * @param maxReboundAnimDuration the maximal rebound animation duration
      */
-    public void setReboundAnimDuration(@IntRange(from = 0) int reboundAnimDuration) {
-        this.reboundAnimDuration = reboundAnimDuration;
+    public void setMaxReboundAnimDuration(@IntRange(from = 300) int maxReboundAnimDuration) {
+        this.maxReboundAnimDuration = maxReboundAnimDuration;
     }
 }

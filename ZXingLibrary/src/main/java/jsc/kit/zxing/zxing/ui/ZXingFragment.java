@@ -3,7 +3,9 @@ package jsc.kit.zxing.zxing.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -80,7 +82,13 @@ public class ZXingFragment extends Fragment implements QRCodeView.Delegate, View
 
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getActivity().getSystemService(Activity.VIBRATOR_SERVICE);
-        assert vibrator != null;
-        vibrator.vibrate(200);
+        if (vibrator == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, 0x8F));
+        } else {
+            vibrator.vibrate(200);
+        }
     }
 }

@@ -136,7 +136,7 @@ public class JSCRoundCornerProgressBar extends View {
     /**
      * progress
      *
-     * @param canvas
+     * @param canvas canvas
      */
     private void drawProgress(Canvas canvas, int progress, int progressColor) {
         if (progress <= 0)

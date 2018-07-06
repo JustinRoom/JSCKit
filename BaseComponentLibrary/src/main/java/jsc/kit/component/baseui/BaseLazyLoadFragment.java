@@ -71,6 +71,20 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden || !isPrepared)
+            return;
+
+        if (isFirstLazyLoad) {
+            isFirstLazyLoad = false;
+            firstLazyLoad();
+        } else {
+            reLazyLoad();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
