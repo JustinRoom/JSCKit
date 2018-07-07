@@ -7,9 +7,14 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.annotation.ColorInt;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +34,8 @@ import java.util.List;
 public class VerticalColumnarGraphView extends View {
 
     private final String TAG = "ColumnarGraphView";
+    //1毫秒(ms)=1000000纳秒(ns)
+    private final static long DEFAULT_CLICK_TIME = 1000_000000;
     protected Paint paint;
     protected TextPaint textPaint;
     protected Rect clipRect = new Rect();
@@ -50,8 +57,13 @@ public class VerticalColumnarGraphView extends View {
     private List<ColumnarItem> items;//数据
     private int lastSelectedIndex = -1;//上一次点击选中柱形
     private int selectedIndex = -1;//点击选中柱形
+    private int downIndex = -1;
+    private int moveIndex = -1;
+    private int upIndex = -1;
+    private long pressedTimStamp;
     private boolean isPressed = false;
 
+    private OnColumnarItemClickListener onColumnarItemClickListener;
     private OnSelectedChangeListener onSelectedChangeListener;
 
     public VerticalColumnarGraphView(Context context) {
@@ -86,7 +98,6 @@ public class VerticalColumnarGraphView extends View {
         for (int i = 0; i < column; i++) {
             ColumnarItem item = new ColumnarItem();
             item.setColor(colors[i]);
-            item.setSelectedColor(colors[column - 1 - i]);
             item.setRatio(ratios[i]);
             item.setLabel(labels[i]);
             item.setValue(values[i]);
@@ -107,7 +118,16 @@ public class VerticalColumnarGraphView extends View {
 
         for (int i = 0; i < items.size(); i++) {
             ColumnarItem item = items.get(i);
-            if (x >= (item.getLeft() - hExpandClickPixel) && x <= (item.getRight() + hExpandClickPixel) && y >= item.getTop() && y <= item.getBottom())
+            item.initRectF(rectF);
+            float top = item.getTop();
+            //为了增加柱状的点击灵明度，给定柱状的最小点击区域高度为space
+            if (rectF.height() > 0 && rectF.height() < space)
+                top = item.getBottom() - space;
+
+            if (x >= (item.getLeft() - hExpandClickPixel)
+                    && x <= (item.getRight() + hExpandClickPixel)
+                    && y >= top
+                    && y <= item.getBottom())
                 return i;
         }
         return -1;
@@ -131,23 +151,26 @@ public class VerticalColumnarGraphView extends View {
     public void initCustomUI(Builder builder) {
         if (builder == null)
             return;
-        xAxisLabels = builder.getXAxisLabels();
-        yAxisLabels = builder.getYAxisLabels();
-        axisColor = builder.getAxisColor();
-        axisLabelTextColor = builder.getAxisLabelTextColor();
-        axisLabelTextSize = builder.getAxisLabelTextSize();
-        space = builder.getSpace();
-        column = builder.getColumn();
-        lOffset = builder.getLeftOffset();
-        tOffset = builder.getTopOffset();
-        rOffset = builder.getRightOffset();
-        bOffset = builder.getBottomOffset();
+        xAxisLabels = builder.xAxisLabels;
+        yAxisLabels = builder.yAxisLabels;
+        axisColor = builder.axisColor;
+        axisLabelTextColor = builder.axisLabelTextColor;
+        axisLabelTextSize = builder.axisLabelTextSize;
+        column = builder.column;
+        lOffset = builder.leftOffset;
+        tOffset = builder.topOffset;
+        rOffset = builder.rightOffset;
+        bOffset = builder.bottomOffset;
         if (axisLabelTextSize <= 0)
             axisLabelTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         invalidate();
     }
 
-    public void addOnSelectedChangeListener(OnSelectedChangeListener onSelectedChangeListener) {
+    public void setOnColumnarItemClickListener(OnColumnarItemClickListener onColumnarItemClickListener) {
+        this.onColumnarItemClickListener = onColumnarItemClickListener;
+    }
+
+    public void setOnSelectedChangeListener(OnSelectedChangeListener onSelectedChangeListener) {
         this.onSelectedChangeListener = onSelectedChangeListener;
     }
 
@@ -163,22 +186,22 @@ public class VerticalColumnarGraphView extends View {
             case MotionEvent.ACTION_DOWN:
                 if (!isPressed) {
                     isPressed = true;
-                    selectedIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                    downIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                    pressedTimStamp = System.nanoTime();
                 }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                moveIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                if (moveIndex < 0)
+                    pressedTimStamp = 0;
                 break;
             case MotionEvent.ACTION_UP:
                 isPressed = false;
-                int tempIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
-                if (tempIndex != -1 && tempIndex == selectedIndex) {
-
-                } else {
-                    selectedIndex = -1;
-                }
-                if (lastSelectedIndex != selectedIndex) {
-                    lastSelectedIndex = selectedIndex;
-                    invalidate();
-                    if (onSelectedChangeListener != null)
-                        onSelectedChangeListener.onSelectedChange(selectedIndex);
+                upIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                if (System.nanoTime() - pressedTimStamp <= DEFAULT_CLICK_TIME){
+                    pressedTimStamp = 0;
+                    selectedIndex = (upIndex == downIndex) ? downIndex : -1;
+                    performColumnarItemClick(selectedIndex);
                 }
                 break;
         }
@@ -208,9 +231,9 @@ public class VerticalColumnarGraphView extends View {
         drawItems(canvas);
 
         if (isPressed) {
-            drawTouchedItem(canvas);
+
         } else {
-            drawSelectedItem(canvas);
+            drawSelectedItemDetailInfo(canvas);
         }
 
     }
@@ -371,8 +394,17 @@ public class VerticalColumnarGraphView extends View {
             item.setRight(item.getLeft() + chartWidth);
             item.setBottom(clipRect.bottom);
             item.initRectF(rectF);
-            canvas.drawRoundRect(rectF, 4, 4, paint);
+            if (rectF.height() > 0){
+                if (i == selectedIndex){
+                    paint.setAlpha(0xFF);
+                    drawSelectedItem(canvas, item, rectF, paint);
+                } else {
+                    paint.setAlpha(selectedIndex < 0 ? 0xFF : 0x66);
+                    canvas.drawRoundRect(rectF, 4, 4, paint);
+                }
+            }
         }
+        paint.setAlpha(0xFF);
     }
 
     /**
@@ -391,8 +423,15 @@ public class VerticalColumnarGraphView extends View {
         return chartWidth;
     }
 
-    protected void drawTouchedItem(Canvas canvas) {
-
+    /**
+     * 画选中的柱形
+     * @param canvas canvas
+     * @param item columnar item
+     * @param rectF the rectF of selected columnar
+     * @param paint paint
+     */
+    protected void drawSelectedItem(Canvas canvas, ColumnarItem item, RectF rectF, Paint paint) {
+        canvas.drawRoundRect(rectF, 4, 4, paint);
     }
 
     /**
@@ -401,7 +440,7 @@ public class VerticalColumnarGraphView extends View {
      *
      * @param canvas canvas
      */
-    protected void drawSelectedItem(Canvas canvas) {
+    protected void drawSelectedItemDetailInfo(Canvas canvas) {
         if (items == null || items.isEmpty())
             return;
 
@@ -413,10 +452,6 @@ public class VerticalColumnarGraphView extends View {
         int margin = 16;
         ColumnarItem selectedItem = items.get(selectedIndex);
         selectedItem.initRectF(rectF);
-        //画选中柱形边框
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(selectedItem.getSelectedColor());
-        canvas.drawRoundRect(rectF, 4, 4, paint);
 
         String maxLengthString = getMaxLengthString();
         textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -427,6 +462,9 @@ public class VerticalColumnarGraphView extends View {
 
         float left = rectF.right - (bgw + rectF.width()) / 2.0f;
         float bottom = rectF.top - 10;
+        if (rectF.height() > 0 && rectF.height() < space) {
+            bottom = rectF.bottom - space - 10;
+        }
         RectF clipRectF = new RectF(left, bottom - bgh, left + bgw, bottom);
         if (selectedIndex == 0) {
             clipRectF.left = rectF.left;
@@ -441,7 +479,6 @@ public class VerticalColumnarGraphView extends View {
             clipRectF.bottom = bgh;
         }
 
-        paint.setStyle(Paint.Style.FILL);
         //画背景
         paint.setColor(0xFF485465);
         canvas.drawRoundRect(clipRectF, 6, 6, paint);
@@ -520,14 +557,166 @@ public class VerticalColumnarGraphView extends View {
         return 0;
     }
 
-    /**
-     * 监听柱形选中状态。
-     */
+    protected void performColumnarItemClick(int selectedIndex){
+        ColumnarItem item = selectedIndex < 0 ? null : items.get(selectedIndex);
+        if (onColumnarItemClickListener != null && item != null){
+            onColumnarItemClickListener.onColumnarItemClick(this, selectedIndex, item);
+        }
+
+        if (lastSelectedIndex != selectedIndex){
+            invalidate();
+            lastSelectedIndex = selectedIndex;
+            if (onSelectedChangeListener != null){
+                onSelectedChangeListener.onSelectedChange(this, selectedIndex, item);
+            }
+        }
+    }
+
     public interface OnSelectedChangeListener {
 
         /**
+         *
+         * @param view view
          * @param selectedIndex the selected index。It represents no item was selected when return -1.
+         * @param selectedItem the selected item
          */
-        void onSelectedChange(int selectedIndex);
+        void onSelectedChange(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem);
+    }
+
+    public interface OnColumnarItemClickListener {
+
+        /**
+         *
+         * @param view view
+         * @param selectedIndex the selected index。It represents no item was selected when return -1.
+         * @param selectedItem the selected item
+         */
+        void onColumnarItemClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem);
+    }
+
+    public static class Builder {
+        String[] yAxisLabels;
+        String[] xAxisLabels;
+        int axisColor;//坐标系以及刻度线颜色
+        int axisLabelTextColor;//刻度字体颜色
+        float axisLabelTextSize;//刻度字体大小
+        int column;//柱形数目
+        int leftOffset;
+        int topOffset;
+        int rightOffset;
+        int bottomOffset;
+
+        public Builder() {
+            axisColor = 0xFFD8D8D8;
+            axisLabelTextColor = 0xFF666666;
+            column = 7;
+            leftOffset = 60;
+            topOffset = 20;
+            rightOffset = 20;
+            bottomOffset = 20;
+        }
+
+        public Builder setYAxisLabels(String[] yAxisLabels) {
+            this.yAxisLabels = yAxisLabels;
+            return this;
+        }
+
+        public Builder setXAxisLabels(String[] xAxisLabels) {
+            this.xAxisLabels = xAxisLabels;
+            return this;
+        }
+
+        public Builder setAxisColor(@ColorInt int axisColor) {
+            this.axisColor = axisColor;
+            return this;
+        }
+
+        public Builder setAxisLabelTextColor(@ColorInt int axisLabelTextColor) {
+            this.axisLabelTextColor = axisLabelTextColor;
+            return this;
+        }
+
+        public Builder setAxisLabelTextSize(float axisLabelTextSize) {
+            this.axisLabelTextSize = axisLabelTextSize;
+            return this;
+        }
+
+        /**
+         * 柱形数目决定了柱形的宽度。
+         * <p>{@code chartWidth = width / (column * 2 + 1)}
+         *
+         * @param column column count
+         * @return builder
+         */
+        public Builder setColumn(@IntRange(from = 1) int column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder setLeftOffset(@IntRange(from = 0) int leftOffset) {
+            this.leftOffset = leftOffset;
+            return this;
+        }
+
+        public Builder setTopOffset(@IntRange(from = 0) int topOffset) {
+            this.topOffset = topOffset;
+            return this;
+        }
+
+        public Builder setRightOffset(@IntRange(from = 0) int rightOffset) {
+            this.rightOffset = rightOffset;
+            return this;
+        }
+
+        public Builder setBottomOffset(@IntRange(from = 0) int bottomOffset) {
+            this.bottomOffset = bottomOffset;
+            return this;
+        }
+
+
+        /**
+         * 设置XY轴刻度
+         *
+         * @param xAxisLabels x axis labels
+         * @param yAxisLabels y axis labels
+         * @return builder
+         */
+        public Builder setAxisLabels(String[] xAxisLabels, String[] yAxisLabels) {
+            this.xAxisLabels = xAxisLabels;
+            this.yAxisLabels = yAxisLabels;
+            return this;
+        }
+
+        /**
+         * 设置XY轴刻度字体大小
+         *
+         * @param context context
+         * @param unit    unit
+         * @param value   value
+         * @return builder
+         * @see TypedValue#applyDimension(int, float, DisplayMetrics)
+         */
+        public Builder setAxisLabelTextSize(@NonNull Context context, int unit, float value) {
+            this.axisLabelTextSize = TypedValue.applyDimension(unit, value, context.getResources().getDisplayMetrics());
+            return this;
+        }
+
+        /**
+         * 设置四个方向的偏移量。
+         * <br>偏移量用来留出空间画刻度。
+         *
+         * @param leftOffset   left offset
+         * @param topOffset    top offset
+         * @param rightOffset  right offset
+         * @param bottomOffset bottom offset
+         * @return builder
+         */
+        public Builder setOffset(@IntRange(from = 0) int leftOffset, @IntRange(from = 0) int topOffset, @IntRange(from = 0) int rightOffset, @IntRange(from = 0) int bottomOffset) {
+            this.leftOffset = leftOffset;
+            this.topOffset = topOffset;
+            this.rightOffset = rightOffset;
+            this.bottomOffset = bottomOffset;
+            return this;
+        }
     }
 }

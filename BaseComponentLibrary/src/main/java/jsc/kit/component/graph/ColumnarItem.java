@@ -14,7 +14,6 @@ import android.support.annotation.FloatRange;
  */
 public class ColumnarItem {
     private int color;//柱形颜色
-    private int selectedColor;//选中柱形颜色
     private float ratio;//比率, 柱形高度百分比
     private float left;//无需设置
     private float top;//无需设置
@@ -25,7 +24,6 @@ public class ColumnarItem {
 
     public ColumnarItem() {
         color = Color.BLUE;
-        selectedColor = Color.RED;
     }
 
     public int getColor() {
@@ -34,14 +32,6 @@ public class ColumnarItem {
 
     public void setColor(@ColorInt int color) {
         this.color = color;
-    }
-
-    public int getSelectedColor() {
-        return selectedColor;
-    }
-
-    public void setSelectedColor(@ColorInt int selectedColor) {
-        this.selectedColor = selectedColor;
     }
 
     public float getRatio() {

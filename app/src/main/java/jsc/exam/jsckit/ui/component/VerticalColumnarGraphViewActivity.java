@@ -31,6 +31,18 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
         setContentView(R.layout.activity_vertical_columnar_graph_view);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         verticalColumnarGraphView = findViewById(R.id.vertical_columnar_graph);
+        verticalColumnarGraphView.setOnColumnarItemClickListener(new VerticalColumnarGraphView.OnColumnarItemClickListener() {
+            @Override
+            public void onColumnarItemClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem) {
+                showCustomToast("Selected " + selectedIndex);
+            }
+        });
+        verticalColumnarGraphView.setOnSelectedChangeListener(new VerticalColumnarGraphView.OnSelectedChangeListener() {
+            @Override
+            public void onSelectedChange(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem) {
+                showCustomToast("Change selected " + selectedIndex);
+            }
+        });
 
         handlerProvider.sendUIEmptyMessageDelay(0, 350);
     }
@@ -39,8 +51,8 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
         verticalColumnarGraphView.initCustomUI(
-                new jsc.kit.component.graph.Builder()
-                        .setYAxisLabels(new String[]{"0", "25", "50", "75", "100", "125"})
+                new VerticalColumnarGraphView.Builder()
+                        .setYAxisLabels(new String[]{"\u20000", "25", "50", "75", "100"})
                         .setOffset(60, 0, 20, 20)
         );
         verticalColumnarGraphView.setItems(createTestData());
@@ -53,14 +65,13 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
      */
     private List<ColumnarItem> createTestData() {
         List<ColumnarItem> data = new ArrayList<>();
-        float[] ratios = {.76f, .36f, .54f, .36f, .6f, .36f, .6f};
+        float[] ratios = {.76f, .36f, .54f, .36f, .05f, .36f, .6f};
         int[] colors = {0xFFFFCF5E, 0xFFB4EE4D, 0xFF27E67B, 0xFF36C771, 0xFF1CA291, 0xFF24DDD0, 0xFf32CEF7};
         String[] labels = {"返情配种", "多次输精", "人工授精", "本交", "同精液配种", "已配种母猪", "其他配种"};
-        String[] values = {"20头", "20头", "20头", "20头", "20头", "20头", "20头"};
+        String[] values = {"76头", "36头", "54头", "36头", "5头", "36头", "60头"};
         for (int i = 0; i < 7; i++) {
             ColumnarItem item = new ColumnarItem();
             item.setColor(colors[i]);
-            item.setSelectedColor(colors[6-i]);
             item.setRatio(ratios[i]);
             item.setLabel(labels[i]);
             item.setValue(values[i]);
