@@ -61,16 +61,9 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
         if (reboundFrameLayout == null) {
             reboundFrameLayout = new ReboundFrameLayout(this);
             //设置滑动比率, 默认为0.65f
-//        reboundFrameLayout.setSlidingScaleRatio(0.55f);
+//        reboundFrameLayout.setScrollRatio(0.55f);
             //设置回弹动画时间，默认为300
-            reboundFrameLayout.setReboundAnimationDuration(1200);
-
-            AppCompatImageView imageView = new AppCompatImageView(this);
-            imageView.setImageResource(R.mipmap.ic_launcher_round);
-            ReboundFrameLayout.LayoutParams params = new ReboundFrameLayout.LayoutParams(ReboundFrameLayout.LayoutParams.WRAP_CONTENT, ReboundFrameLayout.LayoutParams.WRAP_CONTENT);
-            params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-            params.bottomMargin = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
-            reboundFrameLayout.addView(imageView, params);
+            reboundFrameLayout.setMaxReboundAnimDuration(1200);
         }
     }
 
