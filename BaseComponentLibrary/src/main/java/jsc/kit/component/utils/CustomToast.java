@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import java.lang.reflect.Method;
 
+import jsc.kit.component.R;
+
 /**
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -39,12 +41,12 @@ public final class CustomToast {
         toast.setView(view);
 
         try {
-            Method method = Toast.class.getMethod("getWindowParams", null);
+            Method method = Toast.class.getMethod("getWindowParams");
             method.setAccessible(true);
-            WindowManager.LayoutParams params = (WindowManager.LayoutParams) method.invoke(toast, null);
+            WindowManager.LayoutParams params = (WindowManager.LayoutParams) method.invoke(toast);
             if (params != null){
                 params.width = WindowManager.LayoutParams.MATCH_PARENT;
-//                params.windowAnimations = R.style.customToastWindowAnimations;
+                params.windowAnimations = R.style.customToastWindowAnimations;
             }
         } catch (Exception e) {
             e.printStackTrace();
