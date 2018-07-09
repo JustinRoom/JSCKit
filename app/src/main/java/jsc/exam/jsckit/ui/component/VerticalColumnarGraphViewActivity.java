@@ -34,13 +34,13 @@ public class VerticalColumnarGraphViewActivity extends BaseActivity {
         verticalColumnarGraphView.setOnColumnarItemClickListener(new VerticalColumnarGraphView.OnColumnarItemClickListener() {
             @Override
             public void onColumnarItemClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem) {
-                showCustomToast("Selected " + selectedIndex);
+                showCustomToast("click " + selectedIndex);
             }
         });
-        verticalColumnarGraphView.setOnSelectedChangeListener(new VerticalColumnarGraphView.OnSelectedChangeListener() {
+        verticalColumnarGraphView.setOnColumnarItemLongClickListener(new VerticalColumnarGraphView.OnColumnarItemLongClickListener() {
             @Override
-            public void onSelectedChange(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem) {
-                showCustomToast("Change selected " + selectedIndex);
+            public void onColumnarItemLongClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem) {
+                showCustomToast("long click " + selectedIndex);
             }
         });
 

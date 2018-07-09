@@ -36,6 +36,7 @@ public class VerticalColumnarGraphView extends View {
     private final String TAG = "ColumnarGraphView";
     //1毫秒(ms)=1000000纳秒(ns)
     private final static long DEFAULT_CLICK_TIME = 1000_000000;
+    private final static long DEFAULT_LONG_CLICK_TIME = 1_000;
     protected Paint paint;
     protected TextPaint textPaint;
     protected Rect clipRect = new Rect();
@@ -47,7 +48,7 @@ public class VerticalColumnarGraphView extends View {
     private int axisColor = 0xFFD8D8D8;//坐标颜色
     private int axisLabelTextColor = 0xFF666666;//坐标字体颜色
     private float axisLabelTextSize;//坐标字体大小
-    private int space = 60;//柱形间隔
+    private int space = 0;//柱形间隔
     private int column = 7;//柱形数目
     private int lOffset = 50;
     private int tOffset = 20;
@@ -57,14 +58,17 @@ public class VerticalColumnarGraphView extends View {
     private List<ColumnarItem> items;//数据
     private int lastSelectedIndex = -1;//上一次点击选中柱形
     private int selectedIndex = -1;//点击选中柱形
-    private int downIndex = -1;
-    private int moveIndex = -1;
-    private int upIndex = -1;
     private long pressedTimStamp;
     private boolean isPressed = false;
 
     private OnColumnarItemClickListener onColumnarItemClickListener;
-    private OnSelectedChangeListener onSelectedChangeListener;
+    private OnColumnarItemLongClickListener onColumnarItemLongClickListener;
+    private Runnable longClickRunnable = new Runnable() {
+        @Override
+        public void run() {
+            performColumnarItemLongClick(selectedIndex);
+        }
+    };
 
     public VerticalColumnarGraphView(Context context) {
         this(context, null);
@@ -170,8 +174,8 @@ public class VerticalColumnarGraphView extends View {
         this.onColumnarItemClickListener = onColumnarItemClickListener;
     }
 
-    public void setOnSelectedChangeListener(OnSelectedChangeListener onSelectedChangeListener) {
-        this.onSelectedChangeListener = onSelectedChangeListener;
+    public void setOnColumnarItemLongClickListener(OnColumnarItemLongClickListener onColumnarItemLongClickListener) {
+        this.onColumnarItemLongClickListener = onColumnarItemLongClickListener;
     }
 
     @Override
@@ -186,21 +190,29 @@ public class VerticalColumnarGraphView extends View {
             case MotionEvent.ACTION_DOWN:
                 if (!isPressed) {
                     isPressed = true;
-                    downIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                    selectedIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+
                     pressedTimStamp = System.nanoTime();
+                    if (selectedIndex >= 0){
+                        //Send a long click event message after DEFAULT_LONG_CLICK_TIME million seconds.
+                        getHandler().postDelayed(longClickRunnable, DEFAULT_LONG_CLICK_TIME);
+                    }
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                moveIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
-                if (moveIndex < 0)
+                int moveIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
+                if (moveIndex < 0) {
                     pressedTimStamp = 0;
+                    //Remove long click event.
+                    getHandler().removeCallbacks(longClickRunnable);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 isPressed = false;
-                upIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
-                if (System.nanoTime() - pressedTimStamp <= DEFAULT_CLICK_TIME){
+                //Remove long click event.
+                getHandler().removeCallbacks(longClickRunnable);
+                if (System.nanoTime() - pressedTimStamp <= DEFAULT_CLICK_TIME) {
                     pressedTimStamp = 0;
-                    selectedIndex = (upIndex == downIndex) ? downIndex : -1;
                     performColumnarItemClick(selectedIndex);
                 }
                 break;
@@ -381,6 +393,7 @@ public class VerticalColumnarGraphView extends View {
 
         paint.setStyle(Paint.Style.FILL);
         int chartWidth = calculateSuitableChartWidth(clipRect.width());
+        space = chartWidth;
         int chartHeight = clipRect.height();
         for (int i = 0; i < items.size(); i++) {
             ColumnarItem item = items.get(i);
@@ -394,8 +407,8 @@ public class VerticalColumnarGraphView extends View {
             item.setRight(item.getLeft() + chartWidth);
             item.setBottom(clipRect.bottom);
             item.initRectF(rectF);
-            if (rectF.height() > 0){
-                if (i == selectedIndex){
+            if (rectF.height() > 0) {
+                if (i == selectedIndex) {
                     paint.setAlpha(0xFF);
                     drawSelectedItem(canvas, item, rectF, paint);
                 } else {
@@ -414,21 +427,16 @@ public class VerticalColumnarGraphView extends View {
      * @return chart width
      */
     private int calculateSuitableChartWidth(int width) {
-        int chartWidth = (width - space * (column + 1)) / column;
-        int minimumChartWidth = width / (column * 2 + 1);
-        if (chartWidth < minimumChartWidth) {
-            chartWidth = minimumChartWidth;
-            space = minimumChartWidth;
-        }
-        return chartWidth;
+        return width / (column * 2 + 1);
     }
 
     /**
      * 画选中的柱形
+     *
      * @param canvas canvas
-     * @param item columnar item
-     * @param rectF the rectF of selected columnar
-     * @param paint paint
+     * @param item   columnar item
+     * @param rectF  the rectF of selected columnar
+     * @param paint  paint
      */
     protected void drawSelectedItem(Canvas canvas, ColumnarItem item, RectF rectF, Paint paint) {
         canvas.drawRoundRect(rectF, 4, 4, paint);
@@ -557,41 +565,45 @@ public class VerticalColumnarGraphView extends View {
         return 0;
     }
 
-    protected void performColumnarItemClick(int selectedIndex){
-        ColumnarItem item = selectedIndex < 0 ? null : items.get(selectedIndex);
-        if (onColumnarItemClickListener != null && item != null){
-            onColumnarItemClickListener.onColumnarItemClick(this, selectedIndex, item);
-        }
-
-        if (lastSelectedIndex != selectedIndex){
-            invalidate();
+    protected void performColumnarItemClick(int selectedIndex) {
+        if (lastSelectedIndex != selectedIndex) {
             lastSelectedIndex = selectedIndex;
-            if (onSelectedChangeListener != null){
-                onSelectedChangeListener.onSelectedChange(this, selectedIndex, item);
+            invalidate();
+            ColumnarItem item = selectedIndex < 0 ? null : items.get(selectedIndex);
+            if (onColumnarItemClickListener != null && item != null) {
+                onColumnarItemClickListener.onColumnarItemClick(this, selectedIndex, item);
             }
         }
     }
 
-    public interface OnSelectedChangeListener {
+    protected void performColumnarItemLongClick(int selectedIndex) {
+        if (lastSelectedIndex >= 0)
+            return;
 
-        /**
-         *
-         * @param view view
-         * @param selectedIndex the selected index。It represents no item was selected when return -1.
-         * @param selectedItem the selected item
-         */
-        void onSelectedChange(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem);
+        ColumnarItem item = selectedIndex < 0 ? null : items.get(selectedIndex);
+        if (onColumnarItemLongClickListener != null && item != null) {
+            onColumnarItemLongClickListener.onColumnarItemLongClick(this, selectedIndex, item);
+        }
     }
 
     public interface OnColumnarItemClickListener {
 
         /**
-         *
-         * @param view view
+         * @param view          view
          * @param selectedIndex the selected index。It represents no item was selected when return -1.
-         * @param selectedItem the selected item
+         * @param selectedItem  the selected item
          */
         void onColumnarItemClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem);
+    }
+
+    public interface OnColumnarItemLongClickListener {
+
+        /**
+         * @param view          view
+         * @param selectedIndex the selected index。It represents no item was selected when return -1.
+         * @param selectedItem  the selected item
+         */
+        void onColumnarItemLongClick(VerticalColumnarGraphView view, int selectedIndex, @Nullable ColumnarItem selectedItem);
     }
 
     public static class Builder {
