@@ -56,6 +56,7 @@ public class VerticalColumnarGraphView extends View {
     private int bOffset = 40;
 
     private List<ColumnarItem> items;//数据
+    private String longestText = "";
     private int lastSelectedIndex = -1;//上一次点击选中柱形
     private int selectedIndex = -1;//点击选中柱形
     private long pressedTimStamp;
@@ -90,7 +91,7 @@ public class VerticalColumnarGraphView extends View {
 
         //test items
         if (isInEditMode())
-            items = createTestData();
+            setItems(createTestData());
     }
 
     private List<ColumnarItem> createTestData() {
@@ -144,6 +145,7 @@ public class VerticalColumnarGraphView extends View {
      */
     public void setItems(List<ColumnarItem> items) {
         this.items = items;
+        longestText = getMaxLengthString();
         invalidate();
     }
 
@@ -461,9 +463,8 @@ public class VerticalColumnarGraphView extends View {
         ColumnarItem selectedItem = items.get(selectedIndex);
         selectedItem.initRectF(rectF);
 
-        String maxLengthString = getMaxLengthString();
         textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        textPaint.getTextBounds(maxLengthString, 0, maxLengthString.length(), rect);
+        textPaint.getTextBounds(longestText, 0, longestText.length(), rect);
         int ch = rect.height();
         int bgw = dotRadius * 2 + padding * 2 + margin + rect.width();
         int bgh = padding * 2 + ch * 2 + margin;
