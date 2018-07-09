@@ -99,7 +99,7 @@ public class VerticalColumnarGraphView extends View {
         float[] ratios = {.76f, .36f, .54f, .36f, .6f, .36f, .6f};
         int[] colors = {0xFFFFCF5E, 0xFFB4EE4D, 0xFF27E67B, 0xFF36C771, 0xFF1CA291, 0xFF24DDD0, 0xFf32CEF7};
         String[] labels = {"返情配种", "多次输精", "人工授精", "本交", "同精液配种", "已配种母猪", "其他配种"};
-        String[] values = {"20头", "20头", "20头", "20头", "20头", "20头", "20头"};
+        String[] values = {"76头", "36头", "54头", "36头", "60头", "36头", "60头"};
         for (int i = 0; i < column; i++) {
             ColumnarItem item = new ColumnarItem();
             item.setColor(colors[i]);
