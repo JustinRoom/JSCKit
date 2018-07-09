@@ -50,13 +50,13 @@ public class VerticalColumnarGraphView extends View {
     private float axisLabelTextSize;//坐标字体大小
     private int space = 0;//柱形间隔
     private int column = 7;//柱形数目
-    private int lOffset = 50;
+    private int lOffset = 60;
     private int tOffset = 20;
     private int rOffset = 20;
     private int bOffset = 40;
 
     private List<ColumnarItem> items;//数据
-    private String longestText = "";
+    private String longestText = "";//items中最长的label（或value）
     private int lastSelectedIndex = -1;//上一次点击选中柱形
     private int selectedIndex = -1;//点击选中柱形
     private long pressedTimStamp;
