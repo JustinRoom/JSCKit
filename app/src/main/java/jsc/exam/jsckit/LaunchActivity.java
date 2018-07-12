@@ -34,14 +34,14 @@ public class LaunchActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-        );
-
         imageView = new AppCompatImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setContentView(imageView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    protected boolean fullScreen() {
+        return true;
     }
 
     @Override

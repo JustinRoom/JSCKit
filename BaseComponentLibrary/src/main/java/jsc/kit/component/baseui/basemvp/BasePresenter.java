@@ -2,6 +2,8 @@ package jsc.kit.component.baseui.basemvp;
 
 import android.support.annotation.NonNull;
 
+import java.lang.ref.WeakReference;
+
 /**
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -10,14 +12,14 @@ import android.support.annotation.NonNull;
  * @author jiangshicheng
  */
 public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> {
-    private V view;
+    private WeakReference<V> viewWeakReference;
     private M model;
 
     public BasePresenter() {
     }
 
     public BasePresenter(@NonNull V view, @NonNull M model) {
-        this.view = view;
+        viewWeakReference = new WeakReference<>(view);
         this.model = model;
     }
 
@@ -30,16 +32,19 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> {
     }
 
     public V getView() {
-        if (view == null)
-            throw new NullPointerException("Null exception from class " + getClass().getSimpleName() + ": its' view is null(or was recycled).");
-        return view;
+        if (viewWeakReference == null || viewWeakReference.get() == null)
+            throw new NullPointerException("View was recycled.");
+        return viewWeakReference.get();
     }
 
     public void setView(@NonNull V view) {
-        this.view = view;
+        viewWeakReference = new WeakReference<>(view);
     }
 
     public void release() {
-        view = null;
+        if (viewWeakReference != null){
+            V view = viewWeakReference.get();
+            view = null;
+        }
     }
 }

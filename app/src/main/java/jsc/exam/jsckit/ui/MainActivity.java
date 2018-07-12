@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -162,9 +164,6 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
-    /**
-     * @param entity
-     */
     private void showUpdateTipsDialog(final VersionEntity entity) {
         if (entity == null)
             return;
@@ -237,11 +236,30 @@ public class MainActivity extends BaseActivity {
         //8.0有未知应用安装请求权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //先获取是否有安装未知来源应用的权限
-            if (getPackageManager().canRequestPackageInstalls())
+            if (getPackageManager().canRequestPackageInstalls()){
                 installApk(uri);
+            } else {
+                requestInstallPackages(uri);
+            }
         } else {
             installApk(uri);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void requestInstallPackages(final Uri uri){
+        permissionChecker.checkPermissions(this, 0, new PermissionChecker.OnPermissionCheckListener() {
+            @Override
+            public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
+                if (isAllGranted){
+                    installApk(uri);
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES));
+                    }
+                }
+            }
+        }, Manifest.permission.REQUEST_INSTALL_PACKAGES);
     }
 
     long lastClickTime = 0;

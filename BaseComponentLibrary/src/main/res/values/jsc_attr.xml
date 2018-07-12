@@ -135,4 +135,8 @@
         <attr name="y_aspect"/>
     </declare-styleable>
 
+    <declare-styleable name="CameraMask">
+        <attr name="cm_top_margin" format="dimension"/>
+    </declare-styleable>
+
 </resources>

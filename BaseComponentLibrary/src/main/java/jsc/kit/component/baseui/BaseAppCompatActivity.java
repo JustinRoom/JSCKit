@@ -56,10 +56,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         initComponent();
         if (fullScreen()) {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            );
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
@@ -82,8 +79,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
      */
     @CallSuper
     public void destroyComponent() {
-        handlerProvider.destroy();
-        handlerProvider = null;
+        if (handlerProvider != null) {
+            handlerProvider.destroy();
+            handlerProvider = null;
+        }
         transitionProvider = null;
         permissionChecker = null;
     }
@@ -91,7 +90,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        permissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
+        if (permissionChecker != null)
+            permissionChecker.onPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
