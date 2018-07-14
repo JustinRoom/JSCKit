@@ -61,12 +61,14 @@ public class VerticalColumnarGraphView extends View {
     private int selectedIndex = -1;//点击选中柱形
     private long pressedTimStamp;
     private boolean isPressed = false;
+    private boolean isLongClicked;
 
     private OnColumnarItemClickListener onColumnarItemClickListener;
     private OnColumnarItemLongClickListener onColumnarItemLongClickListener;
     private Runnable longClickRunnable = new Runnable() {
         @Override
         public void run() {
+            isLongClicked = true;
             performColumnarItemLongClick(selectedIndex);
         }
     };
@@ -197,6 +199,7 @@ public class VerticalColumnarGraphView extends View {
                     pressedTimStamp = System.nanoTime();
                     if (selectedIndex >= 0){
                         //Send a long click event message after DEFAULT_LONG_CLICK_TIME million seconds.
+                        isLongClicked = false;
                         getHandler().postDelayed(longClickRunnable, DEFAULT_LONG_CLICK_TIME);
                     }
                 }
@@ -204,18 +207,21 @@ public class VerticalColumnarGraphView extends View {
             case MotionEvent.ACTION_MOVE:
                 int moveIndex = getSelectedIndex(event.getX(), event.getY(), space / 3);
                 if (moveIndex < 0) {
-                    pressedTimStamp = 0;
                     //Remove long click event.
                     getHandler().removeCallbacks(longClickRunnable);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 isPressed = false;
-                //Remove long click event.
-                getHandler().removeCallbacks(longClickRunnable);
-                if (System.nanoTime() - pressedTimStamp <= DEFAULT_CLICK_TIME) {
-                    pressedTimStamp = 0;
-                    performColumnarItemClick(selectedIndex);
+                if (!isLongClicked){
+                    //Remove long click event.
+                    getHandler().removeCallbacks(longClickRunnable);
+
+                    //deal click event
+                    if (System.nanoTime() - pressedTimStamp <= DEFAULT_CLICK_TIME) {
+                        pressedTimStamp = 0;
+                        performColumnarItemClick(selectedIndex);
+                    }
                 }
                 break;
         }

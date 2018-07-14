@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -21,6 +22,8 @@ import java.io.InputStream;
 import jsc.kit.component.R;
 
 /**
+ * Camera mask.
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
@@ -60,11 +63,10 @@ public class CameraMask extends FrameLayout {
         topMargin = array.getDimensionPixelSize(R.styleable.CameraMask_cm_top_margin, 0);
         array.recycle();
 
-        bitmap = decodeDefaultCameraLens();
-
         paint.setColor(Color.BLACK);
         paint.setAlpha(0x99);
         setWillNotDraw(false);
+        setBitmap(decodeDefaultCameraLens());
     }
 
     private Bitmap decodeDefaultCameraLens(){
@@ -87,6 +89,43 @@ public class CameraMask extends FrameLayout {
         return bitmap;
     }
 
+    public int getTopMargin() {
+        return topMargin;
+    }
+
+    /**
+     * Set the margin of camera lens from top, px unit.
+     *
+     * @param topMargin to margin
+     */
+    public void setTopMargin(int topMargin) {
+        this.topMargin = topMargin;
+        invalidate();
+    }
+
+    public int getMaskAlpha(){
+        return paint.getAlpha();
+    }
+
+    /**
+     * Set the alpha of mask exclude camera lens.
+     *
+     * @param maskAlpha mask alpha
+     */
+    public void setMaskAlpha(@IntRange(from = 0, to = 0xFF) int maskAlpha) {
+        paint.setAlpha(maskAlpha);
+        invalidate();
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    /**
+     * Set camera lens. The picture should be square size.
+     *
+     * @param bitmap camera lens
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
         invalidate();
