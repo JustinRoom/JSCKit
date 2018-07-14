@@ -21,6 +21,7 @@ import jsc.kit.retrofit2.LoadingDialogObserver;
 public class TestPresenter extends MyBasePresenter<ITestView, ITestModel> {
 
     private final String TAG = "TestPresenter";
+
     public TestPresenter() {
     }
 
@@ -46,7 +47,8 @@ public class TestPresenter extends MyBasePresenter<ITestView, ITestModel> {
 
                     @Override
                     public void onResult(String s) {
-                        getView().onLoadVersionInfo(s);
+                        if (isViewAttached())
+                            getView().onLoadVersionInfo(s);
                     }
 
                     @Override

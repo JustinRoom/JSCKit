@@ -32,9 +32,11 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> {
     }
 
     public V getView() {
-        if (viewWeakReference == null || viewWeakReference.get() == null)
-            throw new NullPointerException("View was recycled.");
         return viewWeakReference.get();
+    }
+
+    public boolean isViewAttached(){
+        return viewWeakReference.get() != null;
     }
 
     public void setView(@NonNull V view) {
