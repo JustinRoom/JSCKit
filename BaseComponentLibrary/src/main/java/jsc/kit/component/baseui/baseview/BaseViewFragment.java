@@ -26,7 +26,7 @@ public abstract class BaseViewFragment extends BaseLazyLoadFragment implements B
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        baseViewProvider = new BaseViewProvider(context, null);
+        baseViewProvider = new BaseViewProvider(context);
         baseViewProvider.setBaseViewCreateDelegate(this);
     }
 

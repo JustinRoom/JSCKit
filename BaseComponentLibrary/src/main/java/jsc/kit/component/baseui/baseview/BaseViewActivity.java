@@ -1,16 +1,21 @@
 package jsc.kit.component.baseui.baseview;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.transition.Transition;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import jsc.kit.component.baseui.BaseAppCompatActivity;
 
@@ -32,9 +37,9 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
     }
 
     private void initView() {
-        baseViewProvider = new BaseViewProvider(this, getLayoutInflater());
+        baseViewProvider = new BaseViewProvider(this);
         baseViewProvider.setBaseViewCreateDelegate(this);
-        setContentView(baseViewProvider.provide());
+        setContentView(baseViewProvider.provide(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         if (baseViewProvider.getEmptyView() != null) {
             baseViewProvider.getEmptyView().setOnClickListener(new View.OnClickListener() {
@@ -73,35 +78,7 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
 
     public abstract void reload();
 
-    @Nullable
-    @Override
-    public View createTitleBar(@NonNull LayoutInflater inflater, @NonNull LinearLayout parent) {
-        return null;
-    }
 
-    @Nullable
-    @Override
-    public View createContentView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public View createEmptyView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public View createLoadingView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public View createErrorView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return null;
-    }
 
     @Override
     public void onDownloadProgress(int downloadedBytes, int totalBytes, int downStatus) {
@@ -145,6 +122,52 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
 
     @Override
     public void initSharedElement() {
+
+    }
+
+
+
+    @Nullable
+    @Override
+    public View createTitleBar(@NonNull Context context) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public View createContentView(@NonNull Context context) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public View createEmptyView(@NonNull Context context) {
+        TextView textView = new TextView(context);
+        textView.setGravity(Gravity.CENTER);
+        textView.setText("Empty!!!\nClick to reload.");
+        return textView;
+    }
+
+    @Nullable
+    @Override
+    public View createLoadingView(@NonNull Context context) {
+        TextView textView = new TextView(context);
+        textView.setGravity(Gravity.CENTER);
+        textView.setText("Loading...!!!\nPlease wait a minute.");
+        return textView;
+    }
+
+    @Nullable
+    @Override
+    public View createErrorView(@NonNull Context context) {
+        TextView textView = new TextView(context);
+        textView.setGravity(Gravity.CENTER);
+        textView.setText("Error!!!\nClick to reload.");
+        return textView;
+    }
+
+    @Override
+    public void addCustomView(@NonNull Context context, @NonNull ConstraintLayout constraintLayout, @NonNull ConstraintSet constraintSet) {
 
     }
 }

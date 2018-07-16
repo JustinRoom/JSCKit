@@ -1,11 +1,14 @@
 package jsc.exam.jsckit.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView;
 import android.transition.Transition;
@@ -14,10 +17,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -26,7 +28,6 @@ import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.baseview.BaseViewActivity;
 import jsc.kit.component.baseui.baseview.BaseViewShowDelegate;
 import jsc.kit.component.baseui.transition.TransitionProvider;
-import jsc.kit.component.utils.AntiShakeUtils;
 import jsc.kit.component.utils.WindowUtils;
 
 /**
@@ -84,6 +85,7 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     public void handleUIMessage(Message msg) {
         switch (msg.what){
             case 0:
+                baseViewProvider.getTitleBar().setVisibility(View.GONE);
                 baseViewProvider.showLoadingPage(null);
                 int what = new Random().nextInt(3) + 1;
                 handlerProvider.sendUIEmptyMessageDelay(what, 2000);
@@ -136,39 +138,18 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     }
 
     @Override
-    public View createTitleBar(@NonNull LayoutInflater inflater, @NonNull LinearLayout parent) {
-        return null;
-    }
-
-    @Override
-    public View createContentView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return inflater.inflate(R.layout.content_base_view_layout, parent, false);
-    }
-
-    @Override
-    public View createEmptyView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return inflater.inflate(R.layout.page_empty_layout, parent, false);
-    }
-
-    @Override
-    public View createLoadingView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        View view = inflater.inflate(R.layout.page_loading_layout, null);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        parent.addView(view, params);
-        return view;
-    }
-
-    @Override
-    public View createErrorView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent) {
-        return inflater.inflate(R.layout.page_errror_layout, parent, false);
-    }
-
-    @Override
     public void reload() {
         int what = new Random().nextInt(3) + 1;
         handlerProvider.sendUIEmptyMessageDelay(what, 1000);
     }
+
+
+
+
+
+
+
+
 
     @Override
     public void onShowContentPage(@NonNull View contentView, @Nullable Bundle bundle) {
@@ -188,5 +169,34 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     @Override
     public void onShowErrorPage(@NonNull View errorView, @Nullable Bundle bundle) {
 
+    }
+
+
+
+
+
+
+
+
+
+    @Nullable
+    @Override
+    public View createTitleBar(@NonNull Context context) {
+        View titleBar  = new View(context);
+        titleBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+//        titleBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(context)));
+        return titleBar;
+    }
+
+    @Nullable
+    @Override
+    public View createContentView(@NonNull Context context) {
+        ScrollView scrollView = new ScrollView(context);
+        scrollView.setVerticalScrollBarEnabled(false);
+        //
+        TextView textView = new TextView(context);
+        textView.setText(R.string.article);
+        scrollView.addView(textView, new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return scrollView;
     }
 }

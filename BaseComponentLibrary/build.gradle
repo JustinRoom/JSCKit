@@ -28,7 +28,9 @@ publish {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$component_version"
-    implementation "com.android.support:recyclerview-v7:$component_version"
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api "com.android.support:appcompat-v7:$component_version"
+    api "com.android.support:recyclerview-v7:$component_version"
+    api "com.android.support:design:$component_version"
+    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
 }

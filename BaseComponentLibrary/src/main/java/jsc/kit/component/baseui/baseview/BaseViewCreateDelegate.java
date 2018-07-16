@@ -1,7 +1,10 @@
 package jsc.kit.component.baseui.baseview;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,50 +22,53 @@ public interface BaseViewCreateDelegate {
     /**
      * Create custom title bar.
      *
-     * @param inflater inflater
-     * @param parent   the parent of custom title bar. It's default orientation is {@link LinearLayout#VERTICAL}.
-     * @return custom title bar
+     * @param context context
+     * @return custom title bar, id : "page_title_bar"
      */
     @Nullable
-    public View createTitleBar(@NonNull LayoutInflater inflater, @NonNull LinearLayout parent);
+    public View createTitleBar(@NonNull Context context);
 
     /**
      * Create custom content view.
      *
-     * @param inflater inflater
-     * @param parent   the parent of custom content view, id : "fy_content_container".
+     * @param context context
      * @return custom content view, id : "page_content"
      */
     @Nullable
-    public View createContentView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent);
+    public View createContentView(@NonNull Context context);
 
     /**
      * Create custom content view.
      *
-     * @param inflater inflater
-     * @param parent   the parent of custom content view, id : "fy_content_container".
+     * @param context context
      * @return custom content view, id : "page_empty"
      */
     @Nullable
-    public View createEmptyView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent);
+    public View createEmptyView(@NonNull Context context);
 
     /**
      * Create custom loading view.
      *
-     * @param inflater inflater
-     * @param parent   the parent of custom loading view, id : "fy_content_container".
+     * @param context context
      * @return custom loading view, id : "page_loading"
      */
     @Nullable
-    public View createLoadingView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent);
+    public View createLoadingView(@NonNull Context context);
 
     /**
      * Create custom error view.
      *
-     * @param inflater inflater
-     * @param parent   the parent of custom error view, id : "fy_content_container".
+     * @param context context
      * @return custom error view, id : "page_error"
      */
     @Nullable
-    public View createErrorView(@NonNull LayoutInflater inflater, @NonNull FrameLayout parent);
+    public View createErrorView(@NonNull Context context);
+
+    /**
+     * Add custom view into root view.
+     * @param context context
+     * @param constraintLayout root view
+     * @param constraintSet constraint set
+     */
+    public void addCustomView(@NonNull Context context, @NonNull ConstraintLayout constraintLayout, @NonNull ConstraintSet constraintSet);
 }
