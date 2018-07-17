@@ -157,7 +157,7 @@ public class JSCRoundCornerProgressBar extends View {
     private void drawProgressbar(Canvas canvas, boolean clip, RectF rectF, Rect rect, Paint paint) {
         float radius = rectF.height() / 2.0f;
         if (clip) {
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.clipRect(rect);
             canvas.drawRoundRect(rectF, radius, radius, paint);
             canvas.restore();
