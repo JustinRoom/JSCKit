@@ -136,7 +136,17 @@
     </declare-styleable>
 
     <declare-styleable name="CameraMask">
+        <attr name="cm_mask_color" format="color|reference"/>
         <attr name="cm_top_margin" format="dimension"/>
+        <attr name="cm_text" format="string|reference"/>
+        <attr name="cm_text_color" format="color|reference"/>
+        <attr name="cm_text_background" format="reference"/>
+        <attr name="cm_text_background_color" format="color|reference"/>
+        <attr name="cm_text_location">
+            <enum name="below_camera_lens" value="0"/>
+            <enum name="above_camera_lens" value="1"/>
+        </attr>
+        <attr name="cm_text_margin" format="dimension"/>
     </declare-styleable>
 
 </resources>

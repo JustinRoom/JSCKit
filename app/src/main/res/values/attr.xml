@@ -10,4 +10,7 @@
         <attr name="cilv_dot_text" format="string|reference"/>
         <attr name="cilv_arrow_icon" format="reference"/>
     </declare-styleable>
+
+    <item name="radio_below" type="id"/>
+    <item name="radio_above" type="id"/>
 </resources>

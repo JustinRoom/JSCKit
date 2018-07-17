@@ -61,6 +61,7 @@ allprojects {
 | 22 | [**BasePhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/photo/BasePhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
 | 23 | [**BaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/basemvp/BaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
 | 24 | [**ReboundRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout) | [**酷炫拖拽反弹ReboundRecyclerView**](https://www.jianshu.com/p/c3f2c9f852ef) |
+| 24 | [**CameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) |  |
 
 ### Usage examples：
 
@@ -74,3 +75,11 @@ allprojects {
 + 1、fix a bug about [VerticalColumnarGraphView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) : The detail information view isn't closed when click the blank area.
 + 2、update base view structure : Change [BaseViewProvider](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/baseview/BaseViewProvider.java)'s root view as ConstraintLayout.
 + 3、add component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
+
+## v0.3.8:
+add the usage of [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) - [CameraMaskActivity](/app/src/main/java/jsc/exam/jsckit/ui/component/CameraMaskActivity.java).  
+optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java):
++ 1、support set tip text dynamically
++ 2、support set the location of tip text dynamically
++ 3、support set the location of camera lens dynamically
++ 4、support set the mask color of camera lens dynamically

@@ -21,6 +21,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
+import jsc.exam.jsckit.ui.component.CameraMaskActivity;
 import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
 import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
 import jsc.exam.jsckit.ui.component.JSCRoundCornerProgressBarActivity;
@@ -38,6 +39,7 @@ import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
+import jsc.kit.component.widget.CameraMask;
 
 public class ComponentsActivity extends BaseActivity {
 
@@ -116,6 +118,7 @@ public class ComponentsActivity extends BaseActivity {
         classItems.add(new ClassItem("RippleView", RippleViewActivity.class));
         classItems.add(new ClassItem("AdvertisementView", AdvertisementViewActivity.class));
         classItems.add(new ClassItem("VerticalColumnarGraphView", VerticalColumnarGraphViewActivity.class));
+        classItems.add(new ClassItem("CameraMask", CameraMaskActivity.class));
         return classItems;
     }
 }
