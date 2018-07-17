@@ -102,7 +102,7 @@ public class CameraMask extends FrameLayout {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
         setWillNotDraw(false);
-        setBitmap(decodeDefaultCameraLens());
+        setCameraLensBitmap(decodeDefaultCameraLens());
     }
 
     private Bitmap decodeDefaultCameraLens() {
@@ -217,7 +217,7 @@ public class CameraMask extends FrameLayout {
      *
      * @param bitmap camera lens
      */
-    public void setBitmap(Bitmap bitmap) {
+    public void setCameraLensBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
         invalidate();
     }
