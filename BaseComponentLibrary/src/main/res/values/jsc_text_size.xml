@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_size_8">8dip</dimen>
+    <dimen name="text_size_9">9dip</dimen>
+    <dimen name="text_size_10">10dip</dimen>
+    <dimen name="text_size_11">11dip</dimen>
+    <dimen name="text_size_12">12dip</dimen>
+    <dimen name="text_size_13">13dip</dimen>
+    <dimen name="text_size_14">14dip</dimen>
+    <dimen name="text_size_15">15dip</dimen>
+    <dimen name="text_size_16">16dip</dimen>
+    <dimen name="text_size_17">17dip</dimen>
+    <dimen name="text_size_18">18dip</dimen>
+    <dimen name="text_size_19">19dip</dimen>
+    <dimen name="text_size_20">20dip</dimen>
+    <dimen name="text_size_21">21dip</dimen>
+    <dimen name="text_size_22">22dip</dimen>
+    <dimen name="text_size_23">23dip</dimen>
+    <dimen name="text_size_24">24dip</dimen>
+    <dimen name="text_size_25">25dip</dimen>
+    <dimen name="text_size_26">26dip</dimen>
+    <dimen name="text_size_27">27dip</dimen>
+    <dimen name="text_size_28">28dip</dimen>
+    <dimen name="text_size_29">29dip</dimen>
+    <dimen name="text_size_30">30dip</dimen>
+    <dimen name="text_size_31">31dip</dimen>
+    <dimen name="text_size_32">32dip</dimen>
+    <dimen name="text_size_33">33dip</dimen>
+    <dimen name="text_size_34">34dip</dimen>
+    <dimen name="text_size_35">35dip</dimen>
+    <dimen name="text_size_36">36dip</dimen>
+    <dimen name="text_size_37">37dip</dimen>
+    <dimen name="text_size_38">38dip</dimen>
+    <dimen name="text_size_39">39dip</dimen>
+    <dimen name="text_size_40">40dip</dimen>
+    
+</resources>

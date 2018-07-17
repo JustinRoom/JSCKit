@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="last_click_time" type="id"/>
-    <item name="fy_content_container" type="id"/>
     <item name="page_title_bar" type="id"/>
     <item name="page_content" type="id"/>
     <item name="page_empty" type="id"/>
