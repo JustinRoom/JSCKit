@@ -3,8 +3,10 @@
 
 ### dependencies:
 ```
-implementation 'com.android.support:appcompat-v7:27.1.1'
-implementation 'com.android.support:recyclerview-v7:27.1.1'
+    api "com.android.support:appcompat-v7:27.1.1"
+    api "com.android.support:recyclerview-v7:27.1.1"
+    api "com.android.support:design:27.1.1"
+    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
 ```
 ### Maven:
 ```
@@ -66,3 +68,9 @@ allprojects {
 |:---:|:---|:---|
 | 1  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
 
+
+##### update log:
+## V0.3.7:
++ 1、fix a bug about [VerticalColumnarGraphView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) : The detail information view isn't closed when click the blank area.
++ 2、update base view structure : Change [BaseViewProvider](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/baseview/BaseViewProvider.java)'s root view as ConstraintLayout.
++ 3、add component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
