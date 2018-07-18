@@ -70,11 +70,11 @@ public class CameraMaskActivity extends BaseActivity {
         button1.setId(R.id.radio_below);
         button1.setTextColor(Color.WHITE);
         button1.setChecked(true);
-        button1.setText("Below Camera Lens");
+        button1.setText("BelowCameraLens");
         RadioButton button2 = new RadioButton(this);
         button2.setId(R.id.radio_above);
         button2.setTextColor(Color.WHITE);
-        button2.setText("Above Camera Lens");
+        button2.setText("AboveCameraLens");
         radioGroup.addView(button1);
         radioGroup.addView(button2);
         //top margin
@@ -123,6 +123,8 @@ public class CameraMaskActivity extends BaseActivity {
         });
 
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
 
     }
 }
