@@ -38,19 +38,12 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         startActivityForResult(intent, 0x100);
     }
 
-    @Override
-    public void initComponent() {
-        super.initComponent();
-        if (!fullScreen())
-            initActionBar();
-    }
-
     private ImageView ivBack;
     private TextView tvTitle;
     private ActionMenuView actionMenuView;
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+    @Override
+    protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
             return;
 
@@ -91,15 +84,18 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
     }
 
     public final void showTitleBarBackView(boolean show) {
-        ivBack.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (ivBack != null)
+            ivBack.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public final void setTitleBarTitle(CharSequence title) {
-        tvTitle.setText(title);
+        if (tvTitle != null)
+            tvTitle.setText(title);
     }
 
     public final void setTitleBarTitle(@StringRes int resId) {
-        tvTitle.setText(resId);
+        if (tvTitle != null)
+            tvTitle.setText(resId);
     }
 
 

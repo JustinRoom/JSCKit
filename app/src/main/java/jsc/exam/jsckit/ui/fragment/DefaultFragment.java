@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 public class DefaultFragment extends Fragment {
 
+    public final static String EXTRA_CONTENT = "extra_content";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -20,7 +22,7 @@ public class DefaultFragment extends Fragment {
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         TextView textView = new TextView(inflater.getContext());
-        textView.setText(getArguments() == null ? "content" : getArguments().getString("content"));
+        textView.setText(getArguments() == null ? "default content" : getArguments().getString(EXTRA_CONTENT));
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         layout.addView(textView, params);

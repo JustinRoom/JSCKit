@@ -38,13 +38,12 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
         baseViewProvider.setBaseViewShowDelegate(this);
         handlerProvider.sendUIEmptyMessageDelay(0, 350L);
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+    @Override
+    protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
             return;
 
@@ -83,7 +82,7 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
 
     @Override
     public void handleUIMessage(Message msg) {
-        switch (msg.what){
+        switch (msg.what) {
             case 0:
                 baseViewProvider.getTitleBar().setVisibility(View.GONE);
                 baseViewProvider.showLoadingPage(null);
@@ -144,13 +143,6 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     }
 
 
-
-
-
-
-
-
-
     @Override
     public void onShowContentPage(@NonNull View contentView, @Nullable Bundle bundle) {
 
@@ -172,17 +164,10 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     }
 
 
-
-
-
-
-
-
-
     @Nullable
     @Override
     public View createTitleBar(@NonNull Context context) {
-        View titleBar  = new View(context);
+        View titleBar = new View(context);
         titleBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 //        titleBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(context)));
         return titleBar;

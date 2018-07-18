@@ -38,15 +38,14 @@ public class PhotoActivity extends BasePhotoActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
         setContentView(R.layout.activity_photo);
         setTitle(getClass().getSimpleName().replace("Activity", ""));
 
         ivPhoto = findViewById(R.id.iv_photo);
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+    @Override
+    protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
             return;
 

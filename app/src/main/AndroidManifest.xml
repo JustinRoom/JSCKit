@@ -56,6 +56,7 @@
         <activity android:name=".ui.component.VerticalColumnarGraphViewActivity" />
         <activity android:name=".ui.component.ReboundRecyclerViewActivity" />
         <activity android:name=".ui.component.CameraMaskActivity" />
+        <activity android:name=".ui.EmptyFragmentActivity"/>
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

@@ -44,7 +44,6 @@ public class TestActivity extends BaseMVPActivity implements ITestView, CommonVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar();
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -80,8 +79,8 @@ public class TestActivity extends BaseMVPActivity implements ITestView, CommonVi
         handlerProvider.sendUIEmptyMessageDelay(0, 350L);
     }
 
-    private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+    @Override
+    protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
             return;
 

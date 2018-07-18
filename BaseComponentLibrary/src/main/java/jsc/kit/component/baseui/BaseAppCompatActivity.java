@@ -3,7 +3,6 @@ package jsc.kit.component.baseui;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -11,10 +10,11 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.TypedValue;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -51,12 +51,23 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         return false;
     }
 
+    protected void initActionBar(ActionBar actionBar) {
+
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initComponent();
         if (fullScreen()) {
+            //without ActionBar
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            if (getSupportActionBar() != null)
+                getSupportActionBar().hide();
+            //show full screen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            initActionBar(getSupportActionBar());
         }
     }
 

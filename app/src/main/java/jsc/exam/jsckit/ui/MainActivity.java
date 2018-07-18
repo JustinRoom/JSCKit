@@ -37,6 +37,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
 import jsc.exam.jsckit.service.ApiService;
+import jsc.exam.jsckit.ui.fragment.DefaultFragment;
 import jsc.exam.jsckit.ui.mvp.activity.TestActivity;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
-        switch (msg.what){
+        switch (msg.what) {
             case 0:
                 loadVersionInfo();
                 break;
@@ -110,11 +111,27 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("SharedTransition", SharedTransitionActivity.class));
         classItems.add(new ClassItem("Test(MVP)", TestActivity.class));
         classItems.add(new ClassItem("BaseView", BaseViewShowActivity.class));
+        classItems.add(new ClassItem("EmptyFragment", EmptyFragmentActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
 
     private void toNewActivity(ClassItem item) {
+        if (item.getLabel().equals("EmptyFragment")) {
+            Bundle bundle = new Bundle();
+            bundle.putString(DefaultFragment.EXTRA_CONTENT, "empty activity with fragment");
+            bundle.putString(EmptyFragmentActivity.EXTRA_TITLE, "TestTitle");
+            bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, true);
+            bundle.putString(EmptyFragmentActivity.EXTRA_FRAGMENT_CLASS_NAME, DefaultFragment.class.getName());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                bundle.putString("transition", TransitionEnum.SLIDE.getLabel());
+                EmptyFragmentActivity.launchTransition(this, bundle, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            } else {
+                EmptyFragmentActivity.launch(this, bundle);
+            }
+            return;
+        }
+
         Intent mIntent = new Intent();
         mIntent.setClass(this, item.getCls());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -194,7 +211,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void checkPermissionBeforeDownloadApk(final String versionName) {
-        permissionChecker.checkPermissions(this,0, new PermissionChecker.OnPermissionCheckListener() {
+        permissionChecker.checkPermissions(this, 0, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
                 if (isAllGranted) {
@@ -236,7 +253,7 @@ public class MainActivity extends BaseActivity {
         //8.0有未知应用安装请求权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //先获取是否有安装未知来源应用的权限
-            if (getPackageManager().canRequestPackageInstalls()){
+            if (getPackageManager().canRequestPackageInstalls()) {
                 installApk(uri);
             } else {
                 requestInstallPackages(uri);
@@ -247,11 +264,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void requestInstallPackages(final Uri uri){
+    private void requestInstallPackages(final Uri uri) {
         permissionChecker.checkPermissions(this, 0, new PermissionChecker.OnPermissionCheckListener() {
             @Override
             public void onResult(int requestCode, boolean isAllGranted, @NonNull List<String> grantedPermissions, @Nullable List<String> deniedPermissions, @Nullable List<String> shouldShowPermissions) {
-                if (isAllGranted){
+                if (isAllGranted) {
                     installApk(uri);
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
