@@ -83,3 +83,7 @@ optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/comp
 + 2、support set the location of tip text dynamically
 + 3、support set the location of camera lens dynamically
 + 4、support set the mask color of camera lens dynamically
+
+## v0.3.9:
++ 1、add base ui structure. [BaseEmptyFragmentActivity](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseEmptyFragmentActivity.java), a custom activity for loading any fragment. For example, see [EmptyFragmentActivity](/app/src/main/java/jsc/exam/jsckit/ui/EmptyFragmentActivity.java).
++ 2、optimize base view structure.

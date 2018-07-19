@@ -14,9 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import jsc.kit.component.R;
 import jsc.kit.component.baseui.BaseAppCompatActivity;
 
 /**
@@ -40,30 +44,6 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         baseViewProvider = new BaseViewProvider(this);
         baseViewProvider.setBaseViewCreateDelegate(this);
         setContentView(baseViewProvider.provide(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        if (baseViewProvider.getEmptyView() != null) {
-            baseViewProvider.getEmptyView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()) {
-                        baseViewProvider.showLoadingPage(null);
-                        reload();
-                    }
-                }
-            });
-        }
-
-        if (baseViewProvider.getErrorView() != null) {
-            baseViewProvider.getErrorView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!baseViewProvider.isLoading()) {
-                        baseViewProvider.showLoadingPage(null);
-                        reload();
-                    }
-                }
-            });
-        }
     }
 
     public void setEmptyViewEnable(boolean enable){
@@ -145,16 +125,35 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setText("Empty!!!\nClick to reload.");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!baseViewProvider.isLoading()) {
+                    baseViewProvider.showLoadingPage(null);
+                    reload();
+                }
+            }
+        });
         return textView;
     }
 
     @Nullable
     @Override
     public View createLoadingView(@NonNull Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
+        //
+        ProgressBar progressBar = new ProgressBar(context, null, android.R.attr.progressBarStyle);
+        layout.addView(progressBar, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        //
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setText("Loading...!!!\nPlease wait a minute.");
-        return textView;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = getResources().getDimensionPixelSize(R.dimen.space_8);
+        layout.addView(textView, params);
+        return layout;
     }
 
     @Nullable
@@ -163,11 +162,26 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setText("Error!!!\nClick to reload.");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!baseViewProvider.isLoading()) {
+                    baseViewProvider.showLoadingPage(null);
+                    reload();
+                }
+            }
+        });
         return textView;
     }
 
     @Override
+    @Deprecated
     public void addCustomView(@NonNull Context context, @NonNull ConstraintLayout constraintLayout, @NonNull ConstraintSet constraintSet) {
+
+    }
+
+    @Override
+    public void initCustomView(@NonNull Context context, @NonNull RelativeLayout rootView) {
 
     }
 }

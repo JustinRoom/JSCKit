@@ -46,45 +46,13 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
             return;
-
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
-        FrameLayout customView = new FrameLayout(this);
-//        customView.setPadding(padding, 0, padding, 0);
-        ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(customView, barParams);
-        //添加标题
-        TextView tvTitle = new TextView(this);
-        tvTitle.setTextColor(Color.WHITE);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        tvTitle.setGravity(Gravity.CENTER);
-        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
-        customView.addView(tvTitle, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        //添加返回按钮
-        ImageView ivBack = new ImageView(this);
-        ivBack.setPadding(padding / 2, 0, padding / 2, 0);
-        ivBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        ivBack.setImageResource(R.drawable.ic_chevron_left_white_24dp);
-        ivBack.setBackground(WindowUtils.getSelectableItemBackgroundBorderless(this));
-        customView.addView(ivBack, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        //添加menu菜单
-        ActionMenuView actionMenuView = new ActionMenuView(this);
-        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        customView.addView(actionMenuView, menuParams);
+        actionBar.hide();
     }
 
     @Override
     public void handleUIMessage(Message msg) {
         switch (msg.what) {
             case 0:
-                baseViewProvider.getTitleBar().setVisibility(View.GONE);
                 baseViewProvider.showLoadingPage(null);
                 int what = new Random().nextInt(3) + 1;
                 handlerProvider.sendUIEmptyMessageDelay(what, 2000);
@@ -167,10 +135,37 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     @Nullable
     @Override
     public View createTitleBar(@NonNull Context context) {
-        View titleBar = new View(context);
-        titleBar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-//        titleBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(context)));
-        return titleBar;
+        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
+        FrameLayout customView = new FrameLayout(this);
+        customView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+//        customView.setPadding(padding, 0, padding, 0);
+        customView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this)));
+        //添加标题
+        TextView tvTitle = new TextView(this);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        tvTitle.setGravity(Gravity.CENTER);
+        tvTitle.setText(getClass().getSimpleName().replace("Activity", ""));
+        customView.addView(tvTitle, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        //添加返回按钮
+        ImageView ivBack = new ImageView(this);
+        ivBack.setPadding(padding / 2, 0, padding / 2, 0);
+        ivBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ivBack.setImageResource(R.drawable.ic_chevron_left_white_24dp);
+        ivBack.setBackground(WindowUtils.getSelectableItemBackgroundBorderless(this));
+        customView.addView(ivBack, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        //添加menu菜单
+        ActionMenuView actionMenuView = new ActionMenuView(this);
+        FrameLayout.LayoutParams menuParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        menuParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        customView.addView(actionMenuView, menuParams);
+        return customView;
     }
 
     @Nullable

@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import jsc.kit.component.R;
 import jsc.kit.component.utils.WindowUtils;
@@ -22,8 +23,7 @@ import jsc.kit.component.utils.WindowUtils;
 public class BaseViewProvider {
 
     private Context context;
-    private ConstraintLayout constraintLayout;
-    private ConstraintSet constraintSet;
+    private RelativeLayout rootView;
     private View titleBar;
     private View contentView;
     private View emptyView;
@@ -44,8 +44,8 @@ public class BaseViewProvider {
     }
 
     @NonNull
-    public ConstraintLayout getConstraintLayout() {
-        return constraintLayout;
+    public RelativeLayout getRootView() {
+        return rootView;
     }
 
     @Nullable
@@ -87,110 +87,20 @@ public class BaseViewProvider {
     }
 
     private void createRootView() {
-        constraintLayout = new ConstraintLayout(context);
-        constraintLayout.setFitsSystemWindows(true);
-        constraintSet = new ConstraintSet();
+        rootView = new RelativeLayout(context);
+        rootView.setFitsSystemWindows(true);
     }
 
     public View provide() {
         titleBar = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createTitleBar(context);
-        contentView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createContentView(context);
-        emptyView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createEmptyView(context);
-        errorView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createErrorView(context);
-        loadingView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createLoadingView(context);
-
         //add title bar
         if (titleBar != null) {
             titleBar.setId(R.id.page_title_bar);
-            constraintLayout.addView(titleBar);
-
-            constraintSet.connect(R.id.page_title_bar, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            constraintSet.connect(R.id.page_title_bar, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            constraintSet.constrainWidth(R.id.page_title_bar, ConstraintSet.MATCH_CONSTRAINT);
-            constraintSet.constrainHeight(R.id.page_title_bar, WindowUtils.getActionBarSize(context));
+            rootView.addView(titleBar);
         }
-
-        //add content view
-        if (contentView != null) {
-            contentView.setId(R.id.page_content);
-            constraintLayout.addView(contentView);
-
-            constraintSet.connect(R.id.page_content, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            constraintSet.connect(R.id.page_content, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            if (titleBar == null)
-                constraintSet.connect(R.id.page_content, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            else
-                constraintSet.connect(R.id.page_content, ConstraintSet.TOP, R.id.page_title_bar, ConstraintSet.BOTTOM);
-            constraintSet.connect(R.id.page_content, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            constraintSet.constrainWidth(R.id.page_content, ConstraintSet.MATCH_CONSTRAINT);
-            constraintSet.constrainHeight(R.id.page_content, ConstraintSet.MATCH_CONSTRAINT);
-        }
-
-        //add empty view
-        if (emptyView != null) {
-            emptyView.setId(R.id.page_empty);
-            constraintLayout.addView(emptyView);
-
-            constraintSet.connect(R.id.page_empty, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            constraintSet.connect(R.id.page_empty, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            if (titleBar == null)
-                constraintSet.connect(R.id.page_empty, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            else
-                constraintSet.connect(R.id.page_empty, ConstraintSet.TOP, R.id.page_title_bar, ConstraintSet.BOTTOM);
-            constraintSet.connect(R.id.page_empty, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            constraintSet.constrainWidth(R.id.page_empty, ConstraintSet.MATCH_CONSTRAINT);
-            constraintSet.constrainHeight(R.id.page_empty, ConstraintSet.MATCH_CONSTRAINT);
-        }
-
-        //add error view
-        if (errorView != null) {
-            errorView.setId(R.id.page_error);
-            constraintLayout.addView(errorView);
-
-            constraintSet.connect(R.id.page_error, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            constraintSet.connect(R.id.page_error, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            if (titleBar == null)
-                constraintSet.connect(R.id.page_error, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            else
-                constraintSet.connect(R.id.page_error, ConstraintSet.TOP, R.id.page_title_bar, ConstraintSet.BOTTOM);
-            constraintSet.connect(R.id.page_error, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            constraintSet.constrainWidth(R.id.page_error, ConstraintSet.MATCH_CONSTRAINT);
-            constraintSet.constrainHeight(R.id.page_error, ConstraintSet.MATCH_CONSTRAINT);
-        }
-
-        //add loading view
-        if (loadingView != null) {
-            loadingView.setId(R.id.page_loading);
-            constraintLayout.addView(loadingView);
-
-            constraintSet.connect(R.id.page_loading, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            constraintSet.connect(R.id.page_loading, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            if (titleBar == null)
-                constraintSet.connect(R.id.page_loading, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            else
-                constraintSet.connect(R.id.page_loading, ConstraintSet.TOP, R.id.page_title_bar, ConstraintSet.BOTTOM);
-            constraintSet.connect(R.id.page_loading, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            constraintSet.constrainWidth(R.id.page_loading, ConstraintSet.MATCH_CONSTRAINT);
-            constraintSet.constrainHeight(R.id.page_loading, ConstraintSet.MATCH_CONSTRAINT);
-
-        }
-
-        //add custom view
         if (baseViewCreateDelegate != null)
-            baseViewCreateDelegate.addCustomView(context, constraintLayout, constraintSet);
-
-        constraintSet.applyTo(constraintLayout);
-
-        showView(contentView, false);
-        showView(emptyView, false);
-        showView(errorView, false);
-
-        return constraintLayout;
-    }
-
-    private void showView(View view, boolean show) {
-        if (view != null)
-            view.setVisibility(show ? View.VISIBLE : View.GONE);
+            baseViewCreateDelegate.initCustomView(context, rootView);
+        return rootView;
     }
 
     /**
@@ -200,12 +110,18 @@ public class BaseViewProvider {
      */
     public final void showLoadingPage(@Nullable Bundle bundle) {
         isLoading = true;
-        showView(contentView, false);
-        showView(errorView, false);
-        showView(emptyView, false);
-        showView(loadingView, true);
-        if (loadingView != null && baseViewShowDelegate != null) {
-            baseViewShowDelegate.onShowErrorPage(loadingView, bundle);
+        removeView(contentView);
+        removeView(errorView);
+        removeView(emptyView);
+        if (loadingView == null){
+            loadingView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createLoadingView(context);
+            if (loadingView != null){
+                loadingView.setId(R.id.page_loading);
+            }
+        }
+        addView(loadingView);
+        if (baseViewShowDelegate != null) {
+            baseViewShowDelegate.onShowLoadingPage(loadingView, bundle);
         }
     }
 
@@ -216,12 +132,18 @@ public class BaseViewProvider {
      */
     public final void showContentPage(@Nullable Bundle bundle) {
         isLoading = false;
-        showView(contentView, true);
-        showView(errorView, false);
-        showView(emptyView, false);
-        showView(loadingView, false);
-        if (contentView != null && baseViewShowDelegate != null) {
-            baseViewShowDelegate.onShowErrorPage(contentView, bundle);
+        removeView(errorView);
+        removeView(emptyView);
+        removeView(loadingView);
+        if (contentView == null){
+            contentView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createContentView(context);
+            if (contentView != null){
+                contentView.setId(R.id.page_content);
+            }
+        }
+        addView(contentView);
+        if (baseViewShowDelegate != null) {
+            baseViewShowDelegate.onShowContentPage(contentView, bundle);
         }
     }
 
@@ -232,12 +154,18 @@ public class BaseViewProvider {
      */
     public final void showEmptyPage(@Nullable Bundle bundle) {
         isLoading = false;
-        showView(contentView, false);
-        showView(errorView, false);
-        showView(emptyView, true);
-        showView(loadingView, false);
-        if (emptyView != null && baseViewShowDelegate != null) {
-            baseViewShowDelegate.onShowErrorPage(emptyView, bundle);
+        removeView(contentView);
+        removeView(errorView);
+        removeView(loadingView);
+        if (emptyView == null){
+            emptyView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createEmptyView(context);
+            if (emptyView != null){
+                emptyView.setId(R.id.page_empty);
+            }
+        }
+        addView(emptyView);
+        if (baseViewShowDelegate != null) {
+            baseViewShowDelegate.onShowEmptyPage(emptyView, bundle);
         }
     }
 
@@ -248,12 +176,38 @@ public class BaseViewProvider {
      */
     public final void showErrorPage(@Nullable Bundle bundle) {
         isLoading = false;
-        showView(contentView, false);
-        showView(errorView, true);
-        showView(emptyView, false);
-        showView(loadingView, false);
-        if (errorView != null && baseViewShowDelegate != null) {
+        removeView(contentView);
+        removeView(emptyView);
+        removeView(loadingView);
+        if (errorView == null){
+            errorView = baseViewCreateDelegate == null ? null : baseViewCreateDelegate.createErrorView(context);
+            if (errorView != null){
+                errorView.setId(R.id.page_error);
+            }
+        }
+        addView(errorView);
+        if (baseViewShowDelegate != null) {
             baseViewShowDelegate.onShowErrorPage(errorView, bundle);
+        }
+    }
+
+    private void removeView(View view){
+        if (view != null)
+            rootView.removeView(view);
+    }
+
+    private void addView(View view){
+        if (view == null)
+            return;
+        if (view.getParent() != null)
+            throw new IllegalStateException("This view already has parent.");
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        if (titleBar != null){
+            params.addRule(RelativeLayout.BELOW, R.id.page_title_bar);
+            rootView.addView(view, 1, params);
+        } else {
+            rootView.addView(view, params);
         }
     }
 }

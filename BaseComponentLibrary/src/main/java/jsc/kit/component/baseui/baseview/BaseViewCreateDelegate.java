@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -66,9 +67,20 @@ public interface BaseViewCreateDelegate {
 
     /**
      * Add custom view into root view.
-     * @param context context
+     *
+     * @param context          context
      * @param constraintLayout root view
-     * @param constraintSet constraint set
+     * @param constraintSet    constraint set
+     * @deprecated use {@link #initCustomView(Context, RelativeLayout)} instead of.
      */
+    @Deprecated
     public void addCustomView(@NonNull Context context, @NonNull ConstraintLayout constraintLayout, @NonNull ConstraintSet constraintSet);
+
+    /**
+     * Add custom view into root view.
+     *
+     * @param context  context
+     * @param rootView root view
+     */
+    public void initCustomView(@NonNull Context context, @NonNull RelativeLayout rootView);
 }
