@@ -136,17 +136,43 @@
     </declare-styleable>
 
     <declare-styleable name="CameraMask">
-        <attr name="cm_mask_color" format="color|reference"/>
-        <attr name="cm_top_margin" format="dimension"/>
+        <!--相机镜头（或扫描框）大小占父View宽度的百分比-->
+        <attr name="cm_sizeRatio" format="float|reference"/>
+        <!--相机镜头遮罩颜色-->
+        <attr name="cm_maskColor" format="color|reference"/>
+        <!--扫描框边的颜色-->
+        <attr name="cm_scannerBoxBorderColor" format="dimension"/>
+        <!--扫描框边的粗细-->
+        <attr name="cm_scannerBoxBorderWidth" format="dimension"/>
+        <!--扫描框四个角的颜色-->
+        <attr name="cm_scannerBoxAngleColor" format="dimension"/>
+        <!--扫描框四个角边的粗细-->
+        <attr name="cm_scannerBoxAngleBorderWidth" format="dimension"/>
+        <!--扫描框四个角边的长度-->
+        <attr name="cm_scannerBoxAngleLength" format="dimension"/>
+        <!--相机镜头（或扫描框）与顶部的间距-->
+        <attr name="cm_topMargin" format="dimension"/>
+        <!--提示文字-->
         <attr name="cm_text" format="string|reference"/>
-        <attr name="cm_text_color" format="color|reference"/>
-        <attr name="cm_text_background" format="reference"/>
-        <attr name="cm_text_background_color" format="color|reference"/>
-        <attr name="cm_text_location">
-            <enum name="below_camera_lens" value="0"/>
-            <enum name="above_camera_lens" value="1"/>
+        <!--提示文字颜色-->
+        <attr name="cm_textColor" format="color|reference"/>
+        <!--提示文字字体大小-->
+        <attr name="cm_textSize" format="dimension"/>
+        <!--提示文字是否填充父View的宽度。true与父View等宽，false与相机镜头（或扫描框）等宽。-->
+        <attr name="cm_textSingleLine" format="boolean|reference"/>
+        <!--提示文字位于相机镜头（或扫描框）上方（或下方）-->
+        <attr name="cm_textLocation">
+            <!--提示文字位于相机镜头（或扫描框）下方-->
+            <enum name="belowCameraLens" value="0"/>
+            <!--提示文字位于相机镜头（或扫描框）上方-->
+            <enum name="aboveCameraLens" value="1"/>
         </attr>
-        <attr name="cm_text_margin" format="dimension"/>
+        <!--提示文字与相机镜头（或扫描框）的间距-->
+        <attr name="cm_textVerticalMargin" format="dimension"/>
+        <!--提示文字与父View（或相机镜头或扫描框）的左间距-->
+        <attr name="cm_textLeftMargin" format="dimension"/>
+        <!--提示文字与父View（或相机镜头或扫描框）的右间距-->
+        <attr name="cm_textRightMargin" format="dimension"/>
     </declare-styleable>
 
 </resources>

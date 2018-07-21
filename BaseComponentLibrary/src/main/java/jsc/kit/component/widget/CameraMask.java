@@ -4,34 +4,33 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import jsc.kit.component.R;
 
 /**
  * Camera mask.
- * <p>
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
@@ -43,16 +42,34 @@ public class CameraMask extends FrameLayout {
     private final static String TAG = "CameraMask";
     public final static int LOCATION_BELOW_CAMERA_LENS = 0;
     public final static int LOCATION_ABOVE_CAMERA_LENS = 1;
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Rect cameraLensRect = new Rect();
-    private Bitmap bitmap;
-    private Matrix matrix = new Matrix();
-    private int maskColor;
-    private int topMargin;
 
-    private TextView textView;
-    private int textLocation;
-    private int textVerticalMargin;
+    @IntDef({LOCATION_BELOW_CAMERA_LENS, LOCATION_ABOVE_CAMERA_LENS})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TextLocation {
+    }
+
+    protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Rect cameraLensRect = new Rect();
+    private Matrix cameraLensMatrix;
+    private Bitmap cameraLensBitmap;
+    private int maskColor;//相机镜头遮罩颜色
+    private Path scannerBoxAnglePath;
+    private int scannerBoxBorderColor;//扫描框边的颜色
+    private int scannerBoxBorderWidth;//扫描框边的粗细
+    private int scannerBoxAngleColor;//扫描框四个角的颜色
+    private int scannerBoxAngleBorderWidth;//扫描框四个角边的粗细
+    private int scannerBoxAngleLength;//扫描框四个角边的长度
+    private int topMargin;//相机镜头（或扫描框）与顶部的间距
+    private float sizeRatio;//相机镜头（或扫描框）大小占父View宽度的百分比
+
+    protected TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+    protected StaticLayout textStaticLayout;
+    private String text;//提示文字
+    private boolean textSingleLine;//提示文字是否填充父View的宽度。true与父View等宽，false与相机镜头（或扫描框）等宽。
+    private int textLocation;//提示文字位于相机镜头（或扫描框）上方（或下方）
+    private int textVerticalMargin;//提示文字与相机镜头（或扫描框）的间距
+    private int textLeftMargin;//提示文字与父View（或相机镜头或扫描框）的左间距
+    private int textRightMargin;//提示文字与父View（或相机镜头或扫描框）的右间距
 
     public CameraMask(@NonNull Context context) {
         super(context);
@@ -76,58 +93,133 @@ public class CameraMask extends FrameLayout {
     }
 
     public void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        textView = new TextView(context);
-        textView.setTextColor(Color.WHITE);
-        textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        addView(textView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CameraMask, defStyleAttr, 0);
-        topMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_top_margin, 0);
-        maskColor = a.getColor(R.styleable.CameraMask_cm_mask_color, 0x99000000);
+        topMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_topMargin, 0);
+        scannerBoxBorderColor = a.getColor(R.styleable.CameraMask_cm_scannerBoxBorderColor, Color.WHITE);
+        scannerBoxBorderWidth = a.getDimensionPixelSize(R.styleable.CameraMask_cm_scannerBoxBorderWidth, 1);
+        scannerBoxAngleColor = a.getColor(R.styleable.CameraMask_cm_scannerBoxAngleColor, Color.YELLOW);
+        int defaultScannerBoxAngleBorderWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        scannerBoxAngleBorderWidth = a.getDimensionPixelSize(R.styleable.CameraMask_cm_scannerBoxAngleBorderWidth, defaultScannerBoxAngleBorderWidth);
+        int defaultScannerBoxAngleLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+        scannerBoxAngleLength = a.getDimensionPixelSize(R.styleable.CameraMask_cm_scannerBoxAngleLength, defaultScannerBoxAngleLength);
+        maskColor = a.getColor(R.styleable.CameraMask_cm_maskColor, 0x99000000);
+        sizeRatio = a.getFloat(R.styleable.CameraMask_cm_sizeRatio, .6f);
+        if (sizeRatio < .3f)
+            sizeRatio = .3f;
+        if (sizeRatio > 1.0f)
+            sizeRatio = 1.0f;
 
-        String text = a.getString(R.styleable.CameraMask_cm_text);
-        int textColor = a.getColor(R.styleable.CameraMask_cm_text_color, Color.WHITE);
-        if (a.hasValue(R.styleable.CameraMask_cm_text_background)) {
-            Drawable drawable = a.getDrawable(R.styleable.CameraMask_cm_text_background);
-            textView.setBackground(drawable);
-        }
-        if (a.hasValue(R.styleable.CameraMask_cm_text_background_color)) {
-            int textBackgroundColor = a.getColor(R.styleable.CameraMask_cm_text_background_color, Color.TRANSPARENT);
-            textView.setBackgroundColor(textBackgroundColor);
-        }
-        textLocation = a.getInt(R.styleable.CameraMask_cm_text_location, LOCATION_BELOW_CAMERA_LENS);
-        textVerticalMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_text_margin, 0);
+        text = a.getString(R.styleable.CameraMask_cm_text);
+        int textColor = a.getColor(R.styleable.CameraMask_cm_textColor, Color.WHITE);
+        int defaultTextSize = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()) + .5f);
+        float textSize = a.getDimensionPixelSize(R.styleable.CameraMask_cm_textSize, defaultTextSize);
+        textSingleLine = a.getBoolean(R.styleable.CameraMask_cm_textSingleLine, false);
+        textLocation = a.getInt(R.styleable.CameraMask_cm_textLocation, LOCATION_BELOW_CAMERA_LENS);
+        textVerticalMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_textVerticalMargin, 0);
+        textLeftMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_textLeftMargin, 0);
+        textRightMargin = a.getDimensionPixelSize(R.styleable.CameraMask_cm_textRightMargin, 0);
         a.recycle();
-        textView.setText(text);
-        textView.setTextColor(textColor);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+
+        textPaint.setColor(textColor);
+        textPaint.setTextSize(textSize);
 
         setWillNotDraw(false);
-        setCameraLensBitmap(decodeDefaultCameraLens());
+//        setCameraLensBitmap(decodeDefaultCameraLens());
     }
 
-    private Bitmap decodeDefaultCameraLens() {
-        Bitmap bitmap = null;
-        InputStream is = null;
-        try {
-            is = getResources().getAssets().open("default_camera_lens.png");
-            bitmap = BitmapFactory.decodeStream(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-
-                }
-            }
-        }
-        return bitmap;
+    public String getText() {
+        return text;
     }
 
-    public TextView getTextView() {
-        return textView;
+    /**
+     * Set tip text.
+     *
+     * @param text text
+     */
+    public void setText(String text) {
+        this.text = text;
+        textStaticLayout = null;
+        invalidate();
+    }
+
+    /**
+     * Set tip text color.
+     *
+     * @param textColor text color
+     */
+    public void setTextColor(@ColorInt int textColor) {
+        textPaint.setColor(textColor);
+        invalidate();
+    }
+
+    /**
+     * Set tip text size.
+     *
+     * @param textSize text size
+     */
+    public void setTextSize(@FloatRange(from = 0) float textSize) {
+        textPaint.setTextSize(textSize);
+        invalidate();
+    }
+
+    public boolean isTextSingleLine() {
+        return textSingleLine;
+    }
+
+    /**
+     * @param textSingleLine single line text. {@code true}, the maximum width of text is {@link #getWidth()}, else is camera lens' width.
+     */
+    public void setTextSingleLine(boolean textSingleLine) {
+        this.textSingleLine = textSingleLine;
+        textStaticLayout = null;
+        invalidate();
+    }
+
+    public int getTextLocation() {
+        return textLocation;
+    }
+
+    /**
+     * Set tip text location.
+     *
+     * @param textLocation text location. One fo {@link #LOCATION_BELOW_CAMERA_LENS}、{@link #LOCATION_ABOVE_CAMERA_LENS}
+     */
+    public void setTextLocation(@TextLocation int textLocation) {
+        this.textLocation = textLocation;
+        invalidate();
+    }
+
+    public int getTextVerticalMargin() {
+        return textVerticalMargin;
+    }
+
+    /**
+     * @param textVerticalMargin the text vertical margin from camera lens
+     */
+    public void setTextVerticalMargin(int textVerticalMargin) {
+        this.textVerticalMargin = textVerticalMargin;
+        invalidate();
+    }
+
+    public int getTextLeftMargin() {
+        return textLeftMargin;
+    }
+
+    public int getTextRightMargin() {
+        return textRightMargin;
+    }
+
+    /**
+     * Set tip text left margin and right margin.
+     *
+     * @param textLeftMargin  text left margin
+     * @param textRightMargin text right margin
+     */
+    public void setTextHorizontalMargin(int textLeftMargin, int textRightMargin) {
+        this.textLeftMargin = textLeftMargin;
+        this.textRightMargin = textRightMargin;
+        textStaticLayout = null;
+        invalidate();
     }
 
     public int getTopMargin() {
@@ -141,85 +233,87 @@ public class CameraMask extends FrameLayout {
      */
     public void setTopMargin(int topMargin) {
         this.topMargin = topMargin;
-        cameraLensRect.top = topMargin;
-        cameraLensRect.bottom = topMargin + cameraLensRect.width();
-        //The change action of top margin is associated with text view's location.
         requestLayout();
     }
 
-    /**
-     *
-     * @return the location of text view. One of {@link #LOCATION_BELOW_CAMERA_LENS}、{@link #LOCATION_ABOVE_CAMERA_LENS}
-     */
-    public int getTextLocation() {
-        return textLocation;
+    public float getSizeRatio() {
+        return sizeRatio;
     }
 
     /**
-     * Set the location of text view.
+     * Set the size ratio of camera lens. The mini ratio is {@code 0.3f}, the maximum ratio is {@code 1.0f}.
      *
-     * @param textLocation One of {@link #LOCATION_BELOW_CAMERA_LENS}、{@link #LOCATION_ABOVE_CAMERA_LENS}
+     * @param sizeRatio camera lens size ratio
      */
-    public void setTextLocation(int textLocation) {
-        this.textLocation = textLocation;
+    public void setSizeRatio(@FloatRange(from = .3f, to = 1.0f) float sizeRatio) {
+        this.sizeRatio = sizeRatio;
+        textStaticLayout = null;
         requestLayout();
-    }
-
-    /**
-     *
-     * @return the vertical margin of text view from camera lens.
-     */
-    public int getTextVerticalMargin() {
-        return textVerticalMargin;
-    }
-
-    /**
-     *
-     * @param textVerticalMargin the vertical margin of text view from camera lens.
-     */
-    public void setTextVerticalMargin(int textVerticalMargin) {
-        this.textVerticalMargin = textVerticalMargin;
-        requestLayout();
-    }
-
-    @Deprecated
-    public int getMaskAlpha() {
-        return paint.getAlpha();
-    }
-
-    /**
-     * Set the alpha of mask exclude camera lens.
-     *
-     * @param maskAlpha mask alpha
-     * @deprecated use {@link #setMaskColor(int)} instead of.
-     */
-    @Deprecated
-    public void setMaskAlpha(@IntRange(from = 0, to = 0xFF) int maskAlpha) {
-//        paint.setAlpha(maskAlpha);
-//        invalidate();
-    }
-
-    /**
-     * Set the mask color.
-     *
-     * @param maskColor ARGB color
-     */
-    public void setMaskColor(@ColorInt int maskColor) {
-        this.maskColor = maskColor;
-        invalidate();
     }
 
     public Bitmap getCameraLensBitmap() {
-        return bitmap;
+        return cameraLensBitmap;
     }
 
     /**
-     * Set camera lens. The picture should be square size.
+     * Set a square_size camera lens {@link Bitmap}.
      *
      * @param bitmap camera lens
      */
     public void setCameraLensBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        this.cameraLensBitmap = bitmap;
+        invalidate();
+    }
+
+    public void recycle() {
+        if (cameraLensBitmap != null) {
+            cameraLensBitmap.recycle();
+            cameraLensBitmap = null;
+        }
+    }
+
+    public int getScannerBoxBorderColor() {
+        return scannerBoxBorderColor;
+    }
+
+    public void setScannerBoxBorderColor(@ColorInt int scannerBoxBorderColor) {
+        this.scannerBoxBorderColor = scannerBoxBorderColor;
+        invalidate();
+    }
+
+    public int getScannerBoxBorderWidth() {
+        return scannerBoxBorderWidth;
+    }
+
+    public void setScannerBoxBorderWidth(@IntRange(from = 1) int scannerBoxBorderWidth) {
+        this.scannerBoxBorderWidth = scannerBoxBorderWidth;
+        invalidate();
+    }
+
+    public int getScannerBoxAngleColor() {
+        return scannerBoxAngleColor;
+    }
+
+    public void setScannerBoxAngleColor(@ColorInt int scannerBoxAngleColor) {
+        this.scannerBoxAngleColor = scannerBoxAngleColor;
+        invalidate();
+    }
+
+    public int getScannerBoxAngleBorderWidth() {
+        return scannerBoxAngleBorderWidth;
+    }
+
+    public void setScannerBoxAngleBorderWidth(@IntRange(from = 1) int scannerBoxAngleBorderWidth) {
+        this.scannerBoxAngleBorderWidth = scannerBoxAngleBorderWidth;
+        invalidate();
+    }
+
+    public int getScannerBoxAngleLength() {
+        return scannerBoxAngleLength;
+    }
+
+    public void setScannerBoxAngleLength(@IntRange(from = 0) int scannerBoxAngleLength) {
+        this.scannerBoxAngleLength = scannerBoxAngleLength;
         invalidate();
     }
 
@@ -234,31 +328,19 @@ public class CameraMask extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(getDefaultSize(0, widthMeasureSpec), getDefaultSize(0, heightMeasureSpec));
+        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
         initCameraLensSize(getMeasuredWidth());
-        MarginLayoutParams params = (MarginLayoutParams) textView.getLayoutParams();
-        params.leftMargin = cameraLensRect.left;
-        params.rightMargin = cameraLensRect.left;
-        switch (textLocation) {
-            case LOCATION_BELOW_CAMERA_LENS:
-                params.topMargin = cameraLensRect.bottom + textVerticalMargin;
-                break;
-            case LOCATION_ABOVE_CAMERA_LENS:
-                params.topMargin = cameraLensRect.top - textVerticalMargin;
-                break;
-        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.i(TAG, "onSizeChanged: ");
-
+        invalidate();
     }
 
     private void initCameraLensSize(int width) {
-        int cameraLensSize = width * 3 / 4;
+        int cameraLensSize = (int) (width * sizeRatio);
         int left = (width - cameraLensSize) / 2;
         cameraLensRect.set(left, topMargin, left + cameraLensSize, topMargin + cameraLensSize);
     }
@@ -267,27 +349,84 @@ public class CameraMask extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setColor(maskColor);
+        paint.setStyle(Paint.Style.FILL);
         canvas.drawRect(0, 0, getWidth(), topMargin, paint);
         canvas.drawRect(0, cameraLensRect.bottom, getWidth(), getHeight(), paint);
         canvas.drawRect(0, topMargin, cameraLensRect.left, cameraLensRect.bottom, paint);
         canvas.drawRect(cameraLensRect.right, topMargin, getWidth(), cameraLensRect.bottom, paint);
 
-        if (bitmap != null) {
-            float scale = cameraLensRect.width() * 1.0f / bitmap.getWidth();
-            matrix.setScale(scale, scale);
+        float translateX = 0;
+        float translateY = 0;
+        if (cameraLensBitmap != null) {
+            if (cameraLensMatrix == null) {
+                cameraLensMatrix = new Matrix();
+            }
+            translateX = cameraLensRect.left;
+            translateY = topMargin;
+            float scale = cameraLensRect.width() * 1.0f / cameraLensBitmap.getWidth();
+            cameraLensMatrix.setScale(scale, scale);
             canvas.save();
-            canvas.translate(cameraLensRect.left, topMargin);
-            canvas.drawBitmap(bitmap, matrix, null);
+            canvas.translate(translateX, translateY);
+            canvas.drawBitmap(cameraLensBitmap, cameraLensMatrix, null);
+            canvas.translate(-translateX, -translateY);
+            canvas.restore();
+        } else {
+            paint.setStyle(Paint.Style.STROKE);
+            if (scannerBoxAnglePath == null) {
+                scannerBoxAnglePath = new Path();
+            }
+            paint.setStrokeWidth(scannerBoxBorderWidth);
+            paint.setColor(scannerBoxBorderColor);
+            canvas.drawRect(cameraLensRect, paint);
+
+            paint.setStrokeWidth(scannerBoxAngleBorderWidth);
+            paint.setColor(scannerBoxAngleColor);
+            //左上角
+            scannerBoxAnglePath.reset();
+            scannerBoxAnglePath.moveTo(cameraLensRect.left, cameraLensRect.top + scannerBoxAngleLength);
+            scannerBoxAnglePath.lineTo(cameraLensRect.left, cameraLensRect.top);
+            scannerBoxAnglePath.lineTo(cameraLensRect.left + scannerBoxAngleLength, cameraLensRect.top);
+            canvas.drawPath(scannerBoxAnglePath, paint);
+            //右上角
+            scannerBoxAnglePath.reset();
+            scannerBoxAnglePath.moveTo(cameraLensRect.right - scannerBoxAngleLength, cameraLensRect.top);
+            scannerBoxAnglePath.lineTo(cameraLensRect.right, cameraLensRect.top);
+            scannerBoxAnglePath.lineTo(cameraLensRect.right, cameraLensRect.top + scannerBoxAngleLength);
+            canvas.drawPath(scannerBoxAnglePath, paint);
+            //右下角
+            scannerBoxAnglePath.reset();
+            scannerBoxAnglePath.moveTo(cameraLensRect.right, cameraLensRect.bottom - scannerBoxAngleLength);
+            scannerBoxAnglePath.lineTo(cameraLensRect.right, cameraLensRect.bottom);
+            scannerBoxAnglePath.lineTo(cameraLensRect.right - scannerBoxAngleLength, cameraLensRect.bottom);
+            canvas.drawPath(scannerBoxAnglePath, paint);
+            //左下角
+            scannerBoxAnglePath.reset();
+            scannerBoxAnglePath.moveTo(cameraLensRect.left + scannerBoxAngleLength, cameraLensRect.bottom);
+            scannerBoxAnglePath.lineTo(cameraLensRect.left, cameraLensRect.bottom);
+            scannerBoxAnglePath.lineTo(cameraLensRect.left, cameraLensRect.bottom - scannerBoxAngleLength);
+            canvas.drawPath(scannerBoxAnglePath, paint);
+        }
+
+        //提示文字
+        if (text != null && text.trim().length() > 0) {
+            canvas.save();
+            if (textStaticLayout == null) {
+                int textWidth = textSingleLine ? getWidth() : cameraLensRect.width();
+                textWidth = textWidth - textLeftMargin - textRightMargin;
+                textStaticLayout = new StaticLayout(text, textPaint, textWidth, StaticLayout.Alignment.ALIGN_CENTER, 1.0f, 0, true);
+            }
+            translateX = textSingleLine ? 0 : cameraLensRect.left;
+            translateX = translateX + textLeftMargin;
+            translateY = textLocation == LOCATION_BELOW_CAMERA_LENS ? cameraLensRect.bottom + textVerticalMargin : cameraLensRect.top - textVerticalMargin - textStaticLayout.getHeight();
+            canvas.translate(translateX, translateY);
+            textStaticLayout.draw(canvas);
+            canvas.translate(-translateX, -translateY);
             canvas.restore();
         }
     }
 
     @Override
     protected void onDetachedFromWindow() {
-        if (bitmap != null) {
-            bitmap.recycle();
-            bitmap = null;
-        }
         super.onDetachedFromWindow();
     }
 }

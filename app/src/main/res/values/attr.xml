@@ -11,6 +11,8 @@
         <attr name="cilv_arrow_icon" format="reference"/>
     </declare-styleable>
 
+    <item name="radio_camera_lens_pic" type="id"/>
+    <item name="radio_camera_lens_line" type="id"/>
     <item name="radio_below" type="id"/>
     <item name="radio_above" type="id"/>
 </resources>

@@ -57,6 +57,7 @@
         <activity android:name=".ui.component.ReboundRecyclerViewActivity" />
         <activity android:name=".ui.component.CameraMaskActivity" />
         <activity android:name=".ui.EmptyFragmentActivity"/>
+        <activity android:name=".ui.component.ScannerCameraMaskActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

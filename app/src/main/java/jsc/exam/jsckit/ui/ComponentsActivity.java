@@ -31,6 +31,7 @@ import jsc.exam.jsckit.ui.component.RadarViewActivity;
 import jsc.exam.jsckit.ui.component.ReboundFrameLayoutActivity;
 import jsc.exam.jsckit.ui.component.RefreshLayoutActivity;
 import jsc.exam.jsckit.ui.component.RippleViewActivity;
+import jsc.exam.jsckit.ui.component.ScannerCameraMaskActivity;
 import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.TurntableViewActivity;
 import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
@@ -119,6 +120,7 @@ public class ComponentsActivity extends BaseActivity {
         classItems.add(new ClassItem("AdvertisementView", AdvertisementViewActivity.class));
         classItems.add(new ClassItem("VerticalColumnarGraphView", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ClassItem("CameraMask", CameraMaskActivity.class));
+        classItems.add(new ClassItem("ScannerCameraMask", ScannerCameraMaskActivity.class));
         return classItems;
     }
 }
