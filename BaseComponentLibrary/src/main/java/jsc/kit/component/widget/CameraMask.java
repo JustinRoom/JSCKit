@@ -9,7 +9,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Xfermode;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -30,7 +33,7 @@ import jsc.kit.component.R;
 
 /**
  * Camera mask.
- *
+ * <p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
@@ -103,6 +106,7 @@ public class CameraMask extends FrameLayout {
         int defaultScannerBoxAngleLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
         scannerBoxAngleLength = a.getDimensionPixelSize(R.styleable.CameraMask_cm_scannerBoxAngleLength, defaultScannerBoxAngleLength);
         maskColor = a.getColor(R.styleable.CameraMask_cm_maskColor, 0x99000000);
+        maskShape = a.getInt(R.styleable.CameraMask_cm_maskShape, MASK_SHAPE_SQUARE);
         sizeRatio = a.getFloat(R.styleable.CameraMask_cm_sizeRatio, .6f);
         if (sizeRatio < .3f)
             sizeRatio = .3f;
@@ -348,12 +352,8 @@ public class CameraMask extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        paint.setColor(maskColor);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(0, 0, getWidth(), topMargin, paint);
-        canvas.drawRect(0, cameraLensRect.bottom, getWidth(), getHeight(), paint);
-        canvas.drawRect(0, topMargin, cameraLensRect.left, cameraLensRect.bottom, paint);
-        canvas.drawRect(cameraLensRect.right, topMargin, getWidth(), cameraLensRect.bottom, paint);
+//        drawMask(canvas);
+        drawMask(canvas, maskShape);
 
         float translateX = 0;
         float translateY = 0;
@@ -423,6 +423,68 @@ public class CameraMask extends FrameLayout {
             canvas.translate(-translateX, -translateY);
             canvas.restore();
         }
+    }
+
+    /**
+     * The first way to draw square mask.
+     * Only the square mask supported in this way.
+     *
+     * @param canvas canvas
+     */
+    private void drawMask(Canvas canvas) {
+        paint.setColor(maskColor);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(0, 0, getWidth(), topMargin, paint);
+        canvas.drawRect(0, cameraLensRect.bottom, getWidth(), getHeight(), paint);
+        canvas.drawRect(0, topMargin, cameraLensRect.left, cameraLensRect.bottom, paint);
+        canvas.drawRect(cameraLensRect.right, topMargin, getWidth(), cameraLensRect.bottom, paint);
+    }
+
+    public final static int MASK_SHAPE_SQUARE = 0;
+    public final static int MASK_SHAPE_CIRCULAR = 1;
+    @IntDef({MASK_SHAPE_SQUARE, MASK_SHAPE_CIRCULAR})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface MaskShape {
+    }
+    private Xfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
+    private int maskShape;
+
+    public int getMaskShape() {
+        return maskShape;
+    }
+
+    public void setMaskShape(@MaskShape int maskShape) {
+        this.maskShape = maskShape;
+        invalidate();
+    }
+
+    /**
+     * The second way to draw mask. In this way, there are two different shapes.
+     * Square: {@link #MASK_SHAPE_SQUARE}、Circular: {@link #MASK_SHAPE_CIRCULAR}.
+     *
+     * @param canvas  canvas
+     * @param maskShape mask shape. One of {@link #MASK_SHAPE_SQUARE}、{@link #MASK_SHAPE_CIRCULAR}.
+     */
+    private void drawMask(Canvas canvas, int maskShape) {
+        //满屏幕bitmap
+        Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas mCanvas = new Canvas(bitmap);
+        paint.setColor(maskColor);
+        paint.setStyle(Paint.Style.FILL);
+        mCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+
+        paint.setXfermode(xfermode);
+        switch (maskShape) {
+            case MASK_SHAPE_SQUARE:
+                mCanvas.drawRect(cameraLensRect, paint);
+                break;
+            case MASK_SHAPE_CIRCULAR:
+                float radius = cameraLensRect.height() / 2.0f;
+                mCanvas.drawCircle(getWidth() / 2.0f, cameraLensRect.top + radius, radius, paint);
+                break;
+        }
+        paint.setXfermode(null);
+        canvas.drawBitmap(bitmap, 0, 0, null);
     }
 
     @Override
