@@ -60,9 +60,9 @@ public class ScannerCameraMask extends CameraMask {
         scannerParams.gravity = Gravity.CENTER_HORIZONTAL;
         scannerBarContainer = new FrameLayout(context);
         addView(scannerBarContainer, scannerParams);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            initViewShapeProvider(scannerBarContainer);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            initViewShapeProvider(scannerBarContainer);
+//        }
 
         //>>>
         scannerBar = new ImageView(context);
