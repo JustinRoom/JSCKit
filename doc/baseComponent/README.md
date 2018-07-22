@@ -61,8 +61,8 @@ allprojects {
 | 22 | [**BasePhotoActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/photo/BasePhotoActivity.java) | [**从相册选取图片，拍照、裁剪一篇就够了**](https://www.jianshu.com/p/bab57479bbad) |
 | 23 | [**BaseMVPActivity**](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/basemvp/BaseMVPActivity.java) | [**MVP+Retrofit2+RxAndroid解锁新姿势**](https://www.jianshu.com/p/754c0841ba30) |
 | 24 | [**ReboundRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout) | [**酷炫拖拽反弹ReboundRecyclerView**](https://www.jianshu.com/p/c3f2c9f852ef) |
-| 25 | [**CameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) | [**https://www.jianshu.com/p/ca8a14e1aedc**](https://www.jianshu.com/p/ca8a14e1aedc) |
-| 26 | [**ScannerCameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java) | [**https://www.jianshu.com/p/ca8a14e1aedc**](https://www.jianshu.com/p/ca8a14e1aedc) |
+| 25 | [**CameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) | [**二维码扫描，强大的相机遮罩CameraMask**](https://www.jianshu.com/p/ca8a14e1aedc) |
+| 26 | [**ScannerCameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java) | [**二维码扫描，强大的相机遮罩CameraMask**](https://www.jianshu.com/p/ca8a14e1aedc) |
 
 ### Usage examples：
 
