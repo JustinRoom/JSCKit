@@ -149,10 +149,10 @@ public class ScannerCameraMask extends CameraMask {
                 Rect rect = new Rect();
                 int size = Math.min(view.getWidth(), view.getHeight());
                 if (view.getWidth() > view.getHeight()) {
-                    int left = (getWidth() - size) / 2;
+                    int left = (view.getWidth() - size) / 2;
                     rect.set(left, 0, left + size, view.getHeight());
                 } else {
-                    int top = (getHeight() - size) / 2;
+                    int top = (view.getHeight() - size) / 2;
                     rect.set(0, top, view.getWidth(), top + size);
                 }
                 switch (getMaskShape()) {

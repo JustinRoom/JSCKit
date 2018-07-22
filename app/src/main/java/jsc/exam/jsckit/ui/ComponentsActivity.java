@@ -3,11 +3,18 @@ package jsc.exam.jsckit.ui;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.view.Gravity;
@@ -15,10 +22,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import jsc.exam.jsckit.adapter.ClassItemAdapter;
+import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.adapter.ComponentItemAdapter;
+import jsc.exam.jsckit.adapter.ComponentItemDecoration;
 import jsc.exam.jsckit.entity.ClassItem;
+import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
 import jsc.exam.jsckit.ui.component.CameraMaskActivity;
@@ -39,8 +50,9 @@ import jsc.exam.jsckit.ui.component.VerticalColumnarGraphViewActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
+import jsc.kit.component.reboundlayout.ReboundRecyclerView;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
-import jsc.kit.component.widget.CameraMask;
+import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
 public class ComponentsActivity extends BaseActivity {
 
@@ -66,31 +78,87 @@ public class ComponentsActivity extends BaseActivity {
     }
 
     @Override
+    public void initComponent() {
+        super.initComponent();
+        getWindow().setBackgroundDrawable(DynamicDrawableFactory.cornerRectangleDrawable(0xFF303F9F, 0));
+    }
+
+    ComponentItemAdapter adapter;
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RecyclerView recyclerView = new RecyclerView(this);
+        ReboundRecyclerView reboundRecyclerView = new ReboundRecyclerView(this);
+//        reboundRecyclerView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        RecyclerView recyclerView = reboundRecyclerView.getRecyclerView();
         recyclerView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        setContentView(recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.addItemDecoration(new ComponentItemDecoration(this));
+        setContentView(reboundRecyclerView);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
-        ClassItemAdapter adapter = new ClassItemAdapter();
+        adapter = new ComponentItemAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
+        adapter.setOnItemClickListener(new OnItemClickListener<ComponentItem>() {
             @Override
-            public void onItemClick(View view, ClassItem item) {
+            public void onItemClick(View view, ComponentItem item) {
                 toNewActivity(item);
             }
 
             @Override
-            public void onItemClick(View view, ClassItem item, int adapterPosition, int layoutPosition) {
+            public void onItemClick(View view, ComponentItem item, int adapterPosition, int layoutPosition) {
 
             }
         });
-        adapter.setItems(getClassItems());
+        adapter.setItems(getComponentItems());
+
+        new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                // 拖拽的标记，这里允许上下左右四个方向
+                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+                        ItemTouchHelper.RIGHT;
+                // 滑动的标记，这里允许左右滑动
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags(dragFlags, 0);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                // 移动时更改列表中对应的位置并返回true
+                Collections.swap(adapter.getItems(), viewHolder.getAdapterPosition(), target
+                        .getAdapterPosition());
+                return true;
+            }
+
+            @Override
+            public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
+                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+                // 移动完成后刷新列表
+                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target
+                        .getAdapterPosition());
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // 将数据集中的数据移除
+//                adapter.getItems().remove(viewHolder.getAdapterPosition());
+                // 刷新列表
+//                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
-    private void toNewActivity(ClassItem item){
+    private void toNewActivity(ComponentItem item){
         Intent mIntent = new Intent();
         mIntent.setClass(this, item.getCls());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -101,26 +169,26 @@ public class ComponentsActivity extends BaseActivity {
         }
     }
 
-    private List<ClassItem> getClassItems() {
-        List<ClassItem> classItems = new ArrayList<>();
-        classItems.add(new ClassItem("ArcHeaderView", ArcHeaderViewActivity.class));
-        classItems.add(new ClassItem("JSCBannerView", JSCBannerViewActivity.class));
-        classItems.add(new ClassItem("MonthView", MonthViewActivity.class));
-        classItems.add(new ClassItem("ReboundFrameLayout", ReboundFrameLayoutActivity.class));
-        classItems.add(new ClassItem("ReboundRecyclerView", ReboundRecyclerViewActivity.class));
-        classItems.add(new ClassItem("VerticalStepView", VerticalStepViewActivity.class));
-        classItems.add(new ClassItem("RefreshLayout", RefreshLayoutActivity.class));
-        classItems.add(new ClassItem("SwipeRecyclerView", SwipeRecyclerViewActivity.class));
-        classItems.add(new ClassItem("JSCRoundCornerProgressBar", JSCRoundCornerProgressBarActivity.class));
-        classItems.add(new ClassItem("JSCItemLayout", JSCItemLayoutActivity.class));
-        classItems.add(new ClassItem("VScrollScreenLayout", VScrollScreenLayoutActivity.class));
-        classItems.add(new ClassItem("RadarView", RadarViewActivity.class));
-        classItems.add(new ClassItem("TurntableView", TurntableViewActivity.class));
-        classItems.add(new ClassItem("RippleView", RippleViewActivity.class));
-        classItems.add(new ClassItem("AdvertisementView", AdvertisementViewActivity.class));
-        classItems.add(new ClassItem("VerticalColumnarGraphView", VerticalColumnarGraphViewActivity.class));
-        classItems.add(new ClassItem("CameraMask", CameraMaskActivity.class));
-        classItems.add(new ClassItem("ScannerCameraMask", ScannerCameraMaskActivity.class));
+    private List<ComponentItem> getComponentItems() {
+        List<ComponentItem> classItems = new ArrayList<>();
+        classItems.add(new ComponentItem("VerticalColumnarGraphView", "V", VerticalColumnarGraphViewActivity.class));
+        classItems.add(new ComponentItem("CameraMask", "C", CameraMaskActivity.class));
+        classItems.add(new ComponentItem("ScannerCameraMask", "S", ScannerCameraMaskActivity.class));
+        classItems.add(new ComponentItem("ReboundFrameLayout", "R", ReboundFrameLayoutActivity.class));
+        classItems.add(new ComponentItem("ReboundRecyclerView", "R", ReboundRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("RefreshLayout", "R", RefreshLayoutActivity.class));
+        classItems.add(new ComponentItem("SwipeRecyclerView", "S", SwipeRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("TurntableView", "T", TurntableViewActivity.class));
+        classItems.add(new ComponentItem("RippleView", "R", RippleViewActivity.class));
+        classItems.add(new ComponentItem("RadarView", "R", RadarViewActivity.class));
+        classItems.add(new ComponentItem("JSCBannerView", "J", JSCBannerViewActivity.class));
+        classItems.add(new ComponentItem("ArcHeaderView", "A", ArcHeaderViewActivity.class));
+        classItems.add(new ComponentItem("MonthView", "M", MonthViewActivity.class));
+        classItems.add(new ComponentItem("VerticalStepView", "V", VerticalStepViewActivity.class));
+        classItems.add(new ComponentItem("JSCRoundCornerProgressBar", "J", JSCRoundCornerProgressBarActivity.class));
+        classItems.add(new ComponentItem("JSCItemLayout", "J", JSCItemLayoutActivity.class));
+        classItems.add(new ComponentItem("VScrollScreenLayout", "V", VScrollScreenLayoutActivity.class));
+        classItems.add(new ComponentItem("AdvertisementView", "A", AdvertisementViewActivity.class));
         return classItems;
     }
 }

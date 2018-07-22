@@ -49,7 +49,7 @@ public class MyApplication extends Application implements Application.ActivityLi
             long lastShowAdvertisementTimeStamp = SharePreferencesUtils.getInstance().getLong(Configration.SP_ADVERTISEMENT_LAST_SHOW_TIME, 0L);
             String picPathName = SharePreferencesUtils.getInstance().getString(Configration.SP_ADVERTISEMENT_PICTURE);
             long curTime = System.currentTimeMillis();
-            if ((curTime - lastShowAdvertisementTimeStamp > 3 * 60 * 1000) && new File(picPathName).exists()) {
+            if ((curTime - lastShowAdvertisementTimeStamp > 15 * 60 * 1000) && new File(picPathName).exists()) {
                 SharePreferencesUtils.getInstance().saveLong(Configration.SP_ADVERTISEMENT_LAST_SHOW_TIME, curTime);
                 activity.startActivity(new Intent(this, AdvertisementViewActivity.class));
             }
