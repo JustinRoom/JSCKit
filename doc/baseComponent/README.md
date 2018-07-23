@@ -90,3 +90,8 @@ optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/comp
 + 2、optimize base view structure.
 + 3、optimize component CameraMask.
 + 4、add component ScannerCameraMask.
+
+## v0.4.0:
+update demo Components activity
+optimize [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java)
++ 1、support two different mask shape: square and circular. Call method `setMaskShape(@MaskShape int maskShape)` to change mask shape.

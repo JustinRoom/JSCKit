@@ -63,16 +63,16 @@ public class CameraMask extends FrameLayout {
     private int scannerBoxAngleBorderWidth;//扫描框四个角边的粗细
     private int scannerBoxAngleLength;//扫描框四个角边的长度
     private int topMargin;//相机镜头（或扫描框）与顶部的间距
-    private float sizeRatio;//相机镜头（或扫描框）大小占父View宽度的百分比
+    private float sizeRatio;//相机镜头（或扫描框）大小占View宽度的百分比
 
     protected TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     protected StaticLayout textStaticLayout;
     private String text;//提示文字
-    private boolean textSingleLine;//提示文字是否填充父View的宽度。true与父View等宽，false与相机镜头（或扫描框）等宽。
+    private boolean textSingleLine;//提示文字是否填充父View的宽度。true与View等宽，false与相机镜头（或扫描框）等宽。
     private int textLocation;//提示文字位于相机镜头（或扫描框）上方（或下方）
     private int textVerticalMargin;//提示文字与相机镜头（或扫描框）的间距
-    private int textLeftMargin;//提示文字与父View（或相机镜头或扫描框）的左间距
-    private int textRightMargin;//提示文字与父View（或相机镜头或扫描框）的右间距
+    private int textLeftMargin;//提示文字与View（或相机镜头或扫描框）的左间距
+    private int textRightMargin;//提示文字与View（或相机镜头或扫描框）的右间距
 
     public CameraMask(@NonNull Context context) {
         super(context);
@@ -128,7 +128,6 @@ public class CameraMask extends FrameLayout {
         textPaint.setTextSize(textSize);
 
         setWillNotDraw(false);
-//        setCameraLensBitmap(decodeDefaultCameraLens());
     }
 
     public String getText() {
