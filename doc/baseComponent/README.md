@@ -88,8 +88,8 @@ optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/comp
 ## v0.3.9:
 + 1、add base ui structure. [BaseEmptyFragmentActivity](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseEmptyFragmentActivity.java), a custom activity for loading any fragment. For example, see [EmptyFragmentActivity](/app/src/main/java/jsc/exam/jsckit/ui/EmptyFragmentActivity.java).
 + 2、optimize base view structure.
-+ 3、optimize component CameraMask.
-+ 4、add component ScannerCameraMask.
++ 3、optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
++ 4、add component [ScannerCameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java).
 
 ## v0.4.0:
 update demo Components activity
