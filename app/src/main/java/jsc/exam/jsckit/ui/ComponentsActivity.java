@@ -171,11 +171,11 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
-        classItems.add(new ComponentItem("VerticalColumnarGraphView", "V", VerticalColumnarGraphViewActivity.class));
+        classItems.add(new ComponentItem("VerticalColumnar\nGraphView", "V", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ComponentItem("CameraMask", "C", CameraMaskActivity.class));
-        classItems.add(new ComponentItem("ScannerCameraMask", "S", ScannerCameraMaskActivity.class));
-        classItems.add(new ComponentItem("ReboundFrameLayout", "R", ReboundFrameLayoutActivity.class));
-        classItems.add(new ComponentItem("ReboundRecyclerView", "R", ReboundRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("ScannerCamera\nMask", "S", ScannerCameraMaskActivity.class));
+        classItems.add(new ComponentItem("Rebound\nFrameLayout", "R", ReboundFrameLayoutActivity.class));
+        classItems.add(new ComponentItem("Rebound\nRecyclerView", "R", ReboundRecyclerViewActivity.class));
         classItems.add(new ComponentItem("RefreshLayout", "R", RefreshLayoutActivity.class));
         classItems.add(new ComponentItem("SwipeRecyclerView", "S", SwipeRecyclerViewActivity.class));
         classItems.add(new ComponentItem("TurntableView", "T", TurntableViewActivity.class));
@@ -185,7 +185,7 @@ public class ComponentsActivity extends BaseActivity {
         classItems.add(new ComponentItem("ArcHeaderView", "A", ArcHeaderViewActivity.class));
         classItems.add(new ComponentItem("MonthView", "M", MonthViewActivity.class));
         classItems.add(new ComponentItem("VerticalStepView", "V", VerticalStepViewActivity.class));
-        classItems.add(new ComponentItem("JSCRoundCornerProgressBar", "J", JSCRoundCornerProgressBarActivity.class));
+        classItems.add(new ComponentItem("JSCRoundCorner\nProgressBar", "J", JSCRoundCornerProgressBarActivity.class));
         classItems.add(new ComponentItem("JSCItemLayout", "J", JSCItemLayoutActivity.class));
         classItems.add(new ComponentItem("VScrollScreenLayout", "V", VScrollScreenLayoutActivity.class));
         classItems.add(new ComponentItem("AdvertisementView", "A", AdvertisementViewActivity.class));

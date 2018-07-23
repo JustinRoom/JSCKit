@@ -2,33 +2,25 @@ package jsc.exam.jsckit.adapter;
 
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Outline;
-import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
-import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.ComponentItem;
-import jsc.exam.jsckit.widget.SquareTextView;
-import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 import jsc.kit.component.widget.AspectRatioFrameLayout;
-import jsc.kit.component.widget.AspectRatioLinearLayout;
 
 public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder> {
 
@@ -66,16 +58,17 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
 
         public ComponentItemViewHolder(AspectRatioFrameLayout itemView) {
             super(itemView);
-            int size = itemView.getResources().getDimensionPixelSize(R.dimen.space_48);
+            int size = itemView.getResources().getDimensionPixelSize(R.dimen.space_56);
             FrameLayout.LayoutParams p1 = new FrameLayout.LayoutParams(size, size);
             p1.gravity = Gravity.CENTER_HORIZONTAL;
-            p1.topMargin = 12;
+            p1.topMargin = 16;
             tvShortName = new TextView(itemView.getContext());
             tvShortName.setGravity(Gravity.CENTER);
             tvShortName.setTextColor(0xFF333333);
             tvShortName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
             tvShortName.getPaint().setFakeBoldText(true);
-            tvShortName.setBackground(DynamicDrawableFactory.ovalDrawable(0xFFF2F2F2));
+            initViewShapeProvider(tvShortName);
+            tvShortName.setBackgroundColor(0xFFF2F2F2);
             itemView.addView(tvShortName, p1);
             //
             FrameLayout.LayoutParams p2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -93,6 +86,17 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
                 public void onClick(View v) {
                     if (getOnItemClickListener() != null)
                         getOnItemClickListener().onItemClick(v, getItemAtPosition(getAdapterPosition()));
+                }
+            });
+        }
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        private void initViewShapeProvider(View targetView) {
+            targetView.setClipToOutline(true);
+            targetView.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setOval(0, 0, view.getWidth(), view.getHeight());
                 }
             });
         }

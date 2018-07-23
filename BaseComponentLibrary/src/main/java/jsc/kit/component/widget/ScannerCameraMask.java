@@ -143,6 +143,7 @@ public class ScannerCameraMask extends CameraMask {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initViewShapeProvider(View targetView) {
+        targetView.setClipToOutline(true);
         targetView.setOutlineProvider(new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {
@@ -187,7 +188,7 @@ public class ScannerCameraMask extends CameraMask {
         if (animator == null) {
             animator = ObjectAnimator.ofFloat(scannerBar, View.TRANSLATION_Y, 0, translationYDistance);
             animator.setInterpolator(new LinearInterpolator());
-            animator.setDuration(3_000);
+            animator.setDuration(2_000);
             animator.setRepeatCount(Animation.INFINITE);
         }
         if (!animator.isStarted()) {
