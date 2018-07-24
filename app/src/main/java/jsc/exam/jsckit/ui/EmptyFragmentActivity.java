@@ -31,7 +31,8 @@ import jsc.kit.component.utils.WindowUtils;
  *      Bundle bundle = new Bundle();
  *      bundle.putString("content", "empty activity with fragment");
  *      bundle.putString(EmptyFragmentActivity.EXTRA_TITLE, "TestTitle");
- *      bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, true);
+ *      //bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, true);
+ *      bundle.putBoolean(EmptyFragmentActivity.EXTRA_SHOW_ACTION_BAR, false);
  *      bundle.putString(EmptyFragmentActivity.EXTRA_FRAGMENT_CLASS_NAME, DefaultFragment.class.getName());
  *      EmptyFragmentActivity.launch(this, bundle);
  * }
@@ -51,6 +52,7 @@ public class EmptyFragmentActivity extends BaseEmptyFragmentActivity {
      *                <ul>
      *                <li>{@link String} extra {@link #EXTRA_TITLE}.</li>
      *                <li>{@link Boolean} extra {@link #EXTRA_FULL_SCREEN}.</li>
+     *                <li>{@link Boolean} extra {@link #EXTRA_SHOW_ACTION_BAR}.</li>
      *                <li>{@link String} extra {@link #EXTRA_FRAGMENT_CLASS_NAME}.</li>
      *                </ul>
      */
@@ -64,6 +66,7 @@ public class EmptyFragmentActivity extends BaseEmptyFragmentActivity {
      *                         <ul>
      *                         <li>{@link String} extra {@link #EXTRA_TITLE}.</li>
      *                         <li>{@link Boolean} extra {@link #EXTRA_FULL_SCREEN}.</li>
+     *                         <li>{@link Boolean} extra {@link #EXTRA_SHOW_ACTION_BAR}.</li>
      *                         <li>{@link String} extra {@link #EXTRA_FRAGMENT_CLASS_NAME}.</li>
      *                         </ul>
      * @param transitionBundle transition animation bundle. See {@link ActivityOptions#makeSceneTransitionAnimation(Activity, Pair[])}、{@link ActivityOptions#toBundle()}
@@ -79,6 +82,7 @@ public class EmptyFragmentActivity extends BaseEmptyFragmentActivity {
      *                    <ul>
      *                    <li>{@link String} extra {@link #EXTRA_TITLE}.</li>
      *                    <li>{@link Boolean} extra {@link #EXTRA_FULL_SCREEN}.</li>
+     *                    <li>{@link Boolean} extra {@link #EXTRA_SHOW_ACTION_BAR}.</li>
      *                    <li>{@link String} extra {@link #EXTRA_FRAGMENT_CLASS_NAME}.</li>
      *                    </ul>
      * @param requestCode request code
@@ -93,6 +97,7 @@ public class EmptyFragmentActivity extends BaseEmptyFragmentActivity {
      *                         <ul>
      *                         <li>{@link String} extra {@link #EXTRA_TITLE}.</li>
      *                         <li>{@link Boolean} extra {@link #EXTRA_FULL_SCREEN}.</li>
+     *                         <li>{@link Boolean} extra {@link #EXTRA_SHOW_ACTION_BAR}.</li>
      *                         <li>{@link String} extra {@link #EXTRA_FRAGMENT_CLASS_NAME}.</li>
      *                         </ul>
      * @param requestCode      request code

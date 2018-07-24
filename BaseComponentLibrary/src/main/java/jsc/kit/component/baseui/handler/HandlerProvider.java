@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
@@ -67,6 +68,16 @@ public final class HandlerProvider {
         uiHandler.sendEmptyMessageDelayed(what, delayMillis);
     }
 
+    public final void postUIRunnable(@NonNull Runnable r){
+        createUIHandlerIfNecessary();
+        uiHandler.post(r);
+    }
+
+    public final void postUIRunnableDelay(@NonNull Runnable r, long delay){
+        createUIHandlerIfNecessary();
+        uiHandler.postDelayed(r, delay);
+    }
+
     /**
      * @param message message
      */
@@ -99,6 +110,16 @@ public final class HandlerProvider {
     public final void sendWorkEmptyMessageDelay(int what, long delayMillis) {
         createWorkHandlerIfNecessary();
         workHandler.sendEmptyMessageDelayed(what, delayMillis);
+    }
+
+    public final void postWorkRunnable(@NonNull Runnable r){
+        createUIHandlerIfNecessary();
+        uiHandler.post(r);
+    }
+
+    public final void postWorkRunnableDelay(@NonNull Runnable r, long delay){
+        createUIHandlerIfNecessary();
+        uiHandler.postDelayed(r, delay);
     }
 
     private void createUIHandlerIfNecessary() {

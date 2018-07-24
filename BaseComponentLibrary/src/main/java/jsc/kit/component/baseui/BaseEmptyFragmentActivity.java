@@ -5,13 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
 
 /**
  * Empty activity for launching any {@link Fragment}.
- *
+ * <p>
  * <p>
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -22,6 +21,7 @@ import android.view.WindowManager;
 public abstract class BaseEmptyFragmentActivity extends AppCompatActivity {
 
     public final static String EXTRA_FULL_SCREEN = "full_screen";
+    public final static String EXTRA_SHOW_ACTION_BAR = "show_action_bar";
     public final static String EXTRA_FRAGMENT_CLASS_NAME = "class_name";
     public final static String EXTRA_TITLE = "title";
 
@@ -38,7 +38,11 @@ public abstract class BaseEmptyFragmentActivity extends AppCompatActivity {
             //show full screen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
-            initActionBar(getSupportActionBar());
+            if (getIntent().getBooleanExtra(EXTRA_SHOW_ACTION_BAR, true)) {
+                initActionBar(getSupportActionBar());
+            } else if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
         }
 
         String className = getIntent().getStringExtra(EXTRA_FRAGMENT_CLASS_NAME);

@@ -3,12 +3,8 @@ package jsc.exam.jsckit.ui;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -40,6 +36,7 @@ import jsc.exam.jsckit.service.ApiService;
 import jsc.exam.jsckit.ui.fragment.DefaultFragment;
 import jsc.exam.jsckit.ui.mvp.activity.TestActivity;
 import jsc.exam.jsckit.ui.zxing.ZXingQRCodeActivity;
+import jsc.kit.component.baseui.camera2.Camera2BasicFragment;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.download.DownloadEntity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
@@ -112,6 +109,7 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("Test(MVP)", TestActivity.class));
         classItems.add(new ClassItem("BaseView", BaseViewShowActivity.class));
         classItems.add(new ClassItem("EmptyFragment", EmptyFragmentActivity.class));
+        classItems.add(new ClassItem("Camera2Fragment", EmptyFragmentActivity.class));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
@@ -123,6 +121,21 @@ public class MainActivity extends BaseActivity {
             bundle.putString(EmptyFragmentActivity.EXTRA_TITLE, "TestTitle");
             bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, true);
             bundle.putString(EmptyFragmentActivity.EXTRA_FRAGMENT_CLASS_NAME, DefaultFragment.class.getName());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                bundle.putString("transition", TransitionEnum.SLIDE.getLabel());
+                EmptyFragmentActivity.launchTransition(this, bundle, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            } else {
+                EmptyFragmentActivity.launch(this, bundle);
+            }
+            return;
+        }
+
+        if (item.getLabel().equals("Camera2Fragment")) {
+            Bundle bundle = new Bundle();
+            bundle.putString(EmptyFragmentActivity.EXTRA_TITLE, "Take photo");
+            bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, false);
+            bundle.putBoolean(EmptyFragmentActivity.EXTRA_SHOW_ACTION_BAR, false);
+            bundle.putString(EmptyFragmentActivity.EXTRA_FRAGMENT_CLASS_NAME, Camera2BasicFragment.class.getName());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 bundle.putString("transition", TransitionEnum.SLIDE.getLabel());
                 EmptyFragmentActivity.launchTransition(this, bundle, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());

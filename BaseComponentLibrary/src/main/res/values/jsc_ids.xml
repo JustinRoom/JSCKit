@@ -6,4 +6,6 @@
     <item name="page_empty" type="id"/>
     <item name="page_error" type="id"/>
     <item name="page_loading" type="id"/>
+
+    <item name="jsc_id_texture_view" type="id"/>
 </resources>
