@@ -47,8 +47,9 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
 
     @Override
     public void onBindViewHolder(@NonNull ComponentItemViewHolder holder, int position) {
-        holder.tvShortName.setText(getItemAtPosition(position).getShortName());
-        holder.tvComponentName.setText(getItemAtPosition(position).getLabel());
+        String label = getItemAtPosition(position).getLabel();
+        holder.tvShortName.setText(label.substring(0, 1).toUpperCase());
+        holder.tvComponentName.setText(label);
     }
 
     class ComponentItemViewHolder extends RecyclerView.ViewHolder {

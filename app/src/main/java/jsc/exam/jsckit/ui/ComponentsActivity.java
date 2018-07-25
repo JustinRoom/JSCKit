@@ -171,24 +171,24 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
-        classItems.add(new ComponentItem("VerticalColumnar\nGraphView", "V", VerticalColumnarGraphViewActivity.class));
+        classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ComponentItem("CameraMask", "C", CameraMaskActivity.class));
-        classItems.add(new ComponentItem("ScannerCamera\nMask", "S", ScannerCameraMaskActivity.class));
-        classItems.add(new ComponentItem("Rebound\nFrameLayout", "R", ReboundFrameLayoutActivity.class));
-        classItems.add(new ComponentItem("Rebound\nRecyclerView", "R", ReboundRecyclerViewActivity.class));
-        classItems.add(new ComponentItem("RefreshLayout", "R", RefreshLayoutActivity.class));
-        classItems.add(new ComponentItem("SwipeRecyclerView", "S", SwipeRecyclerViewActivity.class));
-        classItems.add(new ComponentItem("TurntableView", "T", TurntableViewActivity.class));
-        classItems.add(new ComponentItem("RippleView", "R", RippleViewActivity.class));
-        classItems.add(new ComponentItem("RadarView", "R", RadarViewActivity.class));
-        classItems.add(new ComponentItem("JSCBannerView", "J", JSCBannerViewActivity.class));
-        classItems.add(new ComponentItem("ArcHeaderView", "A", ArcHeaderViewActivity.class));
-        classItems.add(new ComponentItem("MonthView", "M", MonthViewActivity.class));
-        classItems.add(new ComponentItem("VerticalStepView", "V", VerticalStepViewActivity.class));
-        classItems.add(new ComponentItem("JSCRoundCorner\nProgressBar", "J", JSCRoundCornerProgressBarActivity.class));
-        classItems.add(new ComponentItem("JSCItemLayout", "J", JSCItemLayoutActivity.class));
-        classItems.add(new ComponentItem("VScrollScreenLayout", "V", VScrollScreenLayoutActivity.class));
-        classItems.add(new ComponentItem("AdvertisementView", "A", AdvertisementViewActivity.class));
+        classItems.add(new ComponentItem("ScannerCamera\nMask", ScannerCameraMaskActivity.class));
+        classItems.add(new ComponentItem("Rebound\nFrameLayout", ReboundFrameLayoutActivity.class));
+        classItems.add(new ComponentItem("Rebound\nRecyclerView", ReboundRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("RefreshLayout", RefreshLayoutActivity.class));
+        classItems.add(new ComponentItem("SwipeRecyclerView", SwipeRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("TurntableView", TurntableViewActivity.class));
+        classItems.add(new ComponentItem("RippleView", RippleViewActivity.class));
+        classItems.add(new ComponentItem("RadarView", RadarViewActivity.class));
+        classItems.add(new ComponentItem("JSCBannerView", JSCBannerViewActivity.class));
+        classItems.add(new ComponentItem("ArcHeaderView", ArcHeaderViewActivity.class));
+        classItems.add(new ComponentItem("MonthView", MonthViewActivity.class));
+        classItems.add(new ComponentItem("VerticalStepView", VerticalStepViewActivity.class));
+        classItems.add(new ComponentItem("JSCRoundCorner\nProgressBar", JSCRoundCornerProgressBarActivity.class));
+        classItems.add(new ComponentItem("JSCItemLayout", JSCItemLayoutActivity.class));
+        classItems.add(new ComponentItem("VScrollScreenLayout", VScrollScreenLayoutActivity.class));
+        classItems.add(new ComponentItem("AdvertisementView", AdvertisementViewActivity.class));
         return classItems;
     }
 }
