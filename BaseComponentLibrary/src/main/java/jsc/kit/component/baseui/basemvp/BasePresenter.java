@@ -31,6 +31,18 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> {
         this.model = model;
     }
 
+    /**
+     * You should call method {@link #isViewAttached()} before calling this method.
+     * <br>For example:
+     * <pre class="prettyprint">
+     *     if(isViewAttached()){
+     *         V view = getView();
+     *         //todo
+     *     }
+     * </pre>
+     *
+     * @return view
+     */
     public V getView() {
         return viewWeakReference.get();
     }

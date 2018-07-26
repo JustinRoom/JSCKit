@@ -172,7 +172,7 @@ public class ComponentsActivity extends BaseActivity {
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
         classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));
-        classItems.add(new ComponentItem("CameraMask", "C", CameraMaskActivity.class));
+        classItems.add(new ComponentItem("CameraMask", CameraMaskActivity.class));
         classItems.add(new ComponentItem("ScannerCamera\nMask", ScannerCameraMaskActivity.class));
         classItems.add(new ComponentItem("Rebound\nFrameLayout", ReboundFrameLayoutActivity.class));
         classItems.add(new ComponentItem("Rebound\nRecyclerView", ReboundRecyclerViewActivity.class));

@@ -30,6 +30,9 @@ public class TestPresenter extends MyBasePresenter<ITestView, ITestModel> {
     }
 
     public void loadVersionInfo() {
+        if (!isCommonViewAttached())
+            return;
+
         String baseUrl = getCommonView().getBaseUrl();
         String token = getCommonView().getToken();
         boolean isShowNetLog = getCommonView().isShowNetLog();

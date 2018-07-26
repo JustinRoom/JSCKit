@@ -2,6 +2,8 @@ package jsc.exam.jsckit.ui.mvp.presenter;
 
 import android.support.annotation.NonNull;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import jsc.exam.jsckit.ui.mvp.view.CommonView;
@@ -19,7 +21,7 @@ import jsc.kit.component.baseui.basemvp.IBaseView;
  */
 public abstract class MyBasePresenter<V extends IBaseView, M extends IBaseModel> extends BasePresenter<V, M> {
 
-    private CommonView commonView;
+    private WeakReference<CommonView> commonViewWeakReference;
     private CompositeDisposable compositeDisposable = null;
 
     public MyBasePresenter() {
@@ -29,14 +31,28 @@ public abstract class MyBasePresenter<V extends IBaseView, M extends IBaseModel>
         super(view, model);
     }
 
+    public boolean isCommonViewAttached(){
+        return commonViewWeakReference.get() != null;
+    }
+
+    /**
+     * You should call method {@link #isCommonViewAttached()} before calling this method.
+     * <br>For example:
+     * <pre class="prettyprint">
+     *     if(isCommonViewAttached()){
+     *         CommonView view = getCommonView();
+     *         //todo
+     *     }
+     * </pre>
+     *
+     * @return common view.
+     */
     public CommonView getCommonView() {
-        if (commonView == null)
-            throw new NullPointerException("Null exception from class " + getClass().getSimpleName() + ": its' common view is null(or was recycled).");
-        return commonView;
+        return commonViewWeakReference.get();
     }
 
     public void setCommonView(@NonNull CommonView commonView) {
-        this.commonView = commonView;
+        commonViewWeakReference = new WeakReference<>(commonView);
     }
 
     @Override
