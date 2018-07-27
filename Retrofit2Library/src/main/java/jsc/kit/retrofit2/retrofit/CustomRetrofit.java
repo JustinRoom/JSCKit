@@ -50,10 +50,10 @@ public class CustomRetrofit {
 
     public Retrofit createRetrofit() {
         if (baseUrl == null || baseUrl.trim().length() == 0)
-            throw new RuntimeException("You have not set base url.");
+            throw new IllegalArgumentException("Base url can't be null.");
 
         if (okHttpClient == null)
-            throw new RuntimeException("You have not initialized OkHttpClient.");
+            throw new IllegalArgumentException("You have not initialized OkHttpClient.");
 
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(baseUrl).client(okHttpClient);

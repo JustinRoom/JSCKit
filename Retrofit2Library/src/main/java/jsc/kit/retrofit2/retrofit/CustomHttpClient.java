@@ -81,9 +81,19 @@ public class CustomHttpClient {
         return this;
     }
 
+    /**
+     * Set network cache config.
+     * You must call method {@link #setContext(Application)} before calling this method.
+     *
+     * @param cacheFileName cache file name.
+     * @param maxCacheSize cache max size.
+     * @return CustomHttpClient
+     */
     public CustomHttpClient setCache(String cacheFileName, long maxCacheSize) {
-        File cacheFile = new File(context.getCacheDir(), cacheFileName);
-        cache = new Cache(cacheFile, maxCacheSize);
+        if (context != null){
+            File cacheFile = new File(context.getCacheDir(), cacheFileName);
+            cache = new Cache(cacheFile, maxCacheSize);
+        }
         return this;
     }
 
