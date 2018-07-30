@@ -5,42 +5,39 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
+// public interface ApiService {
+//      {@code @GET("JustinRoom/JSCKit/master/capture/output.json")}
+//      {@code Observable<BaseResponse<VersionEntity>> getVersionInfo();}
+// }
+//
+//  new CustomRetrofit()
+//    .setBaseUrl("https://www.baidu.com/")
+//    .setOkHttpClient(new CustomHttpClient().createOkHttpClient())
+//    .createRetrofit()
+//    .create(ApiService.class)
+//    .getVersionInfo()
+//    .compose(new BaseObservableTransformer<VersionEntity, BaseResponse<VersionEntity>>())
+//    .subscribeOn(Schedulers.io())
+//    .observeOn(AndroidSchedulers.mainThread())
+//    .subscribe(new Consumer<VersionEntity>() {
+//          {@code @Override}
+//          public void accept(VersionEntity versionEntity) throws Exception {
+//              //todo
+//          }
+//        }, new Consumer<Throwable>() {
+//          {@code @Override}
+//          public void accept(Throwable throwable) throws Exception {
+//              //todo
+//          }
+//        }, new Action() {
+//          {@code @Override}
+//          public void run() throws Exception {
+//              //todo
+//          }
+//    });
+
 /**
  * Compose {@link BaseResponse#response}.
- * <br><strong>For example:</strong>
- * <p>
- * <pre class="prettyprint">
- * public interface ApiService {
- *      {@code @GET("JustinRoom/JSCKit/master/capture/output.json")}
- *      {@code Observable<BaseResponse<VersionEntity>> getVersionInfo();}
- * }
- *
- *  new CustomRetrofit()
- *    .setBaseUrl("https://www.baidu.com/")
- *    .setOkHttpClient(new CustomHttpClient().createOkHttpClient())
- *    .createRetrofit()
- *    .create(ApiService.class)
- *    .getVersionInfo()
- *    .compose(new BaseObservableTransformer<VersionEntity, BaseResponse<VersionEntity>>())
- *    .subscribeOn(Schedulers.io())
- *    .observeOn(AndroidSchedulers.mainThread())
- *    .subscribe(new Consumer<VersionEntity>() {
- *          {@code @Override}
- *          public void accept(VersionEntity versionEntity) throws Exception {
- *              //todo
- *          }
- *        }, new Consumer<Throwable>() {
- *          {@code @Override}
- *          public void accept(Throwable throwable) throws Exception {
- *              //todo
- *          }
- *        }, new Action() {
- *          {@code @Override}
- *          public void run() throws Exception {
- *              //todo
- *          }
- *    });
- * </pre>
  *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
