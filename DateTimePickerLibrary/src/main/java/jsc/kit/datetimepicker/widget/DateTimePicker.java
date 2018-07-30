@@ -702,17 +702,24 @@ public class DateTimePicker {
         //months
         if (curShowType.value >= ShowType.MONTH.value) {
             months.clear();
-            if (y == startYear) {
-                for (int i = startMonth; i <= MAX_MONTH; i++) {
-                    months.add(formatTimeUnit(i));
-                }
-            } else if (y == endYear) {
+            //the same year
+            if (startYear == endYear){
                 for (int i = 1; i <= endMonth; i++) {
                     months.add(formatTimeUnit(i));
                 }
             } else {
-                for (int i = 1; i <= MAX_MONTH; i++) {
-                    months.add(formatTimeUnit(i));
+                if (y == startYear) {
+                    for (int i = startMonth; i <= MAX_MONTH; i++) {
+                        months.add(formatTimeUnit(i));
+                    }
+                } else if (y == endYear) {
+                    for (int i = 1; i <= endMonth; i++) {
+                        months.add(formatTimeUnit(i));
+                    }
+                } else {
+                    for (int i = 1; i <= MAX_MONTH; i++) {
+                        months.add(formatTimeUnit(i));
+                    }
                 }
             }
             monthPicker.setData(months);

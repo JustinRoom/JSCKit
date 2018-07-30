@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
+import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
 public class ReboundRecyclerViewActivity extends BaseActivity {
@@ -32,6 +34,12 @@ public class ReboundRecyclerViewActivity extends BaseActivity {
         reboundRecyclerView.setMaxReboundAnimDuration(2000);
         RecyclerView recyclerView = reboundRecyclerView.getRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                0
+        ));
         adapter = new ClassItemAdapter();
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override

@@ -27,6 +27,7 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
@@ -53,7 +54,12 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         //添加ItemDecoration
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         decoration.setDrawable(CompatDrawableResourceUtils.getDrawable(this, R.drawable.item_decoration_shape));
-        swipeRefreshRecyclerView.getRecyclerView().addItemDecoration(decoration);
+        swipeRefreshRecyclerView.getRecyclerView().addItemDecoration(new HorizontalSpaceItemDecoration(
+                getResources().getDimensionPixelOffset(R.dimen.space_2),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
+                getResources().getDimensionPixelOffset(R.dimen.space_2),
+                0
+        ));
         //
         swipeRefreshRecyclerView.getSwipeRefreshLayout().setColorSchemeColors(0xFF3F51B5, 0xFF303F9F, 0xFFFF4081, Color.CYAN);
         //设置自定义的emptyView
@@ -87,7 +93,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
 
             @Override
             public void onLoadMore() {
-                pageIndex ++;
+                pageIndex++;
                 //模拟请求网络数据
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -154,7 +160,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         super.onStart();
     }
 
-    private List<Banner> getRandomBanners(){
+    private List<Banner> getRandomBanners() {
         List<Banner> banners = new ArrayList<>();
         int itemCount = 20 + new Random().nextInt(8);
         for (int i = 0; i < itemCount; i++) {
@@ -163,7 +169,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         return banners;
     }
 
-    private View createEmptyView(){
+    private View createEmptyView() {
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -182,7 +188,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         return layout;
     }
 
-    private View createLoadMoreView(){
+    private View createLoadMoreView() {
         int dp4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -190,7 +196,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         layout.setPadding(0, dp4 * 2, 0, dp4 * 2);
         layout.setBackgroundColor(Color.WHITE);
 
-        AVLoadingIndicatorView  indicatorView = new AVLoadingIndicatorView(this);
+        AVLoadingIndicatorView indicatorView = new AVLoadingIndicatorView(this);
         indicatorView.setIndicatorColor(0xFFFF4081);
         indicatorView.setIndicator(new BallSpinFadeLoaderIndicator());
         layout.addView(indicatorView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

@@ -29,6 +29,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
@@ -40,6 +41,8 @@ import jsc.kit.component.baseui.camera2.Camera2BasicFragment;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.download.DownloadEntity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
+import jsc.kit.component.reboundlayout.ReboundRecyclerView;
+import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.retrofit2.LoadingDialogObserver;
@@ -57,10 +60,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RecyclerView recyclerView = new RecyclerView(this);
+        ReboundRecyclerView reboundRecyclerView = new ReboundRecyclerView(this);
+        RecyclerView recyclerView = reboundRecyclerView.getRecyclerView();
         recyclerView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        setContentView(recyclerView);
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                0
+        ));
+        setContentView(reboundRecyclerView);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         showTitleBarBackView(false);
 

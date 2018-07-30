@@ -25,6 +25,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.refreshlayout.RefreshLayout;
+import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
 import jsc.kit.component.utils.WindowUtils;
 
 public class RefreshLayoutActivity extends BaseActivity {
@@ -139,6 +140,12 @@ public class RefreshLayoutActivity extends BaseActivity {
     private void initRecyclerViewContent(){
         RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
+                getResources().getDimensionPixelOffset(R.dimen.space_16),
+                0
+        ));
         ClassItemAdapter adapter = new ClassItemAdapter();
         recyclerView.setAdapter(adapter);
         refreshLayout.addContent(recyclerView);

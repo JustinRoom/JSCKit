@@ -59,7 +59,7 @@ public class DateTimePickerActivity extends BaseActivity {
         currentDate.setText(format1.format(date1));
         currentTime.setText(format2.format(date1));
 
-        calendar.set(Calendar.YEAR, 2010);
+//        calendar.set(Calendar.YEAR, 2010);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
