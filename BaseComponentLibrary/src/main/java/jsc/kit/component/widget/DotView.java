@@ -1,16 +1,23 @@
 package jsc.kit.component.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.support.annotation.ColorInt;
+import android.graphics.Outline;
+import android.graphics.Path;
+import android.os.Build;
+import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewOutlineProvider;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import jsc.kit.component.IViewAttrDelegate;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -19,114 +26,92 @@ import android.view.View;
  *
  * @author jiangshicheng
  */
-public class DotView extends View {
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+public class DotView extends AppCompatTextView implements IViewAttrDelegate {
 
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-    @ColorInt
-    private int bgColor = Color.RED;
-    private String text;
-    private float textSize;
-    @ColorInt
-    private int textColor = Color.WHITE;
+    public final static int CIRCULAR = 0;
+    public final static int SQUARE = 1;
+    public final static int ROUND_CORNER_SQUARE = 2;
+    public final static int TRIANGLE = 3;
+    @IntDef({CIRCULAR, SQUARE, ROUND_CORNER_SQUARE, TRIANGLE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DotShape {
+    }
 
-    private Rect rect = new Rect();
+    int shape = CIRCULAR;
+    float radius = 0;
+    int unReadCount = 0;
 
     public DotView(Context context) {
-        this(context, null);
+        super(context);
+        initAttr(context, null, 0);
     }
 
     public DotView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        initAttr(context, attrs, 0);
     }
 
     public DotView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        initAttr(context, attrs, defStyleAttr);
     }
 
-    private void init(Context context) {
-        paint.setStyle(Paint.Style.FILL);
-        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 8, context.getResources().getDisplayMetrics());
-    }
-
-    public void setBgColor(int bgColor) {
-        this.bgColor = bgColor;
-        postInvalidate();
+    @Override
+    public void initAttr(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        setGravity(Gravity.CENTER);
+        setClipToOutline(true);
+        setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                switch (shape){
+                    case CIRCULAR:
+                        outline.setOval(0, 0, view.getWidth(), view.getHeight());
+                        break;
+                    case SQUARE:
+                        outline.setRect(0, 0, view.getWidth(), view.getHeight());
+                        break;
+                    case ROUND_CORNER_SQUARE:
+                        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+                        break;
+                    case TRIANGLE:
+                        Path path = new Path();
+                        path.moveTo(view.getWidth() / 2.0f, 0);
+                        path.lineTo(0, view.getHeight());
+                        path.lineTo(view.getWidth(), view.getHeight());
+                        path.close();
+                        outline.setConvexPath(path);
+                        break;
+                }
+            }
+        });
     }
 
     public int getUnReadCount() {
-        int unReadCount;
-        try {
-            unReadCount = Integer.parseInt(text);
-        } catch (NumberFormatException ex) {
-            unReadCount = 0;
-        }
         return unReadCount;
     }
 
-    public void setUnReadCount(int count) {
-        if (count < 1)
-            text = "";
-
-        else if (count > 99)
-            text = "99+";
-
+    public void setUnReadCount(@IntRange(from = 0) int unReadCount) {
+        this.unReadCount = unReadCount;
+        if (unReadCount > 99)
+            setText("99+");
+        else if (unReadCount > 0)
+            setText(String.valueOf(unReadCount));
         else
-            text = String.valueOf(count);
-        postInvalidate();
+            setText("");
     }
 
-    public String getText() {
-        return text;
+    public void setShape(@DotShape int shape) {
+        setShape(shape, 0);
     }
 
-    public void setText(String text) {
-        this.text = text;
-        postInvalidate();
-    }
-
-    public float getTextSize() {
-        return textSize;
-    }
-
-    public void setTextSize(float textSize) {
-        this.textSize = textSize;
-        postInvalidate();
-    }
-
-    public int getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
-        postInvalidate();
+    public void setShape(@DotShape int shape, float radius) {
+        this.shape = shape;
+        this.radius = radius;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        float center = getWidth() / 2.0f;
-        paint.setColor(bgColor);
-        canvas.drawCircle(center, center, center, paint);
-        //draw text
-        drawText(canvas, getWidth(), getWidth(), text, textColor, textSize, textPaint);
-    }
-
-    private void drawText(Canvas canvas, int w, int h, String text, int textColor, float textSize, TextPaint textPaint) {
-        if (text == null || text.length() == 0)
-            return;
-
-        textPaint.setColor(textColor);
-        textPaint.setTextSize(textSize);
-        textPaint.getTextBounds(text, 0, text.length(), rect);
-        Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
-        float baseLine = (h - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;
-        canvas.drawText(text, (w - rect.width()) / 2.0f, baseLine, textPaint);
     }
 }

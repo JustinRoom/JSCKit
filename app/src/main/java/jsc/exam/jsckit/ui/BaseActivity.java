@@ -25,7 +25,7 @@ import jsc.kit.component.utils.WindowUtils;
 
 public abstract class BaseActivity extends BaseAppCompatActivity {
 
-    public final void showCustomToast(String txt) {
+    public final void showCustomToast(CharSequence txt) {
         CustomToast.showCustomToast(this, txt);
     }
 

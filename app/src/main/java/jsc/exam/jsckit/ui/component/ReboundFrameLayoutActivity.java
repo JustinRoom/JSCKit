@@ -126,7 +126,9 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v instanceof JSCItemLayout)
-            showCustomToast(((JSCItemLayout) v).getLabel());
+        if (v instanceof JSCItemLayout){
+            JSCItemLayout layout = (JSCItemLayout) v;
+            showCustomToast(layout.getLabelView().getText());
+        }
     }
 }

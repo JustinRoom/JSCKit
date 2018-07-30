@@ -70,21 +70,14 @@
         <!--left icon -->
         <attr name="il_icon" format="reference"/>
         <!-- label -->
-        <attr name="il_label" format="string|reference"/>
-        <!-- label color -->
-        <attr name="il_label_color" format="color|reference"/>
+        <attr name="il_label" format="string"/>
+        <!-- value -->
+        <attr name="il_value" format="string"/>
         <!-- show dot view or not -->
-        <attr name="il_show_dot" format="boolean|reference"/>
-        <!-- dot view's size. If set "layout_width = 20dp", the height equals "20dp" also.  -->
-        <attr name="il_dot_size" format="dimension|reference"/>
-        <!-- dot view's color -->
-        <attr name="il_dot_color" format="color|reference"/>
-        <!-- dot view's text. For example, "5" represents that five unread messages. -->
-        <attr name="il_dot_text" format="string|reference"/>
-        <attr name="il_dot_text_color" format="color|reference"/>
-        <attr name="il_dot_text_size" format="dimension"/>
+        <attr name="il_showDot" format="boolean"/>
+        <attr name="il_dotSize" format="dimension"/>
         <!-- right arrow icon -->
-        <attr name="il_arrow_icon" format="reference"/>
+        <attr name="il_arrowIcon" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="VScrollScreenLayout">

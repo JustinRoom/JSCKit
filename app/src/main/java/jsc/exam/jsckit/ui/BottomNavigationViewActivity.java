@@ -1,5 +1,6 @@
 package jsc.exam.jsckit.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -86,7 +87,7 @@ public class BottomNavigationViewActivity extends BaseActivity {
             }
         }
         if (menuView != null) {
-            int dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+            int dp8 = getResources().getDimensionPixelSize(R.dimen.space_10);
             dotViews = new DotView[menuView.getChildCount()];
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView.LayoutParams params = new BottomNavigationItemView.LayoutParams(i == menuView.getChildCount() - 1 ? dp8 : dp8 * 2, 0);
@@ -95,9 +96,12 @@ public class BottomNavigationViewActivity extends BaseActivity {
                 params.topMargin = dp8 / 2;
                 BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
                 DotView dotView = new DotView(this);
+                dotView.setBackgroundColor(Color.RED);
+                dotView.setTextColor(Color.WHITE);
+                dotView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
                 itemView.addView(dotView, params);
                 if (i < menuView.getChildCount() - 1) {
-                    dotView.setUnReadCount(new Random().nextInt(20));
+                    dotView.setUnReadCount(new Random().nextInt(20) + 1);
                 }
                 dotViews[i] = dotView;
             }
