@@ -8,31 +8,41 @@
     android:paddingRight="@dimen/activity_horizontal_margin">
 
     <jsc.kit.component.itemlayout.JSCItemLayout
-        android:onClick="widgetClick"
+        android:id="@+id/item_layout_01"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/ripple_round_corner_white_r4"
+        android:onClick="widgetClick"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         app:il_label="Default Attr Menu"
-        app:il_showRedDot="true" />
+        app:il_showDot="true" />
 
     <jsc.kit.component.itemlayout.JSCItemLayout
-        android:onClick="widgetClick"
-        android:id="@+id/item_layout"
+        android:id="@+id/item_layout_02"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/ripple_round_corner_white_r4"
+        android:onClick="widgetClick"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         app:il_icon="@drawable/ic_assignment_turned_in_blue_24dp"
         app:il_label="Custom Attr Menu"
-        app:il_showRedDot="true"
-        app:il_redDotSize="@dimen/space_16"/>
+        app:il_dotSize="@dimen/space_16"
+        app:il_showDot="true" />
+
+    <jsc.kit.component.widget.DotView
+        android:id="@+id/dot_view"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorPrimary"
+        android:text="H"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

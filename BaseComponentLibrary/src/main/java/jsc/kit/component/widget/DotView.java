@@ -10,6 +10,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -80,6 +81,7 @@ public class DotView extends AppCompatTextView implements IViewAttrDelegate {
                         path.lineTo(0, view.getHeight());
                         path.lineTo(view.getWidth(), view.getHeight());
                         path.close();
+                        Log.i("DotView", "getOutline: isConvex =" + path.isConvex());
                         outline.setConvexPath(path);
                         break;
                 }
@@ -105,9 +107,10 @@ public class DotView extends AppCompatTextView implements IViewAttrDelegate {
         setShape(shape, 0);
     }
 
-    public void setShape(@DotShape int shape, float radius) {
-        this.shape = shape;
-        this.radius = radius;
+    public void setShape(@DotShape int dotShape, float roundRadius) {
+        this.shape = dotShape;
+        this.radius = roundRadius;
+        invalidateOutline();
     }
 
     @Override
