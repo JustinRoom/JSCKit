@@ -106,7 +106,9 @@ add some components:
 + [BlankSpaceItemDecoration](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/BlankSpaceItemDecoration.java)
 + [VerticalStepItemDecoration](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/VerticalStepItemDecoration.java)
 + [OverLayCardLayoutManager](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/manager/OverLayCardLayoutManager.java)  
+
 update some components:
+
 + [CustomToast](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils/CustomToast.java)
 + [DotView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/DotView.java)
 + [JSCItemLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/itemlayout/JSCItemLayout.java)
