@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.BaseEmptyFragmentActivity;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 
 /**
@@ -121,7 +122,7 @@ public class EmptyFragmentActivity extends BaseEmptyFragmentActivity {
 
         // TODO: 2018/7/18
         //You can initialize custom action bar here.
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
 //        customView.setPadding(padding, 0, padding, 0);
         ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));

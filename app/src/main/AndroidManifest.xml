@@ -58,6 +58,7 @@
         <activity android:name=".ui.component.CameraMaskActivity" />
         <activity android:name=".ui.EmptyFragmentActivity"/>
         <activity android:name=".ui.component.ScannerCameraMaskActivity" />
+        <activity android:name=".ui.component.LayoutManagerActivity" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider

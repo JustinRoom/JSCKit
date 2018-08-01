@@ -20,13 +20,18 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.BaseAppCompatActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.CustomToast;
 import jsc.kit.component.utils.WindowUtils;
 
 public abstract class BaseActivity extends BaseAppCompatActivity {
 
     public final void showCustomToast(CharSequence txt) {
-        CustomToast.showCustomToast(this, txt);
+        new CustomToast.Builder(this)
+                .setText(txt)
+                .setBackgroundColor(CompatResourceUtils.getColor(this, R.color.colorAccent))
+                .setTextColor(Color.WHITE)
+                .show();
     }
 
     public final void requestSystemAlertWindowPermission() {
@@ -47,7 +52,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         if (actionBar == null)
             return;
 
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
 //        customView.setPadding(padding, 0, padding, 0);
         ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));

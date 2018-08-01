@@ -31,16 +31,25 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
     }
 
     public void addItems(List<T> items) {
+        int startPosition = getItemCount();
+        addItems(startPosition, items);
+    }
+
+    public void addItems(int startPosition, List<T> items) {
         if (items != null && !items.isEmpty()) {
-            this.items.addAll(items);
-            notifyDataSetChanged();
+            this.items.addAll(startPosition, items);
+            notifyItemRangeInserted(startPosition, items.size());
         }
     }
 
     public void addItem(T item) {
+        addItem(getItemCount(), item);
+    }
+
+    public void addItem(int position, T item) {
         if (items != null) {
-            this.items.add(item);
-            notifyDataSetChanged();
+            this.items.add(position, item);
+            notifyItemInserted(position);
         }
     }
 

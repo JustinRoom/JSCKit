@@ -3,10 +3,19 @@ package jsc.exam.jsckit.entity;
 public class ClassItem {
     private String label;
     private Class<?> cls;
+    private boolean updated;
+
+    public ClassItem() {
+    }
 
     public ClassItem(String label, Class<?> cls) {
+        this(label, cls, false);
+    }
+
+    public ClassItem(String label, Class<?> cls, boolean updated) {
         this.label = label;
         this.cls = cls;
+        this.updated = updated;
     }
 
     public String getLabel() {
@@ -23,5 +32,13 @@ public class ClassItem {
 
     public void setCls(Class<?> cls) {
         this.cls = cls;
+    }
+
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
     }
 }

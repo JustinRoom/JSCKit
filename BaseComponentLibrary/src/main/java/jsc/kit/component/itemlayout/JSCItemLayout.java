@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import jsc.kit.component.IViewAttrDelegate;
 import jsc.kit.component.R;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.widget.DotView;
 
 /**
@@ -86,7 +87,7 @@ public class JSCItemLayout extends FrameLayout implements IViewAttrDelegate {
         }
 
         //red dot
-        int size = getResources().getDimensionPixelSize(R.dimen.space_8);
+        int size = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_8);
         dotView = new DotView(context);
         dotView.setBackgroundColor(Color.RED);
         dotView.setTextColor(Color.WHITE);
@@ -95,7 +96,7 @@ public class JSCItemLayout extends FrameLayout implements IViewAttrDelegate {
         }
         dotView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         layout.addView(dotView, new LinearLayout.LayoutParams(size, size));
-        showRedDotView(a.getBoolean(R.styleable.JSCItemLayout_il_showDot, false));
+        showDotView(a.getBoolean(R.styleable.JSCItemLayout_il_showDot, false));
 
         //right arrow
         arrowView = new AppCompatImageView(context);
@@ -130,7 +131,7 @@ public class JSCItemLayout extends FrameLayout implements IViewAttrDelegate {
         iconView.setVisibility(show ? VISIBLE : GONE);
     }
 
-    public void showRedDotView(boolean show) {
+    public void showDotView(boolean show) {
         dotView.setVisibility(show ? VISIBLE : GONE);
     }
 

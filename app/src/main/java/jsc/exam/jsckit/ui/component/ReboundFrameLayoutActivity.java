@@ -1,5 +1,8 @@
 package jsc.exam.jsckit.ui.component;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
@@ -17,6 +20,8 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.reboundlayout.ReboundFrameLayout;
+import jsc.kit.component.utils.CompatResourceUtils;
+import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
 public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnClickListener {
 
@@ -96,20 +101,21 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
     }
 
     private View getListView() {
+        int space = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_8);
+        GradientDrawable spaceLineDrawable = DynamicDrawableFactory.cornerRectangleDrawable(Color.TRANSPARENT, 0);
+        spaceLineDrawable.setSize(-1, space / 2);
+
         LinearLayout itemContainer = new LinearLayout(this);
         itemContainer.setOrientation(LinearLayout.VERTICAL);
-        int margin = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-        int itemHeight = getResources().getDimensionPixelSize(R.dimen.item_height);
+        itemContainer.setPadding(space * 2, 0, space * 2, 0);
+        itemContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        itemContainer.setDividerDrawable(spaceLineDrawable);
         for (int i = 0; i < 15; i++) {
             JSCItemLayout itemLayout = new JSCItemLayout(this);
-            itemLayout.setPadding(margin, 0, margin, 0);
+            itemLayout.setPadding(space, 0, space, 0);
             itemLayout.setBackgroundResource(R.drawable.ripple_round_corner_white_r4);
             itemLayout.setLabel("MenuItem" + i);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
-            params.leftMargin = margin;
-            params.rightMargin = margin;
-            params.topMargin = margin / 8;
-            params.bottomMargin = margin / 8;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, space * 6);
             itemContainer.addView(itemLayout, params);
             itemLayout.setOnClickListener(this);
         }
@@ -117,7 +123,7 @@ public class ReboundFrameLayoutActivity extends BaseActivity implements View.OnC
     }
 
     private View getTextView() {
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_horizontal_margin);
         TextView textView = new TextView(this);
         textView.setPadding(padding, 0, padding, 0);
         textView.setText(R.string.article);

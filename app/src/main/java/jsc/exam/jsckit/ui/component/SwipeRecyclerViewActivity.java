@@ -4,12 +4,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,11 +31,11 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.exam.jsckit.ui.BaseActivity;
-import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
-import jsc.kit.component.utils.CompatDrawableResourceUtils;
+import jsc.kit.component.utils.CompatResourceUtils;
 
 public class SwipeRecyclerViewActivity extends BaseActivity {
 
@@ -43,23 +47,24 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swip_recycler_view);
-        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
-
-        swipeRefreshRecyclerView = findViewById(R.id.swipe_recycler_view);
+        swipeRefreshRecyclerView = new SwipeRefreshRecyclerView(this);
         //添加LayoutManager
 //        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
 //        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
         //添加ItemDecoration
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(CompatDrawableResourceUtils.getDrawable(this, R.drawable.item_decoration_shape));
-        swipeRefreshRecyclerView.getRecyclerView().addItemDecoration(new HorizontalSpaceItemDecoration(
-                getResources().getDimensionPixelOffset(R.dimen.space_2),
+//        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+//        decoration.setDrawable(CompatResourceUtils.getDrawable(this, R.drawable.item_decoration_shape));
+        swipeRefreshRecyclerView.getRecyclerView().addItemDecoration(new BlankSpaceItemDecoration(
                 getResources().getDimensionPixelOffset(R.dimen.space_4),
-                getResources().getDimensionPixelOffset(R.dimen.space_2),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
+                getResources().getDimensionPixelOffset(R.dimen.space_4),
                 0
         ));
+        setContentView(swipeRefreshRecyclerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
+        initMenu();
+
         //
         swipeRefreshRecyclerView.getSwipeRefreshLayout().setColorSchemeColors(0xFF3F51B5, 0xFF303F9F, 0xFFFF4081, Color.CYAN);
         //设置自定义的emptyView
@@ -160,6 +165,18 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         super.onStart();
     }
 
+    private void initMenu() {
+        getActionMenuView().setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                clear();
+                return true;
+            }
+        });
+
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "CLEAR").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
     private List<Banner> getRandomBanners() {
         List<Banner> banners = new ArrayList<>();
         int itemCount = 20 + new Random().nextInt(8);
@@ -194,7 +211,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
         layout.setPadding(0, dp4 * 2, 0, dp4 * 2);
-        layout.setBackgroundColor(Color.WHITE);
+        layout.setBackgroundColor(Color.BLACK);
 
         AVLoadingIndicatorView indicatorView = new AVLoadingIndicatorView(this);
         indicatorView.setIndicatorColor(0xFFFF4081);
@@ -202,12 +219,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         layout.addView(indicatorView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
         TextView textView = new TextView(this);
+        textView.setTextColor(Color.WHITE);
         textView.setText("loading more...");
         layout.addView(textView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return layout;
     }
 
-    public void widgetClick(View view) {
+    public void clear() {
         pageIndex = 1;
         adapter.setItems(new ArrayList<Banner>());
         swipeRefreshRecyclerView.reset();

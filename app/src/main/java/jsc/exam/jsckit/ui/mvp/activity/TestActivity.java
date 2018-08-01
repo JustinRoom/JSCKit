@@ -27,6 +27,8 @@ import jsc.exam.jsckit.ui.mvp.view.CommonView;
 import jsc.exam.jsckit.ui.mvp.view.ITestView;
 import jsc.kit.component.baseui.basemvp.BaseMVPActivity;
 import jsc.kit.component.utils.AntiShakeUtils;
+import jsc.kit.component.utils.CompatResourceUtils;
+import jsc.kit.component.utils.CustomToast;
 import jsc.kit.component.utils.WindowUtils;
 
 /**
@@ -48,22 +50,26 @@ public class TestActivity extends BaseMVPActivity implements ITestView, CommonVi
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
 
-        textView = new TextView(this);
-        layout.addView(textView);
-
         Button button = new Button(this);
         button.setText("AntiShake");
         layout.addView(button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AntiShakeUtils.isInvalidClick(v, 1500)) {
-                    showToast("InvalidClick");
+                if (AntiShakeUtils.isInvalidClick(v, 800)) {
+                    new CustomToast.Builder(v.getContext())
+                            .setBackgroundColor(CompatResourceUtils.getColor(v.getContext(), R.color.colorAccent))
+                            .setTextColor(Color.WHITE)
+                            .setText("InvalidClick")
+                            .show();
                     return;
                 }
-                showToast("AntiShake");
+                showToast("Clicked");
             }
         });
+
+        textView = new TextView(this);
+        layout.addView(textView);
 
         setContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         textView.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +90,7 @@ public class TestActivity extends BaseMVPActivity implements ITestView, CommonVi
         if (actionBar == null)
             return;
 
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_horizontal_margin);
         FrameLayout customView = new FrameLayout(this);
 //        customView.setPadding(padding, 0, padding, 0);
         ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));

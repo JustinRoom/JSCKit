@@ -28,6 +28,7 @@ import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.baseview.BaseViewActivity;
 import jsc.kit.component.baseui.baseview.BaseViewShowDelegate;
 import jsc.kit.component.baseui.transition.TransitionProvider;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 
 /**
@@ -135,7 +136,7 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     @Nullable
     @Override
     public View createTitleBar(@NonNull Context context) {
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
         customView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 //        customView.setPadding(padding, 0, padding, 0);

@@ -16,6 +16,7 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     private final String TAG = getClass().getSimpleName();
     private int mFinalCount;
+    private boolean isOpenAdvertisement = false;
 
     @Override
     public void onCreate() {
@@ -25,14 +26,9 @@ public class MyApplication extends Application implements Application.ActivityLi
         //初始化SharedPreferences工具
         SharePreferencesUtils.getInstance().init(this, "share_data");
         //注册activity生命周期监听
-        registerActivityLifecycleCallbacks(this);
+        if (isOpenAdvertisement)
+            registerActivityLifecycleCallbacks(this);
     }
-
-
-
-
-
-
 
 
     @Override

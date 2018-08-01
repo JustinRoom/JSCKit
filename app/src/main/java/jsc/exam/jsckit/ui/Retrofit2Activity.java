@@ -15,6 +15,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.service.ApiService;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.retrofit2.LoadingDialogObserver;
 import jsc.kit.retrofit2.retrofit.CustomHttpClient;
 import jsc.kit.retrofit2.retrofit.CustomRetrofit;
@@ -31,7 +32,7 @@ public class Retrofit2Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_retrofit2);
         FrameLayout layout = new FrameLayout(this);
-        int padding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_horizontal_margin);
         layout.setPadding(padding, 0, padding, 0);
         setContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));

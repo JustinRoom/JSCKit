@@ -1,6 +1,5 @@
 package jsc.exam.jsckit.ui;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import jsc.exam.jsckit.R;
-import jsc.kit.component.utils.CompatColorResourceUtils;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.datetimepicker.widget.DateTimePicker;
 
 public class DateTimePickerActivity extends BaseActivity {
@@ -69,9 +68,9 @@ public class DateTimePickerActivity extends BaseActivity {
         DateTimePicker.Builder builder = new DateTimePicker.Builder(this)
                 .setTitle("选择年月日")
                 .setCancelTextColor(Color.RED)
-                .setOkTextColor(CompatColorResourceUtils.getColor(this, R.color.colorPrimary))
+                .setOkTextColor(CompatResourceUtils.getColor(this, R.color.colorPrimary))
                 .setTitleTextColor(0xFF999999)
-                .setSelectedTextColor(CompatColorResourceUtils.getColor(this, R.color.colorAccent))
+                .setSelectedTextColor(CompatResourceUtils.getColor(this, R.color.colorAccent))
                 .setKeepLastSelected(true)
                 .setShowYMDHMLabel(true)
                 .setShowType(DateTimePicker.ShowType.DAY);

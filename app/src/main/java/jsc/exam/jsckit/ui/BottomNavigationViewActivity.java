@@ -20,6 +20,7 @@ import java.util.Random;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.MyFragmentPagerAdapter;
 import jsc.exam.jsckit.ui.fragment.DefaultFragment;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.widget.DotView;
 import jsc.kit.component.widget.NoScrollViewPager;
 
@@ -87,7 +88,7 @@ public class BottomNavigationViewActivity extends BaseActivity {
             }
         }
         if (menuView != null) {
-            int dp8 = getResources().getDimensionPixelSize(R.dimen.space_10);
+            int dp8 = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_8);
             dotViews = new DotView[menuView.getChildCount()];
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView.LayoutParams params = new BottomNavigationItemView.LayoutParams(i == menuView.getChildCount() - 1 ? dp8 : dp8 * 2, 0);

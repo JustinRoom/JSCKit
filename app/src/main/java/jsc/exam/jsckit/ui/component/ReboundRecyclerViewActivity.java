@@ -19,7 +19,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
-import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
 public class ReboundRecyclerViewActivity extends BaseActivity {
@@ -34,7 +34,7 @@ public class ReboundRecyclerViewActivity extends BaseActivity {
         reboundRecyclerView.setMaxReboundAnimDuration(2000);
         RecyclerView recyclerView = reboundRecyclerView.getRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
+        recyclerView.addItemDecoration(new BlankSpaceItemDecoration(
                 getResources().getDimensionPixelOffset(R.dimen.space_16),
                 getResources().getDimensionPixelOffset(R.dimen.space_4),
                 getResources().getDimensionPixelOffset(R.dimen.space_16),

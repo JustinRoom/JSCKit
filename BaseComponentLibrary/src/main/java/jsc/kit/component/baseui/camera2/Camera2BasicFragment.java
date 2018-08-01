@@ -81,6 +81,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import jsc.kit.component.R;
+import jsc.kit.component.utils.CompatResourceUtils;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class Camera2BasicFragment extends Fragment
@@ -458,7 +459,7 @@ public class Camera2BasicFragment extends Fragment
             }
         });
         //
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_20);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_20);
         FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.CENTER_VERTICAL|Gravity.RIGHT;
         ImageButton imageButton = new ImageButton(inflater.getContext(), null, android.R.style.Widget_Material_Light_Button_Borderless);

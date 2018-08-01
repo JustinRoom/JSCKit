@@ -95,3 +95,18 @@ optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/comp
 update demo Components activity
 optimize [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java)
 + 1、support two different mask shape: square and circular. Call method `setMaskShape(@MaskShape int maskShape)` to change mask shape.
+
+## v0.4.1:
+fix a bug about [DateTimePicker](/DateTimePickerLibrary/src/main/java/jsc/kit/datetimepicker/widget/DateTimePicker.java) : There are 12 months when the start year is same as the end year.
+
+## v0.4.2:
+fix a bug about [PermissionChecker](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/permission/PermissionChecker.java).  
+add some components:  
++ [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java)
++ [BlankSpaceItemDecoration](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/BlankSpaceItemDecoration.java)
++ [VerticalStepItemDecoration](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/VerticalStepItemDecoration.java)
++ [OverLayCardLayoutManager](/BaseComponentLibrary/src/main/java/jsc/kit/component/swiperecyclerview/manager/OverLayCardLayoutManager.java)
+update some components:
++ [CustomToast](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils/CustomToast.java)
++ [DotView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/DotView.java)
++ [JSCItemLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/itemlayout/JSCItemLayout.java)

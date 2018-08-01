@@ -27,6 +27,7 @@ import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.photo.BasePhotoActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.photo.CropConfig;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 
 public class PhotoActivity extends BasePhotoActivity {
@@ -49,7 +50,7 @@ public class PhotoActivity extends BasePhotoActivity {
         if (actionBar == null)
             return;
 
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_12);
+        int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
 //        customView.setPadding(padding, 0, padding, 0);
         ActionBar.LayoutParams barParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this));

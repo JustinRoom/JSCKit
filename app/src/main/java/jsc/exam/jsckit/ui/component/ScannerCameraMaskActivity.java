@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.widget.ScannerCameraMask;
 
 public class ScannerCameraMaskActivity extends BaseActivity {
@@ -27,8 +28,8 @@ public class ScannerCameraMaskActivity extends BaseActivity {
         ScannerCameraMask scannerCameraMask = new ScannerCameraMask(this);
         frameLayout.addView(scannerCameraMask, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         scannerCameraMask.setText("Put QR code inside camera lens please.");
-        scannerCameraMask.setTextVerticalMargin(getResources().getDimensionPixelSize(R.dimen.space_16));
-        scannerCameraMask.setTopMargin(getResources().getDimensionPixelSize(R.dimen.space_32));
+        scannerCameraMask.setTextVerticalMargin(CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16));
+        scannerCameraMask.setTopMargin(CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_32));
 
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         if (getSupportActionBar() != null)

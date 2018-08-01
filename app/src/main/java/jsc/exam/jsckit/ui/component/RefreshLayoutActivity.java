@@ -1,20 +1,15 @@
 package jsc.exam.jsckit.ui.component;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,8 +20,8 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.refreshlayout.RefreshLayout;
-import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
-import jsc.kit.component.utils.WindowUtils;
+import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
+import jsc.kit.component.utils.CompatResourceUtils;
 
 public class RefreshLayoutActivity extends BaseActivity {
 
@@ -70,7 +65,7 @@ public class RefreshLayoutActivity extends BaseActivity {
 //        refreshLayout.setPullRatioY(0.55f);
 //        refreshLayout.setPullToRefreshRatio(0.45f);
 //        refreshLayout.setReleaseToRefreshRatio(0.65f);
-        refreshLayout.setReboundAnimationDuration(2000);
+        refreshLayout.setReboundAnimationDuration(1000);
         refreshLayout.setOnScrollListener(new RefreshLayout.OnScrollListener() {
             @Override
             public void onScroll(View headerView, int headerHeight, float pullToRefreshRatio, float releaseToRefreshRatio, int scrollY, boolean isRefreshing) {
@@ -140,11 +135,11 @@ public class RefreshLayoutActivity extends BaseActivity {
     private void initRecyclerViewContent(){
         RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
-                getResources().getDimensionPixelOffset(R.dimen.space_16),
-                getResources().getDimensionPixelOffset(R.dimen.space_4),
-                getResources().getDimensionPixelOffset(R.dimen.space_16),
-                0
+        recyclerView.addItemDecoration(new BlankSpaceItemDecoration(
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_2),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_2)
         ));
         ClassItemAdapter adapter = new ClassItemAdapter();
         recyclerView.setAdapter(adapter);

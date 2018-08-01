@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import jsc.exam.jsckit.R;
 import jsc.kit.component.utils.AntiShakeUtils;
-import jsc.kit.component.utils.CompatColorResourceUtils;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
 public class CustomToastActivity extends BaseActivity {
@@ -38,13 +38,13 @@ public class CustomToastActivity extends BaseActivity {
 
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
         TextView textView = new TextView(this);
-        textView.setTextColor(DynamicDrawableFactory.colorStateList(Color.WHITE, CompatColorResourceUtils.getColor(this, R.color.colorAccent)));
+        textView.setTextColor(DynamicDrawableFactory.colorStateList(Color.WHITE, CompatResourceUtils.getColor(this, R.color.colorAccent)));
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         textView.setBackground(createRectButtonSelector());
         textView.setText("Show");
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.topMargin = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+        params.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_vertical_margin);
         contentView.addView(textView, params);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,7 @@ public class CustomToastActivity extends BaseActivity {
         });
 
         LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        bp.topMargin = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+        bp.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_vertical_margin);
         Button button = new Button(this);
         button.setText("Snack");
         contentView.addView(button, bp);
@@ -80,7 +80,7 @@ public class CustomToastActivity extends BaseActivity {
     private void showBottomSheetDialog() {
         if (dialog == null) {
             Drawable.ConstantState constantState = createButtonSelector().getConstantState();
-            int padding = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+            int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.activity_vertical_margin);
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
             layout.setPadding(padding, padding * 3 / 4, padding, padding * 3 / 4);
@@ -122,9 +122,9 @@ public class CustomToastActivity extends BaseActivity {
     }
 
     private Drawable createCircleButtonSelector(){
-        int colorPrimaryDark = CompatColorResourceUtils.getColor(this, R.color.colorPrimaryDark);
-        int colorPrimary = CompatColorResourceUtils.getColor(this, R.color.colorPrimary);
-        int colorAccent = CompatColorResourceUtils.getColor(this, R.color.colorAccent);
+        int colorPrimaryDark = CompatResourceUtils.getColor(this, R.color.colorPrimaryDark);
+        int colorPrimary = CompatResourceUtils.getColor(this, R.color.colorPrimary);
+        int colorAccent = CompatResourceUtils.getColor(this, R.color.colorAccent);
 
         GradientDrawable pressed = new GradientDrawable();
         pressed.setShape(GradientDrawable.OVAL);
@@ -152,8 +152,8 @@ public class CustomToastActivity extends BaseActivity {
     }
 
     private Drawable createButtonSelector(){
-        int pressedColor = CompatColorResourceUtils.getColor(this, R.color.colorPrimaryDark);
-        int normalColor = CompatColorResourceUtils.getColor(this, R.color.colorAccent);
+        int pressedColor = CompatResourceUtils.getColor(this, R.color.colorPrimaryDark);
+        int normalColor = CompatResourceUtils.getColor(this, R.color.colorAccent);
         float cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
         Drawable pressed = DynamicDrawableFactory.cornerRectangleDrawable(pressedColor, cornerRadius);
         Drawable normal = DynamicDrawableFactory.cornerRectangleDrawable(normalColor, cornerRadius);

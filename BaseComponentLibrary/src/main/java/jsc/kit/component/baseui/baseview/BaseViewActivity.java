@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import jsc.kit.component.R;
 import jsc.kit.component.baseui.BaseAppCompatActivity;
+import jsc.kit.component.utils.CompatResourceUtils;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -151,7 +152,7 @@ public abstract class BaseViewActivity extends BaseAppCompatActivity implements 
         textView.setGravity(Gravity.CENTER);
         textView.setText("Loading...!!!\nPlease wait a minute.");
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.topMargin = getResources().getDimensionPixelSize(R.dimen.space_8);
+        params.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_8);
         layout.addView(textView, params);
         return layout;
     }

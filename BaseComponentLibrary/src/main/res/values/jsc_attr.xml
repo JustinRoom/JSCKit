@@ -175,4 +175,12 @@
         <attr name="cm_textRightMargin" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="VerticalStepLinearLayout">
+        <attr name="vsll_lineColor" format="color"/>
+        <attr name="vsll_indexColor" format="color"/>
+        <attr name="vsll_indexRadius" format="dimension"/>
+        <attr name="vsll_indexTextColor" format="color"/>
+        <attr name="vsll_indexTextSize" format="dimension"/>
+    </declare-styleable>
+
 </resources>

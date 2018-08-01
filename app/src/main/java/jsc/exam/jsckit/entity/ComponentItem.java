@@ -4,13 +4,15 @@ public class ComponentItem extends ClassItem{
 
     private String shortName;
 
-    public ComponentItem(String label, Class<?> cls) {
-        this(label, "", cls);
+    public ComponentItem() {
     }
 
-    public ComponentItem(String label, String shortName, Class<?> cls) {
+    public ComponentItem(String label, Class<?> cls) {
         super(label, cls);
-        this.shortName = shortName;
+    }
+
+    public ComponentItem(String label, Class<?> cls, boolean updated) {
+        super(label, cls, updated);
     }
 
     public String getShortName() {

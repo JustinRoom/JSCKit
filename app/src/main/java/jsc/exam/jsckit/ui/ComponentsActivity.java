@@ -23,6 +23,7 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import jsc.exam.jsckit.R;
@@ -36,6 +37,7 @@ import jsc.exam.jsckit.ui.component.CameraMaskActivity;
 import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
 import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
 import jsc.exam.jsckit.ui.component.JSCRoundCornerProgressBarActivity;
+import jsc.exam.jsckit.ui.component.LayoutManagerActivity;
 import jsc.exam.jsckit.ui.component.MonthViewActivity;
 import jsc.exam.jsckit.ui.component.ReboundRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.RadarViewActivity;
@@ -109,7 +111,19 @@ public class ComponentsActivity extends BaseActivity {
 
             }
         });
-        adapter.setItems(getComponentItems());
+        List<ComponentItem> items = getComponentItems();
+//        Collections.sort(items, new Comparator<ComponentItem>() {
+//            @Override
+//            public int compare(ComponentItem o1, ComponentItem o2) {
+//                if (o1.isUpdated() && !o2.isUpdated())
+//                    return -1;
+//                else if (!o1.isUpdated() && o2.isUpdated()){
+//                    return 1;
+//                }
+//                return 0;
+//            }
+//        });
+        adapter.setItems(items);
 
         new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
@@ -171,24 +185,25 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
+        classItems.add(new ComponentItem("LayoutManager", LayoutManagerActivity.class, true));
         classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ComponentItem("CameraMask", CameraMaskActivity.class));
         classItems.add(new ComponentItem("ScannerCamera\nMask", ScannerCameraMaskActivity.class));
         classItems.add(new ComponentItem("Rebound\nFrameLayout", ReboundFrameLayoutActivity.class));
         classItems.add(new ComponentItem("Rebound\nRecyclerView", ReboundRecyclerViewActivity.class));
         classItems.add(new ComponentItem("RefreshLayout", RefreshLayoutActivity.class));
-        classItems.add(new ComponentItem("SwipeRecyclerView", SwipeRecyclerViewActivity.class));
+        classItems.add(new ComponentItem("SwipeRecycler\nView", SwipeRecyclerViewActivity.class));
         classItems.add(new ComponentItem("TurntableView", TurntableViewActivity.class));
         classItems.add(new ComponentItem("RippleView", RippleViewActivity.class));
         classItems.add(new ComponentItem("RadarView", RadarViewActivity.class));
         classItems.add(new ComponentItem("JSCBannerView", JSCBannerViewActivity.class));
         classItems.add(new ComponentItem("ArcHeaderView", ArcHeaderViewActivity.class));
         classItems.add(new ComponentItem("MonthView", MonthViewActivity.class));
-        classItems.add(new ComponentItem("VerticalStepView", VerticalStepViewActivity.class));
+        classItems.add(new ComponentItem("VerticalStepView", VerticalStepViewActivity.class, true));
         classItems.add(new ComponentItem("JSCRoundCorner\nProgressBar", JSCRoundCornerProgressBarActivity.class));
         classItems.add(new ComponentItem("JSCItemLayout", JSCItemLayoutActivity.class));
-        classItems.add(new ComponentItem("VScrollScreenLayout", VScrollScreenLayoutActivity.class));
-        classItems.add(new ComponentItem("AdvertisementView", AdvertisementViewActivity.class));
+        classItems.add(new ComponentItem("VScrollScreen\nLayout", VScrollScreenLayoutActivity.class));
+        classItems.add(new ComponentItem("Advertisement\nView", AdvertisementViewActivity.class));
         return classItems;
     }
 }

@@ -106,7 +106,7 @@ public final class PermissionChecker {
         this.activity = activity;
         this.fragment = fragment;
         this.onPermissionCheckListener = onPermissionCheckListener;
-        this.permissions = Arrays.asList(permissions);
+        this.permissions = new ArrayList<>(Arrays.asList(permissions));
         boolean isAllGranted = true;
         List<String> unGrantedPermissions = new ArrayList<>();
         for (String permission : permissions) {

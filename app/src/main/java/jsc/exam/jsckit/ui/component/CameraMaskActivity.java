@@ -19,6 +19,7 @@ import java.io.InputStream;
 
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.widget.CameraMask;
 
 public class CameraMaskActivity extends BaseActivity {
@@ -48,9 +49,9 @@ public class CameraMaskActivity extends BaseActivity {
 
         //
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.leftMargin = getResources().getDimensionPixelSize(R.dimen.space_16);
-        params.rightMargin = getResources().getDimensionPixelSize(R.dimen.space_16);
-        params.bottomMargin = getResources().getDimensionPixelSize(R.dimen.space_32);
+        params.leftMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
+        params.rightMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
+        params.bottomMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_32);
         params.gravity = Gravity.BOTTOM;
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -133,7 +134,7 @@ public class CameraMaskActivity extends BaseActivity {
     private void createSeekBars(LinearLayout linearLayout){
         //top margin seek bar
         LinearLayout.LayoutParams sbp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        sbp1.topMargin = getResources().getDimensionPixelSize(R.dimen.space_8);
+        sbp1.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_8);
         SeekBar seekBar1 = new SeekBar(this);
         seekBar1.setMax(200);
         linearLayout.addView(seekBar1, sbp1);

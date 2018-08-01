@@ -16,9 +16,12 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -42,9 +45,10 @@ import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.download.DownloadEntity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
-import jsc.kit.component.swiperecyclerview.HorizontalSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.baseui.permission.PermissionChecker;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.retrofit2.LoadingDialogObserver;
 import jsc.kit.retrofit2.retrofit.CustomHttpClient;
 import jsc.kit.retrofit2.retrofit.CustomRetrofit;
@@ -64,11 +68,11 @@ public class MainActivity extends BaseActivity {
         RecyclerView recyclerView = reboundRecyclerView.getRecyclerView();
         recyclerView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
-                getResources().getDimensionPixelOffset(R.dimen.space_16),
-                getResources().getDimensionPixelOffset(R.dimen.space_4),
-                getResources().getDimensionPixelOffset(R.dimen.space_16),
-                0
+        recyclerView.addItemDecoration(new BlankSpaceItemDecoration(
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_2),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16),
+                CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_2)
         ));
         setContentView(reboundRecyclerView);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
@@ -88,8 +92,8 @@ public class MainActivity extends BaseActivity {
             }
         });
         adapter.setItems(getClassItems());
-
-        handlerProvider.sendUIEmptyMessageDelay(0, 350L);
+//        handlerProvider.sendUIEmptyMessageDelay(0, 350L);
+        initMenu();
     }
 
     @Override
@@ -105,13 +109,25 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void initMenu() {
+        getActionMenuView().setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                loadVersionInfo();
+                return true;
+            }
+        });
+
+        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "CHECK_VERSION").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
     private List<ClassItem> getClassItems() {
         List<ClassItem> classItems = new ArrayList<>();
-        classItems.add(new ClassItem("Components", ComponentsActivity.class));
+        classItems.add(new ClassItem("Components", ComponentsActivity.class, true));
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
-        classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
+        classItems.add(new ClassItem("CustomToast", CustomToastActivity.class, true));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
@@ -205,8 +221,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showUpdateTipsDialog(final VersionEntity entity) {
-        if (entity == null)
+        if (entity == null){
+            showCustomToast("Failed to access server.");
             return;
+        }
 
         int curVersionCode = 0;
         String curVersionName = "";
@@ -216,7 +234,7 @@ public class MainActivity extends BaseActivity {
             curVersionCode = info.versionCode;
             curVersionName = info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            showCustomToast("Failed to access server.");
         }
 
         if (curVersionCode > 0 && entity.getApkInfo().getVersionCode() > curVersionCode)
@@ -231,6 +249,8 @@ public class MainActivity extends BaseActivity {
                     })
                     .setNegativeButton("取消", null)
                     .show();
+        else
+            showCustomToast("This is latest version.");
     }
 
     private void checkPermissionBeforeDownloadApk(final String versionName) {

@@ -18,16 +18,18 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 import jsc.kit.component.widget.AspectRatioFrameLayout;
+import jsc.kit.component.widget.DotView;
 
 public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder> {
 
     @NonNull
     @Override
     public ComponentItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int radius = parent.getResources().getDimensionPixelSize(R.dimen.space_4);
+        int radius = CompatResourceUtils.getDimensionPixelSize(parent, R.dimen.space_4);
         AspectRatioFrameLayout aspectRatioLinearLayout = new AspectRatioFrameLayout(parent.getContext());
         aspectRatioLinearLayout.setBaseWhat(0);
         aspectRatioLinearLayout.setxAspect(1);
@@ -50,19 +52,21 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
         String label = getItemAtPosition(position).getLabel();
         holder.tvShortName.setText(label.substring(0, 1).toUpperCase());
         holder.tvComponentName.setText(label);
+        holder.dotView.setVisibility(getItemAtPosition(position).isUpdated() ? View.VISIBLE : View.GONE);
     }
 
     class ComponentItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvShortName;
         TextView tvComponentName;
+        DotView dotView;
 
         public ComponentItemViewHolder(AspectRatioFrameLayout itemView) {
             super(itemView);
-            int size = itemView.getResources().getDimensionPixelSize(R.dimen.space_56);
+            int size = CompatResourceUtils.getDimensionPixelSize(itemView, R.dimen.space_48);
             FrameLayout.LayoutParams p1 = new FrameLayout.LayoutParams(size, size);
             p1.gravity = Gravity.CENTER_HORIZONTAL;
-            p1.topMargin = 16;
+            p1.topMargin = 8;
             tvShortName = new TextView(itemView.getContext());
             tvShortName.setGravity(Gravity.CENTER);
             tvShortName.setTextColor(0xFF333333);
@@ -77,10 +81,21 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
             p2.bottomMargin = 4;
             tvComponentName = new TextView(itemView.getContext());
             tvComponentName.setTextColor(Color.WHITE);
-            tvComponentName.setGravity(Gravity.CENTER_HORIZONTAL);
-            tvComponentName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            tvComponentName.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM);
+            tvComponentName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
             tvComponentName.setLines(2);
             itemView.addView(tvComponentName, p2);
+            //
+            int dotSize = CompatResourceUtils.getDimensionPixelSize(itemView, R.dimen.space_12);
+            FrameLayout.LayoutParams p3 = new FrameLayout.LayoutParams(dotSize, dotSize);
+            p3.gravity = Gravity.RIGHT;
+            p3.topMargin = 8;
+            p3.rightMargin = 8;
+            dotView = new DotView(itemView.getContext());
+            dotView.setShape(DotView.CIRCULAR);
+            dotView.setBackgroundColor(Color.GREEN);
+            itemView.addView(dotView, p3);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
