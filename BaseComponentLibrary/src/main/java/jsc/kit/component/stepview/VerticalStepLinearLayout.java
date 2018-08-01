@@ -8,18 +8,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.view.ViewCompat;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import jsc.kit.component.IViewAttrDelegate;
 import jsc.kit.component.R;
+import jsc.kit.component.refreshlayout.RefreshLayout;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -30,6 +37,15 @@ import jsc.kit.component.R;
  */
 public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrDelegate, DrawDelegate {
 
+    public final static int LEFT = 0;
+    public final static int RIGHT = 1;
+
+    @IntDef({LEFT, RIGHT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Location {
+
+    }
+
     SparseArray<Float> yAxis = new SparseArray<>();
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
@@ -39,6 +55,7 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
     float indexRadius;
     int indexTextColor;
     float indexTextSize;
+    int location;
 
     public VerticalStepLinearLayout(Context context) {
         super(context);
@@ -67,19 +84,20 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
         lineColor = a.getColor(R.styleable.VerticalStepView_vs_line_color, 0xFFCCCCCC);
         indexColor = a.getColor(R.styleable.VerticalStepLinearLayout_vsll_indexColor, Color.BLUE);
         if (a.hasValue(R.styleable.VerticalStepLinearLayout_vsll_indexRadius))
-        indexRadius = a.getDimensionPixelSize(R.styleable.VerticalStepLinearLayout_vsll_indexRadius, 0);
+            indexRadius = a.getDimensionPixelSize(R.styleable.VerticalStepLinearLayout_vsll_indexRadius, 0);
         if (indexRadius <= 0)
             indexRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, getResources().getDisplayMetrics());
         indexTextColor = a.getColor(R.styleable.VerticalStepLinearLayout_vsll_indexTextColor, Color.WHITE);
         indexTextSize = a.getDimensionPixelSize(R.styleable.VerticalStepLinearLayout_vsll_indexTextSize, 0);
         if (indexTextSize <= 0)
             indexTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics());
+        location = a.getInt(R.styleable.VerticalStepLinearLayout_vsll_location, LEFT);
         a.recycle();
         setOrientation(VERTICAL);
         setWillNotDraw(false);
     }
 
-    public void updateIndexAndLine(int lineColor, int indexColor, float indexRadius){
+    public void updateIndexAndLine(int lineColor, int indexColor, float indexRadius) {
         this.lineColor = lineColor;
         this.indexColor = indexColor;
         this.indexRadius = indexRadius;
@@ -88,11 +106,16 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
         invalidate();
     }
 
-    public void updateIndexText(int indexTextColor, float indexTextSize){
+    public void updateIndexText(int indexTextColor, float indexTextSize) {
         this.indexTextColor = indexTextColor;
         this.indexTextSize = indexTextSize;
         if (indexTextSize <= 0)
             this.indexTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics());
+        invalidate();
+    }
+
+    public void setLocation(@Location int location) {
+        this.location = location;
         invalidate();
     }
 
@@ -109,7 +132,7 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
             yAxis.put(i, y);
             y += child.getMeasuredHeight() / 2.0f;
             y += params.bottomMargin;
-            if (getShowDividers() == LinearLayout.SHOW_DIVIDER_MIDDLE && getDividerDrawable() != null){
+            if (getShowDividers() == LinearLayout.SHOW_DIVIDER_MIDDLE && getDividerDrawable() != null) {
                 y += getDividerDrawable().getIntrinsicHeight();
             }
         }
@@ -121,8 +144,15 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
         if (yAxis.size() <= 1)
             return;
 
-        float centerX = getPaddingLeft() / 2.0f;
-        centerX = Math.max(centerX, indexRadius);
+        float centerX = 0;
+        switch (location) {
+            case LEFT:
+                centerX = Math.max(getPaddingLeft() / 2.0f, indexRadius);
+                break;
+            case RIGHT:
+                centerX = getWidth() - Math.max(getPaddingRight() / 2.0f, indexRadius);
+                break;
+        }
 
         //TODO draw the vertical line
         paint.setStyle(Paint.Style.STROKE);
@@ -147,7 +177,7 @@ public class VerticalStepLinearLayout extends LinearLayout implements IViewAttrD
     }
 
     @Override
-    public void drawIndex(@NonNull Canvas canvas, int index, float centerX, @NonNull Paint.FontMetrics fontMetrics){
+    public void drawIndex(@NonNull Canvas canvas, int index, float centerX, @NonNull Paint.FontMetrics fontMetrics) {
         canvas.drawCircle(centerX, yAxis.get(index), indexRadius, paint);
 
         String s = String.valueOf(index + 1);

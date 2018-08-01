@@ -176,11 +176,23 @@
     </declare-styleable>
 
     <declare-styleable name="VerticalStepLinearLayout">
+        <!--竖线的颜色-->
         <attr name="vsll_lineColor" format="color"/>
+        <!--序列号背景圆颜色-->
         <attr name="vsll_indexColor" format="color"/>
+        <!--序列号背景圆半径-->
         <attr name="vsll_indexRadius" format="dimension"/>
+        <!--序列号字体颜色-->
         <attr name="vsll_indexTextColor" format="color"/>
+        <!--序列号字体大小-->
         <attr name="vsll_indexTextSize" format="dimension"/>
+        <!--序列号展示位置-->
+        <attr name="vsll_location">
+            <!--在左边展示-->
+            <enum name="left" value="0"/>
+            <!--在右边沾水-->
+            <enum name="right" value="1"/>
+        </attr>
     </declare-styleable>
 
 </resources>

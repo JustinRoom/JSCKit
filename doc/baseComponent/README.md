@@ -112,3 +112,7 @@ update some components:
 + [CustomToast](/BaseComponentLibrary/src/main/java/jsc/kit/component/utils/CustomToast.java)
 + [DotView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/DotView.java)
 + [JSCItemLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/itemlayout/JSCItemLayout.java)
+
+## v0.4.3:
+update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java):
++ support show at *LEFT* or *RIGHT*.

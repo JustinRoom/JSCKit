@@ -35,6 +35,7 @@ public class VerticalStepViewActivity extends BaseActivity {
 
     LinearLayout layout;
     VerticalStepItemDecoration leftDecoration, rightDecoration;
+    int checkType = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,12 +57,15 @@ public class VerticalStepViewActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_camera_lens_line:
+                        checkType = 0;
                         showCustomStepView();
                         break;
                     case R.id.radio_camera_lens_pic:
+                        checkType = 1;
                         showRecyclerViewStep();
                         break;
                     case R.id.radio_below:
+                        checkType = 2;
                         showLinearLayoutStep();
                         break;
                 }
@@ -74,7 +78,7 @@ public class VerticalStepViewActivity extends BaseActivity {
         params1.rightMargin = space;
         RadioButton radioButton1 = new RadioButton(this);
         radioButton1.setId(R.id.radio_camera_lens_line);
-        radioButton1.setChecked(true);
+//        radioButton1.setChecked(true);
         radioButton1.setTextColor(Color.WHITE);
         radioButton1.setText("CStep");
         radioGroup.addView(radioButton1, params1);
@@ -97,7 +101,7 @@ public class VerticalStepViewActivity extends BaseActivity {
         radioButton3.setText("LStep");
         radioGroup.addView(radioButton3, params3);
 
-        showCustomStepView();
+        radioGroup.check(R.id.radio_camera_lens_line);
         leftDecoration = new VerticalStepItemDecoration(
                 getResources().getDimensionPixelOffset(R.dimen.space_16) * 2,
                 getResources().getDimensionPixelOffset(R.dimen.space_8),
@@ -164,10 +168,11 @@ public class VerticalStepViewActivity extends BaseActivity {
     }
 
     ScrollView lScrollView;
+    VerticalStepLinearLayout stepLinearLayout;
 
     private void showLinearLayoutStep() {
         setTitleBarTitle("LinearLayoutStep");
-        initMenu(false);
+        initMenu(true);
         if (lScrollView == null) {
             int space = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
             String[] txts = {
@@ -179,7 +184,7 @@ public class VerticalStepViewActivity extends BaseActivity {
                     "If your organization has a stake in the future of digital credentials, learn more about IMS Global membership."
             };
             lScrollView = new ScrollView(this);
-            VerticalStepLinearLayout stepLinearLayout = new VerticalStepLinearLayout(this);
+            stepLinearLayout = new VerticalStepLinearLayout(this);
             stepLinearLayout.setPadding(space * 2, 0, space * 2, 0);
             stepLinearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
             stepLinearLayout.setDividerDrawable(CompatResourceUtils.getDrawable(this, R.drawable.linear_layout_space_line_shape));
@@ -192,14 +197,15 @@ public class VerticalStepViewActivity extends BaseActivity {
                 textView.setText(txts[i]);
                 stepLinearLayout.addView(textView, params);
             }
-            if (layout.getChildCount() > 1) {
-                layout.removeViewAt(0);
-            }
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
+        }
+
+        if (layout.getChildCount() > 1) {
+            layout.removeViewAt(0);
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
 //            params.topMargin = getResources().getDimensionPixelOffset(R.dimen.space_16) / 2;
 //            params.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.space_16) / 2;
-            layout.addView(lScrollView, 0, params);
-        }
+        layout.addView(lScrollView, 0, params);
     }
 
     private void initMenu(boolean show) {
@@ -213,14 +219,22 @@ public class VerticalStepViewActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case Menu.FIRST + 1:
-                        recyclerView.removeItemDecoration(leftDecoration);
-                        recyclerView.removeItemDecoration(rightDecoration);
-                        recyclerView.addItemDecoration(leftDecoration);
+                        if (checkType == 1) {
+                            recyclerView.removeItemDecoration(leftDecoration);
+                            recyclerView.removeItemDecoration(rightDecoration);
+                            recyclerView.addItemDecoration(leftDecoration);
+                        } else if (checkType == 2) {
+                            stepLinearLayout.setLocation(VerticalStepLinearLayout.LEFT);
+                        }
                         break;
                     case Menu.FIRST + 2:
-                        recyclerView.removeItemDecoration(leftDecoration);
-                        recyclerView.removeItemDecoration(rightDecoration);
-                        recyclerView.addItemDecoration(rightDecoration);
+                        if (checkType == 1) {
+                            recyclerView.removeItemDecoration(leftDecoration);
+                            recyclerView.removeItemDecoration(rightDecoration);
+                            recyclerView.addItemDecoration(rightDecoration);
+                        } else if (checkType == 2){
+                            stepLinearLayout.setLocation(VerticalStepLinearLayout.RIGHT);
+                        }
                         break;
                 }
                 return true;
