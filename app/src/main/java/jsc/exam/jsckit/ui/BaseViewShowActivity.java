@@ -138,7 +138,7 @@ public class BaseViewShowActivity extends BaseViewActivity implements BaseViewSh
     public View createTitleBar(@NonNull Context context) {
         int padding = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_12);
         FrameLayout customView = new FrameLayout(this);
-        customView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        customView.setBackgroundColor(CompatResourceUtils.getColor(this, R.color.colorPrimaryDark));
 //        customView.setPadding(padding, 0, padding, 0);
         customView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowUtils.getActionBarSize(this)));
         //添加标题
