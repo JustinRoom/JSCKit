@@ -49,6 +49,7 @@ import jsc.exam.jsckit.ui.component.SwipeRecyclerViewActivity;
 import jsc.exam.jsckit.ui.component.TurntableViewActivity;
 import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalColumnarGraphViewActivity;
+import jsc.exam.jsckit.ui.component.VerticalStepLinearLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
@@ -185,6 +186,7 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
+        classItems.add(new ComponentItem("VerticalStep\nLinearLayout", VerticalStepLinearLayoutActivity.class, true));
         classItems.add(new ComponentItem("LayoutManager", LayoutManagerActivity.class, true));
         classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ComponentItem("CameraMask", CameraMaskActivity.class));

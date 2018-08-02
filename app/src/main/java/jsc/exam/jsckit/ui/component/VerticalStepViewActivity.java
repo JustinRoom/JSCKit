@@ -1,15 +1,18 @@
 package jsc.exam.jsckit.ui.component;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -103,12 +106,14 @@ public class VerticalStepViewActivity extends BaseActivity {
 
         radioGroup.check(R.id.radio_camera_lens_line);
         leftDecoration = new VerticalStepItemDecoration(
+                this,
                 getResources().getDimensionPixelOffset(R.dimen.space_16) * 2,
                 getResources().getDimensionPixelOffset(R.dimen.space_8),
                 getResources().getDimensionPixelOffset(R.dimen.space_16) * 2,
                 0
         ).setLocation(VerticalStepItemDecoration.LEFT);
         rightDecoration = new VerticalStepItemDecoration(
+                this,
                 getResources().getDimensionPixelOffset(R.dimen.space_16) * 2,
                 getResources().getDimensionPixelOffset(R.dimen.space_8),
                 getResources().getDimensionPixelOffset(R.dimen.space_16) * 2,
@@ -177,6 +182,15 @@ public class VerticalStepViewActivity extends BaseActivity {
             int space = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
             String[] txts = {
                     "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
+                    "To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ",
                     "Community contributions will be encouraged through a public form to ensure all inputs are heard and considered. Meeting agendas, minutes, and working group decisions will be published for viewing by anyone who opens a free account on the IMS website.",
                     "An Open Badges Community Council will bring together a vibrant and effective channel of community thought leaders and experts. The Community Council will enable all organizations and individuals, that wish to contribute, be recognized for their advancement of Open Badges via a profile published on the Open Badges website.",
                     "IMS will be establishing a process for joining the Community Council. Contact us to receive further information.",
@@ -196,6 +210,20 @@ public class VerticalStepViewActivity extends BaseActivity {
                 TextView textView = new TextView(this);
                 textView.setText(txts[i]);
                 stepLinearLayout.addView(textView, params);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                lScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                    @Override
+                    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                        Log.i("VerticalStep", "onScrollChange:>>>>> scrollY=" + v.getScrollY());
+                        if (v instanceof ViewGroup){
+                            View child = ((ViewGroup) v).getChildAt(0);
+                            if (child instanceof VerticalStepLinearLayout)
+                                ((VerticalStepLinearLayout) child).updateScroll(v.getScrollY());
+                        }
+                    }
+                });
             }
         }
 
@@ -236,6 +264,12 @@ public class VerticalStepViewActivity extends BaseActivity {
                             stepLinearLayout.setLocation(VerticalStepLinearLayout.RIGHT);
                         }
                         break;
+                    case Menu.FIRST + 3:
+                        stepLinearLayout.setSortBase(VerticalStepLinearLayout.SORT_BASE_TOP);
+                        break;
+                    case Menu.FIRST + 4:
+                        stepLinearLayout.setSortBase(VerticalStepLinearLayout.SORT_BASE_FIRST);
+                        break;
                 }
                 return true;
             }
@@ -243,6 +277,14 @@ public class VerticalStepViewActivity extends BaseActivity {
 
         getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "LEFT");
         getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "RIGHT");
+        if (checkType == 2){
+            getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 3, Menu.NONE, "BASE TOP");
+            getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 4, Menu.NONE, "BASE FIRST");
+        } else {
+            getActionMenuView().getMenu().removeItem(Menu.FIRST + 3);
+            getActionMenuView().getMenu().removeItem(Menu.FIRST + 4);
+
+        }
 //        SubMenu subMenu = getActionMenuView().getMenu().addSubMenu(Menu.NONE, Menu.FIRST + 11, Menu.NONE, "View");
 //        subMenu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "LEFT");
 //        subMenu.add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "TextView");

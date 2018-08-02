@@ -193,6 +193,13 @@
             <!--在右边沾水-->
             <enum name="right" value="1"/>
         </attr>
+        <!--序列号滑动时排序位置-->
+        <attr name="vsll_sortBase">
+            <!--从顶部开始排序-->
+            <enum name="top" value="0"/>
+            <!--从第一个序列号开始排序-->
+            <enum name="first" value="1"/>
+        </attr>
     </declare-styleable>
 
 </resources>

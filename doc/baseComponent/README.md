@@ -115,4 +115,5 @@ update some components:
 
 ## v0.4.3:
 update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java):
-+ support show at *LEFT* or *RIGHT*.
++ support show index at *LEFT* or *RIGHT*.
++ support sort index base on *SORT_BASE_TOP* or *SORT_BASE_FIRST*.
