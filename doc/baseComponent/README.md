@@ -63,6 +63,7 @@ allprojects {
 | 24 | [**ReboundRecyclerView**](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout) | [**酷炫拖拽反弹ReboundRecyclerView**](https://www.jianshu.com/p/c3f2c9f852ef) |
 | 25 | [**CameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) | [**二维码扫描，强大的相机遮罩CameraMask**](https://www.jianshu.com/p/ca8a14e1aedc) |
 | 26 | [**ScannerCameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java) | [***同上***](https://www.jianshu.com/p/ca8a14e1aedc) |
+| 27 | [**VerticalStepLinearLayout**](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java) | [***同上***](https://www.jianshu.com/p/ca8a14e1aedc) |
 
 ### Usage examples：
 
