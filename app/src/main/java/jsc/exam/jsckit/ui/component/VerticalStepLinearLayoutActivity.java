@@ -102,9 +102,9 @@ public class VerticalStepLinearLayoutActivity extends BaseActivity {
             }
         });
 
-        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "LEFT");
-        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 2, Menu.NONE, "RIGHT");
-        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 3, Menu.NONE, "BASE TOP");
-        getActionMenuView().getMenu().add(Menu.NONE, Menu.FIRST + 4, Menu.NONE, "BASE FIRST");
+        getActionMenuView().getMenu().add(10, Menu.FIRST + 1, Menu.NONE, "LEFT");
+        getActionMenuView().getMenu().add(10, Menu.FIRST + 2, Menu.NONE, "RIGHT");
+        getActionMenuView().getMenu().add(11, Menu.FIRST + 3, Menu.NONE, "BASE TOP");
+        getActionMenuView().getMenu().add(11, Menu.FIRST + 4, Menu.NONE, "BASE FIRST");
     }
 }
