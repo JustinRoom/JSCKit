@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,10 +22,16 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,11 +52,16 @@ import jsc.kit.component.baseui.camera2.Camera2BasicFragment;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.download.DownloadEntity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
+import jsc.kit.component.guide.GuideLayout;
+import jsc.kit.component.guide.GuidePopupWindow;
+import jsc.kit.component.guide.GuideRippleView;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.component.utils.CompatResourceUtils;
+import jsc.kit.component.utils.SharePreferencesUtils;
+import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.retrofit2.LoadingDialogObserver;
 import jsc.kit.retrofit2.retrofit.CustomHttpClient;
 import jsc.kit.retrofit2.retrofit.CustomRetrofit;
@@ -92,21 +105,14 @@ public class MainActivity extends BaseActivity {
             }
         });
         adapter.setItems(getClassItems());
-//        handlerProvider.sendUIEmptyMessageDelay(0, 350L);
+        handlerProvider.sendUIEmptyMessageDelay(0, 500);
         initMenu();
     }
 
     @Override
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
-        switch (msg.what) {
-            case 0:
-                loadVersionInfo();
-                break;
-            case 1:
-
-                break;
-        }
+        showGuide(getClass().getSimpleName());
     }
 
     private void initMenu() {
@@ -221,7 +227,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showUpdateTipsDialog(final VersionEntity entity) {
-        if (entity == null){
+        if (entity == null) {
             showCustomToast("Failed to access server.");
             return;
         }
@@ -326,6 +332,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        if (closeGuidePopupWindow())
+            return;
+
         long curTime = System.currentTimeMillis();
         if (lastClickTime > 0 && (curTime - lastClickTime < 3_000)) {
             super.onBackPressed();
@@ -333,5 +342,63 @@ public class MainActivity extends BaseActivity {
             showCustomToast("再次点击返回按钮退出应用");
             lastClickTime = curTime;
         }
+    }
+
+    GuidePopupWindow guidePopupWindow;
+
+    private void showGuide(final String key) {
+        final int showCount = SharePreferencesUtils.getInstance().getInt(key, 0);
+        if (showCount < 3) {
+            LinearLayout customView = new LinearLayout(this);
+            customView.setOrientation(LinearLayout.VERTICAL);
+            customView.setGravity(Gravity.CENTER_HORIZONTAL);
+            //
+            TextView textView = new TextView(this);
+            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setText("点击闪烁按钮可检测是否有版本更新哦！");
+            customView.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            //
+            int size = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_64);
+            ImageView imageView = new ImageView(this);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setImageResource(R.drawable.tiger);
+            customView.addView(imageView, new LinearLayout.LayoutParams(size * 4, size * 4));
+
+            guidePopupWindow = new GuidePopupWindow(this)
+                    .setOnTargetCheckedListener(new GuidePopupWindow.OnTargetCheckedListener() {
+                        @Override
+                        public void onTargetChecked(View target) {
+                            int count = SharePreferencesUtils.getInstance().getInt(key, 0) +1;
+                            SharePreferencesUtils.getInstance().saveInt(key, count);
+                            loadVersionInfo();
+                            closeGuidePopupWindow();
+                        }
+                    })
+                    .setMinRippleSize(WindowUtils.getActionBarSize(this))
+                    .setMaxRippleSize(WindowUtils.getActionBarSize(this));
+            guidePopupWindow.show(getActionMenuView(), customView, new GuideLayout.OnCustomViewInitializeCallback<LinearLayout>() {
+                @Override
+                public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable LinearLayout customView, @NonNull Rect targetRect) {
+                    GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.gravity = Gravity.CENTER;
+                    guideLayout.addView(customView, params);
+                }
+            });
+            GuideRippleView rippleView = guidePopupWindow.getGuideLayout().getGuideRippleViewView();
+            if (rippleView != null) {
+                int color = CompatResourceUtils.getColor(this, R.color.colorAccent);
+                rippleView.initCirculars(3, new int[]{color, color, color}, 20, .7f);
+            }
+        }
+    }
+
+    private boolean closeGuidePopupWindow() {
+        if (guidePopupWindow != null && guidePopupWindow.isShowing()) {
+            guidePopupWindow.dismiss();
+            guidePopupWindow = null;
+            return true;
+        }
+        return false;
     }
 }
