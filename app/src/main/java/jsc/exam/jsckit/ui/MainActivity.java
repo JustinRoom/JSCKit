@@ -1,6 +1,8 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
@@ -22,6 +24,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -349,42 +352,58 @@ public class MainActivity extends BaseActivity {
     private void showGuide(final String key) {
         final int showCount = SharePreferencesUtils.getInstance().getInt(key, 0);
         if (showCount < 3) {
-            LinearLayout customView = new LinearLayout(this);
-            customView.setOrientation(LinearLayout.VERTICAL);
-            customView.setGravity(Gravity.CENTER_HORIZONTAL);
-            //
-            TextView textView = new TextView(this);
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            textView.setText("点击闪烁按钮可检测是否有版本更新哦！");
-            customView.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            //
-            int size = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_64);
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            imageView.setImageResource(R.drawable.tiger);
-            customView.addView(imageView, new LinearLayout.LayoutParams(size * 4, size * 4));
+            imageView.setImageResource(R.drawable.hand_o_up);
+            //
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.topMargin = 40;
+            TextView textView = new TextView(this);
+            textView.setTextColor(Color.WHITE);
+            textView.setLineSpacing(0, 1.2f);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setText("点击闪烁按钮可检测\n是否有版本更新哦！");
+            //
 
             guidePopupWindow = new GuidePopupWindow(this)
                     .setOnTargetCheckedListener(new GuidePopupWindow.OnTargetCheckedListener() {
                         @Override
                         public void onTargetChecked(View target) {
-                            int count = SharePreferencesUtils.getInstance().getInt(key, 0) +1;
+                            int count = SharePreferencesUtils.getInstance().getInt(key, 0) + 1;
                             SharePreferencesUtils.getInstance().saveInt(key, count);
                             loadVersionInfo();
                             closeGuidePopupWindow();
                         }
                     })
                     .setMinRippleSize(WindowUtils.getActionBarSize(this))
-                    .setMaxRippleSize(WindowUtils.getActionBarSize(this));
-            guidePopupWindow.show(getActionMenuView(), customView, new GuideLayout.OnCustomViewInitializeCallback<LinearLayout>() {
-                @Override
-                public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable LinearLayout customView, @NonNull Rect targetRect) {
-                    GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.gravity = Gravity.CENTER;
-                    guideLayout.addView(customView, params);
-                }
-            });
+                    .setMaxRippleSize(WindowUtils.getActionBarSize(this))
+                    .setBackgroundColor(0xB3000000)
+                    .attachTarget(getActionMenuView())
+                    .addCustomView(imageView, new GuideLayout.OnCustomViewInitializeCallback<ImageView>() {
+                        @Override
+                        public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable ImageView customView, @NonNull Rect targetRect) {
+                            GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            params.gravity = Gravity.END;
+                            params.rightMargin = targetRect.width() / 2 - 10;
+                            params.topMargin = targetRect.bottom + 12;
+                            guideLayout.addView(customView, params);
+
+                            ObjectAnimator animator = ObjectAnimator.ofFloat(customView, View.TRANSLATION_Y, 0, 32, 0)
+                                    .setDuration(1200);
+                            animator.setRepeatCount(-1);
+                            animator.start();
+                        }
+                    })
+                    .addCustomView(textView, new GuideLayout.OnCustomViewInitializeCallback<TextView>() {
+                        @Override
+                        public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable TextView customView, @NonNull Rect targetRect) {
+                            GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            params.gravity = Gravity.CENTER;
+                            guideLayout.addView(customView, params);
+                        }
+                    });
+            guidePopupWindow.show();
+            //可以根据你自己的需求修改提示动画的相关设置
             GuideRippleView rippleView = guidePopupWindow.getGuideLayout().getGuideRippleViewView();
             if (rippleView != null) {
                 int color = CompatResourceUtils.getColor(this, R.color.colorAccent);

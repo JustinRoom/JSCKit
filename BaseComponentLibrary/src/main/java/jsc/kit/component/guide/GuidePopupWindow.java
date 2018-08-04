@@ -2,6 +2,7 @@ package jsc.kit.component.guide;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -77,6 +78,11 @@ public final class GuidePopupWindow {
         return guideLayout;
     }
 
+    public GuidePopupWindow setBackgroundColor(@ColorInt int color){
+        guideLayout.setBackgroundColor(color);
+        return this;
+    }
+
     public GuidePopupWindow setStatusBarHeight(int statusBarHeight) {
         this.statusBarHeight = statusBarHeight;
         return this;
@@ -97,12 +103,35 @@ public final class GuidePopupWindow {
         return this;
     }
 
-    public <V extends View> void show(@NonNull View target, @NonNull V customView, @NonNull GuideLayout.OnCustomViewInitializeCallback<V> callback) {
+    public GuidePopupWindow attachTarget(@NonNull View target) {
         this.target = target;
-        target.setDrawingCacheEnabled(true);
-        Rect rect = guideLayout.updateMask(target, statusBarHeight, minRippleSize, maxRippleSize);
-        guideLayout.setCustomView(customView, callback);
-        mPopupWindow.showAsDropDown(target, -rect.left, -rect.bottom);
+        this.target.setDrawingCacheEnabled(true);
+        guideLayout.calculateTargetLocation(target, statusBarHeight, minRippleSize, maxRippleSize);
+        return this;
+    }
+
+    /**
+     * It must be called after {@link #attachTarget(View)} if necessary.
+     * <br>And you should call it before {@link #show()}.
+     *
+     * @param customView custom view
+     * @param callback initialize call back.
+     * @param <V> custom view type
+     */
+    public <V extends View> GuidePopupWindow addCustomView(@NonNull V customView, @NonNull GuideLayout.OnCustomViewInitializeCallback<V> callback) {
+        if (target == null)
+            throw new IllegalStateException("");
+        guideLayout.addCustomView(customView, callback);
+        return this;
+    }
+
+    /**
+     * Before showing action, it must had attached target.
+     */
+    public void show(){
+        if (target == null)
+            throw new IllegalStateException("");
+        mPopupWindow.showAsDropDown(target, -guideLayout.getTargetRect().left, -guideLayout.getTargetRect().bottom);
     }
 
     public void dismiss() {

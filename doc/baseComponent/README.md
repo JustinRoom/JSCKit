@@ -71,6 +71,7 @@ allprojects {
 | index | Component | Article |
 |:---:|:---|:---|
 | 1  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
+| 2  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
 
 
 ##### update log:
@@ -119,3 +120,9 @@ update some components:
 update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java):
 + support show index at *LEFT* or *RIGHT*.
 + support sort index base on *SORT_BASE_TOP* or *SORT_BASE_FIRST*.
+
+## v0.4.4:
+add guide navigation components:
++ [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
++ [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java)
++ [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java)

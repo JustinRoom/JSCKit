@@ -7,6 +7,7 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.View;
 
 /**
@@ -51,5 +52,9 @@ public class CompatResourceUtils {
 
     public static int getDimensionPixelSize(@NonNull Fragment fragment, @DimenRes int id){
         return fragment.getResources().getDimensionPixelSize(id);
+    }
+
+    public static int dp2Px(@NonNull Context context, float dp){
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics()) + .5f);
     }
 }
