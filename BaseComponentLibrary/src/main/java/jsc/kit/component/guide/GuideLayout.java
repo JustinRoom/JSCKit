@@ -109,12 +109,12 @@ public class GuideLayout extends FrameLayout implements IViewAttrDelegate {
         ivTarget.setOnClickListener(targetClickListener);
     }
 
-    public void updateTargetLocation(@NonNull View target, int statusBarHeight, int minRippleSize, int maxRippleSize, OnRippleViewUpdateLocationCallback callback) {
+    public void updateTargetLocation(@NonNull View target, int yOffset, int minRippleSize, int maxRippleSize, OnRippleViewUpdateLocationCallback callback) {
         Bitmap bitmap = Bitmap.createBitmap(target.getDrawingCache());
         int[] location = new int[2];
         target.getLocationOnScreen(location);
         targetRect.set(location[0], location[1], location[0] + target.getWidth(), location[1] + target.getHeight());
-        targetRect.offset(0, -statusBarHeight);
+        targetRect.offset(0, -yOffset);
         ivTarget.setImageBitmap(bitmap);
         MarginLayoutParams params = (MarginLayoutParams) ivTarget.getLayoutParams();
         params.leftMargin = targetRect.left;

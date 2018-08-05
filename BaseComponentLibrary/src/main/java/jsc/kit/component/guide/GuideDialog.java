@@ -27,7 +27,7 @@ public final class GuideDialog extends AppCompatDialog {
 
     private GuideLayout guideLayout;
     private View target;
-    private int statusBarHeight, minRippleSize, maxRippleSize;
+    private int yOffset, minRippleSize, maxRippleSize;
     private GuideLayout.OnRippleViewUpdateLocationCallback onRippleViewUpdateLocationCallback;
 
     public GuideDialog(Context context) {
@@ -40,17 +40,17 @@ public final class GuideDialog extends AppCompatDialog {
     }
 
     /**
-     * @param context         context
-     * @param statusBarHeight status bar height
-     * @param minRippleSize   minimum ripple size
-     * @param maxRippleSize   max ripple size
+     * @param context       context
+     * @param yOffset       offset from top
+     * @param minRippleSize minimum ripple size
+     * @param maxRippleSize max ripple size
      */
-    public GuideDialog(Context context, int statusBarHeight, int minRippleSize, int maxRippleSize) {
+    public GuideDialog(Context context, int yOffset, int minRippleSize, int maxRippleSize) {
         super(context);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.minRippleSize = Math.min(minRippleSize, maxRippleSize);
         this.maxRippleSize = Math.max(minRippleSize, maxRippleSize);
-        this.statusBarHeight = statusBarHeight;
+        this.yOffset = yOffset;
         guideLayout = new GuideLayout(getContext());
     }
 
@@ -92,11 +92,11 @@ public final class GuideDialog extends AppCompatDialog {
     /**
      * It's invalid after {@link #attachTarget(View)}.
      *
-     * @param statusBarHeight status bar height
+     * @param yOffset status bar height
      * @return {@link GuideDialog}
      */
-    public GuideDialog setStatusBarHeight(int statusBarHeight) {
-        this.statusBarHeight = statusBarHeight;
+    public GuideDialog setyOffset(int yOffset) {
+        this.yOffset = yOffset;
         return this;
     }
 
@@ -136,7 +136,7 @@ public final class GuideDialog extends AppCompatDialog {
     public GuideDialog attachTarget(@NonNull View mTarget) {
         this.target = mTarget;
         this.target.setDrawingCacheEnabled(true);
-        guideLayout.updateTargetLocation(target, statusBarHeight, minRippleSize, maxRippleSize, onRippleViewUpdateLocationCallback);
+        guideLayout.updateTargetLocation(target, yOffset, minRippleSize, maxRippleSize, onRippleViewUpdateLocationCallback);
         this.target.postDelayed(new Runnable() {
             @Override
             public void run() {
