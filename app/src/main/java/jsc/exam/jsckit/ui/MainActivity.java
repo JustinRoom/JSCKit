@@ -1,7 +1,6 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
@@ -24,13 +23,13 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,9 +54,11 @@ import jsc.kit.component.baseui.camera2.Camera2BasicFragment;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.baseui.download.DownloadEntity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
+import jsc.kit.component.guide.GuideDialog;
 import jsc.kit.component.guide.GuideLayout;
 import jsc.kit.component.guide.GuidePopupWindow;
 import jsc.kit.component.guide.GuideRippleView;
+import jsc.kit.component.guide.OnCustomClickListener;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
@@ -115,7 +116,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
-        showGuide(getClass().getSimpleName());
+//        showGuidePopupWindow(getClass().getSimpleName());
+        showGuideDialog(getClass().getSimpleName());
     }
 
     private void initMenu() {
@@ -349,39 +351,47 @@ public class MainActivity extends BaseActivity {
 
     GuidePopupWindow guidePopupWindow;
 
-    private void showGuide(final String key) {
+    private void showGuidePopupWindow(final String key) {
         final int showCount = SharePreferencesUtils.getInstance().getInt(key, 0);
         if (showCount < 3) {
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             imageView.setImageResource(R.drawable.hand_o_up);
             //
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.topMargin = 40;
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setGravity(Gravity.CENTER_HORIZONTAL);
+            //
             TextView textView = new TextView(this);
             textView.setTextColor(Color.WHITE);
             textView.setLineSpacing(0, 1.2f);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             textView.setText("点击闪烁按钮可检测\n是否有版本更新哦！");
+            layout.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             //
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
+            Button button = new Button(this);
+            button.setText("我知道了");
+            layout.addView(button, params);
 
             guidePopupWindow = new GuidePopupWindow(this)
-                    .setOnTargetCheckedListener(new GuidePopupWindow.OnTargetCheckedListener() {
-                        @Override
-                        public void onTargetChecked(View target) {
-                            int count = SharePreferencesUtils.getInstance().getInt(key, 0) + 1;
-                            SharePreferencesUtils.getInstance().saveInt(key, count);
-                            loadVersionInfo();
-                            closeGuidePopupWindow();
-                        }
-                    })
                     .setMinRippleSize(WindowUtils.getActionBarSize(this))
                     .setMaxRippleSize(WindowUtils.getActionBarSize(this))
                     .setBackgroundColor(0xB3000000)
-                    .attachTarget(getActionMenuView())
-                    .addCustomView(imageView, new GuideLayout.OnCustomViewInitializeCallback<ImageView>() {
+                    .setOnRippleViewUpdateLocationCallback(new GuideLayout.OnRippleViewUpdateLocationCallback() {
                         @Override
-                        public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable ImageView customView, @NonNull Rect targetRect) {
+                        public void onRippleViewUpdateLocation(@NonNull GuideRippleView rippleView) {
+                            //可以根据你自己的需求修改提示动画的相关设置
+                            int color = CompatResourceUtils.getColor(rippleView.getContext(), R.color.colorAccent);
+                            rippleView.initCirculars(3, new int[]{color, color, color}, 20, .7f);
+                        }
+                    })
+                    .attachTarget(getActionMenuView())
+                    .removeAllCustomView()
+                    .addCustomView(imageView, new GuideLayout.OnAddCustomViewCallback<ImageView>() {
+                        @Override
+                        public void onAddCustomView(GuideLayout guideLayout, @Nullable ImageView customView, @NonNull Rect targetRect) {
                             GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             params.gravity = Gravity.END;
                             params.rightMargin = targetRect.width() / 2 - 10;
@@ -394,21 +404,24 @@ public class MainActivity extends BaseActivity {
                             animator.start();
                         }
                     })
-                    .addCustomView(textView, new GuideLayout.OnCustomViewInitializeCallback<TextView>() {
+                    .addCustomView(layout, new GuideLayout.OnAddCustomViewCallback<LinearLayout>() {
                         @Override
-                        public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable TextView customView, @NonNull Rect targetRect) {
+                        public void onAddCustomView(GuideLayout guideLayout, @Nullable LinearLayout customView, @NonNull Rect targetRect) {
                             GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             params.gravity = Gravity.CENTER;
                             guideLayout.addView(customView, params);
                         }
-                    });
+                    })
+                    .addTargetClickListener(new OnCustomClickListener() {
+                        @Override
+                        public void onCustomClick(@NonNull View view) {
+                            int count = SharePreferencesUtils.getInstance().getInt(key, 0) + 1;
+                            SharePreferencesUtils.getInstance().saveInt(key, count);
+                            loadVersionInfo();
+                        }
+                    })
+                    .addCustomClickListener(button, null, true);
             guidePopupWindow.show();
-            //可以根据你自己的需求修改提示动画的相关设置
-            GuideRippleView rippleView = guidePopupWindow.getGuideLayout().getGuideRippleViewView();
-            if (rippleView != null) {
-                int color = CompatResourceUtils.getColor(this, R.color.colorAccent);
-                rippleView.initCirculars(3, new int[]{color, color, color}, 20, .7f);
-            }
         }
     }
 
@@ -419,5 +432,82 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    private void showGuideDialog(final String key) {
+        final int showCount = SharePreferencesUtils.getInstance().getInt(key, 0);
+        if (showCount >= 3)
+            return;
+
+        ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageView.setImageResource(R.drawable.hand_o_up);
+        //
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL);
+        //
+        TextView textView = new TextView(this);
+        textView.setTextColor(Color.WHITE);
+        textView.setLineSpacing(0, 1.2f);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setText("点击闪烁按钮可检测\n是否有版本更新哦！");
+        layout.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        //
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = CompatResourceUtils.getDimensionPixelSize(this, R.dimen.space_16);
+        Button button = new Button(this);
+        button.setText("我知道了");
+        layout.addView(button, params);
+        new GuideDialog(this)
+                .setCanceledOnTouchOutside1(false)
+                .setCancelable1(false)
+                .setMinRippleSize(WindowUtils.getActionBarSize(this))
+                .setMaxRippleSize(WindowUtils.getActionBarSize(this))
+//                .setBackgroundColor(0xB3000000)
+                .setOnRippleViewUpdateLocationCallback(new GuideLayout.OnRippleViewUpdateLocationCallback() {
+                    @Override
+                    public void onRippleViewUpdateLocation(@NonNull GuideRippleView rippleView) {
+                        //可以根据你自己的需求修改提示动画的相关设置
+                        int color = CompatResourceUtils.getColor(rippleView.getContext(), R.color.colorAccent);
+                        rippleView.initCirculars(3, new int[]{color, color, color}, 20, .7f);
+                    }
+                })
+                .attachTarget(getActionMenuView())
+                .removeAllCustomView()
+                .addCustomView(imageView, new GuideLayout.OnAddCustomViewCallback<ImageView>() {
+                    @Override
+                    public void onAddCustomView(GuideLayout guideLayout, @Nullable ImageView customView, @NonNull Rect targetRect) {
+                        GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.gravity = Gravity.END;
+                        params.rightMargin = targetRect.width() / 2 - 10;
+                        params.topMargin = targetRect.bottom + 12;
+                        guideLayout.addView(customView, params);
+
+                        ObjectAnimator animator = ObjectAnimator.ofFloat(customView, View.TRANSLATION_Y, 0, 32, 0)
+                                .setDuration(1200);
+                        animator.setRepeatCount(-1);
+                        animator.start();
+                    }
+                })
+                .addCustomView(layout, new GuideLayout.OnAddCustomViewCallback<LinearLayout>() {
+                    @Override
+                    public void onAddCustomView(GuideLayout guideLayout, @Nullable LinearLayout customView, @NonNull Rect targetRect) {
+                        GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.gravity = Gravity.CENTER;
+                        guideLayout.addView(customView, params);
+                    }
+                })
+                .addTargetClickListener(new OnCustomClickListener() {
+                    @Override
+                    public void onCustomClick(@NonNull View view) {
+                        int count = SharePreferencesUtils.getInstance().getInt(key, 0) + 1;
+                        SharePreferencesUtils.getInstance().saveInt(key, count);
+                        loadVersionInfo();
+                    }
+                })
+                .addCustomClickListener(button, null, true)
+                .show();
+
     }
 }

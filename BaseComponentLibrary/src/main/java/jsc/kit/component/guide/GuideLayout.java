@@ -9,7 +9,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -77,22 +76,28 @@ public class GuideLayout extends FrameLayout implements IViewAttrDelegate {
     }
 
     public void removeAllCustomViews(){
+        if (customViewArray == null || customViewArray.isEmpty())
+            return;
+
+        for (View v : customViewArray) {
+            removeView(v);
+        }
         customViewArray.clear();
         customViewArray = null;
     }
 
     /**
-     * Custom view should be added in {@link OnCustomViewInitializeCallback#onCustomViewInitialize(GuideLayout, View, Rect)} method by yourself.
+     * Custom view should be added in {@link OnAddCustomViewCallback#onAddCustomView(GuideLayout, View, Rect)} method by yourself.
      *
      * @param customView custom view
      * @param callback   callback
      * @param <V>        custom view type
      */
-    public <V extends View> void addCustomView(@Nullable V customView, @NonNull OnCustomViewInitializeCallback<V> callback) {
+    public <V extends View> void addCustomView(@Nullable V customView, @NonNull OnAddCustomViewCallback<V> callback) {
         if (customViewArray == null)
             customViewArray = new ArrayList<>();
         customViewArray.add(customView);
-        callback.onCustomViewInitialize(this, customView, targetRect);
+        callback.onAddCustomView(this, customView, targetRect);
     }
 
     @Override
@@ -104,23 +109,21 @@ public class GuideLayout extends FrameLayout implements IViewAttrDelegate {
         ivTarget.setOnClickListener(targetClickListener);
     }
 
-    public Rect calculateTargetLocation(@NonNull View target, int statusBarHeight, int minRippleSize, int maxRippleSize) {
-        Bitmap bitmap = target.getDrawingCache();
+    public void updateTargetLocation(@NonNull View target, int statusBarHeight, int minRippleSize, int maxRippleSize, OnRippleViewUpdateLocationCallback callback) {
+        Bitmap bitmap = Bitmap.createBitmap(target.getDrawingCache());
         int[] location = new int[2];
         target.getLocationOnScreen(location);
         targetRect.set(location[0], location[1], location[0] + target.getWidth(), location[1] + target.getHeight());
         targetRect.offset(0, -statusBarHeight);
-        Log.i(TAG, "calculateTargetLocation: bitmap is " + (bitmap == null ? "null" : "not null"));
         ivTarget.setImageBitmap(bitmap);
         MarginLayoutParams params = (MarginLayoutParams) ivTarget.getLayoutParams();
         params.leftMargin = targetRect.left;
         params.topMargin = targetRect.top;
         ivTarget.setLayoutParams(params);
-        updateRippleView(targetRect, minRippleSize, maxRippleSize);
-        return targetRect;
+        updateRippleLocation(targetRect, minRippleSize, maxRippleSize, callback);
     }
 
-    private void updateRippleView(@NonNull Rect targetRect, int minRippleSize, int maxRippleSize) {
+    private void updateRippleLocation(@NonNull Rect targetRect, int minRippleSize, int maxRippleSize, OnRippleViewUpdateLocationCallback callback) {
         int size = Math.max(targetRect.width(), targetRect.height());
         int min = Math.min(minRippleSize, maxRippleSize);
         int max = minRippleSize + maxRippleSize - min;
@@ -139,11 +142,15 @@ public class GuideLayout extends FrameLayout implements IViewAttrDelegate {
         } else {
             guideRippleViewView.setLayoutParams(params);
         }
-//        guideRippleView.initCirculars(2, new int[]{Color.BLUE, Color.GREEN}, 32, 1.0f);
-//        guideRippleView.setClip(targetRect.width(), targetRect.height());
+        if (callback != null)
+            callback.onRippleViewUpdateLocation(guideRippleViewView);
     }
 
-    public interface OnCustomViewInitializeCallback<V extends View> {
+    /**
+     *
+     * @param <V> view type
+     */
+    public interface OnAddCustomViewCallback<V extends View> {
         /**
          * Layout custom view base on target view with target display rect area by yourself.
          *
@@ -151,6 +158,13 @@ public class GuideLayout extends FrameLayout implements IViewAttrDelegate {
          * @param customView  custom view.
          * @param targetRect  target rect area.
          */
-        public void onCustomViewInitialize(GuideLayout guideLayout, @Nullable V customView, @NonNull Rect targetRect);
+        public void onAddCustomView(GuideLayout guideLayout, @Nullable V customView, @NonNull Rect targetRect);
+    }
+
+    /**
+     *
+     */
+    public interface OnRippleViewUpdateLocationCallback {
+        public void onRippleViewUpdateLocation(@NonNull GuideRippleView rippleView);
     }
 }
