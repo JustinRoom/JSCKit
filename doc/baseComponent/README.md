@@ -1,6 +1,5 @@
 # BaseComponentLibrary
 [ ![Download](https://api.bintray.com/packages/justinquote/maven/BaseComponentLibrary/images/download.svg) ](https://bintray.com/justinquote/maven/BaseComponentLibrary/_latestVersion)
-最新版是：**0.4.3**
 
 ### dependencies:
 ```
