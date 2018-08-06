@@ -120,8 +120,8 @@ public class MainActivity extends BaseActivity {
     public void handleUIMessage(Message msg) {
         super.handleUIMessage(msg);
 //        showGuidePopupWindow(getClass().getSimpleName());
-//        showGuideDialog(getClass().getSimpleName());
-        showGuidePopupView(getClass().getSimpleName());
+        showGuideDialog(getClass().getSimpleName());
+//        showGuidePopupView(getClass().getSimpleName());
     }
 
     private void initMenu() {
@@ -455,7 +455,7 @@ public class MainActivity extends BaseActivity {
         textView.setTextColor(Color.WHITE);
         textView.setLineSpacing(0, 1.2f);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setText("点击闪烁按钮可检测\n是否有版本更新哦！");
+        textView.setText("点击可查看相关组件运行效果哦！");
         layout.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         //
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -477,7 +477,7 @@ public class MainActivity extends BaseActivity {
                         rippleView.initCirculars(3, new int[]{color, color, color}, 20, .7f);
                     }
                 })
-                .attachTarget(getActionMenuView())
+                .attachTarget(recyclerView.getChildAt(4))
                 .removeAllCustomView()
                 .addCustomView(imageView, new GuideLayout.OnAddCustomViewCallback<ImageView>() {
                     @Override
@@ -498,7 +498,8 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onAddCustomView(GuideLayout guideLayout, @Nullable LinearLayout customView, @NonNull Rect targetRect) {
                         GuideLayout.LayoutParams params = new GuideLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        params.gravity = Gravity.CENTER;
+                        params.gravity = Gravity.CENTER_HORIZONTAL;
+                        params.topMargin = targetRect.bottom + CompatResourceUtils.getDimensionPixelSize(guideLayout, R.dimen.space_64);
                         guideLayout.addView(customView, params);
                     }
                 })
@@ -507,7 +508,14 @@ public class MainActivity extends BaseActivity {
                     public void onCustomClick(@NonNull View view) {
                         int count = SharePreferencesUtils.getInstance().getInt(key, 0) + 1;
                         SharePreferencesUtils.getInstance().saveInt(key, count);
-                        loadVersionInfo();
+                        Intent mIntent = new Intent();
+                        mIntent.setClass(MainActivity.this, CustomToastActivity.class);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mIntent.putExtra("transition", TransitionEnum.SLIDE.getLabel());
+                            startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                        } else {
+                            startActivity(mIntent);
+                        }
                     }
                 })
                 .addCustomClickListener(button, null, true)
