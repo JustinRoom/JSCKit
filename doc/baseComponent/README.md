@@ -123,6 +123,8 @@ update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/co
 
 ## v0.4.4:
 add guide navigation components:
-+ [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
-+ [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java)
 + [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java)
++ [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java)
++ [GuidePopupView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupView.java)
++ [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
++ [GuideDialog](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideDialog.java)
