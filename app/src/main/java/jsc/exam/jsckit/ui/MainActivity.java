@@ -532,7 +532,7 @@ public class MainActivity extends BaseActivity {
         textView.setTextColor(Color.WHITE);
         textView.setLineSpacing(0, 1.2f);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setText("点击闪烁按钮可检测\n是否有版本更新哦！");
+        textView.setText("点击可查看相关组件运行效果哦！");
         layout.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         //
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
