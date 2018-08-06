@@ -65,13 +65,17 @@ allprojects {
 | 25 | [**CameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) | [**二维码扫描，强大的相机遮罩CameraMask**](https://www.jianshu.com/p/ca8a14e1aedc) |
 | 26 | [**ScannerCameraMask**](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java) | [***同上***](https://www.jianshu.com/p/ca8a14e1aedc) |
 | 27 | [**VerticalStepLinearLayout**](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java) | [***超级酷炫的Step View，不看你会后悔***](https://www.jianshu.com/p/ccf64bf2e3ed) |
+| 28 | [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java) | [**强大实用的功能引导组件**](https://www.jianshu.com/p/c1aaddd93245) |
+| 29 | [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java) | [***同上***](https://www.jianshu.com/p/c1aaddd93245) |
 
 ### Usage examples：
 
 | index | Component | Article |
 |:---:|:---|:---|
 | 1  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
-| 2  | [**BottomNavigationView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**给BottomNavigationView添加未读消息红点提示**](https://www.jianshu.com/p/c08ed0c6d31d) |
+| 2  | [**GuidePopupView**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**强大实用的功能引导组件**](https://www.jianshu.com/p/c1aaddd93245) |
+| 2  | [**GuidePopupWindow**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**同上**](https://www.jianshu.com/p/c1aaddd93245) |
+| 2  | [**GuideDialog**](/app/src/main/java/jsc/exam/jsckit/ui/BottomNavigationViewActivity.java) | [**同上**](https://www.jianshu.com/p/c1aaddd93245) |
 
 
 ##### update log:
