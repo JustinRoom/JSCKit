@@ -18,7 +18,6 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
-import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;

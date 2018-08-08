@@ -3,10 +3,8 @@ package jsc.exam.jsckit.ui.component;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -19,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wang.avi.AVLoadingIndicatorView;
 import com.wang.avi.indicators.BallSpinFadeLoaderIndicator;
@@ -32,13 +29,10 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.exam.jsckit.ui.BaseActivity;
-import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
-import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
-import jsc.kit.component.utils.CompatResourceUtils;
 
 public class SwipeRecyclerViewActivity extends BaseActivity {
 

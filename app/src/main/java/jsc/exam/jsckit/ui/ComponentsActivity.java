@@ -3,35 +3,24 @@ package jsc.exam.jsckit.ui;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.ComponentItemAdapter;
 import jsc.exam.jsckit.adapter.ComponentItemDecoration;
-import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
@@ -56,12 +45,8 @@ import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
-import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
-import jsc.kit.component.utils.CompatResourceUtils;
-import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
-import jsc.kit.component.widget.AspectRatioFrameLayout;
 
 public class ComponentsActivity extends BaseActivity {
 
