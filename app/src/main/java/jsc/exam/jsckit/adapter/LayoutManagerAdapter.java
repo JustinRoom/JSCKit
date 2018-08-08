@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,7 +25,7 @@ import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
  *
  * @author jiangshicheng
  */
-public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, LayoutManagerAdapter.LayoutManagerViewHolder> {
+public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, LayoutManagerAdapter.LayoutManagerViewHolder, FrameLayout> {
 
     public void onSwiped(int pos) {
         ClassItem item = getItems().get(pos);
@@ -32,9 +33,8 @@ public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, Lay
         addItem(0, item);
     }
 
-    @NonNull
     @Override
-    public LayoutManagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FrameLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
         FrameLayout layout = new FrameLayout(parent.getContext());
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         //
@@ -50,19 +50,24 @@ public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, Lay
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         textView.setTextColor(Color.WHITE);
         layout.addView(textView, params);
-        return new LayoutManagerViewHolder(layout);
+        return layout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LayoutManagerViewHolder holder, int position) {
+    public LayoutManagerViewHolder onCreateViewHolder(@NonNull FrameLayout itemView) {
+        return new LayoutManagerViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindItem(LayoutManagerViewHolder holder, int position, ClassItem item) {
         holder.imageView.setImageResource(R.drawable.header);
-        holder.textView.setText(getItemAtPosition(position).getLabel());
+        holder.textView.setText(item.getLabel());
     }
 
     static class LayoutManagerViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
-        public LayoutManagerViewHolder(FrameLayout layout) {
+        LayoutManagerViewHolder(FrameLayout layout) {
             super(layout);
             imageView = layout.findViewById(R.id.page_empty);
             textView = layout.findViewById(R.id.page_error);

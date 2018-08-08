@@ -12,11 +12,11 @@ import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 import jsc.kit.component.utils.CompatResourceUtils;
 
-public class ClassItemAdapter extends BaseRecyclerViewAdapter<ClassItem, ClassItemAdapter.ClassItemViewHolder> {
+public class ClassItemAdapter extends BaseRecyclerViewAdapter<ClassItem, ClassItemAdapter.ClassItemViewHolder, JSCItemLayout> {
 
-    @NonNull
+
     @Override
-    public ClassItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public JSCItemLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
         JSCItemLayout layout = new JSCItemLayout(parent.getContext());
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, CompatResourceUtils.getDimensionPixelSize(parent, R.dimen.item_height)));
         layout.setBackgroundResource(R.drawable.ripple_round_corner_white_r4);
@@ -32,27 +32,27 @@ public class ClassItemAdapter extends BaseRecyclerViewAdapter<ClassItem, ClassIt
                 0,
                 0
         );
-        return new ClassItemViewHolder(layout);
+        return layout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClassItemViewHolder holder, int position) {
-        holder.layout.setLabel(getItemAtPosition(position).getLabel());
-        holder.layout.showDotView(getItemAtPosition(position).isUpdated());
+    public ClassItemViewHolder onCreateViewHolder(@NonNull JSCItemLayout itemView) {
+        return new ClassItemViewHolder(itemView);
     }
 
-    class ClassItemViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindItem(ClassItemViewHolder holder, int position, ClassItem item) {
+        holder.layout.setLabel(item.getLabel());
+        holder.layout.showDotView(item.isUpdated());
+    }
+
+    static class ClassItemViewHolder extends RecyclerView.ViewHolder {
+
         JSCItemLayout layout;
-        public ClassItemViewHolder(JSCItemLayout layout) {
+
+        ClassItemViewHolder(JSCItemLayout layout) {
             super(layout);
             this.layout = layout;
-            this.layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getOnItemClickListener() != null)
-                        getOnItemClickListener().onItemClick(v, getItemAtPosition(getAdapterPosition()));
-                }
-            });
         }
     }
 }

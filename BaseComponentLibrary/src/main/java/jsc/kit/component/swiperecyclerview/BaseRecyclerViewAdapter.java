@@ -1,7 +1,10 @@
 package jsc.kit.component.swiperecyclerview;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +16,42 @@ import java.util.List;
  *
  * @author jiangshicheng
  */
-public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder, V extends View> extends RecyclerView.Adapter<VH> {
 
     private List<T> items = new ArrayList<>();
     private OnItemClickListener<T> onItemClickListener = null;
     private OnItemLongClickListener<T> onItemLongClickListener = null;
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int index = (int) v.getTag();
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(v, index, getItemAtPosition(index));
+            }
+        }
+    };
+    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            int index = (int) v.getTag();
+            if (onItemLongClickListener != null)
+                return onItemLongClickListener.onItemLongClick(v, index, getItemAtPosition(index));
+            return false;
+        }
+    };
+
+    public BaseRecyclerViewAdapter() {
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
 
     public List<T> getItems() {
         return items;
@@ -53,25 +87,30 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         }
     }
 
-    public void removeItem(int position){
+    public void removeItem(int position) {
         items.remove(position);
         notifyItemRemoved(position);
     }
 
-    public OnItemClickListener<T> getOnItemClickListener() {
-        return onItemClickListener;
+    protected void onBindListener(V itemView) {
+        if (itemView != null){
+            itemView.setOnClickListener(clickListener);
+            itemView.setOnLongClickListener(longClickListener);
+        }
     }
 
-    public OnItemLongClickListener<T> getOnItemLongClickListener() {
-        return onItemLongClickListener;
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        V itemView = onCreateItemView(parent, viewType);
+        onBindListener(itemView);
+        return onCreateViewHolder(itemView);
     }
 
-    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
-        this.onItemLongClickListener = onItemLongClickListener;
+    @Override
+    public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.itemView.setTag(position);
+        onBindItem(holder, position, getItemAtPosition(position));
     }
 
     @Override
@@ -82,4 +121,10 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
     public T getItemAtPosition(int position) {
         return items.get(position);
     }
+
+    public abstract V onCreateItemView(@NonNull ViewGroup parent, int viewType);
+
+    public abstract VH onCreateViewHolder(@NonNull V itemView);
+
+    public abstract void onBindItem(VH holder, int position, T item);
 }

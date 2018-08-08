@@ -18,17 +18,18 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 import jsc.kit.component.widget.AspectRatioFrameLayout;
 import jsc.kit.component.widget.DotView;
 
-public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder> {
+public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder, AspectRatioFrameLayout> {
 
-    @NonNull
+
     @Override
-    public ComponentItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AspectRatioFrameLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
         int radius = CompatResourceUtils.getDimensionPixelSize(parent, R.dimen.space_4);
         AspectRatioFrameLayout aspectRatioLinearLayout = new AspectRatioFrameLayout(parent.getContext());
         aspectRatioLinearLayout.setBaseWhat(0);
@@ -43,25 +44,29 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
             aspectRatioLinearLayout.setElevation(radius);
         }
         aspectRatioLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
-
-        return new ComponentItemViewHolder(aspectRatioLinearLayout);
+        return aspectRatioLinearLayout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ComponentItemViewHolder holder, int position) {
-        String label = getItemAtPosition(position).getLabel();
-        holder.tvShortName.setText(label.substring(0, 1).toUpperCase());
-        holder.tvComponentName.setText(label);
-        holder.dotView.setVisibility(getItemAtPosition(position).isUpdated() ? View.VISIBLE : View.GONE);
+    public ComponentItemViewHolder onCreateViewHolder(@NonNull AspectRatioFrameLayout itemView) {
+        return new ComponentItemViewHolder(itemView);
     }
 
-    class ComponentItemViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindItem(ComponentItemViewHolder holder, int position, ComponentItem item) {
+        String label = item.getLabel();
+        holder.tvShortName.setText(label.substring(0, 1).toUpperCase());
+        holder.tvComponentName.setText(label);
+        holder.dotView.setVisibility(item.isUpdated() ? View.VISIBLE : View.GONE);
+    }
+
+    static class ComponentItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvShortName;
         TextView tvComponentName;
         DotView dotView;
 
-        public ComponentItemViewHolder(AspectRatioFrameLayout itemView) {
+        ComponentItemViewHolder(AspectRatioFrameLayout itemView) {
             super(itemView);
             int size = CompatResourceUtils.getDimensionPixelSize(itemView, R.dimen.space_48);
             FrameLayout.LayoutParams p1 = new FrameLayout.LayoutParams(size, size);
@@ -95,15 +100,6 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
             dotView.setShape(DotView.CIRCULAR);
             dotView.setBackgroundColor(Color.GREEN);
             itemView.addView(dotView, p3);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getOnItemClickListener() != null)
-                        getOnItemClickListener().onItemClick(v, getItemAtPosition(getAdapterPosition()));
-                }
-            });
         }
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)

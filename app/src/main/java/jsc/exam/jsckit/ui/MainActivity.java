@@ -60,8 +60,10 @@ import jsc.kit.component.guide.GuidePopupView;
 import jsc.kit.component.guide.GuidePopupWindow;
 import jsc.kit.component.guide.GuideRippleView;
 import jsc.kit.component.guide.OnCustomClickListener;
+import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.baseui.permission.PermissionChecker;
 import jsc.kit.component.utils.CompatResourceUtils;
@@ -102,13 +104,8 @@ public class MainActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
-            public void onItemClick(View view, ClassItem item) {
+            public void onItemClick(View itemView, int position, ClassItem item) {
                 toNewActivity(item);
-            }
-
-            @Override
-            public void onItemClick(View view, ClassItem item, int adapterPosition, int layoutPosition) {
-
             }
         });
         adapter.setItems(getClassItems());

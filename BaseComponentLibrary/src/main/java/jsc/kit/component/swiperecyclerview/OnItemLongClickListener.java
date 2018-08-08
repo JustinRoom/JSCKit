@@ -10,7 +10,5 @@ import android.view.View;
  * @author jiangshicheng
  */
 public interface OnItemLongClickListener<T> {
-    boolean onItemLongClick(View view, T item);
-
-    boolean onItemLongClick(View view, T item, int adapterPosition, int layoutPosition);
+    boolean onItemLongClick(View itemView, int position, T item);
 }

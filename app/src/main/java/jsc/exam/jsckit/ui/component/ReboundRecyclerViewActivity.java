@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui.component;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,9 +19,12 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
+import jsc.kit.component.utils.CompatResourceUtils;
 
 public class ReboundRecyclerViewActivity extends BaseActivity {
 
@@ -43,13 +47,8 @@ public class ReboundRecyclerViewActivity extends BaseActivity {
         adapter = new ClassItemAdapter();
         adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
             @Override
-            public void onItemClick(View view, ClassItem item) {
+            public void onItemClick(View itemView, int position, ClassItem item) {
                 showCustomToast(item.getLabel());
-            }
-
-            @Override
-            public void onItemClick(View view, ClassItem item, int adapterPosition, int layoutPosition) {
-
             }
         });
         recyclerView.setAdapter(adapter);

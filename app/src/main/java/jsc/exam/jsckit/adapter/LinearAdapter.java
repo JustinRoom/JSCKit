@@ -12,36 +12,34 @@ import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 
-public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder> {
+public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder, JSCItemLayout> {
 
-    @NonNull
     @Override
-    public MViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public JSCItemLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
         int dp16 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, parent.getContext().getResources().getDisplayMetrics());
         JSCItemLayout itemLayout = new JSCItemLayout(parent.getContext());
         itemLayout.setPadding(dp16, dp16, dp16, dp16);
         itemLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         itemLayout.setBackgroundResource(R.drawable.ripple_round_corner_white_r4);
-        return new MViewHolder(itemLayout);
+        return itemLayout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MViewHolder holder, int position) {
-        JSCItemLayout layout = (JSCItemLayout) holder.itemView;
-        layout.setLabel(getItemAtPosition(position).getLabel() + position);
+    public MViewHolder onCreateViewHolder(@NonNull JSCItemLayout itemView) {
+        return new MViewHolder(itemView);
     }
 
-    class MViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindItem(MViewHolder holder, int position, Banner item) {
+        holder.layout.setLabel(item.getLabel() + position);
+    }
 
-        public MViewHolder(JSCItemLayout itemView) {
+    static class MViewHolder extends RecyclerView.ViewHolder {
+
+        JSCItemLayout layout;
+        MViewHolder(JSCItemLayout itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getOnItemClickListener() != null)
-                        getOnItemClickListener().onItemClick(v, getItemAtPosition(getAdapterPosition()));
-                }
-            });
+            layout = itemView;
         }
     }
 }

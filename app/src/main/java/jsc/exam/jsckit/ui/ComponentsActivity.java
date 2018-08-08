@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DividerItemDecoration;
@@ -19,6 +20,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -54,8 +56,12 @@ import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
+import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
+import jsc.kit.component.utils.CompatResourceUtils;
+import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
+import jsc.kit.component.widget.AspectRatioFrameLayout;
 
 public class ComponentsActivity extends BaseActivity {
 
@@ -103,13 +109,8 @@ public class ComponentsActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener<ComponentItem>() {
             @Override
-            public void onItemClick(View view, ComponentItem item) {
+            public void onItemClick(View itemView, int position, ComponentItem item) {
                 toNewActivity(item);
-            }
-
-            @Override
-            public void onItemClick(View view, ComponentItem item, int adapterPosition, int layoutPosition) {
-
             }
         });
         List<ComponentItem> items = getComponentItems();

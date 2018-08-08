@@ -3,6 +3,7 @@ package jsc.exam.jsckit.ui.component;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.DividerItemDecoration;
@@ -31,7 +32,9 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
+import jsc.kit.component.swiperecyclerview.OnCreateViewHolderDelegate;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
 import jsc.kit.component.swiperecyclerview.SwipeRefreshRecyclerView;
@@ -134,23 +137,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         adapter = new LinearAdapter();
         adapter.setOnItemClickListener(new OnItemClickListener<Banner>() {
             @Override
-            public void onItemClick(View view, Banner item) {
-                Toast.makeText(view.getContext(), item.getLabel(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemClick(View view, Banner item, int adapterPosition, int layoutPosition) {
+            public void onItemClick(View itemView, int position, Banner item) {
 
             }
         });
         adapter.setOnItemLongClickListener(new OnItemLongClickListener<Banner>() {
             @Override
-            public boolean onItemLongClick(View view, Banner item) {
-                return false;
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, Banner item, int adapterPosition, int layoutPosition) {
+            public boolean onItemLongClick(View itemView, int position, Banner item) {
                 return false;
             }
         });
