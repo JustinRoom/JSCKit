@@ -24,6 +24,7 @@ import jsc.exam.jsckit.adapter.ComponentItemDecoration;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
+import jsc.exam.jsckit.ui.component.AutoSizeTextViewActivity;
 import jsc.exam.jsckit.ui.component.CameraMaskActivity;
 import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
 import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
@@ -172,8 +173,9 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
-        classItems.add(new ComponentItem("VerticalStep\nLinearLayout", VerticalStepLinearLayoutActivity.class, true));
-        classItems.add(new ComponentItem("LayoutManager", LayoutManagerActivity.class, true));
+        classItems.add(new ComponentItem("AutoSizeTextView", AutoSizeTextViewActivity.class, true));
+        classItems.add(new ComponentItem("VerticalStep\nLinearLayout", VerticalStepLinearLayoutActivity.class));
+        classItems.add(new ComponentItem("LayoutManager", LayoutManagerActivity.class));
         classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));
         classItems.add(new ComponentItem("CameraMask", CameraMaskActivity.class));
         classItems.add(new ComponentItem("ScannerCamera\nMask", ScannerCameraMaskActivity.class));
@@ -187,7 +189,7 @@ public class ComponentsActivity extends BaseActivity {
         classItems.add(new ComponentItem("JSCBannerView", JSCBannerViewActivity.class));
         classItems.add(new ComponentItem("ArcHeaderView", ArcHeaderViewActivity.class));
         classItems.add(new ComponentItem("MonthView", MonthViewActivity.class));
-        classItems.add(new ComponentItem("VerticalStepView", VerticalStepViewActivity.class, true));
+        classItems.add(new ComponentItem("VerticalStepView", VerticalStepViewActivity.class));
         classItems.add(new ComponentItem("JSCRoundCorner\nProgressBar", JSCRoundCornerProgressBarActivity.class));
         classItems.add(new ComponentItem("JSCItemLayout", JSCItemLayoutActivity.class));
         classItems.add(new ComponentItem("VScrollScreen\nLayout", VScrollScreenLayoutActivity.class));

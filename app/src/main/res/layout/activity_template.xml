@@ -5,55 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <jsc.kit.component.stepview.VerticalStepLinearLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:showDividers="middle"
-        android:dividerPadding="@dimen/space_16"
-        android:divider="@drawable/linear_layout_space_line_shape"
-        android:paddingLeft="@dimen/space_32"
-        android:paddingRight="@dimen/space_32">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:text="To enable all community members to contribute and participate in the success of the Open Badges ecosystem, there are many opportunities to be involved. IMS Global Learning Consortium will be guiding the Specification development process effective January 1, 2017, and will continue to rely on the support and advocacy of the Open Badges community in the ongoing development of the Specification. See IMS Transition FAQ" />
+        <jsc.kit.component.widget.AutoTextSizeView
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:layout_width="80dp"
+            android:layout_height="32dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:text="Community contributions will be encouraged through a public form to ensure all inputs are heard and considered. Meeting agendas, minutes, and working group decisions will be published for viewing by anyone who opens a free account on the IMS website." />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:text="An Open Badges Community Council will bring together a vibrant and effective channel of community thought leaders and experts. The Community Council will enable all organizations and individuals, that wish to contribute, be recognized for their advancement of Open Badges via a profile published on the Open Badges website." />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:text="IMS will be establishing a process for joining the Community Council. Contact us to receive further information." />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/space_16"
-            android:text="IMS members will seek input from the larger community, as described above, and maintain a transparent governance process when making formal decisions related to the Specification. In addition, an Open Badges executive board will set priorities for the development and adoption of the Open Badges Specification. IMS Contributing Members who are leaders in Open Badges issuing platforms will be invited to participate on the board." />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/space_16"
-            android:text="If your organization has a stake in the future of digital credentials, learn more about IMS Global membership." />
-
-    </jsc.kit.component.stepview.VerticalStepLinearLayout>
+    </LinearLayout>
 
 </ScrollView>

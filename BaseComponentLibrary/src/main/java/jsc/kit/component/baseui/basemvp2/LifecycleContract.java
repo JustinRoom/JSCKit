@@ -8,18 +8,19 @@ package jsc.kit.component.baseui.basemvp2;
  * @author jiangshicheng
  */
 public interface LifecycleContract {
-    public interface Presenter extends IBasePresenter<View>{
-        public void start();
-        public void resume();
-        public void pause();
-        public void stop();
-        public void destroy();
-    }
-    public interface View {
+    public interface Model extends IBaseModel {}
+    public interface View extends IBaseView {
         public void onLifecycleStart();
         public void onLifecycleResume();
         public void onLifecyclePause();
         public void onLifecycleStop();
         public void onLifecycleDestroy();
+    }
+    public interface Presenter {
+        public void start();
+        public void resume();
+        public void pause();
+        public void stop();
+        public void destroy();
     }
 }

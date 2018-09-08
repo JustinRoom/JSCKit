@@ -1,9 +1,5 @@
 package jsc.kit.component.baseui.basemvp2;
 
-import android.support.annotation.NonNull;
-
-import java.lang.ref.WeakReference;
-
 /**
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
@@ -13,26 +9,34 @@ import java.lang.ref.WeakReference;
  */
 public class TemplatePresenterImpl implements TemplateContract.Presenter {
 
-    private WeakReference<TemplateContract.View> viewWeakReference = null;
 
-    public TemplatePresenterImpl() {}
+    @Override
+    public void attachModel(TemplateContract.Model model) {
 
-    public TemplatePresenterImpl(@NonNull TemplateContract.View v) {
-        attach(v);
     }
 
     @Override
-    public void attach(@NonNull TemplateContract.View v) {
-        viewWeakReference = new WeakReference<>(v);
+    public boolean isModelAttached() {
+        return false;
     }
 
     @Override
-    public boolean isAttached() {
-        return viewWeakReference != null && viewWeakReference.get() != null;
+    public TemplateContract.Model model() {
+        return null;
+    }
+
+    @Override
+    public void attachView(TemplateContract.View view) {
+
+    }
+
+    @Override
+    public boolean isViewAttached() {
+        return false;
     }
 
     @Override
     public TemplateContract.View view() {
-        return viewWeakReference == null ? null : viewWeakReference.get();
+        return null;
     }
 }

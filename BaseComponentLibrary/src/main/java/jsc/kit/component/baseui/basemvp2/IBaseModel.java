@@ -7,11 +7,5 @@ package jsc.kit.component.baseui.basemvp2;
  *
  * @author jiangshicheng
  */
-public interface IBasePresenter<M, V> {
-    public void attachModel(M m);
-    public boolean isModelAttached();
-    public M model();
-    public void attachView(V v);
-    public boolean isViewAttached();
-    public V view();
+public interface IBaseModel {
 }

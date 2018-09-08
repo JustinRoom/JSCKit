@@ -11,55 +11,35 @@ import java.lang.ref.WeakReference;
  *
  * @author jiangshicheng
  */
-public class LifecyclePresenterImpl implements LifecycleContract.Presenter {
-
-    private WeakReference<LifecycleContract.View> viewWeakReference = null;
-
-    public LifecyclePresenterImpl() {}
-
-    public LifecyclePresenterImpl(@NonNull LifecycleContract.View v) {
-        attach(v);
-    }
-
-    public void attach(@NonNull LifecycleContract.View v) {
-        viewWeakReference = new WeakReference<>(v);
-    }
-
-    public boolean isAttached() {
-        return viewWeakReference != null && viewWeakReference.get() != null;
-    }
-
-    public LifecycleContract.View view() {
-        return viewWeakReference.get();
-    }
+public class LifecyclePresenterImpl extends BasePresenterImpl<LifecycleContract.Model, LifecycleContract.View> implements LifecycleContract.Presenter {
 
     @Override
     public void start() {
-        if (isAttached())
+        if (isViewAttached())
             view().onLifecycleStart();
     }
 
     @Override
     public void resume() {
-        if (isAttached())
+        if (isViewAttached())
             view().onLifecycleResume();
     }
 
     @Override
     public void pause() {
-        if (isAttached())
+        if (isViewAttached())
             view().onLifecyclePause();
     }
 
     @Override
     public void stop() {
-        if (isAttached())
+        if (isViewAttached())
             view().onLifecycleStop();
     }
 
     @Override
     public void destroy() {
-        if (isAttached())
+        if (isViewAttached())
             view().onLifecycleDestroy();
     }
 }

@@ -8,10 +8,7 @@ package jsc.kit.component.baseui.basemvp2;
  * @author jiangshicheng
  */
 public interface TemplateContract {
-    public interface Presenter extends IBasePresenter<View>{
-
-    }
-    public interface View {
-
-    }
+    public interface Model extends IBaseModel {}
+    public interface View extends IBaseView {}
+    public interface Presenter extends IBasePresenter<Model, View> {}
 }

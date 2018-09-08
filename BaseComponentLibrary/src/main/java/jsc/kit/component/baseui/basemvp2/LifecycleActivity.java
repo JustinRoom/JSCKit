@@ -17,12 +17,12 @@ import jsc.kit.component.baseui.BaseAppCompatActivity;
  */
 public abstract class LifecycleActivity extends BaseAppCompatActivity implements LifecycleContract.View{
 
-    private LifecycleContract.Presenter presenter = new LifecyclePresenterImpl();
+    private LifecyclePresenterImpl presenter = new LifecyclePresenterImpl();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter.attach(this);
+        presenter.attachView(this);
     }
 
     @Override

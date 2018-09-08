@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("ZXingQRCode", ZXingQRCodeActivity.class));
         classItems.add(new ClassItem("Retrofit2", Retrofit2Activity.class));
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
-        classItems.add(new ClassItem("CustomToast", CustomToastActivity.class, true));
+        classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
         classItems.add(new ClassItem("Photo", PhotoActivity.class));
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
@@ -146,6 +146,7 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("BaseView", BaseViewShowActivity.class));
         classItems.add(new ClassItem("EmptyFragment", EmptyFragmentActivity.class));
         classItems.add(new ClassItem("Camera2Fragment", EmptyFragmentActivity.class));
+        classItems.add(new ClassItem("FragmentBackHelper", FragmentBackHelperActivity.class, true));
         classItems.add(new ClassItem("About", AboutActivity.class));
         return classItems;
     }
