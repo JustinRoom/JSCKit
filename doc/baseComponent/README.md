@@ -66,6 +66,8 @@ allprojects {
 | 27 | [**VerticalStepLinearLayout**](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java) | [***超级酷炫的Step View，不看你会后悔***](https://www.jianshu.com/p/ccf64bf2e3ed) |
 | 28 | [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java) | [**强大实用的功能引导组件**](https://www.jianshu.com/p/c1aaddd93245) |
 | 29 | [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java) | [***同上***](https://www.jianshu.com/p/c1aaddd93245) |
+| 30 | [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java) |  |
+| 31 | [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java) |  |
 
 ### Usage examples：
 
@@ -131,3 +133,8 @@ add guide navigation components:
 + [GuidePopupView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupView.java)
 + [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
 + [GuideDialog](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideDialog.java)
+
+## v0.4.5:
+add some components:
++ [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java)
++ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
