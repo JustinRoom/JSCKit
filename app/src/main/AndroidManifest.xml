@@ -62,6 +62,7 @@
         <activity android:name=".ui.component.VerticalStepLinearLayoutActivity" />
         <activity android:name=".ui.FragmentBackHelperActivity" />
         <activity android:name=".ui.component.AutoSizeTextViewActivity" />
+        <activity android:name=".ui.FragmentBackHelperActivity2" />
 
         <!-- Android 7.0 照片、APK下载保存路径-->
         <provider
