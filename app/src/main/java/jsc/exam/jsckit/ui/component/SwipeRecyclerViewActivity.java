@@ -29,6 +29,7 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.adapter.LinearAdapter;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.exam.jsckit.ui.BaseActivity;
+import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.swiperecyclerview.OnItemLongClickListener;
@@ -129,16 +130,16 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         });
 */
         adapter = new LinearAdapter();
-        adapter.setOnItemClickListener(new OnItemClickListener<Banner>() {
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Banner>() {
             @Override
-            public void onItemClick(View itemView, int position, Banner item) {
+            public void onItemClick(View itemView, int position, Banner item, int viewType) {
 
             }
         });
-        adapter.setOnItemLongClickListener(new OnItemLongClickListener<Banner>() {
+        adapter.setOnItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<Banner>() {
             @Override
-            public boolean onItemLongClick(View itemView, int position, Banner item) {
-                return false;
+            public boolean onItemLongClick(View itemView, int position, Banner item, int viewType) {
+                return true;
             }
         });
         //设置适配器

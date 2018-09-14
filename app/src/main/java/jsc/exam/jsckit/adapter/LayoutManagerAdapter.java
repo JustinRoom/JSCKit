@@ -17,6 +17,7 @@ import java.util.List;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.swiperecyclerview.BaseViewHolder;
 
 /**
  * <br>Email:1006368252@qq.com
@@ -25,7 +26,18 @@ import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
  *
  * @author jiangshicheng
  */
-public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, LayoutManagerAdapter.LayoutManagerViewHolder, FrameLayout> {
+public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, BaseViewHolder> {
+
+    public LayoutManagerAdapter() {
+    }
+
+    public LayoutManagerAdapter(int layoutId) {
+        super(layoutId);
+    }
+
+    public LayoutManagerAdapter(int layoutId, boolean itemClickEnable, boolean itemLongClickEnable) {
+        super(layoutId, itemClickEnable, itemLongClickEnable);
+    }
 
     public void onSwiped(int pos) {
         ClassItem item = getItems().get(pos);
@@ -34,7 +46,7 @@ public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, Lay
     }
 
     @Override
-    public FrameLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
+    public View createView(@NonNull ViewGroup parent, int viewType) {
         FrameLayout layout = new FrameLayout(parent.getContext());
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         //
@@ -54,23 +66,14 @@ public class LayoutManagerAdapter extends BaseRecyclerViewAdapter<ClassItem, Lay
     }
 
     @Override
-    public LayoutManagerViewHolder onCreateViewHolder(@NonNull FrameLayout itemView) {
-        return new LayoutManagerViewHolder(itemView);
+    public void bindViewHolder(@NonNull BaseViewHolder holder, int position, ClassItem item, int viewType) {
+        holder.setImageResource(R.id.page_empty, R.drawable.header);
+        holder.setText(R.id.page_error, item.getLabel());
     }
 
+    @NonNull
     @Override
-    public void onBindItem(LayoutManagerViewHolder holder, int position, ClassItem item) {
-        holder.imageView.setImageResource(R.drawable.header);
-        holder.textView.setText(item.getLabel());
-    }
-
-    static class LayoutManagerViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
-        LayoutManagerViewHolder(FrameLayout layout) {
-            super(layout);
-            imageView = layout.findViewById(R.id.page_empty);
-            textView = layout.findViewById(R.id.page_error);
-        }
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new BaseViewHolder(createView(parent, viewType));
     }
 }

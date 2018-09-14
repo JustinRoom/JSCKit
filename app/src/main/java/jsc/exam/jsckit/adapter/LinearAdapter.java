@@ -11,11 +11,23 @@ import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.Banner;
 import jsc.kit.component.itemlayout.JSCItemLayout;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.swiperecyclerview.BaseViewHolder;
 
-public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder, JSCItemLayout> {
+public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter.MViewHolder> {
+
+    public LinearAdapter() {
+    }
+
+    public LinearAdapter(int layoutId) {
+        super(layoutId);
+    }
+
+    public LinearAdapter(int layoutId, boolean itemClickEnable, boolean itemLongClickEnable) {
+        super(layoutId, itemClickEnable, itemLongClickEnable);
+    }
 
     @Override
-    public JSCItemLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
+    public View createView(@NonNull ViewGroup parent, int viewType) {
         int dp16 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, parent.getContext().getResources().getDisplayMetrics());
         JSCItemLayout itemLayout = new JSCItemLayout(parent.getContext());
         itemLayout.setPadding(dp16, dp16, dp16, dp16);
@@ -24,17 +36,19 @@ public class LinearAdapter extends BaseRecyclerViewAdapter<Banner, LinearAdapter
         return itemLayout;
     }
 
+    @NonNull
     @Override
-    public MViewHolder onCreateViewHolder(@NonNull JSCItemLayout itemView) {
-        return new MViewHolder(itemView);
+    public MViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        JSCItemLayout v = (JSCItemLayout) createView(parent, viewType);
+        return new MViewHolder(v);
     }
 
     @Override
-    public void onBindItem(MViewHolder holder, int position, Banner item) {
+    public void bindViewHolder(@NonNull MViewHolder holder, int position, Banner item, int viewType) {
         holder.layout.setLabel(item.getLabel() + position);
     }
 
-    static class MViewHolder extends RecyclerView.ViewHolder {
+    static class MViewHolder extends BaseViewHolder {
 
         JSCItemLayout layout;
         MViewHolder(JSCItemLayout itemView) {

@@ -19,6 +19,7 @@ import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
+import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 import jsc.kit.component.swiperecyclerview.BlankSpaceItemDecoration;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 
@@ -41,9 +42,9 @@ public class ReboundRecyclerViewActivity extends BaseActivity {
                 0
         ));
         adapter = new ClassItemAdapter();
-        adapter.setOnItemClickListener(new OnItemClickListener<ClassItem>() {
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ClassItem>() {
             @Override
-            public void onItemClick(View itemView, int position, ClassItem item) {
+            public void onItemClick(View itemView, int position, ClassItem item, int viewType) {
                 showCustomToast(item.getLabel());
             }
         });

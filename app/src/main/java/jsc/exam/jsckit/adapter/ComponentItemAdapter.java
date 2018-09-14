@@ -18,17 +18,28 @@ import android.widget.TextView;
 import jsc.exam.jsckit.R;
 import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
+import jsc.kit.component.swiperecyclerview.BaseViewHolder;
 import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 import jsc.kit.component.widget.AspectRatioFrameLayout;
 import jsc.kit.component.widget.DotView;
 
-public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder, AspectRatioFrameLayout> {
+public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder> {
 
+    public ComponentItemAdapter() {
+    }
+
+    public ComponentItemAdapter(int layoutId) {
+        super(layoutId);
+    }
+
+    public ComponentItemAdapter(int layoutId, boolean itemClickEnable, boolean itemLongClickEnable) {
+        super(layoutId, itemClickEnable, itemLongClickEnable);
+    }
 
     @Override
-    public AspectRatioFrameLayout onCreateItemView(@NonNull ViewGroup parent, int viewType) {
+    public View createView(@NonNull ViewGroup parent, int viewType) {
         int radius = CompatResourceUtils.getDimensionPixelSize(parent, R.dimen.space_4);
         AspectRatioFrameLayout aspectRatioLinearLayout = new AspectRatioFrameLayout(parent.getContext());
         aspectRatioLinearLayout.setBaseWhat(0);
@@ -46,20 +57,22 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
         return aspectRatioLinearLayout;
     }
 
+    @NonNull
     @Override
-    public ComponentItemViewHolder onCreateViewHolder(@NonNull AspectRatioFrameLayout itemView) {
-        return new ComponentItemViewHolder(itemView);
+    public ComponentItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        AspectRatioFrameLayout v = (AspectRatioFrameLayout) createView(parent, viewType);
+        return new ComponentItemViewHolder(v);
     }
 
     @Override
-    public void onBindItem(ComponentItemViewHolder holder, int position, ComponentItem item) {
+    public void bindViewHolder(@NonNull ComponentItemViewHolder holder, int position, ComponentItem item, int viewType) {
         String label = item.getLabel();
         holder.tvShortName.setText(label.substring(0, 1).toUpperCase());
         holder.tvComponentName.setText(label);
         holder.dotView.setVisibility(item.isUpdated() ? View.VISIBLE : View.GONE);
     }
 
-    static class ComponentItemViewHolder extends RecyclerView.ViewHolder {
+    static class ComponentItemViewHolder extends BaseViewHolder {
 
         TextView tvShortName;
         TextView tvComponentName;

@@ -35,7 +35,7 @@ public class LayoutManagerActivity extends BaseActivity {
         frameLayout.setxAspect(4);
         frameLayout.setyAspect(3);
         setContentView(frameLayout, params);
-        setTitle(getClass().getSimpleName().replace("Activity", ""));
+        setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         //
         RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(new OverLayCardLayoutManager(5,margin, margin));

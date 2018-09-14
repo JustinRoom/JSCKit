@@ -46,6 +46,7 @@ import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
+import jsc.kit.component.swiperecyclerview.BaseRecyclerViewAdapter;
 import jsc.kit.component.swiperecyclerview.OnItemClickListener;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
 
@@ -93,9 +94,9 @@ public class ComponentsActivity extends BaseActivity {
 
         adapter = new ComponentItemAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener<ComponentItem>() {
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ComponentItem>() {
             @Override
-            public void onItemClick(View itemView, int position, ComponentItem item) {
+            public void onItemClick(View itemView, int position, ComponentItem item, int viewType) {
                 toNewActivity(item);
             }
         });
