@@ -43,6 +43,8 @@ import jsc.exam.jsckit.ui.component.VScrollScreenLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalColumnarGraphViewActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepLinearLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
+import jsc.exam.jsckit.ui.fragment.DefaultFragment;
+import jsc.exam.jsckit.ui.fragment.LineChartViewFragment;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
@@ -162,19 +164,34 @@ public class ComponentsActivity extends BaseActivity {
     }
 
     private void toNewActivity(ComponentItem item){
-        Intent mIntent = new Intent();
-        mIntent.setClass(this, item.getCls());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mIntent.putExtra("transition", TransitionEnum.SLIDE.getLabel());
-            startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        if (item.getCls().getSimpleName().equals(EmptyFragmentActivity.class.getSimpleName())){
+            Bundle bundle = new Bundle();
+//            bundle.putString(DefaultFragment.EXTRA_CONTENT, "empty activity with fragment");
+            bundle.putString(EmptyFragmentActivity.EXTRA_TITLE, item.getLabel());
+            bundle.putBoolean(EmptyFragmentActivity.EXTRA_FULL_SCREEN, false);
+            bundle.putString(EmptyFragmentActivity.EXTRA_FRAGMENT_CLASS_NAME, item.getFragmentClassName());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                bundle.putString("transition", TransitionEnum.SLIDE.getLabel());
+                EmptyFragmentActivity.launchTransition(this, bundle, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            } else {
+                EmptyFragmentActivity.launch(this, bundle);
+            }
         } else {
-            startActivity(mIntent);
+            Intent mIntent = new Intent();
+            mIntent.setClass(this, item.getCls());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mIntent.putExtra("transition", TransitionEnum.SLIDE.getLabel());
+                startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            } else {
+                startActivity(mIntent);
+            }
         }
     }
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
-        classItems.add(new ComponentItem("AutoSizeTextView", AutoSizeTextViewActivity.class, true));
+        classItems.add(new ComponentItem("LineChartView", EmptyFragmentActivity.class, true, LineChartViewFragment.class.getName()));
+        classItems.add(new ComponentItem("AutoSizeTextView", AutoSizeTextViewActivity.class));
         classItems.add(new ComponentItem("VerticalStep\nLinearLayout", VerticalStepLinearLayoutActivity.class));
         classItems.add(new ComponentItem("LayoutManager", LayoutManagerActivity.class));
         classItems.add(new ComponentItem("VerticalColumnar\nGraphView", VerticalColumnarGraphViewActivity.class));

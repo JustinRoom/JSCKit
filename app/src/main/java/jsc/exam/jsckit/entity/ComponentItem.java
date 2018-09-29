@@ -2,7 +2,7 @@ package jsc.exam.jsckit.entity;
 
 public class ComponentItem extends ClassItem{
 
-    private String shortName;
+    private String fragmentClassName;
 
     public ComponentItem() {
     }
@@ -15,11 +15,16 @@ public class ComponentItem extends ClassItem{
         super(label, cls, updated);
     }
 
-    public String getShortName() {
-        return shortName;
+    public ComponentItem(String label, Class<?> cls, boolean updated, String fragmentClassName) {
+        super(label, cls, updated);
+        this.fragmentClassName = fragmentClassName;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public String getFragmentClassName() {
+        return fragmentClassName;
+    }
+
+    public void setFragmentClassName(String fragmentClassName) {
+        this.fragmentClassName = fragmentClassName;
     }
 }
