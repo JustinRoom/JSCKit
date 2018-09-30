@@ -107,20 +107,20 @@ public class AverageLayout extends ViewGroup implements IViewAttrDelegate{
         if (childCount > 0){
             switch (orientation){
                 case HORIZONTAL:
-                    int avWidth = width / childCount;
+                    int avWidth = (width - getPaddingLeft() - getPaddingRight()) / childCount;
                     for (int i = 0; i < childCount; i++) {
                         View child = getChildAt(i);
-                        left = i * avWidth + (avWidth - child.getMeasuredWidth()) / 2;
+                        left = getPaddingLeft() + i * avWidth + (avWidth - child.getMeasuredWidth()) / 2;
                         top = (height - child.getMeasuredHeight()) / 2;
                         child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
                     }
                     break;
                 case VERTICAL:
-                    int avHeight = height / childCount;
+                    int avHeight = (height - getPaddingTop() - getPaddingBottom()) / childCount;
                     for (int i = 0; i < childCount; i++) {
                         View child = getChildAt(i);
                         left = (width - child.getMeasuredWidth()) / 2;
-                        top = i * avHeight + (avHeight - child.getMeasuredHeight()) / 2;
+                        top = getPaddingTop() + i * avHeight + (avHeight - child.getMeasuredHeight()) / 2;
                         child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
                     }
                     break;
