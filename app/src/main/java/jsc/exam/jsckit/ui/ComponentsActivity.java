@@ -25,6 +25,7 @@ import jsc.exam.jsckit.entity.ComponentItem;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.exam.jsckit.ui.component.ArcHeaderViewActivity;
 import jsc.exam.jsckit.ui.component.AutoSizeTextViewActivity;
+import jsc.exam.jsckit.ui.component.AverageLayoutActivity;
 import jsc.exam.jsckit.ui.component.CameraMaskActivity;
 import jsc.exam.jsckit.ui.component.JSCBannerViewActivity;
 import jsc.exam.jsckit.ui.component.JSCItemLayoutActivity;
@@ -190,6 +191,7 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
+        classItems.add(new ComponentItem("AverageLayout", AverageLayoutActivity.class, true));
         classItems.add(new ComponentItem("LineChartView", EmptyFragmentActivity.class, true, LineChartViewFragment.class.getName()));
         classItems.add(new ComponentItem("AutoSizeTextView", AutoSizeTextViewActivity.class));
         classItems.add(new ComponentItem("VerticalStep\nLinearLayout", VerticalStepLinearLayoutActivity.class));
