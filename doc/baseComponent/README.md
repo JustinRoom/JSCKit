@@ -137,7 +137,7 @@ add guide navigation components:
 ## v0.4.5:
 add some components:
 + [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java)
-+ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)## v0.4.5:
++ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
 
 ## v0.4.6:
 add some components:
