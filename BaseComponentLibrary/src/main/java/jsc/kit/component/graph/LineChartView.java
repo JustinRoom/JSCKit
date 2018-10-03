@@ -20,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import jsc.kit.component.IViewAttrDelegate;
@@ -39,7 +41,7 @@ public class LineChartView extends View implements IViewAttrDelegate {
     private LabelItem[] xLabels = null;
     private LabelItem[] yLabels = null;
     private float defaultTextSize;
-    private ColumnarItem[] data = null;
+    private List<LineItem> lineItems = new ArrayList<>();
     private int xSpace;
     private int ySpace;
     private Rect clipRect = new Rect();
@@ -55,8 +57,9 @@ public class LineChartView extends View implements IViewAttrDelegate {
     private boolean showScale = true;
     private float scaleLength = 5.0f;
 
-    private int axisColor = Color.BLUE;
-    private int backgroundColor = Color.WHITE;
+    private int axisColor = 0xFF04DB5B;
+    private int otherAreaColor = 0xFF0D4822;
+    private int lineChartAreaColor = 0xFF0D4721;
 
     public LineChartView(Context context) {
         super(context);
@@ -76,6 +79,7 @@ public class LineChartView extends View implements IViewAttrDelegate {
     @Override
     public void initAttr(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 //        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        setLayerType(LAYER_TYPE_HARDWARE, null);
         defaultTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, context.getResources().getDisplayMetrics());
         ySpace = xSpace = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, context.getResources().getDisplayMetrics());
         if (isInEditMode())
@@ -87,7 +91,7 @@ public class LineChartView extends View implements IViewAttrDelegate {
         xLabels = new LabelItem[size];
         for (int i = 0; i < xLabels.length; i++) {
             LabelItem item = new LabelItem();
-            item.setLabel(i + "月");
+            item.setLabel("第" + (i + 1) + "周");
             xLabels[i] = item;
         }
 
@@ -99,13 +103,20 @@ public class LineChartView extends View implements IViewAttrDelegate {
             yLabels[i] = item;
         }
 
-        data = new ColumnarItem[size];
-        Random random = new Random();
-        for (int i = 0; i < data.length; i++) {
-            ColumnarItem item = new ColumnarItem();
-            item.setRatio(random.nextFloat());
-            data[i] = item;
+        lineItems.clear();
+        int[] lineColors = new int[]{Color.GRAY, Color.RED, 0xFFF8E71C};
+        for (int i = 0; i < lineColors.length; i++) {
+            DataItem[] data = new DataItem[size];
+            Random random = new Random();
+            for (int j = 0; j < data.length; j++) {
+                DataItem item = new DataItem();
+                item.setRatio(random.nextFloat());
+                data[j] = item;
+            }
+            lineItems.add(new LineItem(lineColors[i], data));
         }
+
+        xSpace = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
     }
 
     public void applyTestData(){
@@ -145,13 +156,19 @@ public class LineChartView extends View implements IViewAttrDelegate {
         setScrollX(0);
     }
 
+    public void clearData(){
+        lineItems.clear();
+        invalidate();
+        setScrollX(0);
+    }
+
     /**
-     * Show data.
      *
+     * @param lineColor the color of line chart
      * @param data data
      */
-    public void setData(ColumnarItem[] data) {
-        this.data = data;
+    public void addLine(@ColorInt int lineColor, DataItem[] data){
+        lineItems.add(new LineItem(lineColor, data));
         invalidate();
         setScrollX(0);
     }
@@ -177,9 +194,15 @@ public class LineChartView extends View implements IViewAttrDelegate {
         invalidate();
     }
 
-    @Override
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    /**
+     * Set colors.
+     *
+     * @param chartAreaColor the color of line chart area
+     * @param otherAreaColor the color of other except the line chart area
+     */
+    public void setColors(int chartAreaColor, int otherAreaColor){
+        this.lineChartAreaColor = chartAreaColor;
+        this.otherAreaColor = otherAreaColor;
         invalidate();
     }
 
@@ -292,9 +315,29 @@ public class LineChartView extends View implements IViewAttrDelegate {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        invalidate();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        setLayerType(LAYER_TYPE_NONE, null);
+        super.onDetachedFromWindow();
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(backgroundColor);
+        super.onDraw(canvas);
         clipRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
+        //draw line chart area background
+        paint.setColor(lineChartAreaColor);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(clipRect.left, 0, getWidth(), clipRect.bottom, paint);
+        //draw other area background
+        paint.setColor(otherAreaColor);
+        canvas.drawRect(0, 0, clipRect.left, clipRect.bottom, paint);
+        canvas.drawRect(0, clipRect.bottom, getWidth(), getHeight(), paint);
 
         paint.setColor(axisColor);
         paint.setStyle(Paint.Style.STROKE);
@@ -332,7 +375,9 @@ public class LineChartView extends View implements IViewAttrDelegate {
         drawDashGrid(canvas, height, xLabelCount, yLabelCount);
 
         //draw data
-        drawData(canvas, height, 1, Color.RED, 4.0f, Color.GREEN);
+        for (LineItem item : lineItems) {
+            drawData(canvas, item.getData(), height, 3, item.getLineColor(), 4.0f, Color.GREEN);
+        }
 
         //draw y coordinate axis for floating
         drawFloatingYAxis(canvas, getScrollX(), yLabelCount);
@@ -391,16 +436,16 @@ public class LineChartView extends View implements IViewAttrDelegate {
      * @param dotRadius the radius of dot
      * @param dotColor the color of dot
      */
-    private void drawData(Canvas canvas, int height, float lineWidth, int lineColor, float dotRadius, int dotColor){
+    private void drawData(Canvas canvas, DataItem[] data, int height, float lineWidth, int lineColor, float dotRadius, int dotColor){
         int dataCount = data == null ? 0 : data.length;
         if (dataCount <= 0)
             return;
 
-        PointF[] points = new PointF[dataCount];
+//        PointF[] points = new PointF[dataCount];
         path.reset();
         float x, y;
         for (int i = 0; i < dataCount; i++) {
-            ColumnarItem item = data[i];
+            DataItem item = data[i];
             x = clipRect.left + i * xSpace;
             y = clipRect.bottom;
             if (item != null)
@@ -409,20 +454,19 @@ public class LineChartView extends View implements IViewAttrDelegate {
                 path.moveTo(x, y);
             else
                 path.lineTo(x, y);
-            points[i] = new PointF(x, y);
-        }
-        if (dataCount > 1){
-            paint.setColor(lineColor);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(lineWidth);
-            canvas.drawPath(path, paint);
+//            points[i] = new PointF(x, y);
         }
 
-        paint.setColor(dotColor);
-        paint.setStyle(Paint.Style.FILL);
-        for (PointF p: points) {
-            canvas.drawCircle(p.x, p.y, dotRadius, paint);
-        }
+        paint.setColor(lineColor);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(lineWidth);
+        canvas.drawPath(path, paint);
+
+//        paint.setColor(dotColor);
+//        paint.setStyle(Paint.Style.FILL);
+//        for (PointF p: points) {
+//            canvas.drawCircle(p.x, p.y, dotRadius, paint);
+//        }
     }
 
     /**
@@ -436,7 +480,7 @@ public class LineChartView extends View implements IViewAttrDelegate {
         if (scrollX <=0)
             return;
 
-        paint.setColor(backgroundColor);
+        paint.setColor(otherAreaColor);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawRect(0, 0, clipRect.left + scrollX, clipRect.bottom, paint);
 

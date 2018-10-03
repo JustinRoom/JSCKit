@@ -20,7 +20,7 @@ public class LabelItem {
     private String label;//标签
 
     public LabelItem() {
-        color = 0xFF333333;
+        color = 0xFF04DB5B;
     }
 
     public LabelItem(@ColorInt int color, @FloatRange(from = 0) float size, String label) {

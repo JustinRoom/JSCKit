@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/space_32"
         android:paddingLeft="@dimen/space_32"
-        android:paddingRight="@dimen/space_10"
+        android:paddingRight="@dimen/space_16"
         android:paddingTop="10dp" />
 
     <Button
