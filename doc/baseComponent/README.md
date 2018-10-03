@@ -137,4 +137,9 @@ add guide navigation components:
 ## v0.4.5:
 add some components:
 + [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java)
-+ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
++ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)## v0.4.5:
+
+## v0.4.6:
+add some components:
++ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)
++ [LineChartView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph/LineChartView.java)
