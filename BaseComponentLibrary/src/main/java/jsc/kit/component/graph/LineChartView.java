@@ -105,12 +105,14 @@ public class LineChartView extends View implements IViewAttrDelegate {
 
         lineItems.clear();
         int[] lineColors = new int[]{Color.GRAY, Color.RED, 0xFFF8E71C};
+        Random random = new Random();
         for (int i = 0; i < lineColors.length; i++) {
             DataItem[] data = new DataItem[size];
-            Random random = new Random();
             for (int j = 0; j < data.length; j++) {
+                boolean add = random.nextBoolean();
+                int value = add ? 60 + random.nextInt(30) : 70 - random.nextInt(30);
                 DataItem item = new DataItem();
-                item.setRatio(random.nextFloat());
+                item.setRatio(value / 100.0f);
                 data[j] = item;
             }
             lineItems.add(new LineItem(lineColors[i], data));
@@ -270,12 +272,12 @@ public class LineChartView extends View implements IViewAttrDelegate {
                     from = scrollX;
                     to = 0;
                     if (canMove)
-                        post(r);
+                        postDelayed(r, 10);
                 } else if (scrollX > 0 && (scrollX + visibleWidth > getMeasuredWidth())){
                     from = scrollX;
                     to = getMeasuredWidth() - visibleWidth;
                     if (canMove)
-                        post(r);
+                        postDelayed(r, 10);
                 }
                 break;
         }
