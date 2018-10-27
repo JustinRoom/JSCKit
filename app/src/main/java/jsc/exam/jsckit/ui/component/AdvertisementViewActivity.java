@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import jsc.exam.jsckit.Configration;
+import jsc.exam.jsckit.R;
 import jsc.kit.component.advertisement.AdvertisementView;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
@@ -36,7 +37,10 @@ public class AdvertisementViewActivity extends AppCompatActivity {
         //这样设计是为了方便调用者使用不同的图片加载框架。比如Picsso、Fresco、ImageLoader...
 //        advertisementView.getImageView().setImageResource(R.drawable.header);
         String picPathName = SharePreferencesUtils.getInstance().getString(Configration.SP_ADVERTISEMENT_PICTURE);
-        loadPicture(new File(picPathName));
+        if (new File(picPathName).exists())
+            loadPicture(new File(picPathName));
+        else
+            advertisementView.getImageView().setImageResource(R.drawable.header);
 
         advertisementView.init(5000, 1000, new AdvertisementView.OnComponentActionListener() {
             @Override
@@ -59,7 +63,7 @@ public class AdvertisementViewActivity extends AppCompatActivity {
         });
     }
 
-    private void loadPicture(File file){
+    private void loadPicture(File file) {
         InputStream is = null;
         try {
             is = new FileInputStream(file);

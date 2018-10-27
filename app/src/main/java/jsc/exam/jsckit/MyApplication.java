@@ -4,20 +4,19 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.Log;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import jsc.exam.jsckit.ui.PhotoActivity;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
 public class MyApplication extends Application {
 
+    public static final long ADVERTISEMENT_INTERNAL_TIME = 2 * 60 * 60 * 1000;//2小时
     private final String TAG = getClass().getSimpleName();
     private int mFinalCount;
-    private List<String> advertisementFilter = new ArrayList<>();
+    private ArrayMap<String, String> advertisementFilter = new ArrayMap<>();
     private ActivityLifecycleCallbacks activityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -29,11 +28,18 @@ public class MyApplication extends Application {
             mFinalCount++;
             Log.e(TAG, "onActivityStarted: " + activity.getClass().getSimpleName() + ">>>" + mFinalCount);
             if (mFinalCount == 1 && canShowAdvertisement(activity.getClass())) {
+                //如果是PhotoActivity时，在开启相机或者打开相册返回时不显示广告
+                //onActivityResult(int requestCode, int resultCode, Intent data)在onActivityStarted(Activity activity)方法前调用，
+                //所以不能在onActivityResult(int requestCode, int resultCode, Intent data)中设置enableAdvertisement = true
+                if (activity instanceof PhotoActivity && !((PhotoActivity) activity).enableAdvertisement){
+                    ((PhotoActivity) activity).enableAdvertisement = true;
+                    return;
+                }
+
                 //说明从后台回到了前台
                 long lastShowAdvertisementTimeStamp = SharePreferencesUtils.getInstance().getLong(Configration.SP_ADVERTISEMENT_LAST_SHOW_TIME, 0L);
-                String picPathName = SharePreferencesUtils.getInstance().getString(Configration.SP_ADVERTISEMENT_PICTURE);
                 long curTime = System.currentTimeMillis();
-                if ((curTime - lastShowAdvertisementTimeStamp > 15 * 60 * 1000) && new File(picPathName).exists()) {
+                if ((curTime - lastShowAdvertisementTimeStamp > ADVERTISEMENT_INTERNAL_TIME)) {
                     SharePreferencesUtils.getInstance().saveLong(Configration.SP_ADVERTISEMENT_LAST_SHOW_TIME, curTime);
                     activity.startActivity(new Intent(activity, AdvertisementViewActivity.class));
                 }
@@ -53,7 +59,7 @@ public class MyApplication extends Application {
         @Override
         public void onActivityStopped(Activity activity) {
             mFinalCount--;
-            Log.e(TAG, "onActivityStopped: " + activity.getClass().getSimpleName() + ">>>" + mFinalCount);
+//            Log.e(TAG, "onActivityStopped: " + activity.getClass().getSimpleName() + ">>>" + mFinalCount);
             if (mFinalCount == 0) {
                 //说明从前台回到了后台
             }
@@ -82,6 +88,7 @@ public class MyApplication extends Application {
             registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
             //启动界面不显示广告页
             addToAdvertisementFilter(LaunchActivity.class);
+            addToAdvertisementFilter(AdvertisementViewActivity.class);
         }
     }
 
@@ -91,9 +98,10 @@ public class MyApplication extends Application {
      * @param clazz clazz
      */
     public void addToAdvertisementFilter(Class<? extends Activity> clazz) {
+        String key = clazz.getName();
         String activityName = clazz.getSimpleName();
-        if (!advertisementFilter.contains(activityName))
-            advertisementFilter.add(activityName);
+        if (!advertisementFilter.containsKey(key))
+            advertisementFilter.put(key, activityName);
     }
 
     /**
@@ -101,13 +109,14 @@ public class MyApplication extends Application {
      *
      * @param clazz clazz
      */
-    public void removeFromeAdvertisementFilter(Class<? extends Activity> clazz) {
-        String activityName = clazz.getSimpleName();
-        if (!advertisementFilter.contains(activityName))
-            advertisementFilter.remove(activityName);
+    public void removeFromAdvertisementFilter(Class<? extends Activity> clazz) {
+        String key = clazz.getName();
+        if (advertisementFilter.containsKey(key))
+            advertisementFilter.remove(key);
     }
 
     private boolean canShowAdvertisement(Class<? extends Activity> clazz){
-        return !advertisementFilter.contains(clazz.getSimpleName());
+        String key = clazz.getName();
+        return !advertisementFilter.containsKey(key);
     }
 }

@@ -28,7 +28,7 @@ android {
         //动态设置一些额外信息
 //        resValue("string", "BASE_URL", "https://github.com/")
         buildConfigField("String", "BASE_URL", "\"https://github.com/\"")
-        buildConfigField("boolean", "enableAdvertisementFeature", "false")
+        buildConfigField("boolean", "enableAdvertisementFeature", "true")
     }
     buildTypes {
         debug {

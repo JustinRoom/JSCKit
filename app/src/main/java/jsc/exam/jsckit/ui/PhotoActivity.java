@@ -1,6 +1,7 @@
 package jsc.exam.jsckit.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ public class PhotoActivity extends BasePhotoActivity {
     final String TAG = getClass().getSimpleName();
     ImageView ivPhoto;
     boolean needCrop = false;
+    public boolean enableAdvertisement = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,8 +95,8 @@ public class PhotoActivity extends BasePhotoActivity {
         if (!permissionChecker.checkPermissions(this, 0, null, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA))
             return;
 
-        //添加到前台广告过滤器中
-        ((MyApplication)getApplication()).addToAdvertisementFilter(getClass());
+        //禁止前台广告
+        enableAdvertisement = false;
         switch (view.getId()) {
             case R.id.btn_choose:
                 needCrop = false;
@@ -119,9 +121,6 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onPickPhotoResult(Uri uri) {
-        //从前台广告过滤器中删除
-        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
-
         String imagePath = getRealImagePathFromUri(uri);
         Log.i(TAG, "onPickPhotoResult: " + imagePath);
         if (imagePath == null || imagePath.trim().length() == 0) {
@@ -130,6 +129,9 @@ public class PhotoActivity extends BasePhotoActivity {
         }
 
         if (needCrop) {
+            //禁止前台广告
+            enableAdvertisement = false;
+
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
                     .setDirectory(file);
@@ -141,13 +143,13 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onTakePhotoResult(Uri uri, @NonNull File tempFile) {
-        //从前台广告过滤器中删除
-        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
-
         String imagePath = getRealImagePathFromUri(uri);
         Log.i(TAG, "onPickPhotoResult: " + imagePath);
         Log.i(TAG, "onPickPhotoResult: " + tempFile.getAbsolutePath());
         if (needCrop) {
+            //禁止前台广告
+            enableAdvertisement = false;
+
             File file = new File(Environment.getExternalStorageDirectory(), "photoCrop");
             CropConfig config = new CropConfig()
                     .setAspectX(4)
@@ -163,9 +165,6 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onCropPhotoResult(@Nullable Uri uri, @Nullable File tempFile) {
-        //从前台广告过滤器中删除
-        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
-
         if (uri != null){
             String imagePath = getRealImagePathFromUri(uri);
             Log.i(TAG, "onCropPhotoResult: " + imagePath);
@@ -186,4 +185,5 @@ public class PhotoActivity extends BasePhotoActivity {
     private void showImage(File file) {
         showImage(file.getAbsolutePath());
     }
+
 }
