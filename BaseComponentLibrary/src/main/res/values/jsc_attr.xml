@@ -209,4 +209,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ReboundLinearLayout">
+        <attr name="reboundOrientation">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

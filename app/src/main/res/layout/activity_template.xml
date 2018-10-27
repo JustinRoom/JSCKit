@@ -16,6 +16,11 @@
             android:layout_width="80dp"
             android:layout_height="32dp" />
 
+        <jsc.kit.component.graph.CeshiGraphicView
+            android:paddingLeft="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
     </LinearLayout>
 
 </ScrollView>

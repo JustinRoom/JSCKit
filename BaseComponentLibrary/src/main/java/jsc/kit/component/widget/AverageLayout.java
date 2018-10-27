@@ -102,30 +102,76 @@ public class AverageLayout extends ViewGroup implements IViewAttrDelegate{
         int childCount = getChildCount();
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
-        int left = 0;
-        int top = 0;
+        int left, top, right, bottom;
         if (childCount > 0){
             switch (orientation){
                 case HORIZONTAL:
-                    int avWidth = (width - getPaddingLeft() - getPaddingRight()) / childCount;
+                    int[] widths = calculateAverageValue(width - getPaddingLeft() - getPaddingRight(), childCount);
+                    int startX = getPaddingLeft();
                     for (int i = 0; i < childCount; i++) {
                         View child = getChildAt(i);
-                        left = getPaddingLeft() + i * avWidth + (avWidth - child.getMeasuredWidth()) / 2;
-                        top = (height - child.getMeasuredHeight()) / 2;
-                        child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+                        LayoutParams childParams = child.getLayoutParams();
+                        if (childParams.width == LayoutParams.MATCH_PARENT) {
+                            left = startX;
+                            right = left + widths[i];
+                        } else {
+                            left = startX + (widths[i] - child.getMeasuredWidth()) / 2;
+                            right = left + child.getMeasuredWidth();
+                        }
+
+                        if (childParams.height == LayoutParams.MATCH_PARENT) {
+                            top = getPaddingTop();
+                            bottom = height - getPaddingBottom();
+                        } else {
+                            top = (height - child.getMeasuredHeight()) / 2;
+                            bottom = top + child.getMeasuredHeight();
+                        }
+                        child.layout(left, top, right, bottom);
+                        startX += widths[i];
                     }
                     break;
                 case VERTICAL:
-                    int avHeight = (height - getPaddingTop() - getPaddingBottom()) / childCount;
+                    int[] heights = calculateAverageValue(height - getPaddingTop() - getPaddingBottom(), childCount);
+                    int startY = getPaddingTop();
                     for (int i = 0; i < childCount; i++) {
                         View child = getChildAt(i);
-                        left = (width - child.getMeasuredWidth()) / 2;
-                        top = getPaddingTop() + i * avHeight + (avHeight - child.getMeasuredHeight()) / 2;
-                        child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+                        LayoutParams childParams = child.getLayoutParams();
+                        if (childParams.width == LayoutParams.MATCH_PARENT) {
+                            left = getPaddingLeft();
+                            right = width - getPaddingRight();
+                        } else {
+                            left = (width - child.getMeasuredWidth()) / 2;
+                            right = left + child.getMeasuredWidth();
+                        }
+
+                        if (childParams.height == LayoutParams.MATCH_PARENT) {
+                            top = startY;
+                            bottom = top + heights[i];
+                        } else {
+                            top = startY + (heights[i] - child.getMeasuredHeight()) / 2;
+                            bottom = top + child.getMeasuredHeight();
+                        }
+                        child.layout(left, top, right, bottom);
+                        startY += heights[i];
                     }
                     break;
             }
         }
+    }
+
+    private int[] calculateAverageValue(int value, int childCount) {
+        int tempAverageValue = value / childCount;
+        int rest = value - tempAverageValue * childCount;
+        int[] averageValues = new int[childCount];
+        for (int i = 0; i < childCount; i++) {
+            if (rest > 0) {
+                averageValues[i] = tempAverageValue + 1;
+                rest --;
+            } else {
+                averageValues[i] = tempAverageValue;
+            }
+        }
+        return averageValues;
     }
 
     @Override

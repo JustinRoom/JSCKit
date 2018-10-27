@@ -46,6 +46,7 @@ import jsc.exam.jsckit.ui.component.VerticalStepLinearLayoutActivity;
 import jsc.exam.jsckit.ui.component.VerticalStepViewActivity;
 import jsc.exam.jsckit.ui.fragment.DefaultFragment;
 import jsc.exam.jsckit.ui.fragment.LineChartViewFragment;
+import jsc.exam.jsckit.ui.fragment.ReboundLinearLayoutFragment;
 import jsc.kit.component.baseui.transition.TransitionEnum;
 import jsc.kit.component.baseui.transition.TransitionProvider;
 import jsc.kit.component.reboundlayout.ReboundRecyclerView;
@@ -191,6 +192,7 @@ public class ComponentsActivity extends BaseActivity {
 
     private List<ComponentItem> getComponentItems() {
         List<ComponentItem> classItems = new ArrayList<>();
+        classItems.add(new ComponentItem("ReboundLinearLayout", EmptyFragmentActivity.class, true, ReboundLinearLayoutFragment.class.getName()));
         classItems.add(new ComponentItem("AverageLayout", AverageLayoutActivity.class, true));
         classItems.add(new ComponentItem("LineChartView", EmptyFragmentActivity.class, true, LineChartViewFragment.class.getName()));
         classItems.add(new ComponentItem("AutoSizeTextView", AutoSizeTextViewActivity.class));

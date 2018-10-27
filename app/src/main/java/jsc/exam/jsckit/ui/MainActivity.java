@@ -43,6 +43,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import jsc.exam.jsckit.R;
+import jsc.exam.jsckit.TemplateActivity;
 import jsc.exam.jsckit.adapter.ClassItemAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.entity.VersionEntity;
@@ -149,6 +150,7 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("Camera2Fragment", EmptyFragmentActivity.class));
         classItems.add(new ClassItem("FragmentBackHelper", FragmentBackHelperActivity.class, true));
         classItems.add(new ClassItem("About", AboutActivity.class));
+        classItems.add(new ClassItem("Template", TemplateActivity.class));
         return classItems;
     }
 
