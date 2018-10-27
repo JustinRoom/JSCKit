@@ -68,6 +68,9 @@ allprojects {
 | 29 | [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java) | [***同上***](https://www.jianshu.com/p/c1aaddd93245) |
 | 30 | [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java) | [**巧用二分法自动调整字体大小**](https://www.jianshu.com/p/ec3cf23044b6) |
 | 31 | [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java) | [**内存管理之Fragment回退栈管理**](https://www.jianshu.com/p/cf32e55864aa) |
+| 32 | [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java) | [**超级好用的均分布局AverageLayout**](https://www.jianshu.com/p/c88c2650b062) |
+| 33 | [LineChartView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph/LineChartView.java) | [**折线分布图LineChartView**](https://www.jianshu.com/p/fb7099e4332e) |
+| 34 | [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java) |  |
 
 ### Usage examples：
 
@@ -80,32 +83,37 @@ allprojects {
 
 
 ##### update log:
-## V0.3.7:
-+ 1、fix a bug about [VerticalColumnarGraphView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) : The detail information view isn't closed when click the blank area.
-+ 2、update base view structure : Change [BaseViewProvider](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/baseview/BaseViewProvider.java)'s root view as ConstraintLayout.
-+ 3、add component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
+## v0.4.7:
+add some components:
++ [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java)
+optimize component:
++ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)
+update advertisement demo:
++ [MyApplication](/app/src/main/java/jsc/exam/jsckit/MyApplication.java)
++ [PhotoActivity](/app/src/main/java/jsc/exam/jsckit/ui/PhotoActivity.java)
 
-## v0.3.8:
-add the usage of [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) - [CameraMaskActivity](/app/src/main/java/jsc/exam/jsckit/ui/component/CameraMaskActivity.java).  
-optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java):
-+ 1、support set tip text dynamically
-+ 2、support set the location of tip text dynamically
-+ 3、support set the location of camera lens dynamically
-+ 4、support set the mask color of camera lens dynamically
+## v0.4.6:
+add some components:
++ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)
++ [LineChartView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph/LineChartView.java)
 
-## v0.3.9:
-+ 1、add base ui structure. [BaseEmptyFragmentActivity](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseEmptyFragmentActivity.java), a custom activity for loading any fragment. For example, see [EmptyFragmentActivity](/app/src/main/java/jsc/exam/jsckit/ui/EmptyFragmentActivity.java).
-+ 2、optimize base view structure.
-+ 3、optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
-+ 4、add component [ScannerCameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java).
+## v0.4.5:
+add some components:
++ [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java)
++ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
 
-## v0.4.0:
-update demo Components activity
-optimize [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java)
-+ 1、support two different mask shape: square and circular. Call method `setMaskShape(@MaskShape int maskShape)` to change mask shape.
+## v0.4.4:
+add guide navigation components:
++ [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java)
++ [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java)
++ [GuidePopupView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupView.java)
++ [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
++ [GuideDialog](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideDialog.java)
 
-## v0.4.1:
-fix a bug about [DateTimePicker](/DateTimePickerLibrary/src/main/java/jsc/kit/datetimepicker/widget/DateTimePicker.java) : There are 12 months when the start year is same as the end year.
+## v0.4.3:
+update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java):
++ support show index at *LEFT* or *RIGHT*.
++ support sort index base on *SORT_BASE_TOP* or *SORT_BASE_FIRST*.
 
 ## v0.4.2:
 fix a bug about [PermissionChecker](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/permission/PermissionChecker.java).  
@@ -121,25 +129,29 @@ update some components:
 + [DotView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/DotView.java)
 + [JSCItemLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/itemlayout/JSCItemLayout.java)
 
-## v0.4.3:
-update [VerticalStepLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/stepview/VerticalStepLinearLayout.java):
-+ support show index at *LEFT* or *RIGHT*.
-+ support sort index base on *SORT_BASE_TOP* or *SORT_BASE_FIRST*.
+## v0.4.1:
+fix a bug about [DateTimePicker](/DateTimePickerLibrary/src/main/java/jsc/kit/datetimepicker/widget/DateTimePicker.java) : There are 12 months when the start year is same as the end year.
 
-## v0.4.4:
-add guide navigation components:
-+ [GuideRippleView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideRippleView.java)
-+ [GuideLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideLayout.java)
-+ [GuidePopupView](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupView.java)
-+ [GuidePopupWindow](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuidePopupWindow.java)
-+ [GuideDialog](/BaseComponentLibrary/src/main/java/jsc/kit/component/guide/GuideDialog.java)
+## v0.4.0:
+update demo Components activity
+optimize [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java)
++ 1、support two different mask shape: square and circular. Call method `setMaskShape(@MaskShape int maskShape)` to change mask shape.
 
-## v0.4.5:
-add some components:
-+ [AutoTextSizeView](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AutoTextSizeView.java)
-+ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
+## v0.3.9:
++ 1、add base ui structure. [BaseEmptyFragmentActivity](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/BaseEmptyFragmentActivity.java), a custom activity for loading any fragment. For example, see [EmptyFragmentActivity](/app/src/main/java/jsc/exam/jsckit/ui/EmptyFragmentActivity.java).
++ 2、optimize base view structure.
++ 3、optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).
++ 4、add component [ScannerCameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/ScannerCameraMask.java).
 
-## v0.4.6:
-add some components:
-+ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)
-+ [LineChartView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph/LineChartView.java)
+## v0.3.8:
+add the usage of [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java) - [CameraMaskActivity](/app/src/main/java/jsc/exam/jsckit/ui/component/CameraMaskActivity.java).  
+optimize component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java):
++ 1、support set tip text dynamically
++ 2、support set the location of tip text dynamically
++ 3、support set the location of camera lens dynamically
++ 4、support set the mask color of camera lens dynamically
+
+## V0.3.7:
++ 1、fix a bug about [VerticalColumnarGraphView](/BaseComponentLibrary/src/main/java/jsc/kit/component/graph) : The detail information view isn't closed when click the blank area.
++ 2、update base view structure : Change [BaseViewProvider](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/baseview/BaseViewProvider.java)'s root view as ConstraintLayout.
++ 3、add component [CameraMask](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/CameraMask.java).

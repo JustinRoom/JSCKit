@@ -110,7 +110,7 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
             p3.rightMargin = 8;
             dotView = new DotView(itemView.getContext());
             dotView.setShape(DotView.CIRCULAR);
-            dotView.setBackgroundColor(Color.GREEN);
+            dotView.setBackgroundColor(Color.RED);
             itemView.addView(dotView, p3);
         }
 

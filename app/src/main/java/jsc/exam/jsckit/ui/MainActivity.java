@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity {
         classItems.add(new ClassItem("DateTimePicker", DateTimePickerActivity.class));
         classItems.add(new ClassItem("CustomToast", CustomToastActivity.class));
         classItems.add(new ClassItem("DownloadFile", DownloadFileActivity.class));
-        classItems.add(new ClassItem("Photo", PhotoActivity.class));
+        classItems.add(new ClassItem("Photo", PhotoActivity.class, true));
         classItems.add(new ClassItem("BottomNavigationView", BottomNavigationViewActivity.class));
         classItems.add(new ClassItem("SharedTransition", SharedTransitionActivity.class));
         classItems.add(new ClassItem("Test(MVP)", TestActivity.class));
