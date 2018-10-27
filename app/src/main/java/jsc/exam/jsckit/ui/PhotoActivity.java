@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import jsc.exam.jsckit.MyApplication;
 import jsc.exam.jsckit.R;
 import jsc.kit.component.baseui.photo.BasePhotoActivity;
 import jsc.kit.component.baseui.transition.TransitionProvider;
@@ -92,6 +93,8 @@ public class PhotoActivity extends BasePhotoActivity {
         if (!permissionChecker.checkPermissions(this, 0, null, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA))
             return;
 
+        //添加到前台广告过滤器中
+        ((MyApplication)getApplication()).addToAdvertisementFilter(getClass());
         switch (view.getId()) {
             case R.id.btn_choose:
                 needCrop = false;
@@ -116,6 +119,9 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onPickPhotoResult(Uri uri) {
+        //从前台广告过滤器中删除
+        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
+
         String imagePath = getRealImagePathFromUri(uri);
         Log.i(TAG, "onPickPhotoResult: " + imagePath);
         if (imagePath == null || imagePath.trim().length() == 0) {
@@ -135,6 +141,9 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onTakePhotoResult(Uri uri, @NonNull File tempFile) {
+        //从前台广告过滤器中删除
+        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
+
         String imagePath = getRealImagePathFromUri(uri);
         Log.i(TAG, "onPickPhotoResult: " + imagePath);
         Log.i(TAG, "onPickPhotoResult: " + tempFile.getAbsolutePath());
@@ -154,6 +163,9 @@ public class PhotoActivity extends BasePhotoActivity {
 
     @Override
     public void onCropPhotoResult(@Nullable Uri uri, @Nullable File tempFile) {
+        //从前台广告过滤器中删除
+        ((MyApplication)getApplication()).removeFromeAdvertisementFilter(getClass());
+
         if (uri != null){
             String imagePath = getRealImagePathFromUri(uri);
             Log.i(TAG, "onCropPhotoResult: " + imagePath);

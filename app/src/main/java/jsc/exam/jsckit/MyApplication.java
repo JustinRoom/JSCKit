@@ -102,9 +102,9 @@ public class MyApplication extends Application {
      * @param clazz clazz
      */
     public void removeFromeAdvertisementFilter(Class<? extends Activity> clazz) {
-        String name = clazz.getSimpleName();
-        if (!advertisementFilter.contains(name))
-            advertisementFilter.remove(name);
+        String activityName = clazz.getSimpleName();
+        if (!advertisementFilter.contains(activityName))
+            advertisementFilter.remove(activityName);
     }
 
     private boolean canShowAdvertisement(Class<? extends Activity> clazz){
