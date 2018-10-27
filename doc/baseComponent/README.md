@@ -85,9 +85,9 @@ allprojects {
 ##### update log:
 ## v0.4.7:
 add some components:
-+ [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java)
++ [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java)  
 optimize component:
-+ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)
++ [AverageLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/widget/AverageLayout.java)  
 update advertisement demo:
 + [MyApplication](/app/src/main/java/jsc/exam/jsckit/MyApplication.java)
 + [PhotoActivity](/app/src/main/java/jsc/exam/jsckit/ui/PhotoActivity.java)
