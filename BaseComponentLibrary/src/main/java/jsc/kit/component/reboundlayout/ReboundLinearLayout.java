@@ -293,6 +293,7 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
             return;
 
         int time = Math.abs(to - from);
+        time = Math.max(time, 100);
         Property<View, Integer> property = isHorizontalRebound() ? SCROLL_X : SCROLL_Y;
         reboundAnimator = ObjectAnimator.ofInt(this, property, from, to);
         reboundAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
