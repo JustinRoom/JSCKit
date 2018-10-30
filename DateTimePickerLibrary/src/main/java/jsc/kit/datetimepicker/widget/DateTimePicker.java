@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,11 +80,13 @@ public class DateTimePicker {
     private ShowType curShowType;//显示级别
     private boolean keepLastSelected;//是否保留上一次的选择
 
-    public DateTimePicker(Context context, ResultHandler resultHandler, Date startDate, Date endDate) {
+    public DateTimePicker(@NonNull Context context, ResultHandler resultHandler, @NonNull Date startDate, @NonNull Date endDate) {
         this(context, resultHandler, startDate, endDate, null);
     }
 
-    public DateTimePicker(Context context, ResultHandler resultHandler, Date startDate, Date endDate, Builder builder) {
+    public DateTimePicker(@NonNull Context context, ResultHandler resultHandler, @NonNull Date startDate, @NonNull Date endDate, Builder builder) {
+        if (startDate.after(endDate))
+            throw new IllegalArgumentException("开始日期必须在结束日期之前。");
         this.context = context;
         this.handler = resultHandler;
         selectedCalender = Calendar.getInstance();
@@ -587,13 +591,20 @@ public class DateTimePicker {
     }
 
     public void show(Date time) {
-        if (startCalendar.getTime().getTime() < endCalendar.getTime().getTime()) {
-            initParameter();
-            initTimer();
-            addListener();
-            setSelectedTime(time);
-            datePickerDialog.show();
+        Date showDate = null;
+        if (time.before(startCalendar.getTime())){
+            showDate = startCalendar.getTime();
+        } else if (time.after(endCalendar.getTime())){
+            showDate = endCalendar.getTime();
+        } else {
+            showDate = time;
         }
+
+        initParameter();
+        initTimer();
+        addListener();
+        setSelectedTime(showDate);
+        datePickerDialog.show();
     }
 
     /**
