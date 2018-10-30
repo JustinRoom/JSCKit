@@ -1,5 +1,6 @@
 package jsc.kit.component.reboundlayout;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -26,6 +27,10 @@ import jsc.kit.component.IViewAttrDelegate;
 import jsc.kit.component.R;
 
 /**
+ *  A component with a springback effect.
+ *  It supports two orientations:{@link ReboundLinearLayout#REBOUND_ORIENTATION_HORIZONTAL}
+ *  and {@link ReboundLinearLayout#REBOUND_ORIENTATION_VERTICAL}.
+ *
  * <br>Email:1006368252@qq.com
  * <br>QQ:1006368252
  * <br><a href="https://github.com/JustinRoom/JSCKit" target="_blank">https://github.com/JustinRoom/JSCKit</a>
@@ -77,14 +82,7 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
     private int mMaximumVelocity;
     private int scaledTouchSlop;
     private VelocityTracker mVelocityTracker = null;
-    private OverScroller mScroller;
-
-    private Runnable r = new Runnable() {
-        @Override
-        public void run() {
-            rebound();
-        }
-    };
+    private OverScroller mOverScroller;
 
     public ReboundLinearLayout(Context context) {
         super(context);
@@ -103,11 +101,11 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
 
     @Override
     public void initAttr(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-//        mScroller = new OverScroller(context);
+        mOverScroller = new OverScroller(context);
         final ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
-//        mMinimumVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
-//        mMaximumVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
-//        scaledTouchSlop = viewConfiguration.getScaledTouchSlop();
+        mMinimumVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
+        mMaximumVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
+        scaledTouchSlop = viewConfiguration.getScaledTouchSlop();
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ReboundLinearLayout, defStyleAttr, 0);
         reboundOrientation = a.getInt(R.styleable.ReboundLinearLayout_reboundOrientation, REBOUND_ORIENTATION_HORIZONTAL);
         a.recycle();
@@ -184,35 +182,42 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //all children can't be touch or click when it's scrolling.
+        if (isRebounding || !mOverScroller.isFinished())
+            return true;
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        initVelocityTrackerIfNotExists();
+        if (getChildCount() == 0)
+            return super.onTouchEvent(event);
+        initVelocityTrackerIfNotExists();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-//                mScroller.forceFinished(true);
-                removeCallbacks(r);
+                mOverScroller.abortAnimation();
+                cancelReboundAnimator();
+
                 lastTouchX = event.getX();
                 lastTouchY = event.getY();
 
                 //add event into velocity tracker.
-//                mVelocityTracker.clear();
-//                mVelocityTracker.addMovement(event);
+                mVelocityTracker.clear();
                 break;
             case MotionEvent.ACTION_MOVE:
                 //add event into velocity tracker and compute velocity.
-//                mVelocityTracker.addMovement(event);
+                mVelocityTracker.addMovement(event);
 
                 float tempTouchX = event.getX();
                 float tempTouchY = event.getY();
                 //X轴方向上滑动
                 float dx = lastTouchX - tempTouchX;
                 int deltaX = (int) (dx < 0 ? dx - .5f : dx + .5f);
-//                scrollBy(deltaX, 0);
 
                 //Y轴方向上滑动
                 float dy = lastTouchY - tempTouchY;
                 int deltaY = (int) (dy < 0 ? dy - .5f : dy + .5f);
-//                Log.i(TAG, "onTouchEvent: deltaX = " + deltaX + ", deltaY = " + deltaY);
-//                scrollBy(0, deltaY);
                 if (isHorizontalRebound()) {
                     scrollBy(deltaX, 0);
                 } else {
@@ -224,18 +229,21 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 //recycle velocity tracker.
-//                final VelocityTracker velocityTracker = mVelocityTracker;
-//                velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-//                float velocity = isHorizontalRebound() ? velocityTracker.getXVelocity() : velocityTracker.getYVelocity();
-//                recycleVelocityTracker();
-//                Log.i(TAG, "onTouchEvent: [max:" + mMaximumVelocity + ", min:" + mMinimumVelocity + ", cur:" + velocity + "]");
-//                if ((Math.abs(velocity) > mMinimumVelocity)) {
-//                    fling((int) -velocity);
-//                } else {
-//                    postDelayed(r, 10);
-//                }
-
-                postDelayed(r, 10);
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                float currentVelocity = 0 - (isHorizontalRebound() ? velocityTracker.getXVelocity() : velocityTracker.getYVelocity());
+                recycleVelocityTracker();
+                if (Math.abs(currentVelocity) >= mMinimumVelocity) {
+                    Log.i(TAG, "fling: ");
+                    if (isHorizontalRebound())
+                        mOverScroller.fling(getScrollX(), getScrollY(), (int) currentVelocity, 0, 0, getWidth() - visibleWidth, 0, 0, visibleWidth, 0);
+                    else
+                        mOverScroller.fling(getScrollX(), getScrollY(), 0, (int) currentVelocity, 0, 0, 0, getHeight() - visibleHeight, 0, visibleHeight);
+                    postInvalidate();
+                } else {
+                    Log.i(TAG, "executeRebound: ");
+                    executeRebound();
+                }
                 break;
         }
         return true;
@@ -243,34 +251,22 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
 
     @Override
     public void computeScroll() {
+        if (mOverScroller.computeScrollOffset()) {
+            scrollTo(mOverScroller.getCurrX(), mOverScroller.getCurrY());
+            postInvalidate();
+        }
         super.computeScroll();
-//        if (mScroller.computeScrollOffset()) {
-//            int oldX = getScrollX();
-//            int oldY = getScrollY();
-//            int x = mScroller.getCurrX();
-//            int y = mScroller.getCurrY();
-//
-//            if (oldX != x || oldY != y) {
-//                if (isHorizontalRebound())
-//                    scrollBy(x - oldX, 0);
-//                else
-//                    scrollBy(0, y - oldY);
-//                postInvalidateOnAnimation();
-//            }
-//        } else {
-//            post(r);
-//        }
     }
 
-    public void fling(int velocity) {
-        if (isHorizontalRebound())
-            mScroller.fling(getScrollX(), getScrollY(), velocity, 0, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
-        else
-            mScroller.fling(getScrollX(), getScrollY(), 0, velocity, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
-        postInvalidateOnAnimation();
+    @Override
+    public boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed) {
+        return super.dispatchNestedFling(velocityX, velocityY, consumed);
     }
 
-    private void rebound() {
+    private ObjectAnimator reboundAnimator = null;
+    private boolean isRebounding = false;
+
+    private void executeRebound() {
         int from = 0;
         int to = 0;
         switch (getReboundOrientation()) {
@@ -293,14 +289,43 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
                 }
                 break;
         }
-        if (from == 0 && to == 0)
+        if (from == to)
             return;
 
+        int time = Math.abs(to - from);
         Property<View, Integer> property = isHorizontalRebound() ? SCROLL_X : SCROLL_Y;
-        ObjectAnimator animator = ObjectAnimator.ofInt(this, property, from, to);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(300);
-        animator.start();
+        reboundAnimator = ObjectAnimator.ofInt(this, property, from, to);
+        reboundAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        reboundAnimator.setDuration(time);
+        reboundAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                isRebounding = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isRebounding = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                isRebounding = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        reboundAnimator.start();
+    }
+
+    private void cancelReboundAnimator() {
+        if (reboundAnimator != null) {
+            reboundAnimator.cancel();
+            reboundAnimator = null;
+        }
     }
 
     private void initVelocityTrackerIfNotExists() {
