@@ -83,6 +83,11 @@ allprojects {
 
 
 ##### update log:
+## v0.4.8:
+optimize components:
++ [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java)
++ [FragmentBackHelper](/BaseComponentLibrary/src/main/java/jsc/kit/component/baseui/fragmentmanager/FragmentBackHelper.java)
+
 ## v0.4.7:
 add some components:
 + [ReboundLinearLayout](/BaseComponentLibrary/src/main/java/jsc/kit/component/reboundlayout/ReboundLinearLayout.java)

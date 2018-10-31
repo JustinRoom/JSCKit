@@ -36,3 +36,6 @@ allprojects {
 |:---:|:---|:---|
 | 1  | [**DateTimePicker**](/DateTimePickerLibrary/src/main/java/jsc/kit/datetimepicker/widget/DateTimePicker.java) | [**日期选择器DateTimePicker**](https://www.jianshu.com/p/db19efcaa226) |
 
+##### update log:
+## v0.4.8:
+fix some bugs about [DateTimePicker](/DateTimePickerLibrary/src/main/java/jsc/kit/datetimepicker/widget/DateTimePicker.java).
