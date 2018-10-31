@@ -715,7 +715,7 @@ public class DateTimePicker {
             months.clear();
             //the same year
             if (startYear == endYear){
-                for (int i = 1; i <= endMonth; i++) {
+                for (int i = startMonth; i <= endMonth; i++) {
                     months.add(formatTimeUnit(i));
                 }
             } else {

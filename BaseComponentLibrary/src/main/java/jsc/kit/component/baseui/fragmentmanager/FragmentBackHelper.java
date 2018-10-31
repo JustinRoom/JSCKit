@@ -79,6 +79,10 @@ public class FragmentBackHelper {
         return true;
     }
 
+    public boolean canGoBack(){
+        return !backRecordStack.empty();
+    }
+
     /**
      * Get the current showing fragment.
      *
@@ -100,15 +104,28 @@ public class FragmentBackHelper {
 
     /**
      * Clear back stack except the current showing fragment.
+     * @see #clear(boolean)
      */
     public void clear() {
+        clear(true);
+    }
+
+    /**
+     * Clear back stack except the current showing fragment.
+     * @param keepCurrentFragment true, keep current showing fragment, else remove.
+     */
+    public void clear(boolean keepCurrentFragment) {
         if (backRecordStack.empty())
             return;
         BackRecord top = backRecordStack.peek();
         backRecordStack.clear();
-        //if current showing fragment is not null, it's step record will not be removed.
-        if (currentShowFragment != null)
-            backRecordStack.push(top);
+        if (keepCurrentFragment) {
+            //if current showing fragment is not null, it's step record will not be removed.
+            if (currentShowFragment != null)
+                backRecordStack.push(top);
+        } else {
+            fragmentManager.beginTransaction().remove(currentShowFragment).commit();
+        }
     }
 
     @Nullable

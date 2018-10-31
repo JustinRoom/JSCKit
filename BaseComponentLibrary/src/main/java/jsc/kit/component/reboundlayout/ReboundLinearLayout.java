@@ -20,6 +20,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
 
+import org.json.JSONObject;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -83,6 +85,7 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
     private int scaledTouchSlop;
     private VelocityTracker mVelocityTracker = null;
     private OverScroller mOverScroller;
+    private int contentWidth, contentHeight;
 
     public ReboundLinearLayout(Context context) {
         super(context);
@@ -138,43 +141,43 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
             case HORIZONTAL:
                 if (getLayoutParams().width == LayoutParams.WRAP_CONTENT) {
                     Drawable dividerDrawable = getDividerDrawable();
-                    int width = getPaddingLeft() + getPaddingRight();
+                    contentWidth = getPaddingLeft() + getPaddingRight();
                     for (int i = 0; i < getChildCount(); i++) {
                         View child = getChildAt(i);
                         ViewGroup.LayoutParams childParams = child.getLayoutParams();
                         measureChildren(LayoutParams.WRAP_CONTENT, heightMeasureSpec);
-                        width += child.getMeasuredWidth();
+                        contentWidth += child.getMeasuredWidth();
                         if (childParams instanceof MarginLayoutParams) {
-                            width += ((MarginLayoutParams) childParams).leftMargin;
-                            width += ((MarginLayoutParams) childParams).rightMargin;
+                            contentWidth += ((MarginLayoutParams) childParams).leftMargin;
+                            contentWidth += ((MarginLayoutParams) childParams).rightMargin;
                         }
                         //考虑到LinearLayout自带的分割线属性
                         if (dividerDrawable != null) {
-                            width += dividerDrawable.getIntrinsicWidth();
+                            contentWidth += dividerDrawable.getIntrinsicWidth();
                         }
                     }
-                    widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+                    widthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(visibleWidth, contentWidth), MeasureSpec.EXACTLY);
                 }
                 break;
             case VERTICAL:
                 if (getLayoutParams().height == LayoutParams.WRAP_CONTENT) {
                     Drawable dividerDrawable = getDividerDrawable();
-                    int height = getPaddingTop() + getPaddingBottom();
+                    contentHeight = getPaddingTop() + getPaddingBottom();
                     for (int i = 0; i < getChildCount(); i++) {
                         View child = getChildAt(i);
                         ViewGroup.LayoutParams childParams = child.getLayoutParams();
                         measureChildren(widthMeasureSpec, LayoutParams.WRAP_CONTENT);
-                        height += child.getMeasuredHeight();
+                        contentHeight += child.getMeasuredHeight();
                         if (childParams instanceof MarginLayoutParams) {
-                            height += ((MarginLayoutParams) childParams).topMargin;
-                            height += ((MarginLayoutParams) childParams).bottomMargin;
+                            contentHeight += ((MarginLayoutParams) childParams).topMargin;
+                            contentHeight += ((MarginLayoutParams) childParams).bottomMargin;
                         }
                         //考虑到LinearLayout自带的分割线属性
                         if (dividerDrawable != null) {
-                            height += dividerDrawable.getIntrinsicHeight();
+                            contentHeight += dividerDrawable.getIntrinsicHeight();
                         }
                     }
-                    heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+                    heightMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(visibleHeight, contentHeight), MeasureSpec.EXACTLY);
                 }
                 break;
         }
@@ -197,6 +200,7 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mOverScroller.abortAnimation();
+                mOverScroller.forceFinished(true);
                 cancelReboundAnimator();
 
                 lastTouchX = event.getX();
@@ -234,11 +238,33 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
                 float currentVelocity = 0 - (isHorizontalRebound() ? velocityTracker.getXVelocity() : velocityTracker.getYVelocity());
                 recycleVelocityTracker();
                 if (Math.abs(currentVelocity) >= mMinimumVelocity) {
-                    Log.i(TAG, "fling: ");
-                    if (isHorizontalRebound())
-                        mOverScroller.fling(getScrollX(), getScrollY(), (int) currentVelocity, 0, 0, getWidth() - visibleWidth, 0, 0, visibleWidth, 0);
-                    else
-                        mOverScroller.fling(getScrollX(), getScrollY(), 0, (int) currentVelocity, 0, 0, 0, getHeight() - visibleHeight, 0, visibleHeight);
+                    if (isHorizontalRebound()) {
+                        int minX, maxX, overX;
+                        if (currentVelocity < 0) {//向下滑动
+                            minX = 0;
+                            maxX = visibleWidth+ contentWidth;
+                            overX = visibleWidth;
+                        } else {
+                            minX = 0 - contentWidth;
+                            maxX = 0;
+                            overX = Math.min(contentWidth, visibleWidth);
+                        }
+                        Log.i(TAG, String.format("fling: minX:%1d, maxX:%2d, overX:%3d", minX, maxX, overX));
+                        mOverScroller.fling(getScrollX(), getScrollY(), (int) currentVelocity, 0, minX, maxX, 0, 0, overX, 0);
+                    } else {
+                        int minY, maxY, overY;
+                        if (currentVelocity < 0) {//向下滑动
+                            minY = 0;
+                            maxY = visibleHeight + contentHeight;
+                            overY = visibleHeight;
+                        } else {
+                            minY = 0 - (contentHeight + visibleHeight);
+                            maxY = contentHeight < visibleHeight ? 0 : contentHeight - visibleHeight;
+                            overY = Math.min(contentHeight, visibleHeight);
+                        }
+                        Log.i(TAG, String.format("fling: minY:%1d, maxY:%2d, overY:%3d", minY, maxY, overY));
+                        mOverScroller.fling(getScrollX(), getScrollY(), 0, (int) currentVelocity, 0, 0, minY, maxY, 0, overY);
+                    }
                     postInvalidate();
                 } else {
                     Log.i(TAG, "executeRebound: ");
@@ -292,8 +318,9 @@ public class ReboundLinearLayout extends LinearLayout implements IViewAttrDelega
         if (from == to)
             return;
 
-        int time = Math.abs(to - from);
+        int time = Math.abs(to - from) / 2;
         time = Math.max(time, 100);
+        time = Math.min(time, 1000);
         Property<View, Integer> property = isHorizontalRebound() ? SCROLL_X : SCROLL_Y;
         reboundAnimator = ObjectAnimator.ofInt(this, property, from, to);
         reboundAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
