@@ -24,6 +24,7 @@ android {
         versionCode version_code
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         //动态设置一些额外信息
 //        resValue("string", "BASE_URL", "https://github.com/")

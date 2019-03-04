@@ -84,12 +84,12 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
         recyclerView = new RecyclerView(context);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 RecyclerView.Adapter adapter = recyclerView.getAdapter();
@@ -116,7 +116,6 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
                         return;
                     }
                     int[] firstItemPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(null);
-//                    Log.i(TAG, "onScrolled: " + Arrays.toString(firstItemPositions));
                     isFirstItemVisible = itemCount == 0 || (firstItemPositions.length > 0 && firstItemPositions[0] == 0);
                     int[] lastItemPositions = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
                     isLastItemVisible = lastItemPositions.length > 0 && (lastItemPositions[lastItemPositions.length - 1] + 1 == itemCount);
@@ -187,7 +186,6 @@ public class SwipeRefreshRecyclerView extends FrameLayout {
     private void showScrollDownAnim() {
         loadMoreView.setVisibility(INVISIBLE);
         float translationY = swipeRefreshLayout.getTranslationY();
-//        Log.i(TAG, "showScrollDownAnim: translationY=" + translationY);
         if (translationY == 0)
             return;
 

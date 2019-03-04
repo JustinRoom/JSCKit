@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Outline;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -22,8 +21,9 @@ import jsc.kit.component.swiperecyclerview.BaseViewHolder;
 import jsc.kit.component.utils.CompatResourceUtils;
 import jsc.kit.component.utils.WindowUtils;
 import jsc.kit.component.utils.dynamicdrawable.DynamicDrawableFactory;
-import jsc.kit.component.widget.AspectRatioFrameLayout;
+import jsc.kit.component.widget.aspectlayout.AspectRatioFrameLayout;
 import jsc.kit.component.widget.DotView;
+import jsc.kit.component.widget.aspectlayout.AspectRatioHelper;
 
 public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem, ComponentItemAdapter.ComponentItemViewHolder> {
 
@@ -42,9 +42,9 @@ public class ComponentItemAdapter extends BaseRecyclerViewAdapter<ComponentItem,
     public View createView(@NonNull ViewGroup parent, int viewType) {
         int radius = CompatResourceUtils.getDimensionPixelSize(parent, R.dimen.space_4);
         AspectRatioFrameLayout aspectRatioLinearLayout = new AspectRatioFrameLayout(parent.getContext());
-        aspectRatioLinearLayout.setBaseWhat(0);
-        aspectRatioLinearLayout.setxAspect(1);
-        aspectRatioLinearLayout.setyAspect(1);
+        aspectRatioLinearLayout.setBaseWhat(AspectRatioHelper.BASE_HORIZONTAL);
+        aspectRatioLinearLayout.setAspectX(1);
+        aspectRatioLinearLayout.setAspectY(1);
         aspectRatioLinearLayout.setPadding(12, 12, 12, 12);
         View backgroundView = new View(parent.getContext());
         backgroundView.setBackground(WindowUtils.getSelectableItemBackgroundBorderless(parent.getContext()));

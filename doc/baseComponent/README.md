@@ -3,10 +3,10 @@
 
 ### dependencies:
 ```
-    api "com.android.support:appcompat-v7:27.1.1"
-    api "com.android.support:recyclerview-v7:27.1.1"
-    api "com.android.support:design:27.1.1"
-    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+    api "com.android.support:appcompat-v7:28.0.0"
+    api "com.android.support:recyclerview-v7:28.0.0"
+    api "com.android.support:design:28.0.0"
+    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
 ```
 ### Maven:
 ```

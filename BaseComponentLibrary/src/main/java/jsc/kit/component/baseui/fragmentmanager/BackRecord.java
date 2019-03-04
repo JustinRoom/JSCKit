@@ -90,4 +90,8 @@ public class BackRecord {
     public Bundle getBundle() {
         return bundle;
     }
+
+    public String getClzName() {
+        return clzName;
+    }
 }

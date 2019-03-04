@@ -3,6 +3,7 @@ package jsc.kit.zxing.zxing;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -101,7 +102,7 @@ public class QRCodeEncoder {
     /**
      * 添加logo到二维码图片上
      *
-     * @param src source
+     * @param src  source
      * @param logo logo
      * @return bitmap
      */
@@ -133,9 +134,9 @@ public class QRCodeEncoder {
     /**
      * 同步创建指定前景色、指定背景色、带logo的二维码图片。该方法是耗时操作，请在子线程中调用。
      *
-     * @param content text
-     * @param width width
-     * @param height height
+     * @param content          text
+     * @param width            width
+     * @param height           height
      * @param foregroundColors 上下左右四部分前景色，背景默认透明。
      * @return bitmap
      */
@@ -170,6 +171,69 @@ public class QRCodeEncoder {
             return null;
         }
     }
+
+    public static Bitmap encodeQRCode(String content, int width, int height, Bitmap shape) {
+        try {
+            int sw = shape.getWidth();
+            int sh = shape.getHeight();
+            int[] sPixels = new int[sw * sh];
+            shape.getPixels(sPixels, 0, sw, 0, 0, sw, sh);
+
+
+            BitMatrix result = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, HINTS);
+            int rows = result.getHeight();//行
+            int columns = result.getWidth();//列
+
+            int startRowIndex = (rows - sh) / 2 - 1;
+            int startColumnIndex = (columns - sw) / 2 - 1;
+            int endRowIndex = startRowIndex + sh;
+            int endColumnIndex = startColumnIndex + sw;
+            Rect rect = new Rect(startColumnIndex, startRowIndex, endColumnIndex, endRowIndex);
+
+            int[] pixels = new int[rows * columns];
+            for (int i = 0; i < rows; i++) {
+                int offset = i * columns;
+                int shapeOffset = (i - startRowIndex) * sw;
+                for (int j = 0; j < columns; j++) {
+                    int index = offset + j;
+                    int shapeIndex = shapeOffset + (j - startColumnIndex);
+                    if (result.get(i, j)) {
+                        if (rect.contains(i, j)) {
+                            int color = sPixels[shapeIndex];
+                            if (color == Color.TRANSPARENT
+                                    || color == Color.WHITE)
+                                color = Color.BLACK;
+                            pixels[index] = color;
+                        } else {
+                            pixels[index] = Color.BLACK;
+                        }
+                    } else {
+                        if (rect.contains(i, j)) {
+                            int color = sPixels[shapeIndex];
+                            if (color == Color.WHITE)
+                                color = Color.TRANSPARENT;
+                            pixels[index] = color;
+                        } else {
+                            pixels[index] = Color.TRANSPARENT;
+                        }
+//                        pixels[index] = Color.TRANSPARENT;
+                    }
+                }
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(columns, columns, Bitmap.Config.ARGB_8888);
+            bitmap.setPixels(pixels, 0, columns, 0, 0, columns, columns);
+            return bitmap;
+        } catch (WriterException | IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static boolean contains(Rect rect, int x, int y) {
+        return (x >= rect.left && x <= rect.right) && (y >= rect.top && y <= rect.bottom);
+    }
+
 
     private static int getAreaIndex(int w, int h, int x, int y) {
         int centerW = w / 2;

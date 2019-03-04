@@ -10,4 +10,5 @@
     <dimen name="cover_height">240dp</dimen>
 
     <dimen name="space_12">12dp</dimen>
+    <dimen name="qr_code_size">200dp</dimen>
 </resources>

@@ -32,5 +32,5 @@ dependencies {
     api "com.android.support:appcompat-v7:$component_version"
     api "com.android.support:recyclerview-v7:$component_version"
     api "com.android.support:design:$component_version"
-    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+    api 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
 }

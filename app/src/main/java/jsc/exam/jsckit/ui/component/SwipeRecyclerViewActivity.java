@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -39,7 +40,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
 
     SwipeRefreshRecyclerView swipeRefreshRecyclerView;
     LinearAdapter adapter;
-    int pageSize = 24;//一页最多可显示的数据数
+    int pageSize = 12;//一页最多可显示的数据数
     int pageIndex = 1;//页码
 
     @Override
@@ -47,8 +48,8 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         swipeRefreshRecyclerView = new SwipeRefreshRecyclerView(this);
         //添加LayoutManager
-//        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        swipeRefreshRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
+        swipeRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        swipeRefreshRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
 //        swipeRefreshRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
         //添加ItemDecoration
 //        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -167,7 +168,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity {
 
     private List<Banner> getRandomBanners() {
         List<Banner> banners = new ArrayList<>();
-        int itemCount = 20 + new Random().nextInt(8);
+        int itemCount = new Random().nextInt(20);
         for (int i = 0; i < itemCount; i++) {
             banners.add(new Banner("Banner item ", ""));
         }

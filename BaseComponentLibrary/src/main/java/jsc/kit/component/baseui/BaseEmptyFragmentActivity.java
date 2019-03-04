@@ -54,7 +54,7 @@ public abstract class BaseEmptyFragmentActivity extends AppCompatActivity {
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
-            if (obj != null && obj instanceof Fragment) {
+            if (obj instanceof Fragment) {
                 Fragment fragment = (Fragment) obj;
                 Bundle arguments = getIntent().getExtras();
                 if (arguments != null) {

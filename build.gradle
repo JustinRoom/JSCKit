@@ -3,18 +3,19 @@
 buildscript {
     ext.user_org = 'justinquote'
     ext.min_sdk_veriosn = 19
-    ext.sdk_veriosn = 27
-    ext.component_version = '27.1.1'
+    ext.sdk_veriosn = 28
+    ext.component_version = '28.0.0'
     ext.version_code = 48
     ext.version_name = '0.4.8'
     repositories {
+        mavenCentral()
         google()
-        jcenter()
+        jcenter() { url 'http://jcenter.bintray.com/' }
 //        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.novoda:bintray-release:0.9'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,8 +24,9 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
+        jcenter() { url 'http://jcenter.bintray.com/' }
 //        mavenCentral()
 //        maven { url 'https://dl.bintray.com/justinquote/maven' }
     }

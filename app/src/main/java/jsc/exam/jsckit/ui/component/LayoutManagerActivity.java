@@ -17,7 +17,7 @@ import jsc.exam.jsckit.adapter.LayoutManagerAdapter;
 import jsc.exam.jsckit.entity.ClassItem;
 import jsc.exam.jsckit.ui.BaseActivity;
 import jsc.kit.component.swiperecyclerview.manager.OverLayCardLayoutManager;
-import jsc.kit.component.widget.AspectRatioFrameLayout;
+import jsc.kit.component.widget.aspectlayout.AspectRatioFrameLayout;
 
 public class LayoutManagerActivity extends BaseActivity {
 
@@ -32,8 +32,8 @@ public class LayoutManagerActivity extends BaseActivity {
         params.rightMargin = margin;
         params.topMargin = margin;
         AspectRatioFrameLayout frameLayout = new AspectRatioFrameLayout(this);
-        frameLayout.setxAspect(4);
-        frameLayout.setyAspect(3);
+        frameLayout.setAspectX(4);
+        frameLayout.setAspectY(3);
         setContentView(frameLayout, params);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
         //

@@ -56,7 +56,7 @@ public class LabelValueView extends LinearLayout {
 
         labelTextView.setHint("label");
         valueTextView.setHint("value");
-        setTextSize(14, 14);
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14, 14);
         setTextColor(0xFF666666, 0xFF333333);
     }
 
@@ -80,12 +80,13 @@ public class LabelValueView extends LinearLayout {
 
     /**
      *
+     * @param unit unit
      * @param labelTextSize label text size. It's unit is {@link TypedValue#COMPLEX_UNIT_SP}.
      * @param valueTextSize value text size. It's unit is {@link TypedValue#COMPLEX_UNIT_SP}.
      */
-    public void setTextSize(float labelTextSize, float valueTextSize){
-        labelTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,labelTextSize);
-        valueTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,valueTextSize);
+    public void setTextSize(int unit, float labelTextSize, float valueTextSize){
+        labelTextView.setTextSize(unit,labelTextSize);
+        valueTextView.setTextSize(unit,valueTextSize);
     }
 
     public void setTextGravity(int labelGravity, int valueGravity){

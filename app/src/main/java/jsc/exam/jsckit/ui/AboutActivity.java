@@ -3,6 +3,7 @@ package jsc.exam.jsckit.ui;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
@@ -44,7 +45,6 @@ public class AboutActivity extends BaseActivity {
         try {
             PackageManager manager = getPackageManager();
             PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-            int curVersionCode = info.versionCode;
             tvVersion.setText("version:" + info.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -62,9 +62,9 @@ public class AboutActivity extends BaseActivity {
                 .flatMap(new Function<String, ObservableSource<Bitmap>>() {
                     @Override
                     public ObservableSource<Bitmap> apply(String s) throws Exception {
-                        int[] colors = {Color.GREEN, 0x99FF4081, Color.BLUE, Color.CYAN};
-                        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
-                        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(s, size, size, colors);
+                        int size = getResources().getDimensionPixelSize(R.dimen.qr_code_size);
+                        Bitmap shape = BitmapFactory.decodeResource(getResources(), R.drawable.kiss256);
+                        Bitmap bitmap = QRCodeEncoder.encodeQRCode(s, size, size, shape);
                         return Observable.just(bitmap);
                     }
                 })

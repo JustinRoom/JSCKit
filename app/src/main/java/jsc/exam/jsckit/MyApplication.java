@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.multidex.MultiDexApplication;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -11,7 +12,7 @@ import jsc.exam.jsckit.ui.PhotoActivity;
 import jsc.exam.jsckit.ui.component.AdvertisementViewActivity;
 import jsc.kit.component.utils.SharePreferencesUtils;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     public static final long ADVERTISEMENT_INTERNAL_TIME = 2 * 60 * 60 * 1000;//2小时
     private final String TAG = getClass().getSimpleName();

@@ -52,8 +52,8 @@
 
     <ImageView
         android:id="@+id/iv_qr_code"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="64dp" />
 

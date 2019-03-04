@@ -240,12 +240,12 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        int curVersionCode = 0;
+        long curVersionCode = 0;
         String curVersionName = "";
         try {
             PackageManager manager = getPackageManager();
             PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-            curVersionCode = info.versionCode;
+            curVersionCode = info.getLongVersionCode();
             curVersionName = info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             showCustomToast("Failed to access server.");

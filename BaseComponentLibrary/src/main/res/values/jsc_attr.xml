@@ -2,11 +2,11 @@
 <resources>
 
     <attr name="base_what">
-        <enum name="baseWidth" value="0"/>
-        <enum name="baseHeight" value="1"/>
+        <enum name="BASE_HORIZONTAL" value="0"/>
+        <enum name="BASE_VERTICAL" value="1"/>
     </attr>
-    <attr name="x_aspect" format="integer"/>
-    <attr name="y_aspect" format="integer"/>
+    <attr name="aspect_x" format="integer"/>
+    <attr name="aspect_y" format="integer"/>
 
     <declare-styleable name="JSCBannerView">
         <attr name="bv_indicator_padding_left" format="dimension"/>
@@ -112,20 +112,20 @@
 
     <declare-styleable name="AspectRatioFrameLayout">
         <attr name="base_what"/>
-        <attr name="x_aspect"/>
-        <attr name="y_aspect"/>
+        <attr name="aspect_x"/>
+        <attr name="aspect_y"/>
     </declare-styleable>
 
     <declare-styleable name="AspectRatioLinearLayout">
         <attr name="base_what"/>
-        <attr name="x_aspect"/>
-        <attr name="y_aspect"/>
+        <attr name="aspect_x"/>
+        <attr name="aspect_y"/>
     </declare-styleable>
 
     <declare-styleable name="AspectRatioImageView">
         <attr name="base_what"/>
-        <attr name="x_aspect"/>
-        <attr name="y_aspect"/>
+        <attr name="aspect_x"/>
+        <attr name="aspect_y"/>
     </declare-styleable>
 
     <declare-styleable name="CameraMask">
