@@ -11,19 +11,27 @@ import jsc.kit.component.vscrollscreen.VScrollScreenLayout;
 
 public class VScrollScreenLayoutActivity extends BaseActivity {
 
+    VScrollScreenLayout scrollScreenLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_v_scroll_screen_layout);
         setTitleBarTitle(getClass().getSimpleName().replace("Activity", ""));
 
-        VScrollScreenLayout scrollScreenLayout = findViewById(R.id.v_scroll_screen_layout);
+        scrollScreenLayout = findViewById(R.id.v_scroll_screen_layout);
         scrollScreenLayout.setOnScrollPageChangedListener(new VScrollScreenLayout.OnScrollPageChangedListener() {
             @Override
             public void onScroll(Context context, int pageIndex) {
                 showCustomToast("The current page is " + (pageIndex + 1));
             }
         });
+
+        scrollScreenLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollScreenLayout.scrollToPage(1);
+            }
+        }, 300);
     }
 
     public void widgetClick(View v){

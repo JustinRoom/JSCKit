@@ -156,6 +156,15 @@ public class VScrollScreenLayout extends ViewGroup {
         this.onScrollPageChangedListener = onScrollPageChangedListener;
     }
 
+    /**
+     * Scroll to special page.
+     * @param pageIndex page index. The first page index is zero.
+     */
+    public void scrollToPage(int pageIndex){
+        curPageIndex = pageIndex;
+        scrollBy(0, pageHeight * pageIndex);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (getChildCount() > 0) {
