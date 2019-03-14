@@ -26,12 +26,12 @@ public class VScrollScreenLayoutActivity extends BaseActivity {
             }
         });
 
-        scrollScreenLayout.postDelayed(new Runnable() {
+        scrollScreenLayout.post(new Runnable() {
             @Override
             public void run() {
-                scrollScreenLayout.scrollToPage(1);
+                scrollScreenLayout.scrollToPage(1, false);
             }
-        }, 300);
+        });
     }
 
     public void widgetClick(View v){

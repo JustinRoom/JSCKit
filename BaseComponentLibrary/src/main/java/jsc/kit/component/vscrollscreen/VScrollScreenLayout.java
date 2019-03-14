@@ -158,11 +158,15 @@ public class VScrollScreenLayout extends ViewGroup {
 
     /**
      * Scroll to special page.
+     *
      * @param pageIndex page index. The first page index is zero.
      */
-    public void scrollToPage(int pageIndex){
+    public void scrollToPage(int pageIndex, boolean withAnim) {
         curPageIndex = pageIndex;
-        scrollBy(0, pageHeight * pageIndex);
+        if (withAnim)
+            scrollTo(0, pageHeight * pageIndex);
+        else
+            setScrollY(pageHeight * pageIndex);
     }
 
     @Override
