@@ -85,6 +85,7 @@
         <attr name="vssl_flip_ratio" format="float"/>
         <attr name="vssl_rebound_anim_time" format="integer"/>
         <attr name="vssl_flip_anim_time" format="integer"/>
+        <attr name="vssl_default_page_index" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="RadarView">

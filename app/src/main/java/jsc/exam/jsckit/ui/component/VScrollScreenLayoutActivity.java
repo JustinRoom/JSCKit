@@ -25,13 +25,6 @@ public class VScrollScreenLayoutActivity extends BaseActivity {
                 showCustomToast("The current page is " + (pageIndex + 1));
             }
         });
-
-        scrollScreenLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollScreenLayout.scrollToPage(1, false);
-            }
-        });
     }
 
     public void widgetClick(View v){

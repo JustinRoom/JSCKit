@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.FloatRange;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.Scroller;
@@ -32,6 +33,7 @@ public class VScrollScreenLayout extends ViewGroup {
     private float flipRatio;
     private int reboundAnimTime;
     private int flipAnimTime;
+    private int defaultShowPageIndex = 0;
 
     private Scroller mScroller;
     private OnScrollPageChangedListener onScrollPageChangedListener;
@@ -60,6 +62,7 @@ public class VScrollScreenLayout extends ViewGroup {
         float tempFlipRatio = a.getFloat(R.styleable.VScrollScreenLayout_vssl_flip_ratio, DEFAULT_FLIP_RATIO);
         int tempReboundAnimTime = a.getInteger(R.styleable.VScrollScreenLayout_vssl_rebound_anim_time, DEFAULT_REBOUND_ANIM_TIME);
         int tempFlipAnimTime = a.getInteger(R.styleable.VScrollScreenLayout_vssl_flip_anim_time, DEFAULT_FLIP_ANIM_TIME);
+        defaultShowPageIndex = a.getInteger(R.styleable.VScrollScreenLayout_vssl_default_page_index, 0);
         a.recycle();
 
         ySlideRatio = tempYSlideRate < 0f ? DEFAULT_Y_SLIDE_RATIO : tempYSlideRate;
@@ -180,6 +183,9 @@ public class VScrollScreenLayout extends ViewGroup {
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (defaultShowPageIndex > 0 && defaultShowPageIndex < getChildCount()) {
+            scrollToPage(defaultShowPageIndex, false);
+        }
     }
 
     @Override
